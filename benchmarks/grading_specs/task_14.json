@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "task_id": "task_14",
+  "original_task_id": "task_19",
+  "title": "Board summary",
+  "review_status": "prompt_scoped_v1",
+  "sources": {
+    "init.xlsx": "35cca2552b4d7fca0a4434e2181143004240d3c12980f6be94a0994ff9b6d78c",
+    "golden.xlsx": "67eb6e452df37859c24e739020b16431cc8e1c00f0ed22091b5eb14512e79fb1",
+    "prompt.txt": "f9b1882a9ebdd0727717560da33d2a95e8e3987e9a670f2fda52ec7855c15d26"
+  },
+  "tolerance": {
+    "absolute": 1e-08,
+    "relative": 1e-06
+  },
+  "outputs": {
+    "Board Summary": [
+      "F5:G5",
+      "D7",
+      "D8",
+      "D9",
+      "D12",
+      "D13",
+      "D14",
+      "D17",
+      "D18",
+      "D19",
+      "D22",
+      "D23",
+      "D24",
+      "D25"
+    ]
+  },
+  "formula_required": {
+    "Board Summary": [
+      "D7",
+      "D8",
+      "D9",
+      "D12",
+      "D13",
+      "D14",
+      "D17",
+      "D18",
+      "D19",
+      "D22",
+      "D23",
+      "D24",
+      "D25"
+    ]
+  },
+  "hardcode_required": {},
+  "editable": {
+    "Board Summary": [
+      "F5:G5",
+      "D7",
+      "D8",
+      "D9",
+      "D12",
+      "D13",
+      "D14",
+      "D17",
+      "D18",
+      "D19",
+      "D22",
+      "D23",
+      "D24",
+      "D25"
+    ]
+  },
+  "style_editable": {
+    "number_format": {
+      "Board Summary": [
+        "D7:D25",
+        "G5"
+      ]
+    }
+  },
+  "object_editable": {
+    "Board Summary": [
+      "validations",
+      "conditional_formats"
+    ]
+  },
+  "requirements": [
+    {
+      "id": "deal_size_precision",
+      "kind": "number_format",
+      "ranges": {
+        "Board Summary": [
+          "D7"
+        ]
+      },
+      "decimal_places": 1,
+      "percent": false
+    },
+    {
+      "id": "print_toggle",
+      "kind": "binary_toggle",
+      "sheet": "Board Summary",
+      "cell": "G5",
+      "source": "G1:H1",
+      "targets": [
+        "D7",
+        "D8",
+        "D9",
+        "D10",
+        "D11",
+        "D12",
+        "D13",
+        "D14",
+        "D15",
+        "D16",
+        "D17",
+        "D18",
+        "D19",
+        "D20",
+        "D21",
+        "D22",
+        "D23",
+        "D24",
+        "D25"
+      ]
+    }
+  ],
+  "notes": [
+    "Print toggle checks the dropdown source, binary display and black-font predicate on output cells; ordinary equivalent rule encodings are accepted. Unsupported or conflicting overlapping rules fail closed."
+  ]
+}

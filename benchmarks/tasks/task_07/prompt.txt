@@ -1,0 +1,5 @@
+In the Meta Drivers sheet, replace the projected Reality Labs growth rates with a 'Reality Labs Revenue Mix %' as a percentage of total revenue. Adhere to current sheet structure for other items (i.e., different cases). Reality Labs' percentage of total revenue will grow linearly from 1.4% to 5% of total revenue by 2028 in the Base case. Please calculate the numbers with formulas other than the given assumptions. 
+
+Then, hard-code 0.5% in cell M20 and M21 and a border around it at 1pt width and black color. For bull case, do the base case + the value in cell M20. For bear case do base case less value in cell M21.
+
+Then please update all affected downstream cells throughout the model.

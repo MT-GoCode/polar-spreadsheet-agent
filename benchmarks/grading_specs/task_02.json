@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "task_id": "task_02",
+  "original_task_id": "task_36",
+  "title": "Finish income statement",
+  "review_status": "prompt_scoped_v1",
+  "sources": {
+    "init.xlsx": "a36443847fea3fd79dc6f7edcef74b84698e1395bbb27b12f9cddf1e0b8db479",
+    "golden.xlsx": "70e04849f1da547154b3f966899b4ed34c2f50d153c404efaa4e43e5cf9c1514",
+    "prompt.txt": "848987e5f7ad0e81847f1804c7b7f375547293976564c4268c428a53f234a409"
+  },
+  "tolerance": {
+    "absolute": 1e-08,
+    "relative": 1e-06
+  },
+  "outputs": {
+    "Income Statement": [
+      "H5:L5",
+      "H7:L7",
+      "H9:L9",
+      "H12:L12",
+      "H13:L13",
+      "H14:L14",
+      "H15:L15",
+      "H17:L17",
+      "H18:L18",
+      "H21:L21",
+      "H22:L22",
+      "H23:L23",
+      "H25:L25",
+      "H26:L26",
+      "H27:L27",
+      "H29:L29",
+      "H31:L31"
+    ]
+  },
+  "formula_required": {
+    "Income Statement": [
+      "H5:L5",
+      "H7:L7",
+      "H9:L9",
+      "H12:L12",
+      "H13:L13",
+      "H14:L14",
+      "H15:L15",
+      "H17:L17",
+      "H18:L18",
+      "H21:L21",
+      "H22:L22",
+      "H23:L23",
+      "H25:L25",
+      "H26:L26",
+      "H27:L27",
+      "H29:L29",
+      "H31:L31"
+    ]
+  },
+  "hardcode_required": {},
+  "editable": {
+    "Income Statement": [
+      "H5:L5",
+      "H7:L7",
+      "H9:L9",
+      "H12:L12",
+      "H13:L13",
+      "H14:L14",
+      "H15:L15",
+      "H17:L17",
+      "H18:L18",
+      "H21:L21",
+      "H22:L22",
+      "H23:L23",
+      "H25:L25",
+      "H26:L26",
+      "H27:L27",
+      "H29:L29",
+      "H31:L31"
+    ]
+  },
+  "style_editable": {},
+  "object_editable": {},
+  "requirements": [],
+  "notes": []
+}

@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "task_id": "task_01",
+  "original_task_id": "task_05",
+  "title": "Projected balance sheet",
+  "review_status": "prompt_scoped_v1",
+  "sources": {
+    "init.xlsx": "37805ef7f4f32da10ad1f699568193fa79a59329acaa03b65d898fbb9eb16378",
+    "golden.xlsx": "ea0618d5b26afb65c926e0fd51b27e19ae89c1eccb291a7da85efa5556d76c55",
+    "prompt.txt": "e0e007fb3a04c7fe38beca50162d7955604f5905e0125d13421561d6831e384c"
+  },
+  "tolerance": {
+    "absolute": 1e-08,
+    "relative": 1e-06
+  },
+  "outputs": {
+    "Model-Build": [
+      "H104:L104",
+      "H105:L105",
+      "H106:L106",
+      "H107:L107",
+      "H110:L110",
+      "H111:L111",
+      "H112:L112",
+      "H114:L114",
+      "H118:L118",
+      "H119:L119",
+      "H120:L120",
+      "H121:L121",
+      "H124:L124",
+      "H125:L125",
+      "H126:L126",
+      "H128:L128",
+      "H130:L130",
+      "H132:L132",
+      "H134:L134"
+    ]
+  },
+  "formula_required": {
+    "Model-Build": [
+      "H104:L104",
+      "H105:L105",
+      "H106:L106",
+      "H107:L107",
+      "H110:L110",
+      "H111:L111",
+      "H112:L112",
+      "H114:L114",
+      "H118:L118",
+      "H119:L119",
+      "H120:L120",
+      "H121:L121",
+      "H124:L124",
+      "H125:L125",
+      "H126:L126",
+      "H128:L128",
+      "H130:L130",
+      "H132:L132",
+      "H134:L134"
+    ]
+  },
+  "hardcode_required": {},
+  "editable": {
+    "Model-Build": [
+      "H104:L104",
+      "H105:L105",
+      "H106:L106",
+      "H107:L107",
+      "H110:L110",
+      "H111:L111",
+      "H112:L112",
+      "H114:L114",
+      "H118:L118",
+      "H119:L119",
+      "H120:L120",
+      "H121:L121",
+      "H124:L124",
+      "H125:L125",
+      "H126:L126",
+      "H128:L128",
+      "H130:L130",
+      "H132:L132",
+      "H134:L134"
+    ]
+  },
+  "style_editable": {},
+  "object_editable": {},
+  "requirements": [
+    {
+      "id": "balance_sheet_ties",
+      "kind": "cell_value",
+      "ranges": {
+        "Model-Build": [
+          "H134:L134"
+        ]
+      },
+      "value": 0,
+      "absolute": 1e-06,
+      "relative": 0
+    }
+  ],
+  "notes": []
+}

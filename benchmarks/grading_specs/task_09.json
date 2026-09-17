@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "task_id": "task_09",
+  "original_task_id": "task_49",
+  "title": "Valuation corrections",
+  "review_status": "prompt_scoped_v1",
+  "sources": {
+    "init.xlsx": "80e1797ff0d638c875ef267a9c5f8e9095b5a04fa5386ab4d29193f25309dd0f",
+    "golden.xlsx": "34c825880a486ba43cee5651c811e35bab19943ff1dc3f53ebc5e1bb856a97c3",
+    "prompt.txt": "f5e0ec84f497d152a7b310e51b6f0f45f29e132247f4918b12e51b119b5e8a24"
+  },
+  "tolerance": {
+    "absolute": 1e-08,
+    "relative": 1e-06
+  },
+  "outputs": {
+    "Cash Flow Valuation": [
+      "F8",
+      "E23:K23",
+      "D24",
+      "E29:G29",
+      "I29:L29",
+      "F31",
+      "L31",
+      "B33",
+      "F35",
+      "L35"
+    ]
+  },
+  "formula_required": {
+    "Cash Flow Valuation": [
+      "F8",
+      "E23:K23",
+      "F29",
+      "J29:L29",
+      "L31",
+      "L35"
+    ]
+  },
+  "hardcode_required": {},
+  "editable": {
+    "Cash Flow Valuation": [
+      "F8",
+      "E23:K23",
+      "D24",
+      "E29",
+      "G29",
+      "I29",
+      "K29:L29",
+      "F31",
+      "L31",
+      "B33",
+      "F35",
+      "L35"
+    ]
+  },
+  "style_editable": {
+    "number_format": {
+      "Cash Flow Valuation": [
+        "E16:K21",
+        "E29:K29"
+      ]
+    }
+  },
+  "object_editable": {},
+  "requirements": [
+    {
+      "id": "amount_formats",
+      "kind": "number_format",
+      "ranges": {
+        "Cash Flow Valuation": [
+          "E16:E21",
+          "G16:G21",
+          "I16:I21",
+          "E29",
+          "G29",
+          "I29"
+        ]
+      },
+      "decimal_places": 1,
+      "percent": false
+    },
+    {
+      "id": "percentage_formats",
+      "kind": "number_format",
+      "ranges": {
+        "Cash Flow Valuation": [
+          "F16:F21",
+          "H16:H21",
+          "J16:J21",
+          "K16:K21",
+          "F29",
+          "H29",
+          "J29",
+          "K29"
+        ]
+      },
+      "decimal_places": 1,
+      "percent": true
+    }
+  ],
+  "notes": []
+}

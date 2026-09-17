@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "task_id": "task_05",
+  "original_task_id": "task_66",
+  "title": "Working capital schedule",
+  "review_status": "prompt_scoped_v1",
+  "sources": {
+    "init.xlsx": "cf8aada99b49f59082eb73bfb4cf40c28137085e6d07867f47a2e1c8d219cbce",
+    "golden.xlsx": "4540a7ecd9bfd3e5b568bce57d2997d13cba3ce955db38125692aa2e0d64e1ae",
+    "prompt.txt": "58e2118cf38e56dd9a9b7bad06902c03909442bb7a6d180473bc1edf5efc2436"
+  },
+  "tolerance": {
+    "absolute": 1e-08,
+    "relative": 1e-06
+  },
+  "outputs": {
+    "BS-CF-WC": [
+      "D106:J106",
+      "D107:J107",
+      "D110:J110",
+      "D111:J111",
+      "D112:J112",
+      "D113:J113",
+      "D115:J115",
+      "D116:J116",
+      "D117:J117",
+      "D118:J118",
+      "D119:J119",
+      "D120:J120",
+      "D122:J122",
+      "E124:J124"
+    ]
+  },
+  "formula_required": {
+    "BS-CF-WC": [
+      "D106:J106",
+      "D107:J107",
+      "D110:J110",
+      "D111:J111",
+      "D112:J112",
+      "D113:J113",
+      "D115:J115",
+      "D116:J116",
+      "D117:J117",
+      "D118:J118",
+      "D119:J119",
+      "D120:J120",
+      "D122:J122",
+      "E124:J124"
+    ]
+  },
+  "hardcode_required": {},
+  "editable": {
+    "BS-CF-WC": [
+      "D106:J106",
+      "D107:J107",
+      "D110:J110",
+      "D111:J111",
+      "D112:J112",
+      "D113:J113",
+      "D115:J115",
+      "D116:J116",
+      "D117:J117",
+      "D118:J118",
+      "D119:J119",
+      "D120:J120",
+      "D122:J122",
+      "E124:J124"
+    ]
+  },
+  "style_editable": {},
+  "object_editable": {},
+  "requirements": [],
+  "notes": []
+}

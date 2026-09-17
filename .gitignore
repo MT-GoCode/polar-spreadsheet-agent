@@ -1,0 +1,20 @@
+node_modules/
+.clasp.json
+.DS_Store
+__pycache__/
+.venv/
+grading-results/
+.benchmark-google.json
+BenchmarkConfig.gs
+BenchmarkAuth.gs
+
+# Local package cache
+.pnpm-store/
+
+# Resumable onboarding state
+.setup-state.json
+
+# Local model credentials
+.env
+.env.*
+!.env.example

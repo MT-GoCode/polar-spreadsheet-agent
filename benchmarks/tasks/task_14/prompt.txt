@@ -1,0 +1,10 @@
+Update the Board Summary tab. Your output should be in column D and refer back to other sheets in the model, applying a calculated value for all 13 rows in B with a listed metric.
+
+Deal size should be in trillions, with one decimal place. Deal premium refers to offer premium. For deal structure, use a text formula and refer to the consideration mix in the Deal Inputs tab. The output should be formatted as "x% Cash / y% Stock".  
+
+In addition, create a toggle to conditionally format column D in black. 
+The set up should be: 
+
+F5 says "Print?"
+G5 uses data validation to toggle based on G1 and H1. G5 is special formatted to be "no" when 0 and "yes" when 1.  
+Conditional format so that when G5 is "yes", all values in column D are black font; otherwise, keep the original font color.  Set G5 to "yes".  Retain all other formatting as-is.

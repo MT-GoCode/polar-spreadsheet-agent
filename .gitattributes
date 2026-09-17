@@ -1,0 +1,3 @@
+# Preserve task file bytes and workbook assets.
+benchmarks/** -text
+benchmarks/tasks/** -whitespace

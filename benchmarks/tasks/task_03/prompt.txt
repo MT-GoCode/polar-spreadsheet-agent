@@ -1,0 +1,1 @@
+Complete Sales Summary by calculating total Sod sales for each Source Customer, year, and month from the transaction records in Sales Detail. Use formulas, not hardcoded values.

@@ -1,0 +1,5 @@
+Change adjustment for portfolio diversification to 35.38%. Increase equity risk premium 48.61 bps. Increase risk free rate to 3.039%
+
+Decrease each Year 10 revenue growth rate assumption on Books & GAAP Bridge by 2 percentage points (subtract 0.02 from the stored rate).
+
+Clear all numeric data from Trading Comps sheet except values with text Hex of #0000FF and except the target company's (Corvane Broadcasting) hardcoded input values

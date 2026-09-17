@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "task_id": "task_07",
+  "original_task_id": "task_23",
+  "title": "Revenue mix change",
+  "review_status": "prompt_scoped_v1",
+  "sources": {
+    "init.xlsx": "be8a7d29ade08b5b1e4534bbe88e4cfb550b0df638eead3175a09c64d93cbc5c",
+    "golden.xlsx": "ec2f4cd2fed23c44610fbf9af15bd6da63348969250a79575058c81e7296d72f",
+    "prompt.txt": "11b190491ea75ea078120a9b97cc1b92974c6ae355be6bbb7aa8b114627454fd"
+  },
+  "tolerance": {
+    "absolute": 1e-08,
+    "relative": 1e-06
+  },
+  "outputs": {
+    "Meta Drivers": [
+      "G19:K19",
+      "G20:K20",
+      "G21:K21"
+    ],
+    "Meta Model": [
+      "F13:J13",
+      "F14:J14"
+    ]
+  },
+  "formula_required": {
+    "Meta Drivers": [
+      "H19:J19",
+      "G20:K20",
+      "G21:K21"
+    ],
+    "Meta Model": [
+      "F13:J13",
+      "F14:J14"
+    ]
+  },
+  "hardcode_required": {},
+  "editable": {
+    "Meta Drivers": [
+      "B19",
+      "G19:K19",
+      "G20:K20",
+      "G21:K21"
+    ],
+    "Meta Model": [
+      "F13:J13",
+      "F14:J14"
+    ]
+  },
+  "style_editable": {
+    "border": {
+      "Meta Drivers": [
+        "M20:M21"
+      ]
+    }
+  },
+  "object_editable": {},
+  "requirements": [
+    {
+      "id": "bull_bear_offsets",
+      "kind": "cell_value",
+      "ranges": {
+        "Meta Drivers": [
+          "M20:M21"
+        ]
+      },
+      "value": 0.005,
+      "absolute": 0,
+      "relative": 0
+    },
+    {
+      "id": "offset_borders",
+      "kind": "style_matches_golden",
+      "ranges": {
+        "Meta Drivers": [
+          "M20:M21"
+        ]
+      },
+      "fields": [
+        "border"
+      ]
+    }
+  ],
+  "notes": [
+    "M20:M21 already contain the requested hardcodes and borders; they are requirements, not free primary-score cells.",
+    "The golden row label remains Reality Labs; a clearer label at B19 is allowed but not scored."
+  ]
+}

@@ -1,0 +1,7 @@
+Box's working capital build is unfinished. On BS-CF-WC, complete the Working Capital Schedule from Net revenue through (Increase)/decrease in working capital, across both the historical and the forecast columns.
+
+Pull Net revenue and Cost of delivery from P&L, carrying Cost of delivery as a positive amount in the schedule. Tie the historical short-term asset and obligation balances to the corresponding balance sheet rows above, and build the forecast balances off the Efficiency Ratios & Drivers block, which is already complete.
+
+Leave the first historical (Increase)/decrease cell blank, since no preceding-year balance is supplied.
+
+Everything outside the schedule stays as is: the balance sheet and cash flow sections above it, the driver block, and Valuation all read from the schedule and will update on their own.

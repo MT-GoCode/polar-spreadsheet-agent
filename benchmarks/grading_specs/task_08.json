@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "task_id": "task_08",
+  "original_task_id": "task_28",
+  "title": "Offering metrics",
+  "review_status": "prompt_scoped_v1",
+  "sources": {
+    "init.xlsx": "ac48572a7cddacf2129bcabdfa492e33a594d7699ca357e17d4bed5555b7dc2b",
+    "golden.xlsx": "b94cbc03831812e35ac288cb69f68b3bbadfa1d5a4571433b0b4b1fee06a7334",
+    "prompt.txt": "1289f4bf1aeba5e7a6d9815b1cd7c0f2e76b0727be6853d1ca0f095e67f705a1"
+  },
+  "tolerance": {
+    "absolute": 1e-08,
+    "relative": 1e-06
+  },
+  "outputs": {
+    "Metric Matrix": [
+      "D8:V8",
+      "X8:AB8",
+      "D9:V9",
+      "X9:AB9",
+      "D10:V10",
+      "X10:AB10",
+      "D11:V11",
+      "X11:AB11",
+      "D12:V12",
+      "X12:AB12",
+      "D13:V13",
+      "X13:AB13",
+      "D14:V14",
+      "X14:AB14"
+    ]
+  },
+  "formula_required": {
+    "Metric Matrix": [
+      "D8:V8",
+      "X8:AB8",
+      "D9:V9",
+      "X9:AB9",
+      "D10:V10",
+      "X10:AB10",
+      "D11:V11",
+      "X11:AB11",
+      "D12:V12",
+      "X12:AB12",
+      "D13:V13",
+      "X13:AB13",
+      "D14:V14",
+      "X14:AB14"
+    ]
+  },
+  "hardcode_required": {},
+  "editable": {
+    "Metric Matrix": [
+      "D8:V8",
+      "X8:AB8",
+      "D9:V9",
+      "X9:AB9",
+      "D10:V10",
+      "X10:AB10",
+      "D11:V11",
+      "X11:AB11",
+      "D12:V12",
+      "X12:AB12",
+      "D13:V13",
+      "X13:AB13",
+      "D14:V14",
+      "X14:AB14"
+    ]
+  },
+  "style_editable": {
+    "number_format": {
+      "Metric Matrix": [
+        "D8:V8",
+        "X8:AB8",
+        "D9:V9",
+        "X9:AB9",
+        "D10:V10",
+        "X10:AB10",
+        "D11:V11",
+        "X11:AB11",
+        "D12:V12",
+        "X12:AB12",
+        "D13:V13",
+        "X13:AB13",
+        "D14:V14",
+        "X14:AB14"
+      ]
+    }
+  },
+  "object_editable": {},
+  "requirements": [
+    {
+      "id": "output_number_formats",
+      "kind": "number_format",
+      "ranges": {
+        "Metric Matrix": [
+          "D8:V8",
+          "X8:AB8",
+          "D9:V9",
+          "X9:AB9",
+          "D10:V10",
+          "X10:AB10",
+          "D11:V11",
+          "X11:AB11",
+          "D12:V12",
+          "X12:AB12",
+          "D13:V13",
+          "X13:AB13",
+          "D14:V14",
+          "X14:AB14"
+        ]
+      },
+      "decimal_places": 1,
+      "percent": false
+    }
+  ],
+  "notes": []
+}

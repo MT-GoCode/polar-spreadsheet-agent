@@ -1,0 +1,11 @@
+**/**
+!**/*.gs
+!**/*.html
+!appsscript.json
+**/node_modules/**
+**/scripts/**
+**/grader/**
+**/benchmarks/**
+**/grading-results/**
+**/tests/**
+**/.*/**

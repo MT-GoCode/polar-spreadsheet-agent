@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "task_id": "task_13",
+  "original_task_id": "task_33",
+  "title": "Scenario outputs",
+  "review_status": "prompt_scoped_v1",
+  "sources": {
+    "init.xlsx": "a4d546ea1b0fa4e36c757a505efdc3dc9ac19a35a9fb97f21e48652d0cc3bc48",
+    "golden.xlsx": "a000a8a31e237deab31a163e0950cfc3165090d7c42fe83b757ea16cd7d81617",
+    "prompt.txt": "5f5d419dc283f72311ab74b0233e842046b699cd937cca274ce60bd79310d764"
+  },
+  "tolerance": {
+    "absolute": 1e-08,
+    "relative": 1e-06
+  },
+  "outputs": {
+    "Valuation Output": [
+      "D7:AF7",
+      "D8:AF8",
+      "D9:AF9",
+      "D10:AF10",
+      "D11:AF11",
+      "D12:AF12"
+    ]
+  },
+  "formula_required": {
+    "Valuation Output": [
+      "D7:AF7",
+      "D8:AF8",
+      "D9:AF9",
+      "D10:AF10",
+      "D11:AF11",
+      "D12:AF12"
+    ]
+  },
+  "hardcode_required": {},
+  "editable": {
+    "Valuation Output": [
+      "D7",
+      "I7",
+      "L7",
+      "S7:T7",
+      "V7",
+      "AA7:AB7",
+      "AD7:AF7",
+      "D8",
+      "I8",
+      "L8",
+      "S8:T8",
+      "V8",
+      "AA8:AB8",
+      "AD8:AF8",
+      "D9",
+      "I9",
+      "L9",
+      "S9:T9",
+      "V9",
+      "AA9:AB9",
+      "AD9:AF9",
+      "D10",
+      "I10",
+      "L10",
+      "S10:T10",
+      "V10",
+      "AA10:AB10",
+      "AD10:AF10",
+      "D11",
+      "I11",
+      "L11",
+      "S11:T11",
+      "V11",
+      "AA11:AB11",
+      "AD11:AF11",
+      "D12",
+      "I12",
+      "L12",
+      "S12:T12",
+      "V12",
+      "AA12:AB12",
+      "AD12:AF12"
+    ]
+  },
+  "style_editable": {
+    "number_format": {
+      "Valuation Output": [
+        "D7:AF7",
+        "D8:AF8",
+        "D9:AF9",
+        "D10:AF10",
+        "D11:AF11",
+        "D12:AF12"
+      ]
+    }
+  },
+  "object_editable": {},
+  "requirements": [],
+  "notes": []
+}

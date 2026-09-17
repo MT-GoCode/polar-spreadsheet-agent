@@ -1,0 +1,3 @@
+Complete the Cohort Revenue and Revenue per Account sections of the Annual Cohorts tab using the Yearly Cohorts - Indexed (Monthly Basis) data. Do not change pre-filled cells.
+
+Scope clarification: fill only the cohort data grids G31:T44 and G50:T63. Leave summary rows, including row 64, unchanged. Include available revenue for partial cohort-years; do not add a full-year availability cutoff. Preserve all pre-filled cells and existing formatting.

@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "task_id": "task_11",
+  "original_task_id": "task_50",
+  "title": "Assumptions and selective clearing",
+  "review_status": "prompt_scoped_v1",
+  "sources": {
+    "init.xlsx": "4b8e79ae56a98735767efff66ba6676189b4882485a2d364a3db38d291eafca4",
+    "golden.xlsx": "4759fd8d6431741c5df30ccb58ba16972e0579b58e0ce34fd94aea447f9677a7",
+    "prompt.txt": "614f23cebd608da1d3c9b9c2933f9c079066cd688cbdde4aa75b4c418587d08e"
+  },
+  "tolerance": {
+    "absolute": 1e-08,
+    "relative": 1e-06
+  },
+  "outputs": {
+    "Books & GAAP Bridge": [
+      "P12",
+      "P13",
+      "P14",
+      "P15"
+    ],
+    "Cash Flow Valuation": [
+      "F6",
+      "F7",
+      "F11"
+    ],
+    "Trading Comps": [
+      "O8:Q8",
+      "O9:Q9",
+      "O10:Q10",
+      "O11:Q11",
+      "O12:Q12",
+      "O13:Q13",
+      "D15:U15",
+      "D16:U16",
+      "D17:U17",
+      "D18:U18",
+      "D19:U19",
+      "D24:Q24",
+      "D25:Q25",
+      "D26:Q26",
+      "D27:Q27",
+      "D28:K28",
+      "D29:Q29",
+      "D31:Q31",
+      "D32:Q32",
+      "D33:Q33",
+      "D34:Q34",
+      "D35:Q35"
+    ]
+  },
+  "formula_required": {},
+  "hardcode_required": {
+    "Books & GAAP Bridge": [
+      "P12",
+      "P13",
+      "P14",
+      "P15"
+    ],
+    "Cash Flow Valuation": [
+      "F6",
+      "F7",
+      "F11"
+    ]
+  },
+  "editable": {
+    "Books & GAAP Bridge": [
+      "P12",
+      "P13",
+      "P14",
+      "P15"
+    ],
+    "Cash Flow Valuation": [
+      "F6",
+      "F7",
+      "F11"
+    ],
+    "Trading Comps": [
+      "O8:Q8",
+      "O9:Q9",
+      "O10:Q10",
+      "O11:Q11",
+      "O12:Q12",
+      "O13:Q13",
+      "D15:U15",
+      "D16:U16",
+      "D17:U17",
+      "D18:U18",
+      "D19:U19",
+      "D24:Q24",
+      "D25:Q25",
+      "D26:Q26",
+      "D27:Q27",
+      "D28:K28",
+      "D29:Q29",
+      "D31:Q31",
+      "D32:Q32",
+      "D33:Q33",
+      "D34:Q34",
+      "D35:Q35"
+    ]
+  },
+  "style_editable": {},
+  "object_editable": {},
+  "requirements": [],
+  "notes": [
+    "Golden clears both numeric hardcodes and numeric-producing formulas. Unchanged source inputs are protected, not scored as outputs."
+  ]
+}

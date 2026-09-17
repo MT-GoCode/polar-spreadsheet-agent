@@ -1,0 +1,3 @@
+Use the inputs on `Offering Tape` to complete every calculated metric row on `Metric Matrix`. Deal columns are `Metric Matrix!D:V`, and summary columns are `Metric Matrix!X:AB`. Calculate summary statistics only for the calculated metric rows. Format completed outputs as ordinary numbers with exactly one decimal place (not percentages). Equivalent number formats are accepted; currency symbols, negative-number styling, and zero styling are not prescribed. No attachments are provided.
+
+Stored-value convention: percentage and ratio metrics must remain fractional ratios (for example, store 0.15 for 15%); do not multiply ratios by 100. The requested one-decimal number format affects display only.
