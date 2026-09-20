@@ -3,7 +3,7 @@
 Writes/overwrites grade.json per run + prints an aggregate table by task and seed-tag."""
 import subprocess, json, glob, os, sys, collections
 root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-runs = sorted(glob.glob(os.path.join(root, 'offline-runs', '*', 'submission.xlsx')))
+runs = sorted(glob.glob(os.path.join(root, 'offline-runs', '**', 'submission.xlsx'), recursive=True))
 py = os.path.join(root, '.venv', 'bin', 'python')
 agg = collections.defaultdict(dict)
 for sub in runs:
