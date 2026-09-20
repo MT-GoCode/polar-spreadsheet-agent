@@ -129,7 +129,7 @@ export function makeShim(xlsxPath) {
     },
     UrlFetchApp: {
       fetch: (url, opts) => {
-        const args = ['-sS', '-X', (opts.method || 'get').toUpperCase(), url, '--max-time', '300', '-w', '\n%{http_code}'];
+        const args = ['-sS', '-X', (opts.method || 'get').toUpperCase(), url, '--max-time', '120', '-w', '\n%{http_code}'];
         for (const k in (opts.headers || {})) args.push('-H', k + ': ' + opts.headers[k]);
         if (opts.contentType) args.push('-H', 'Content-Type: ' + opts.contentType);
         if (opts.payload) args.push('--data-binary', opts.payload);
