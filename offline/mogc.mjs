@@ -1,9 +1,10 @@
 // Thin mog session client: exec Office.js snippets, JSON I/O via console.log.
 import { execFileSync } from 'node:child_process';
 import { homedir } from 'node:os';
-const MOG = `${homedir()}/code/mog/target-native/debug/mog`;
 import { existsSync } from 'node:fs';
-const MOGBIN = existsSync(MOG) ? MOG : `${homedir()}/code/mog/target/debug/mog`;
+const CANDIDATES = [process.env.MOG_BIN, `${homedir()}/code/mog/target-native/release/mog`,
+  `${homedir()}/code/mog/target/release/mog`, `${homedir()}/bin/mog-linux`].filter(Boolean);
+const MOGBIN = CANDIDATES.find(existsSync) || CANDIDATES[1];
 export function openSession(xlsxPath) {
   const id = execFileSync(MOGBIN, ['-s', '-i', xlsxPath], { encoding: 'utf8' }).trim().split('\n').pop().trim();
   return id;
