@@ -9,7 +9,7 @@ const args = Object.fromEntries(process.argv.slice(2).map((a, i, arr) => a.start
 const tid = 'task_' + args.task;
 const root = path.resolve(new URL('..', import.meta.url).pathname);
 const stamp = new Date().toISOString().replace(/[:.]/g, '-');
-const dir = path.join(root, 'offline-runs', stamp + '-' + tid);
+const dir = path.join(root, 'offline-runs', (args.tag ? args.tag + '-' : '') + tid + '-' + stamp);
 mkdirSync(dir, { recursive: true });
 const work = path.join(dir, 'work.xlsx');
 copyFileSync(path.join(root, 'benchmarks/tasks', tid, 'init.xlsx'), work);

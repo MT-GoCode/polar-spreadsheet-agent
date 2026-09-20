@@ -7,7 +7,9 @@ def block(summary, body):
     if not body or len(str(body)) <= len(summary): return f"**{summary}**\n"
     return f"<details><summary>{summary}</summary>\n\n```\n{esc(body)}\n```\n</details>\n"
 def render(trace, meta, out_path):
-    L = [f"# {meta.get('task','?')} · {meta.get('status','?')} · ${meta.get('cost_usd','?')} · {meta.get('turns','?')} turns · {round((meta.get('elapsed_ms') or 0)/1000)}s · {meta.get('written','')}",'']
+    secs = round((meta.get('elapsed_ms') or 0)/1000)
+    over = ' · ⚠️ RAN OVER 5m' if secs > 300 else ''
+    L = [f"# {meta.get('task','?')} · {meta.get('status','?')} · ${meta.get('cost_usd','?')} · {meta.get('turns','?')} turns · {secs}s{over} · {meta.get('written','')}",'']
     for e in trace:
         t = e.get('t','?'); at = f"`{round(e.get('at',0)/1000):>4}s`"
         if t == 'map':
