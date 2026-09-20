@@ -9,7 +9,6 @@ const MAX_OUT = 16000;
 const DEADLINE_MS = 300 * 1000;
 const MODEL_CALL_MIN_LEFT = 75 * 1000;
 const HARD_RETURN_LEFT = 30 * 1000;
-const MAX_TURNS = 40;
 const PRICE = { inp: 2.5, cached: 0.25, out: 15 }; // $/M
 const ERRS = [
   '#REF!',
@@ -1908,7 +1907,7 @@ function runAgentInner_(req, t0) {
     { role: 'user', content: 'TASK:\n' + prompt + '\n\nWORKBOOK MAP:\n' + map },
   ];
   var stopped = 'turns';
-  for (; G.turn < MAX_TURNS; ) {
+  for (;;) {
     var left = DEADLINE_MS - (Date.now() - t0);
     if (left < HARD_RETURN_LEFT + 15000) {
       stopped = 'deadline';
