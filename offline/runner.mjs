@@ -4,6 +4,8 @@ import { makeShim } from './shim.mjs';
 import { readFileSync, writeFileSync, mkdirSync, copyFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
+import { execSync as _ex } from 'node:child_process';
+let GITSHA=''; try{GITSHA=_ex('git rev-parse --short HEAD',{cwd:path.resolve(new URL('..', import.meta.url).pathname)}).toString().trim()}catch(e){}
 
 const args = Object.fromEntries(process.argv.slice(2).map((a, i, arr) => a.startsWith('--') ? [a.slice(2), arr[i + 1] && !arr[i + 1].startsWith('--') ? arr[i + 1] : true] : []).filter(x => x.length));
 const tid = 'task_' + args.task;
@@ -17,7 +19,7 @@ const prompt = readFileSync(path.join(root, 'benchmarks/tasks', tid, 'prompt.txt
 
 process.env.MOG_SESSION_DIR = path.join(dir, '.mogsess');
 mkdirSync(process.env.MOG_SESSION_DIR, { recursive: true, mode: 0o700 });
-writeFileSync(path.join(dir,'request.json'), JSON.stringify({task:tid, backend:'mog', deadline:+(args.deadline||300), tag:args.tag||null, started:new Date().toISOString()},null,1));
+writeFileSync(path.join(dir,'request.json'), JSON.stringify({task:tid, backend:'mog', deadline:+(args.deadline||300), tag:args.tag||null, gitSha:GITSHA, started:new Date().toISOString()},null,1));
 const shim = makeShim(work);
 let code = readFileSync(path.join(root, 'Prompts.gs'), 'utf8') + '\n' + readFileSync(path.join(root, 'Code.gs'), 'utf8');
 if (args.deadline) code = code.replace(/const DEADLINE_MS = [^;]+;/, `const DEADLINE_MS = ${Number(args.deadline) * 1000};`);
