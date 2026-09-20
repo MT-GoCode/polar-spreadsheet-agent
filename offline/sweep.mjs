@@ -2,6 +2,8 @@
 import { execFile, execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, appendFileSync, readdirSync, existsSync } from 'node:fs';
 import path from 'node:path';
+const TIMEOUT_BIN = existsSync('/opt/homebrew/bin/gtimeout') ? '/opt/homebrew/bin/gtimeout'
+  : existsSync('/usr/bin/timeout') ? 'timeout' : null;
 const root = path.resolve(new URL('..', import.meta.url).pathname);
 const args = Object.fromEntries(process.argv.slice(2).map((a,i,arr)=>a.startsWith('--')?[a.slice(2),arr[i+1]&&!arr[i+1].startsWith('--')?arr[i+1]:true]:[]).filter(x=>x.length));
 const WORKERS = +(args.workers||2), SEEDS = +(args.seeds||3), DEADLINE = +(args.deadline||600);
@@ -27,7 +29,10 @@ function status(){ writeFileSync(STATUS, JSON.stringify({done:results.length,tot
 function runOne(job) {
   active++; if (HEAVY.includes(job.t)) heavyActive++; const t0=Date.now();
   const hardCap=String(DEADLINE+180);
-  const child = execFile('timeout',['-s','KILL',hardCap,'node',path.join(root,'offline/runner.mjs'),'--task',job.t,'--tag','s'+job.s,'--deadline',String(DEADLINE)],{cwd:root, timeout:(DEADLINE+300)*1000, killSignal:'SIGKILL'},(err,stdout,stderr)=>{
+  const argsArr = TIMEOUT_BIN
+    ? ['-s','KILL',hardCap,'node',path.join(root,'offline/runner.mjs'),'--task',job.t,'--tag','s'+job.s,'--deadline',String(DEADLINE)]
+    : [path.join(root,'offline/runner.mjs'),'--task',job.t,'--tag','s'+job.s,'--deadline',String(DEADLINE)];
+  const child = execFile(TIMEOUT_BIN || 'node', TIMEOUT_BIN ? argsArr : argsArr, {cwd:root, timeout:(DEADLINE+300)*1000, killSignal:'SIGKILL'},(err,stdout,stderr)=>{
     active--; if (HEAVY.includes(job.t)) heavyActive--;
     const wall=Math.round((Date.now()-t0)/1000);
     const m = /grade: score ([\d.]+)/.exec(stdout||'');
@@ -40,7 +45,7 @@ function runOne(job) {
     // metadata sidecar
     if (rec.dir) { try { writeFileSync(path.join(rec.dir,'meta.json'), JSON.stringify(rec,null,1)); } catch(e){}
       try { execFileSync('sh',['-c',`MOG_SESSION_DIR='${rec.dir}/.mogsess' '${root}/.mog/bin/mog' --close-all --discard 2>/dev/null || true`],{timeout:20000}); } catch(e){} }
-    try { execFileSync('sh',['-c','for p in $(pgrep -x mog); do pp=$(ps -o ppid= -p $p|tr -d " "); et=$(ps -o etimes= -p $p|tr -d " "); [ "$pp" = 1 ] && [ "$et" -gt 850 ] && kill -9 $p; done; true'],{timeout:15000}); } catch(e){}
+    try { execFileSync('sh',['-c','[ "$(uname)" = Linux ] || exit 0; for p in $(pgrep -x mog); do pp=$(ps -o ppid= -p $p|tr -d " "); et=$(ps -o etimes= -p $p|tr -d " "); [ "$pp" = 1 ] && [ "$et" -gt 850 ] && kill -9 $p; done; true'],{timeout:15000}); } catch(e){}
     status(); next();
   });
 }
