@@ -1069,8 +1069,7 @@ function tPlan_(a) {
     asserts.length +
     ' assertions.' +
     (hasEq ? '' : ' WEAK — no equals-assertion: values will be unverified.') +
-    reverted +
-    (warn.length ? ' WARNINGS: ' + warn.join('; ') : '')
+    reverted
   );
 }
 

@@ -9,7 +9,7 @@ def block(summary, body):
 def render(trace, meta, out_path):
     secs = round((meta.get('elapsed_ms') or 0)/1000)
     over = ' · ⚠️ RAN OVER 5m' if secs > 300 else ''
-    L = [f"# {meta.get('task','?')} · {meta.get('status','?')} · ${meta.get('cost_usd','?')} · {meta.get('turns','?')} turns · {secs}s{over} · {meta.get('written','')}",'']
+    L = [f"# {meta.get('task','?')} · {meta.get('status','?')} · ${meta.get('cost_usd','?')} · {meta.get('turns','?')} turns · {secs}s{over} · {meta.get('backend','')} · {meta.get('written','')}",'']
     for e in trace:
         t = e.get('t','?'); at = f"`{round(e.get('at',0)/1000):>4}s`"
         if t == 'map':
@@ -44,5 +44,6 @@ if __name__ == '__main__':
     resp = d.get('response', d) if isinstance(d, dict) else {'trace': d}
     trace = resp.get('trace', d if isinstance(d, list) else [])
     meta = {k: resp.get(k) for k in ('status','cost_usd','turns','elapsed_ms','written')}
+    meta['backend'] = d.get('backend','?')
     meta['task'] = d.get('taskId', os.path.basename(os.path.dirname(os.path.abspath(src))))
     print(render(trace, meta, os.path.join(os.path.dirname(os.path.abspath(src)), 'transcript.md')))

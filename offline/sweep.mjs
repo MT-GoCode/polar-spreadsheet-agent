@@ -39,7 +39,8 @@ function runOne(job) {
     const st = /status: (\w+)/.exec(stdout||'');
     const tn = /turns: (\d+)/.exec(stdout||'');
     const dirm = /dir: (.*)/.exec(stdout||'');
-    const rec = {task:job.t,seed:job.s,score:m?+m[1]:null,status:st?st[1]:(err&&err.signal?'killed_'+err.signal:err?'spawn_error':'?'),turns:tn?+tn[1]:null,wall,dir:dirm?dirm[1].trim():null,err:err?String(err).slice(0,150):null};
+    const gerr = /grade failed: (.*)/.exec(stdout||'');
+    const rec = {task:job.t,seed:job.s,score:m?+m[1]:null,status:st?st[1]:(err&&err.signal?'killed_'+err.signal:err?'spawn_error':'?'),turns:tn?+tn[1]:null,wall,dir:dirm?dirm[1].trim():null,err:err?String(err).slice(0,150):null, grade_error:gerr?gerr[1].slice(0,120):null};
     results.push(rec);
     log(`t${job.t} s${job.s} → ${rec.status} score=${rec.score} turns=${rec.turns} wall=${wall}s${wall>300?' OVER-5M':''}`);
     // metadata sidecar

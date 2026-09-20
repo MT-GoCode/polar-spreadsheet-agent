@@ -17,6 +17,7 @@ const prompt = readFileSync(path.join(root, 'benchmarks/tasks', tid, 'prompt.txt
 
 process.env.MOG_SESSION_DIR = path.join(dir, '.mogsess');
 mkdirSync(process.env.MOG_SESSION_DIR, { recursive: true, mode: 0o700 });
+writeFileSync(path.join(dir,'request.json'), JSON.stringify({task:tid, backend:'mog', deadline:+(args.deadline||300), tag:args.tag||null, started:new Date().toISOString()},null,1));
 const shim = makeShim(work);
 let code = readFileSync(path.join(root, 'Prompts.gs'), 'utf8') + '\n' + readFileSync(path.join(root, 'Code.gs'), 'utf8');
 if (args.deadline) code = code.replace(/const DEADLINE_MS = [^;]+;/, `const DEADLINE_MS = ${Number(args.deadline) * 1000};`);

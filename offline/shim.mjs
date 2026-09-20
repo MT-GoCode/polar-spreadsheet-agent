@@ -4,7 +4,6 @@ import { openSession, exec, execJSON, closeSession, MOGBIN } from './mogc.mjs';
 import { toR1C1 } from './a1r1c1.mjs';
 import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
-import { execSync } from 'node:child_process';
 
 function colStr(n) { let s = ''; while (n > 0) { s = String.fromCharCode(65 + ((n - 1) % 26)) + s; n = Math.floor((n - 1) / 26); } return s; }
 
@@ -14,7 +13,7 @@ export function makeShim(xlsxPath) {
   let sheetNames = execJSON(session, `await Excel.run(async c=>{const s=c.workbook.worksheets;s.load('items/name');await c.sync();console.log(JSON.stringify(s.items.map(x=>x.name)))})`);
   let iterative = false;
   try {
-    const wbxml = execSync(`unzip -p ${JSON.stringify(xlsxPath)} xl/workbook.xml`, { encoding: 'utf8' });
+    const wbxml = execFileSync('sh', ['-c', 'unzip -p ' + JSON.stringify(xlsxPath) + ' xl/workbook.xml'], { encoding: 'utf8' });
     iterative = /iterate="(1|true)"/.test(wbxml);
   } catch (e) {}
 
