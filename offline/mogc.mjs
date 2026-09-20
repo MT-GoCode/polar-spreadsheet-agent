@@ -1,7 +1,7 @@
 // Thin mog session client: exec Office.js snippets, JSON I/O via console.log.
 import { execFileSync } from 'node:child_process';
 import { homedir } from 'node:os';
-import { existsSync } from 'node:fs';
+import { existsSync, writeFileSync, unlinkSync } from 'node:fs';
 import path from 'node:path';
 const REPO_LOCAL = path.resolve(new URL('..', import.meta.url).pathname, '.mog/bin/mog');
 const CANDIDATES = [process.env.MOG_BIN, REPO_LOCAL, `${homedir()}/code/mog/target-native/release/mog`,
@@ -12,7 +12,11 @@ export function openSession(xlsxPath) {
   return id;
 }
 export function exec(session, code) {
-  return execFileSync(MOGBIN, ['-s', session, '-e', code], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+  // script goes via file, not argv: multi-MB formula grids exceed the ~2MB argv limit (E2BIG)
+  const f = path.join(process.env.MOG_SESSION_DIR || '/tmp', 'snippet-' + session + '.js');
+  writeFileSync(f, code);
+  try { return execFileSync(MOGBIN, ['-s', session, '-f', f], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 }); }
+  finally { try { unlinkSync(f); } catch (e) {} }
 }
 export function execJSON(session, code) {
   const marked = code.replace(/console\.log\(JSON\.stringify\(/g, "console.log('@@'+JSON.stringify(");

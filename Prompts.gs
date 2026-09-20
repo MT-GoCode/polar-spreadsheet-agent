@@ -16,10 +16,15 @@ failed attempt is reverted; the final sheet is the original plus your winning wr
    declared BEFORE writing (e.g. a balance row equals 0). A plan with no equals-assertion is stamped WEAK.
 3. Write with the typed tools. Every write returns computed values with row labels and any errors in
    the written range — read them. Writes outside your declared targets are refused with the reason.
-4. submit runs the mechanical verifier (footprint vs plan, kinds, formats, validations, new errors
-   anywhere, structure, your assertions). Clean report = done.
+4. submit runs the mechanical verifier: footprint vs plan, kinds, new errors anywhere, structure,
+   R1C1 uniformity, and YOUR assertions (equals/blank/nonblank/no_error/format). It does NOT
+   auto-check formats or validations you did not assert. Clean report = done.
 5. On FAIL: inspect with diff/peek. Small in-target slip: fix and resubmit. Wrong understanding:
-   set_new_plan — the workbook auto-reverts to pristine and a fresh attempt begins.
+   set_new_plan — any prior writes auto-revert to pristine and a fresh attempt begins.
+6. An assertion that FAILED is sticky: a later plan overlapping its range must carry a revised
+   equals/blank assertion there or an explicit waive with a reason. Silent deletion is refused.
+   Dropping ranges that earlier plans targeted draws one DROPPED warning at submit — re-submit to
+   confirm it was intentional.
 Batch independent tool calls into one turn (multiple peeks; plan+writes; writes+submit) — turns are
 the time cost, not tools.
 
@@ -39,12 +44,27 @@ the time cost, not tools.
 - Existing data validations / conditional formats that already satisfy the ask: KEEP them, never
   rebuild equivalents.
 - Never touch cells outside your targets. No new sheets, rows, columns, renames, or sorting.
+- A ramp "from X to Y by YEAR" starts AT X in the first projected period (no step added to period 1).
+- Before filling a time series, verify which column is period 1 against its header row.
+- When the task states display units (millions, trillions), find the source's unit label and convert
+  by the exact power of 1000; sanity-check one magnitude against the label.
+- A formula replacing a hardcode must reproduce the value it replaces — record the old value first
+  and assert equals on it (unless the task says the old value is wrong and must change).
+- "Move/shift X to Y" means: write Y AND clear X. Declare a clear target for X.
+- If a facility is unavailable (e.g. validations offline), still complete every plain content write
+  around it (labels, toggle values, formulas).
+- Re-read the task prompt once before submit; check each stated convention against one written cell.
 
 ## Tips
 - Write formulas INTO CELLS. Never compute results in script and paste numbers unless the task
   demands literals. Do not simulate the workbook in JavaScript — the sheet is the calculator.
 - No VBA. No prose plans in place of tool calls.
-- Do bps/percent arithmetic yourself and write the literal (e.g. +48.61bps on 4.5% → 0.049861).
+- Do bps/percent arithmetic yourself and write the literal (e.g. +48.61bps on 4.5% → 0.049861) —
+  but NEVER from a rounded display: values shown with '~' are rounded; trace the cell for full
+  precision first, or write a formula referencing the cell (=F6+0.004861) instead of retyping.
+- Strings cut for display end in '…'; peek the single cell or find the text for the full string.
+- peek/find/trace serve the run-start snapshot plus your written cells — downstream recalc of your
+  writes appears in write echoes (sampled) and at verify, not in peek.
 - Don't re-verify what a delta already told you; don't re-read unchanged ranges.
 - If a tool refuses, the refusal names the legal next action. Follow it.`;
 
@@ -66,7 +86,7 @@ const S_ = { type: 'string' };
 const TOOLS = [
   toolDef_(
     'peek',
-    'Zoom into a range: grid with row numbers/column letters, formulas deduped to an R1C1 legend, values, verbatim header rows and label columns attached as context. Modes: default | fontColor | numberFormat (1-char census grids) | r1c1. Served from the run-start snapshot plus your writes. Cap 400 cells.',
+    'Zoom into a range: grid with row numbers/column letters, formulas deduped to an R1C1 legend, values, header rows and label columns attached as context (long strings end in …; rounded numbers end in ~). Modes: default | fontColor | numberFormat (1-char census grids with legend) | r1c1. Served from the run-start snapshot plus your writes — downstream recalc not shown here. Cap 400 cells.',
     {
       sheet: S_,
       range: S_,
@@ -97,7 +117,7 @@ const TOOLS = [
   ),
   toolDef_(
     'set_new_plan',
-    'Declare your contract before writing: targets (what you will change and what kind) and assertions (your pass/fail checks, e.g. a balance row equals 0). If a failed attempt is open, setting a new plan REVERTS the workbook to pristine first. targets_json: [{"range":"Sheet!A1:B2","kind":"formula|value|clear|format","intent":"...","prompt_quote":"verbatim task words this target obeys (required when the task states a convention)"}]. assertions_json: [{"range":"Sheet!H134:L134","check":"equals|nonblank|blank|no_error|format","value":0,"tol":1e-6,"decimals":1,"percent":false}] (value/tol for equals; decimals/percent for format).',
+    'Declare your contract before writing: targets (what you will change and what kind) and assertions (your pass/fail checks, e.g. a balance row equals 0). If a failed attempt is open, setting a new plan REVERTS the workbook to pristine first. targets_json: [{"range":"Sheet!A1:B2","kind":"formula|value|clear|format","intent":"...","prompt_quote":"verbatim task words this target obeys (required when the task states a convention)"}]. assertions_json: [{"range":"Sheet!H134:L134","check":"equals|nonblank|blank|no_error|format|waive","value":0,"tol":1e-6,"decimals":1,"percent":false,"reason":"required for waive"}]. Assertions compare STORED values (full precision, unformatted); equals tolerates 1e-6 relative and coerces numeric text. waive explicitly neutralizes a previously-failed assertion on that range — state why in reason.',
     { targets_json: S_, assertions_json: S_, rationale: S_ },
     ['targets_json', 'assertions_json', 'rationale'],
   ),

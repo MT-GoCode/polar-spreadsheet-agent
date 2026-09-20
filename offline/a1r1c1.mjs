@@ -10,13 +10,18 @@ export function toR1C1(f, row, col) {
     return (sh || '') + (ra ? 'R' + r : 'R[' + (r - row) + ']') + (ca ? 'C' + c : 'C[' + (c - col) + ']');
   }));
 }
-const RC = /((?:'[^']+'|[A-Za-z_][A-Za-z0-9_. ]*)!)?R(\[?-?\d+\]?)C(\[?-?\d+\]?)/g;
+// Row/col parts are independently optional (RC4, R29C, bare RC are valid R1C1; absent
+// part = relative offset 0). Leading lookbehind stops identifier tails (=SUM(ARC));
+// trailing guard stops identifier heads (RC_TOTAL, RCA). Excel forbids defined names
+// that collide with R1C1 refs, so a real name can never be eaten.
+const RC = /((?:'[^']+'|[A-Za-z_][A-Za-z0-9_. ]*)!)?(?<![A-Za-z0-9_.$])R(\[-?\d+\]|\d+)?C(\[-?\d+\]|\d+)?(?![A-Za-z0-9_.([])/g;
 export function toA1(f, row, col) {
   return splitLiterals(f, part => part.replace(RC, (m, sh, rr, cc) => {
+    rr = rr || '[0]'; cc = cc || '[0]';
     const abs = x => !x.startsWith('[');
     const r = abs(rr) ? +rr : row + +rr.slice(1, -1);
     const c = abs(cc) ? +cc : col + +cc.slice(1, -1);
-    if (r < 1 || c < 1) return m;
+    if (r < 1 || c < 1) throw new Error('R1C1 ref out of bounds at ' + colStr(col) + row + ': ' + m + ' → row ' + r + ', col ' + c);
     return (sh || '') + (abs(cc) ? '$' : '') + colStr(c) + (abs(rr) ? '$' : '') + r;
   }));
 }

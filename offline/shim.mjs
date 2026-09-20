@@ -2,6 +2,7 @@
  * Honest gaps (throw → in-band tool ERROR): DV/CF builders, per-cell font colors. */
 import { openSession, exec, execJSON, closeSession, MOGBIN } from './mogc.mjs';
 import { toR1C1 } from './a1r1c1.mjs';
+import { buildFontColorMap, parseNamedRanges } from './xlsxfmt.mjs';
 import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 
@@ -10,6 +11,7 @@ function colStr(n) { let s = ''; while (n > 0) { s = String.fromCharCode(65 + ((
 export function makeShim(xlsxPath) {
   const session = openSession(xlsxPath);
   const cache = {};   // sheet -> {v,f,r,R,C, dirtyV}
+  let fontMap = null; // lazy; static for the run — no write tool can change fonts
   let sheetNames = execJSON(session, `await Excel.run(async c=>{const s=c.workbook.worksheets;s.load('items/name');await c.sync();console.log(JSON.stringify(s.items.map(x=>x.name)))})`);
   let iterative = false;
   try {
@@ -37,6 +39,10 @@ export function makeShim(xlsxPath) {
   function markDirty() { for (const k in cache) cache[k].dirtyV = true; }
   function writeCells(sheet, r0, c0, grid, asFormula) {
     const h = grid.length, w = grid[0].length;
+    // null/undefined must become '' — Office.js treats null as "keep existing value",
+    // which made every clear a silent no-op. This is the single write choke point
+    // (clearContent, revert, write_cells clear branch, hatch setValues all route here).
+    if (!asFormula) grid = grid.map(row => row.map(x => x === null || x === undefined ? '' : x));
     exec(session, `await Excel.run(async c=>{const r=c.workbook.worksheets.getItem(${q(sheet)}).getRangeByIndexes(${r0 - 1},${c0 - 1},${h},${w});r.${asFormula ? 'formulas' : 'values'}=${JSON.stringify(grid)};await c.sync();})`);
     const sh = cache[sheet];
     if (sh) {
@@ -68,6 +74,7 @@ export function makeShim(xlsxPath) {
       getFormulas: () => { const sh = loadSheet(sheetName); const out = []; for (let i = 0; i < h; i++) { const row = []; for (let j = 0; j < w; j++) row.push((sh.f[r - 1 + i] || [])[c - 1 + j] || ''); out.push(row); } return out; },
       getFormula: () => self.getFormulas()[0][0],
       getFormulasR1C1: () => { const sh = loadSheet(sheetName); const out = []; for (let i = 0; i < h; i++) { const row = []; for (let j = 0; j < w; j++) row.push((sh.r[r - 1 + i] || [])[c - 1 + j] || ''); out.push(row); } return out; },
+      getFormulaR1C1: () => self.getFormulasR1C1()[0][0],
       setValue: (val) => { writeCells(sheetName, r, c, [[val]], typeof val === 'string' && val.startsWith('=')); return self; },
       setValues: (grid) => { writeCells(sheetName, r, c, grid, false); return self; },
       setFormula: (fml) => { writeCells(sheetName, r, c, [[fml]], true); return self; },
@@ -81,9 +88,15 @@ export function makeShim(xlsxPath) {
       getNumberFormats: () => execJSON(session, `await Excel.run(async c=>{const r=c.workbook.worksheets.getItem(${q(sheetName)}).getRangeByIndexes(${r - 1},${c - 1},${h},${w});r.load('numberFormat');await c.sync();console.log(JSON.stringify(r.numberFormat))})`).map(row => row.map(x => x === null ? 'General' : x)),
       setNumberFormats: (grid) => { exec(session, `await Excel.run(async c=>{const r=c.workbook.worksheets.getItem(${q(sheetName)}).getRangeByIndexes(${r - 1},${c - 1},${h},${w});r.numberFormat=${JSON.stringify(grid)};await c.sync();})`); return self; },
       setNumberFormat: (fmt) => { exec(session, `await Excel.run(async c=>{const r=c.workbook.worksheets.getItem(${q(sheetName)}).getRangeByIndexes(${r - 1},${c - 1},${h},${w});r.numberFormat=${JSON.stringify(Array.from({ length: h }, () => Array(w).fill(fmt)))};await c.sync();})`); return self; },
-      getFontColors: () => { throw new Error('offline backend: per-cell font colors unavailable (run online for color-dependent tasks)'); },
-      getDataValidations: () => Array.from({ length: h }, () => Array(w).fill(null)),
-      getDataValidation: () => null,
+      getFontColors: () => {
+        if (!fontMap) fontMap = buildFontColorMap(xlsxPath);
+        const sheet = fontMap[sheetName] || {};
+        const out = [];
+        for (let i = 0; i < h; i++) { const row = []; for (let j = 0; j < w; j++) row.push(sheet[colStr(c + j) + (r + i)] || '#000000'); out.push(row); }
+        return out;
+      },
+      getDataValidations: () => { throw new Error('offline backend: data-validation reads unavailable (run online for validation-dependent tasks)'); },
+      getDataValidation: () => { throw new Error('offline backend: data-validation reads unavailable (run online for validation-dependent tasks)'); },
       setDataValidation: () => { throw new Error('offline backend: data-validation unsupported (run online for this task)'); },
       getCell: (ri, ci) => Range(sheetName, r + ri - 1, c + ci - 1, 1, 1),
       copyTo: () => { throw new Error('offline backend: copyTo unsupported; use setFormulaR1C1'); },
@@ -109,14 +122,17 @@ export function makeShim(xlsxPath) {
         return Range(name, r, c, h, w);
       },
       getDataRange: () => { const sh = loadSheet(name); return Range(name, 1, 1, Math.max(sh.R, 1), Math.max(sh.C, 1)); },
-      getConditionalFormatRules: () => [],
+      getConditionalFormatRules: () => { throw new Error('offline backend: conditional-format reads unavailable (run online for CF-dependent tasks)'); },
       setConditionalFormatRules: () => { throw new Error('offline backend: conditional formats unsupported (run online)'); },
     };
   }
   const ss = {
     getSheets: () => sheetNames.map(Sheet),
     getSheetByName: (n) => sheetNames.includes(n) ? Sheet(n) : null,
-    getNamedRanges: () => [],
+    getNamedRanges: () => parseNamedRanges(xlsxPath).map(n => ({
+      getName: () => n.name,
+      getRange: () => { const p = parseA1(n.a1.split(':')[0] === n.a1 ? n.a1 : n.a1); const rg = Range(n.sheet, p.r, p.c, p.h, p.w); return { getSheet: () => ({ getName: () => n.sheet }), getA1Notation: () => n.a1, getValues: rg.getValues }; },
+    })),
     isIterativeCalculationEnabled: () => iterative,
   };
   const kv = new Map(), props = new Map();

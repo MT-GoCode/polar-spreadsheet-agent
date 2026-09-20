@@ -68,11 +68,25 @@ function splitRef_(ref) {
   return { sheet: m[1], a1: m[2] };
 }
 function short_(v, n) {
+  // Truncation is always visible ('…'); rounded numbers always marked ('~').
   if (v === null || v === undefined || v === '') return '';
-  if (v instanceof Date) return Utilities.formatDate(v, 'UTC', 'yyyy-MM');
-  if (typeof v === 'number') v = Math.round(v * 10000) / 10000;
+  if (v instanceof Date) return Utilities.formatDate(v, 'UTC', 'yyyy-MM-dd');
+  if (typeof v === 'number') {
+    var r4 = Math.round(v * 10000) / 10000;
+    return String(r4) + (r4 === v ? '' : '~');
+  }
   var s = String(v);
-  return s.length > n ? s.slice(0, n) : s;
+  return s.length > n ? s.slice(0, n - 1) + '\u2026' : s;
+}
+function full_(v) {
+  // Full-precision render for single-cell contexts (trace, write echoes).
+  if (v === null || v === undefined || v === '') return '';
+  if (v instanceof Date) return Utilities.formatDate(v, 'UTC', 'yyyy-MM-dd');
+  if (typeof v === 'number') {
+    var p = Number(v.toPrecision(10));
+    return String(p) + (p === v ? '' : '~');
+  }
+  return String(v);
 }
 
 // ---------- transcript ----------
@@ -181,7 +195,7 @@ function labelOf_(sheet, r, cMax) {
   for (var c = Math.min(cMax - 1, sn.C); c >= 1; c--) {
     var v = sn.v[r - 1] && sn.v[r - 1][c - 1];
     if (typeof v === 'string' && v.trim() && sn.f[r - 1][c - 1] === '')
-      return short_(v, 26);
+      return short_(v, 40);
   }
   return '';
 }
@@ -190,7 +204,7 @@ function headerOf_(sheet, c, rMax) {
   if (!sn) return '';
   for (var r = Math.min(rMax - 1, sn.R); r >= 1; r--) {
     var v = sn.v[r - 1] && sn.v[r - 1][c - 1];
-    if (typeof v === 'string' && v.trim()) return short_(v, 24);
+    if (typeof v === 'string' && v.trim()) return short_(v, 40);
   }
   return '';
 }
@@ -257,6 +271,7 @@ function describe_() {
           '!' +
           nrs[n].getRange().getA1Notation(),
       );
+  if (nrs.length > 8) named.push('+' + (nrs.length - 8) + ' more');
   L.push(
     'WORKBOOK ' +
       G.ss.getSheets().length +
@@ -447,7 +462,9 @@ function describe_() {
       }
     if (segs.length)
       Ls.push('  column composition: ' + segs.slice(0, 12).join(' · '));
-    // colors/DV/CF gated
+    // colors/DV gated
+    if (cells > BIG_SHEET_CELLS)
+      Ls.push('  [font colors & data-validation not scanned: sheet >' + BIG_SHEET_CELLS + ' cells — use peek modes]');
     if (cells <= BIG_SHEET_CELLS) {
       try {
         var fc = sh.getRange(1, 1, R, C).getFontColors();
@@ -477,7 +494,7 @@ function describe_() {
       } catch (e) {
         Ls.push('  font colors: UNAVAILABLE (' + e + ')');
       }
-      {
+      try {
         var dvs = sh.getRange(1, 1, R, C).getDataValidations();
         var dvn = 0,
           dvex = '';
@@ -502,9 +519,11 @@ function describe_() {
               }
             }
         if (dvn) Ls.push('  data-validation ×' + dvn + ': ' + dvex);
+      } catch (eDV) {
+        Ls.push('  data-validation: UNAVAILABLE (' + eDV + ')');
       }
     }
-    {
+    try {
       var cfr = sh.getConditionalFormatRules();
       if (cfr.length) {
         var cfl = [];
@@ -529,6 +548,8 @@ function describe_() {
         }
         Ls.push('  conditional-format ×' + cfr.length + ': ' + cfl.join(' | '));
       }
+    } catch (eCF) {
+      Ls.push('  conditional-format: UNAVAILABLE (' + eCF + ')');
     }
     // cross-sheet refs
     var xs = {};
@@ -692,6 +713,7 @@ function tPeek_(a) {
   var legend = {},
     nId = 0,
     colorKey = {},
+    fmtKey = {},
     lines = [];
   lines.push('PEEK ' + a.sheet + '!' + a.range + ' mode=' + a.mode + note);
   lines.push(
@@ -768,21 +790,20 @@ function tPeek_(a) {
         continue;
       }
       if (a.mode === 'numberFormat') {
-        row.push(
-          nfGrid && nfGrid[r6 - b.r1]
-            ? String(nfGrid[r6 - b.r1][c7 - showCols[0]]).slice(0, 10)
-            : '',
-        );
+        var fmt7 = nfGrid && nfGrid[r6 - b.r1] ? String(nfGrid[r6 - b.r1][c7 - showCols[0]]) : '';
+        if (!fmt7 || fmt7 === 'General') { row.push('.'); continue; }
+        if (!fmtKey[fmt7]) fmtKey[fmt7] = String.fromCharCode(97 + Object.keys(fmtKey).length);
+        row.push(fmtKey[fmt7]);
         continue;
       }
       if (a.mode === 'r1c1' && cc7.rf) {
-        row.push(cc7.rf.slice(0, 24));
+        row.push(short_(cc7.rf, 28));
         continue;
       }
       if (cc7.rf) {
         if (!legend[cc7.rf]) legend[cc7.rf] = ++nId;
-        row.push('[' + legend[cc7.rf] + ']' + short_(cc7.v, 6));
-      } else row.push(short_(cc7.v, 10));
+        row.push('[' + legend[cc7.rf] + ']' + short_(cc7.v, 12));
+      } else row.push(short_(cc7.v, 28));
     }
     lines.push((isCtx ? '*' : ' ') + r6 + '\t' + row.join('\t'));
   }
@@ -795,6 +816,12 @@ function tPeek_(a) {
             return colorKey[k] + '=' + k;
           })
           .join(' '),
+    );
+  var fmk = Object.keys(fmtKey);
+  if (fmk.length)
+    lines.push(
+      '  formats: .=General ' +
+        fmk.map(function (k) { return fmtKey[k] + '=' + k; }).join(' '),
     );
   var fk = Object.keys(legend);
   if (fk.length && a.mode === 'default') {
@@ -815,7 +842,7 @@ function tFind_(a) {
       var wv = G.writes[ws][wa];
       var wstr = wv.f && wv.f !== '(fill)' ? wv.f : wv.rf || (wv.v === null ? '' : String(wv.v));
       if (wstr && wstr.toLowerCase().indexOf(q) >= 0)
-        hits.push(ws + '!' + wa + '  ' + short_(wstr, 52) + '  |written this attempt');
+        hits.push(ws + '!' + wa + '  ' + short_(wstr, 80) + '  |written this attempt');
     }
   var names = Object.keys(G.snap);
   for (var s = 0; s < names.length; s++) {
@@ -833,7 +860,7 @@ function tFind_(a) {
               colStr_(j + 1) +
               (i + 1) +
               '  ' +
-              short_(str, 52) +
+              short_(str, 80) +
               '  |label: ' +
               labelOf_(name, i + 1, j + 1) +
               ' |hdr: ' +
@@ -858,37 +885,41 @@ function tTrace_(a) {
       '!' +
       a.cell +
       ' = ' +
-      ((cc.f === '(fill)' ? cc.rf : cc.f) || short_(cc.v, 14)) +
+      ((cc.f === '(fill)' ? cc.rf : cc.f) || full_(cc.v)) +
       '  → ' +
-      short_(cc.v, 14),
+      full_(cc.v),
   ];
   var cf9 = cc.f === '(fill)' ? cc.rf : cc.f;
   if (!cf9) return out[0];
   var body = cf9.replace(/"(?:[^"]|"")*"/g, '');
-  var re =
-      /((?:'[^']+'|[A-Za-z_][A-Za-z0-9_. ]*)!)?(\$?)([A-Z]{1,3})(\$?)([0-9]+)/g,
-    m,
-    seen = {};
-  while ((m = re.exec(body)) && out.length < 14) {
-    var tgt = m[1] ? m[1].replace(/^'|'?!$/g, '') : a.sheet;
-    var col = colNum_(m[3]),
-      row = +m[5],
-      key = tgt + '!' + col + ':' + row;
-    if (seen[key] || !G.snap[tgt]) continue;
+  var prec = [], m;
+  if (cc.f === '(fill)') {
+    // pattern-filled cell: the stored formula is R1C1 — resolve refs numerically
+    var reR = /((?:'[^']+'|[A-Za-z_][A-Za-z0-9_. ]*)!)?(?<![A-Za-z0-9_.$])R(\[-?\d+\]|\d+)?C(\[-?\d+\]|\d+)?(?![A-Za-z0-9_.([])/g;
+    while ((m = reR.exec(body))) {
+      var rrp = m[2] || '[0]', ccp = m[3] || '[0]';
+      var rowP = rrp.charAt(0) === '[' ? b.r1 + Number(rrp.slice(1, -1)) : Number(rrp);
+      var colP = ccp.charAt(0) === '[' ? b.c1 + Number(ccp.slice(1, -1)) : Number(ccp);
+      prec.push({ sh: m[1] ? m[1].replace(/^'|'?!$/g, '') : a.sheet, row: rowP, col: colP });
+    }
+  } else {
+    var reA = /((?:'[^']+'|[A-Za-z_][A-Za-z0-9_. ]*)!)?(\$?)([A-Z]{1,3})(\$?)([0-9]+)/g;
+    while ((m = reA.exec(body)))
+      prec.push({ sh: m[1] ? m[1].replace(/^'|'?!$/g, '') : a.sheet, row: +m[5], col: colNum_(m[3]) });
+  }
+  var seen = {}, shown = 0;
+  for (var pi = 0; pi < prec.length; pi++) {
+    var p9 = prec[pi];
+    var key = p9.sh + '!' + p9.col + ':' + p9.row;
+    if (seen[key] || !G.snap[p9.sh] || p9.row < 1 || p9.col < 1) continue;
     seen[key] = 1;
-    var pc = cellNow_(tgt, row, col);
+    if (shown >= 13) { out.push('  +' + (Object.keys(seen).length - shown) + ' more precedents (capped)'); break; }
+    shown++;
+    var pc = cellNow_(p9.sh, p9.row, p9.col);
     out.push(
-      '  ← ' +
-        tgt +
-        '!' +
-        colStr_(col) +
-        row +
-        ' = ' +
-        short_(pc.v, 12) +
-        '  ' +
-        (pc.f ? '[' + pc.f.slice(0, 38) + ']' : '(input)') +
-        '  |' +
-        labelOf_(tgt, row, col),
+      '  ← ' + p9.sh + '!' + colStr_(p9.col) + p9.row + ' = ' + full_(pc.v) +
+        '  ' + (pc.f ? '[' + short_(pc.f, 40) + ']' : '(input)') +
+        '  |' + labelOf_(p9.sh, p9.row, p9.col),
     );
   }
   if (body.indexOf(':') >= 0) out.push('  (range refs shown as endpoints)');
@@ -954,20 +985,41 @@ function tDiff_() {
           labelOf_(e0.sheet, parseA1_(e0.a1).r1, parseA1_(e0.a1).c1),
       );
     });
+  var moreG = Object.keys(by).length - 25;
+  if (moreG > 0) lines.push('  +' + moreG + ' more groups');
+  for (var fw = 0; fw < G.fmtWrites.length; fw++)
+    lines.push('  [format] ' + G.fmtWrites[fw].sheet + '!' + G.fmtWrites[fw].range + ' → ' + G.fmtWrites[fw].format);
+  for (var dw = 0; dw < G.dvWrites.length; dw++)
+    lines.push('  [data-validation] ' + G.dvWrites[dw].sheet + '!' + G.dvWrites[dw].a1);
+  for (var cw in G.cfBase) lines.push('  [conditional-format] rules changed on ' + cw);
   return lines.join('\n');
 }
 
 // ---------- plan ----------
 function inTargets_(sheet, b) {
   if (!G.plan) return false;
+  var ts = [], first = null;
   for (var i = 0; i < G.plan.targets.length; i++) {
     var t = G.plan.targets[i];
     if (t.sheetName !== sheet) continue;
     var tb = t.bounds;
     if (b.r1 >= tb.r1 && b.r2 <= tb.r2 && b.c1 >= tb.c1 && b.c2 <= tb.c2)
       return t;
+    ts.push(t);
+    if (!first && !(tb.r2 < b.r1 || tb.r1 > b.r2 || tb.c2 < b.c1 || tb.c1 > b.c2)) first = t;
   }
-  return false;
+  // no single container: accept if the union of same-sheet targets covers every cell
+  if (!first) return false;
+  for (var r = b.r1; r <= b.r2; r++)
+    for (var cc = b.c1; cc <= b.c2; cc++) {
+      var ok = false;
+      for (var k = 0; k < ts.length; k++) {
+        var ub = ts[k].bounds;
+        if (r >= ub.r1 && r <= ub.r2 && cc >= ub.c1 && cc <= ub.c2) { ok = true; break; }
+      }
+      if (!ok) return false;
+    }
+  return first;
 }
 function tPlan_(a) {
   var targets, asserts;
@@ -1023,10 +1075,17 @@ function tPlan_(a) {
   for (var j = 0; j < asserts.length; j++) {
     var as = asserts[j];
     if (
-      ['equals', 'nonblank', 'blank', 'no_error', 'format'].indexOf(as.check) <
-      0
+      ['equals', 'nonblank', 'blank', 'no_error', 'format', 'waive'].indexOf(
+        as.check,
+      ) < 0
     )
       return 'REFUSED: assertion check "' + as.check + '" unknown.';
+    if (as.check === 'waive' && !(as.reason && String(as.reason).trim()))
+      return (
+        'REFUSED: waive assertion on ' +
+        (as.range || '?') +
+        ' needs a non-empty reason.'
+      );
     try {
       var sr2 = splitRef_(as.range);
       as.sheetName = sr2.sheet;
@@ -1036,8 +1095,37 @@ function tPlan_(a) {
     }
     if (as.check === 'equals') hasEq = true;
   }
+  // Sticky failed assertions: a new plan overlapping a previously-failed
+  // assertion's range must revise (equals/blank) or explicitly waive it.
+  for (var fa = 0; fa < (G.failedAsserts || []).length; fa++) {
+    var old = G.failedAsserts[fa];
+    var overlaps = false;
+    for (var ti = 0; ti < clean.length; ti++) {
+      var cb = clean[ti].bounds;
+      if (
+        clean[ti].sheetName === old.sheetName &&
+        !(cb.r2 < old.bounds.r1 || cb.r1 > old.bounds.r2 || cb.c2 < old.bounds.c1 || cb.c1 > old.bounds.c2)
+      ) { overlaps = true; break; }
+    }
+    if (!overlaps) continue;
+    var carried = false;
+    for (var ai = 0; ai < asserts.length; ai++) {
+      var na = asserts[ai];
+      if (
+        na.sheetName === old.sheetName &&
+        ['equals', 'blank', 'waive'].indexOf(na.check) >= 0 &&
+        !(na.bounds.r2 < old.bounds.r1 || na.bounds.r1 > old.bounds.r2 || na.bounds.c2 < old.bounds.c1 || na.bounds.c1 > old.bounds.c2)
+      ) { carried = true; break; }
+    }
+    if (!carried)
+      return (
+        'REFUSED: assertion ' + old.check + ' ' + old.range +
+        ' FAILED last verify and your new targets overlap it. Carry a revised equals/blank assertion there, or waive it explicitly ({check:"waive",range:"' +
+        old.range + '",reason:"…"}). Silent deletion is not allowed.'
+      );
+  }
   var reverted = '';
-  if (G.plan && G.failedOpen) {
+  if (G.plan && (G.failedOpen || Object.keys(G.writes).length)) {
     revertAll_();
     reverted = ' Previous attempt reverted; workbook is pristine.';
     G.failedOpen = false;
@@ -1048,6 +1136,9 @@ function tPlan_(a) {
     weak: !hasEq,
     rationale: a.rationale,
   };
+  (G.planHistory = G.planHistory || []).push(
+    clean.map(function (t9) { return { sheetName: t9.sheetName, bounds: t9.bounds, range: t9.range }; }),
+  );
   G.attempt++;
   ev_('plan', {
     attempt: G.attempt,
@@ -1103,6 +1194,7 @@ function writtenKofN_() {
   return 'targets fully written ' + full + '/' + G.plan.targets.length + ' (cells ' + cellsDone + '/' + cellsTotal + ')';
 }
 function deltaRead_(sheet, b) {
+  var sampled = false;
   // sampled values readback + errors, updates overlay v
   var sh = G.ss.getSheetByName(sheet);
   var rows = b.r2 - b.r1 + 1,
@@ -1125,7 +1217,7 @@ function deltaRead_(sheet, b) {
       out.push(
         vs
           .map(function (v, c) {
-            return colStr_(b.c1 + c) + r + ': ' + short_(v, 12);
+            return colStr_(b.c1 + c) + r + ': ' + full_(v);
           })
           .join('  ') +
           '  |' +
@@ -1164,8 +1256,9 @@ function deltaRead_(sheet, b) {
         labelOf_(sheet, b.r2, b.c1),
     );
     out.push('(' + rows + '×' + cols + ' cells; first+last rows sampled)');
+    sampled = true;
   }
-  return { lines: out, errs: errs };
+  return { lines: out, errs: errs, sampled: sampled };
 }
 function guardWrite_(sheet, a1) {
   if (!G.plan)
@@ -1230,8 +1323,10 @@ function tFill_(a) {
     '\n' +
     d.lines.join('\n') +
     (d.errs.length
-      ? '\nERRORS in written range: ' + d.errs.slice(0, 8).join(', ')
-      : '\nno errors in written range') +
+      ? '\nERRORS in written range: ' + d.errs.slice(0, 8).join(', ') + (d.errs.length > 8 ? ' +' + (d.errs.length - 8) + ' more' : '')
+      : d.sampled
+        ? '\nno errors in sampled first+last rows (middle rows unscanned; verify checks the full range)'
+        : '\nno errors in written range') +
     '\n' +
     writtenKofN_()
   );
@@ -1295,8 +1390,8 @@ function tWriteCells_(a) {
     '\n' +
     d.lines.slice(0, 22).join('\n') +
     (d.errs.length
-      ? '\nERRORS: ' + d.errs.slice(0, 8).join(', ')
-      : '\nno errors in written cells') +
+      ? '\nERRORS: ' + d.errs.slice(0, 8).join(', ') + (d.errs.length > 8 ? ' +' + (d.errs.length - 8) + ' more' : '')
+      : '\nno errors in checked cells (echo box only; verify checks all writes)') +
     '\n' +
     writtenKofN_()
   );
@@ -1448,7 +1543,7 @@ function tCF_(a) {
   return 'CF RULE ADDED. Sheet rules now: ' + echo.join(' | ');
 }
 var HATCH_BAN =
-  /(insertRow|insertColumn|deleteRow|deleteColumn|deleteSheet|insertSheet|setName|moveTo|\.sort\(|\.clear\(|clearFormat|autoFill|setBackground|setFont|setBorder)/;
+  /(insertRow|insertColumn|deleteRow|deleteColumn|deleteSheet|insertSheet|setName|moveTo|\.sort\(|\.clear\(|clearFormat|autoFill|setBackground|setFont)/;
 function tHatch_(a) {
   if (!G.plan) return 'REFUSED: no plan on file. Call set_new_plan first.';
   var touches;
@@ -1554,6 +1649,7 @@ function tRevert_() {
     return 'Nothing to revert.';
   revertAll_();
   G.failedOpen = false;
+  G.planHistory = []; // explicit revert: prior footprints are deliberately abandoned
   return 'REVERTED: workbook restored to run-start state. Set a new plan to begin the next attempt.';
 }
 
@@ -1683,20 +1779,24 @@ function verify_() {
     }
   }
   if (kindFails.length) {
-    rep.push('V2 KIND FAIL: ' + kindFails.slice(0, 8).join('; '));
+    rep.push('V2 KIND FAIL: ' + kindFails.slice(0, 8).join('; ') + (kindFails.length > 8 ? ' +' + (kindFails.length - 8) + ' more' : ''));
     fails++;
   } else rep.push('V2 kinds ok');
   if (newErrs.length) {
-    rep.push('V5 NEW-ERROR FAIL: ' + newErrs.slice(0, 10).join('; '));
+    rep.push('V5 NEW-ERROR FAIL: ' + newErrs.slice(0, 10).join('; ') + (newErrs.length > 10 ? ' +' + (newErrs.length - 10) + ' more' : ''));
     fails++;
   } else rep.push('V5 no new errors');
   if (refTexts.length) {
-    rep.push('V5b #REF-IN-FORMULA FAIL: ' + refTexts.slice(0, 8).join('; '));
+    rep.push('V5b #REF-IN-FORMULA FAIL: ' + refTexts.slice(0, 8).join('; ') + (refTexts.length > 8 ? ' +' + (refTexts.length - 8) + ' more' : ''));
     fails++;
   }
   // V7 assertions + V8 auto
   for (var a = 0; a < G.plan.asserts.length; a++) {
     var as = G.plan.asserts[a];
+    if (as.check === 'waive') {
+      rep.push('V7 waived: ' + as.range + ' — ' + as.reason);
+      continue;
+    }
     var sh2 = G.ss.getSheetByName(as.sheetName);
     var b2 = as.bounds;
     var vs2 = sh2
@@ -1711,9 +1811,15 @@ function verify_() {
           if (String(v2) !== as.value) bad.push(a12 + '=' + short_(v2, 12));
         } else if (as.check === 'equals') {
           var tol = as.tol || 1e-6;
+          var v2n =
+            typeof v2 === 'number'
+              ? v2
+              : typeof v2 === 'string' && v2 !== '' && isFinite(Number(v2))
+                ? Number(v2)
+                : null;
           if (
-            typeof v2 !== 'number' ||
-            Math.abs(v2 - as.value) > Math.max(tol, Math.abs(as.value) * 1e-6)
+            v2n === null ||
+            Math.abs(v2n - as.value) > Math.max(tol, Math.abs(as.value) * 1e-6)
           )
             bad.push(a12 + '=' + short_(v2, 12));
         }
@@ -1739,9 +1845,15 @@ function verify_() {
           ' ' +
           as.range +
           ': ' +
-          bad.slice(0, 8).join(', '),
+          bad.slice(0, 8).join(', ') +
+          (bad.length > 8 ? ' +' + (bad.length - 8) + ' more' : ''),
       );
       fails++;
+      G.failedAsserts = G.failedAsserts || [];
+      var dup = false;
+      for (var fx = 0; fx < G.failedAsserts.length; fx++)
+        if (G.failedAsserts[fx].range === as.range && G.failedAsserts[fx].check === as.check) dup = true;
+      if (!dup) G.failedAsserts.push(as);
     } else rep.push('V7 assert ok: ' + as.check + ' ' + as.range);
   }
   // V8 uniformity per formula target with >1 written formula cell
@@ -1789,11 +1901,48 @@ function verify_() {
 }
 function tSubmit_() {
   if (!G.plan) return { pass: false, text: 'REFUSED: no plan on file.' };
-  if (!Object.keys(G.writes).length)
+  var anyWrite =
+    Object.keys(G.writes).length ||
+    G.fmtWrites.length ||
+    G.dvWrites.length ||
+    Object.keys(G.cfBase).length;
+  if (!anyWrite)
     return {
       pass: false,
       text: 'REFUSED: nothing written yet. A submit with zero writes cannot pass.',
     };
+  // Dropped-target confrontation: targets present in earlier plans but absent now.
+  var left9 = DEADLINE_MS - (Date.now() - G.t0);
+  if (!G.droppedAck && left9 >= 90000 && (G.planHistory || []).length > 1) {
+    var cur = G.planHistory[G.planHistory.length - 1];
+    var dropped = [], seenD = {};
+    for (var h = 0; h < G.planHistory.length - 1; h++)
+      for (var p = 0; p < G.planHistory[h].length; p++) {
+        var pt = G.planHistory[h][p];
+        var covered = false;
+        for (var q9 = 0; q9 < cur.length; q9++) {
+          var qb = cur[q9].bounds;
+          if (
+            cur[q9].sheetName === pt.sheetName &&
+            pt.bounds.r1 >= qb.r1 && pt.bounds.r2 <= qb.r2 &&
+            pt.bounds.c1 >= qb.c1 && pt.bounds.c2 <= qb.c2
+          ) { covered = true; break; }
+        }
+        if (!covered && !seenD[pt.sheetName + '!' + pt.range]) {
+          seenD[pt.sheetName + '!' + pt.range] = 1;
+          dropped.push(pt.sheetName + '!' + pt.range);
+        }
+      }
+    if (dropped.length) {
+      G.droppedAck = true;
+      return {
+        pass: false,
+        text:
+          'DROPPED since earlier attempts: ' + dropped.join(', ') +
+          '. Earlier plans targeted these ranges; the current plan does not. If intentional, submit again to proceed; otherwise re-plan to cover them.',
+      };
+    }
+  }
   return verify_();
 }
 
@@ -1886,6 +2035,9 @@ function runAgentInner_(req, t0) {
     cfBase: {},
     plan: null,
     failedOpen: false,
+    failedAsserts: [],
+    planHistory: [],
+    droppedAck: false,
     attempt: 0,
     trace: [],
     turn: 0,
@@ -1999,12 +2151,12 @@ function runAgentInner_(req, t0) {
         ms: Date.now() - tc0,
         tool: call.name,
         args: JSON.stringify(args),
-        out: out.slice(0, 30000),
+        out: out.length > 30000 ? out.slice(0, 30000) + '\n…[output truncated at 30000 chars]' : out,
       });
       input.push({
         type: 'function_call_output',
         call_id: call.call_id,
-        output: out.slice(0, 30000),
+        output: out.length > 30000 ? out.slice(0, 30000) + '\n…[output truncated at 30000 chars]' : out,
       });
       if (done) break;
     }
