@@ -1811,6 +1811,8 @@ function openai_(body) {
   var err;
   for (var attempt = 0; attempt < 5; attempt++) {
     if (attempt) {
+      if (Date.now() - G.t0 > DEADLINE_MS - 60000)
+        throw new Error('OpenAI: ' + err + ' (deadline too close to retry)');
       var waitMs = Math.pow(2, attempt) * 1000;
       ev_('api_retry', { attempt: attempt, error: err, wait_ms: waitMs });
       Utilities.sleep(waitMs);
