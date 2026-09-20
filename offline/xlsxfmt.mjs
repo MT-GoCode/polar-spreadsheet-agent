@@ -88,7 +88,7 @@ export function buildFontColorMap(xlsx) {
   });
   const xfBlock = name => {
     const b = new RegExp('<' + name + '[^>]*>([\\s\\S]*?)</' + name + '>').exec(styles);
-    return b ? [...b[1].matchAll(/<xf\b[^>]*(?:\/>|>[\s\S]*?<\/xf>)/g)].map(m => {
+    return b ? [...b[1].matchAll(/<xf\b[^>]*?(?:\/>|>[\s\S]*?<\/xf>)/g)].map(m => {
       const g = k => { const r = new RegExp(k + '="([^"]*)"').exec(m[0]); return r ? r[1] : null; };
       return { fontId: +(g('fontId') || 0), applyFont: g('applyFont'), xfId: g('xfId') };
     }) : [];
@@ -107,7 +107,7 @@ export function buildFontColorMap(xlsx) {
     const sheet = {};
     for (const m of xml.matchAll(/<c r="([A-Z]+\d+)"[^>]*?s="(\d+)"/g)) {
       const col = styleColor[+m[2]];
-      if (col) sheet[m[1]] = '#' + col.toLowerCase();
+      if (col && col !== '000000') sheet[m[1]] = '#' + col.toLowerCase();
     }
     map[name] = sheet;
   }
