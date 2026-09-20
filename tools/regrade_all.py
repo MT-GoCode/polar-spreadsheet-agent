@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 """Uniformly regrade every offline-runs/**/submission.xlsx. Run from repo root.
 Writes/overwrites grade.json per run + prints every run's score grouped by task."""
-import subprocess, json, glob, os, collections
+import subprocess, json, glob, os, re, collections
 root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 runs = sorted(glob.glob(os.path.join(root, 'offline-runs', '**', 'submission.xlsx'), recursive=True))
 agg = collections.defaultdict(list)
 py = os.path.join(root, '.venv', 'bin', 'python')
 for sub in runs:
     d = os.path.dirname(sub)
-    name = os.path.basename(d)                      # <tag>-task_NN-<ts>
-    parts = name.split('-task_')
-    tag, tid = parts[0], 'task_' + parts[1][:2]
+    name = os.path.basename(d)                      # [<tag>-]task_NN-<ts> or <ts>-task_NN
+    m = re.search(r'(?:^|-)task_(\d\d)', name)
+    tid = 'task_' + m.group(1)
+    tag = name[:m.start()] or 'untagged'
     r = subprocess.run([py, '-m', 'grader.google_grade', '--task', tid,
         '--initial', os.path.join(root, 'benchmarks/tasks', tid, 'init.xlsx'),
         '--golden', os.path.join(root, 'benchmarks/tasks', tid, 'golden.xlsx'),

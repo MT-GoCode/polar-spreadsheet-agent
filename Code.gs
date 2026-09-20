@@ -1332,7 +1332,7 @@ function tClear_(a) {
       }
   }
   var census = '';
-  {
+  try {
     var shC = G.ss.getSheetByName(a.sheet);
     if (shC.getLastRow() * shC.getLastColumn() <= 20000 && shC.getLastRow() > 0) {
       var vC = shC.getDataRange().getValues();
@@ -1346,7 +1346,7 @@ function tClear_(a) {
           }
       census = ' Survivors on sheet by font color: ' + Object.keys(histC).map(function (k) { return k + '\u00d7' + histC[k]; }).join(', ') + '.';
     }
-  }
+  } catch (eC) { census = ' Font-color census UNAVAILABLE (' + eC + ').'; }
   ev_('write', { tool: 'clear_contents', sheet: a.sheet, ranges: ranges.join(','), cleared: cleared, census: census });
   return 'CLEARED ' + cleared + ' non-empty cells in ' + ranges.join(', ') + '.' + census + ' ' + writtenKofN_();
 }
