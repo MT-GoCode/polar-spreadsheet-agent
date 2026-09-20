@@ -40,6 +40,7 @@ function runOne(job) {
     // metadata sidecar
     if (rec.dir) { try { writeFileSync(path.join(rec.dir,'meta.json'), JSON.stringify(rec,null,1)); } catch(e){}
       try { execFileSync('sh',['-c',`MOG_SESSION_DIR='${rec.dir}/.mogsess' '${root}/.mog/bin/mog' --close-all --discard 2>/dev/null || true`],{timeout:20000}); } catch(e){} }
+    try { execFileSync('sh',['-c','for p in $(pgrep -x mog); do pp=$(ps -o ppid= -p $p|tr -d " "); et=$(ps -o etimes= -p $p|tr -d " "); [ "$pp" = 1 ] && [ "$et" -gt 850 ] && kill -9 $p; done; true'],{timeout:15000}); } catch(e){}
     status(); next();
   });
 }
