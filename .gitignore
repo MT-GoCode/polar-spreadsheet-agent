@@ -18,3 +18,5 @@ BenchmarkAuth.gs
 .env
 .env.*
 !.env.example
+offline-runs/
+work.xlsx
