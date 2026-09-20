@@ -3,7 +3,7 @@
 import { openSession, exec, execJSON, closeSession, MOGBIN } from './mogc.mjs';
 import { toR1C1 } from './a1r1c1.mjs';
 import { execFileSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { execSync } from 'node:child_process';
 
 function colStr(n) { let s = ''; while (n > 0) { s = String.fromCharCode(65 + ((n - 1) % 26)) + s; n = Math.floor((n - 1) / 26); } return s; }
@@ -80,8 +80,9 @@ export function makeShim(xlsxPath) {
       },
       clearContent: () => { writeCells(sheetName, r, c, Array.from({ length: h }, () => Array(w).fill(null)), false); const sh = cache[sheetName]; if (sh) for (let i = 0; i < h; i++) for (let j = 0; j < w; j++) { if (sh.v[r-1+i]) sh.v[r-1+i][c-1+j]=''; if (sh.f[r-1+i]) { sh.f[r-1+i][c-1+j]=''; sh.r[r-1+i][c-1+j]=''; } } return self; },
       getNumberFormats: () => execJSON(session, `await Excel.run(async c=>{const r=c.workbook.worksheets.getItem(${q(sheetName)}).getRangeByIndexes(${r - 1},${c - 1},${h},${w});r.load('numberFormat');await c.sync();console.log(JSON.stringify(r.numberFormat))})`).map(row => row.map(x => x === null ? 'General' : x)),
+      setNumberFormats: (grid) => { exec(session, `await Excel.run(async c=>{const r=c.workbook.worksheets.getItem(${q(sheetName)}).getRangeByIndexes(${r - 1},${c - 1},${h},${w});r.numberFormat=${JSON.stringify(grid)};await c.sync();})`); return self; },
       setNumberFormat: (fmt) => { exec(session, `await Excel.run(async c=>{const r=c.workbook.worksheets.getItem(${q(sheetName)}).getRangeByIndexes(${r - 1},${c - 1},${h},${w});r.numberFormat=${JSON.stringify(Array.from({ length: h }, () => Array(w).fill(fmt)))};await c.sync();})`); return self; },
-      getFontColors: () => Array.from({ length: h }, () => Array(w).fill('#000000')), // offline cap: per-cell colors unavailable
+      getFontColors: () => { throw new Error('offline backend: per-cell font colors unavailable (run online for color-dependent tasks)'); },
       getDataValidations: () => Array.from({ length: h }, () => Array(w).fill(null)),
       getDataValidation: () => null,
       setDataValidation: () => { throw new Error('offline backend: data-validation unsupported (run online for this task)'); },
@@ -140,7 +141,9 @@ export function makeShim(xlsxPath) {
         return { getResponseCode: () => code, getContentText: () => body };
       },
     },
-    CacheService: { getScriptCache: () => ({ put: (k, v) => kv.set(k, v), get: (k) => kv.has(k) ? kv.get(k) : null }) },
+    CacheService: { getScriptCache: () => ({ put: (k, v) => { kv.set(k, v);
+      try { writeFileSync(process.env.MOG_SESSION_DIR + '/kv-' + encodeURIComponent(k), v); } catch (e) {} },
+      get: (k) => kv.has(k) ? kv.get(k) : null }) },
     PropertiesService: { getScriptProperties: () => ({
       getProperty: (k) => props.has(k) ? props.get(k) : (k === 'OPENAI_KEY' ? (process.env.OPENAI_KEY || (function(){ try { return readFileSync(process.env.HOME + '/.config/polar-openai-key', 'utf8').trim(); } catch (e) { return null; } })()) : null),
       setProperty: (k, v) => props.set(k, v), deleteProperty: (k) => props.delete(k) }) },

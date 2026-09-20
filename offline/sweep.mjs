@@ -1,5 +1,5 @@
 /** 15x3 sweep: RAM-sorted snake lanes, N workers. node offline/sweep.mjs [--workers 4] [--seeds 3] [--deadline 600] */
-import { execFile } from 'node:child_process';
+import { execFile, execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, appendFileSync, readdirSync, existsSync } from 'node:fs';
 import path from 'node:path';
 const root = path.resolve(new URL('..', import.meta.url).pathname);
@@ -13,6 +13,7 @@ const lanes = Array.from({length:WORKERS},()=>[]);
 lanes[0].push(...HEAVY);
 tasks.forEach((t,i)=>{ const k = Math.floor(i/WORKERS)%2 ? WORKERS-1-(i%WORKERS) : i%WORKERS; lanes[k].push(t); });
 const queue = [];
+let TOTAL_RUNS = 0;
 for (let s=1;s<=SEEDS;s++) {
   const maxLen = Math.max(...lanes.map(l=>l.length));
   for (let k=0;k<maxLen;k++) for (let li=0;li<WORKERS;li++)
@@ -20,20 +21,20 @@ for (let s=1;s<=SEEDS;s++) {
 }
 const LOG = '/tmp/polar-sweep.log', STATUS='/tmp/polar-sweep-status.json';
 const results = [];
-let active=0, qi=0;
+let active=0, qi=0, heavyActive=0;
 function log(m){ appendFileSync(LOG, `[${new Date().toISOString().slice(11,19)}] ${m}\n`); }
-function status(){ writeFileSync(STATUS, JSON.stringify({done:results.length,total:queue.length,active,last:results.slice(-3)},null,1)); }
-function runOne(job, laneQueue) {
-  active++; const t0=Date.now();
+function status(){ writeFileSync(STATUS, JSON.stringify({done:results.length,total:TOTAL_RUNS,active,last:results.slice(-3)},null,1)); }
+function runOne(job) {
+  active++; if (HEAVY.includes(job.t)) heavyActive++; const t0=Date.now();
   const hardCap=String(DEADLINE+180);
   const child = execFile('timeout',['-s','KILL',hardCap,'node',path.join(root,'offline/runner.mjs'),'--task',job.t,'--tag','s'+job.s,'--deadline',String(DEADLINE)],{cwd:root, timeout:(DEADLINE+300)*1000, killSignal:'SIGKILL'},(err,stdout,stderr)=>{
-    active--;
+    active--; if (HEAVY.includes(job.t)) heavyActive--;
     const wall=Math.round((Date.now()-t0)/1000);
     const m = /grade: score ([\d.]+)/.exec(stdout||'');
     const st = /status: (\w+)/.exec(stdout||'');
     const tn = /turns: (\d+)/.exec(stdout||'');
     const dirm = /dir: (.*)/.exec(stdout||'');
-    const rec = {task:job.t,seed:job.s,score:m?+m[1]:null,status:st?st[1]:(err?'spawn_error':'?'),turns:tn?+tn[1]:null,wall,dir:dirm?dirm[1].trim():null,err:err?String(err).slice(0,150):null};
+    const rec = {task:job.t,seed:job.s,score:m?+m[1]:null,status:st?st[1]:(err&&err.signal?'killed_'+err.signal:err?'spawn_error':'?'),turns:tn?+tn[1]:null,wall,dir:dirm?dirm[1].trim():null,err:err?String(err).slice(0,150):null};
     results.push(rec);
     log(`t${job.t} s${job.s} → ${rec.status} score=${rec.score} turns=${rec.turns} wall=${wall}s${wall>300?' OVER-5M':''}`);
     // metadata sidecar
@@ -43,8 +44,15 @@ function runOne(job, laneQueue) {
   });
 }
 function next(){
-  while (active<WORKERS && qi<queue.length){ const j=queue[qi++]; log(`start t${j.t} s${j.s} (lane ${j.lane})`); runOne(j); }
-  if (active===0 && qi>=queue.length) finish();
+  while (active<WORKERS && queue.length>0){
+    let idx=0;
+    if (HEAVY.includes(queue[0].t) && heavyActive>0){
+      idx=queue.findIndex(j=>!HEAVY.includes(j.t));
+      if (idx<0) break; // only heavies left; wait for the running one
+    }
+    const j=queue.splice(idx,1)[0]; log(`start t${j.t} s${j.s} (lane ${j.lane})`); runOne(j);
+  }
+  if (active===0 && queue.length===0) finish();
 }
 function finish(){
   const agg={};
@@ -55,10 +63,11 @@ function finish(){
     const passes=marks.filter(x=>x==='P').length; total+=passes;
     lines.push(`task_${t}: ${marks.join('')} (${passes}/${SEEDS})  scores=[${agg[t].map(r=>r.score==null?'-':r.score.toFixed(2)).join(',')}] walls=[${agg[t].map(r=>r.wall+'s').join(',')}]`);
   }
-  lines.push(`TOTAL passes: ${total}/${queue.length}`);
+  lines.push(`TOTAL passes: ${total}/${TOTAL_RUNS}`);
   log(lines.join('\n'));
   writeFileSync('/tmp/polar-sweep-final.txt', lines.join('\n'));
   log('SWEEP-COMPLETE');
 }
+TOTAL_RUNS = queue.length;
 log(`sweep start: ${queue.length} runs, ${WORKERS} workers, deadline ${DEADLINE}s; lanes=${JSON.stringify(lanes)}`);
 status(); next();

@@ -1989,6 +1989,7 @@ function runAgentInner_(req, t0) {
       try {
         args = JSON.parse(call.arguments || '{}');
       } catch (e2) {}
+      var tc0 = Date.now();
       var out;
       if (call.name === 'submit') {
         var vr = tSubmit_();
@@ -1997,6 +1998,7 @@ function runAgentInner_(req, t0) {
       } else out = runTool_(call.name, args);
       if (typeof out !== 'string') out = JSON.stringify(out);
       ev_('call', {
+        ms: Date.now() - tc0,
         tool: call.name,
         args: JSON.stringify(args),
         out: out.slice(0, 30000),

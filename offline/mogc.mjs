@@ -12,12 +12,13 @@ export function openSession(xlsxPath) {
   return id;
 }
 export function exec(session, code) {
-  const out = execFileSync(MOGBIN, ['-s', session, '-e', code], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
-  const lines = out.trim().split('\n').filter(l => l.trim() !== '');
-  return lines.length ? lines[lines.length - 1] : '';
+  return execFileSync(MOGBIN, ['-s', session, '-e', code], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
 }
 export function execJSON(session, code) {
-  const s = exec(session, code);
+  const marked = code.replace(/console\.log\(JSON\.stringify\(/g, "console.log('@@'+JSON.stringify(");
+  const out = exec(session, marked);
+  const line = out.split('\n').reverse().find(l => l.startsWith('@@'));
+  const s = line ? line.slice(2) : out;
   try { return JSON.parse(s); } catch (e) { throw new Error('mog exec bad JSON: ' + s.slice(0, 300)); }
 }
 export function closeSession(session, outPath) {
