@@ -1808,12 +1808,24 @@ function openai_(body) {
     payload: JSON.stringify(body),
     muteHttpExceptions: true,
   };
-  var res = UrlFetchApp.fetch('https://api.openai.com/v1/responses', opts);
-  var code = res.getResponseCode();
-  if (code === 200) return JSON.parse(res.getContentText());
-  throw new Error(
-    'OpenAI HTTP ' + code + ': ' + res.getContentText().slice(0, 400),
-  );
+  var err;
+  for (var attempt = 0; attempt < 5; attempt++) {
+    if (attempt) {
+      var waitMs = Math.pow(2, attempt) * 1000;
+      ev_('api_retry', { attempt: attempt, error: err, wait_ms: waitMs });
+      Utilities.sleep(waitMs);
+    }
+    try {
+      var res = UrlFetchApp.fetch('https://api.openai.com/v1/responses', opts);
+      var code = res.getResponseCode();
+      if (code === 200) return JSON.parse(res.getContentText());
+      err = 'HTTP ' + code + ': ' + res.getContentText().slice(0, 400);
+      if (code !== 429 && code < 500) break;
+    } catch (e) {
+      err = String(e);
+    }
+  }
+  throw new Error('OpenAI: ' + err);
 }
 function runTool_(name, args) {
   try {
