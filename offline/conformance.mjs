@@ -130,7 +130,7 @@ function probeMap(task) {
   return t.slice(i, i + 30000);
 }
 const m03 = probeMap('03');
-ok(/\d{2,} distinct/.test(m03), 't03 map: high-cardinality label distinct-count present');
+ok(/· [A-Z]+\d+(:\d+ ×\d+)? "/.test(m03), 't03 map: label index runs present');
 ok(/hdr r\d+:/.test(m03), 't03 map: evaluated header row present');
 ok(/blank blocks \(likely output areas\)/.test(m03), 't03 map: blank-block inventory present');
 const m05 = probeMap('05');

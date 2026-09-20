@@ -150,7 +150,6 @@ function hb_(phase) {
 function snapshotAll_() {
   G.snap = {};
   G.baseErr = {};
-  var hotRefs = {};
   var sheets = G.ss.getSheets();
   for (var s = 0; s < sheets.length; s++) {
     var sh = sheets[s],
@@ -322,14 +321,29 @@ function labelIndexLines_(sn, lastUsed) {
   return out;
 }
 function blankBlockLines_(sn, comp, lastUsed, name) {
+  // header row index (first row with >=3 nonblanks) so header-only columns count as output areas
+  var hdrRow = -1;
+  for (var ih = 0; ih < Math.min(10, sn.R); ih++) {
+    var nh = 0;
+    for (var jh = 0; jh < Math.min(sn.C, 60); jh++) if (sn.v[ih][jh] !== '') nh++;
+    if (nh >= 3) { hdrRow = ih; break; }
+  }
+  // extend column extent to any column carrying a header, even if otherwise blank (t03 output col)
+  var maxCol = lastUsed;
+  if (hdrRow >= 0)
+    for (var jc = 0; jc < sn.C; jc++)
+      if (sn.v[hdrRow][jc] !== '') maxCol = Math.max(maxCol, jc);
   var grid = [];
   for (var i = 0; i < sn.R; i++) {
     var row = [];
-    for (var j = 0; j <= lastUsed; j++)
-      row.push(sn.v[i][j] === '' && !sn.f[i][j] && comp[j] !== 'blank' ? 'B' : '');
+    for (var j = 0; j <= maxCol; j++) {
+      var headed = hdrRow >= 0 && sn.v[hdrRow][j] !== '';
+      var candidate = (comp[j] !== 'blank' || headed) && i !== hdrRow;
+      row.push(sn.v[i][j] === '' && !sn.f[i][j] && candidate ? 'B' : '');
+    }
     grid.push(row);
   }
-  var rects = rectGroups_(grid, sn.R, lastUsed + 1).filter(function (rc) {
+  var rects = rectGroups_(grid, sn.R, maxCol + 1).filter(function (rc) {
     return rc.rf === 'B' && (rc.c2 - rc.c1 + 1) * (rc.i2 - rc.i1 + 1) >= 8;
   });
   rects.sort(function (a, b) {
@@ -421,6 +435,7 @@ function describe_() {
       (iter ? 'ON' : 'off') +
       (named.length ? ' · named: ' + named.join(', ') : ''),
   );
+  var hotRefs = {};
   var sheets = G.ss.getSheets();
   for (var s = 0; s < sheets.length; s++) {
     var sh = sheets[s],
