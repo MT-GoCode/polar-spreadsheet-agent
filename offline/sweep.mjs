@@ -4,12 +4,13 @@ import { readFileSync, writeFileSync, appendFileSync, readdirSync, existsSync } 
 import path from 'node:path';
 const root = path.resolve(new URL('..', import.meta.url).pathname);
 const args = Object.fromEntries(process.argv.slice(2).map((a,i,arr)=>a.startsWith('--')?[a.slice(2),arr[i+1]&&!arr[i+1].startsWith('--')?arr[i+1]:true]:[]).filter(x=>x.length));
-const WORKERS = +(args.workers||4), SEEDS = +(args.seeds||3), DEADLINE = +(args.deadline||600);
+const WORKERS = +(args.workers||2), SEEDS = +(args.seeds||3), DEADLINE = +(args.deadline||600);
 // cell-count weights from task profiling (init.xlsx total cells, approx)
 const WEIGHT = {'03':362000,'04':93000,'06':93000,'15':30000,'12':16000,'09':14000,'11':14000,'14':12000,'05':12000,'07':11000,'10':8000,'01':6000,'02':5000,'13':2000,'08':1000};
-const tasks = Object.keys(WEIGHT).sort((a,b)=>WEIGHT[b]-WEIGHT[a]);
-// snake-deal into lanes for RAM balance
+const HEAVY = ['03','04'];  // pinned to lane 0: the giants must never co-run
+const tasks = Object.keys(WEIGHT).filter(t=>!HEAVY.includes(t)).sort((a,b)=>WEIGHT[b]-WEIGHT[a]);
 const lanes = Array.from({length:WORKERS},()=>[]);
+lanes[0].push(...HEAVY);
 tasks.forEach((t,i)=>{ const k = Math.floor(i/WORKERS)%2 ? WORKERS-1-(i%WORKERS) : i%WORKERS; lanes[k].push(t); });
 const queue = [];
 for (let s=1;s<=SEEDS;s++) {
