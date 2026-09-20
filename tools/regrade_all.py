@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Uniformly regrade every offline-runs/*/submission.xlsx. Run from repo root.
-Writes/overwrites grade.json per run + prints an aggregate table by task and seed-tag."""
-import subprocess, json, glob, os, sys, collections
+"""Uniformly regrade every offline-runs/**/submission.xlsx. Run from repo root.
+Writes/overwrites grade.json per run + prints every run's score grouped by task."""
+import subprocess, json, glob, os, collections
 root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 runs = sorted(glob.glob(os.path.join(root, 'offline-runs', '**', 'submission.xlsx'), recursive=True))
+agg = collections.defaultdict(list)
 py = os.path.join(root, '.venv', 'bin', 'python')
-agg = collections.defaultdict(dict)
 for sub in runs:
     d = os.path.dirname(sub)
     name = os.path.basename(d)                      # <tag>-task_NN-<ts>
@@ -17,13 +17,15 @@ for sub in runs:
         '--submission', sub, '--out', os.path.join(d, 'grade.json')],
         cwd=root, capture_output=True, text=True)
     if r.returncode:
-        agg[tid][tag] = 'GERR'
+        agg[tid].append((tag, 'GERR:' + r.stderr.strip().splitlines()[-1][:60]))
         continue
     g = json.load(open(os.path.join(d, 'grade.json')))
-    agg[tid][tag] = round(g['score'], 3)
-tags = sorted({t for v in agg.values() for t in v})
-print('task      ' + '  '.join(f'{t:>8}' for t in tags))
+    agg[tid].append((tag, round(g['score'], 3)))
+total = perfect = 0
 for tid in sorted(agg):
-    print(f'{tid}  ' + '  '.join(f'{str(agg[tid].get(t,"-")):>8}' for t in tags))
-perfect = sum(1 for tid in agg for t in agg[tid] if agg[tid][t] == 1.0)
-print(f'\nperfect scores: {perfect} across {sum(len(v) for v in agg.values())} graded runs')
+    cells = '  '.join(f'{t}:{s}' for t, s in agg[tid])
+    nums = [s for _, s in agg[tid] if isinstance(s, float)]
+    best = max(nums) if nums else 0.0
+    total += len(agg[tid]); perfect += sum(1 for n in nums if n == 1.0)
+    print(f'{tid}  best={best:<6}  {cells}')
+print(f'\n{total} runs regraded, {perfect} perfect')

@@ -246,13 +246,9 @@ function rectGroups_(r1c1grid, R, C) {
 
 function describe_() {
   var L = [];
-  var iter = false;
-  try {
-    iter = G.ss.isIterativeCalculationEnabled();
-  } catch (e) {}
+  var iter = G.ss.isIterativeCalculationEnabled();
   var named = [];
-  try {
-    var nrs = G.ss.getNamedRanges();
+  var nrs = G.ss.getNamedRanges();
     for (var n = 0; n < Math.min(nrs.length, 8); n++)
       named.push(
         nrs[n].getName() +
@@ -261,7 +257,6 @@ function describe_() {
           '!' +
           nrs[n].getRange().getA1Notation(),
       );
-  } catch (e) {}
   L.push(
     'WORKBOOK ' +
       G.ss.getSheets().length +
@@ -479,8 +474,10 @@ function describe_() {
                 .join(', '),
           );
         }
-      } catch (e) {}
-      try {
+      } catch (e) {
+        Ls.push('  font colors: UNAVAILABLE (' + e + ')');
+      }
+      {
         var dvs = sh.getRange(1, 1, R, C).getDataValidations();
         var dvn = 0,
           dvex = '';
@@ -505,9 +502,9 @@ function describe_() {
               }
             }
         if (dvn) Ls.push('  data-validation ×' + dvn + ': ' + dvex);
-      } catch (e) {}
+      }
     }
-    try {
+    {
       var cfr = sh.getConditionalFormatRules();
       if (cfr.length) {
         var cfl = [];
@@ -532,7 +529,7 @@ function describe_() {
         }
         Ls.push('  conditional-format ×' + cfr.length + ': ' + cfl.join(' | '));
       }
-    } catch (e) {}
+    }
     // cross-sheet refs
     var xs = {};
     for (var i9 = 0; i9 < R; i9++)
@@ -850,7 +847,8 @@ function tFind_(a) {
 }
 function tTrace_(a) {
   var sn = G.snap[a.sheet];
-  try { var tb = parseA1_(a.cell); refreshWrittenValues_(a.sheet, tb); } catch (e0) {}
+  var tb = parseA1_(a.cell);
+  refreshWrittenValues_(a.sheet, tb);
   if (!sn) return 'ERROR: unknown sheet ' + a.sheet;
   var b = parseA1_(a.cell);
   var cc = cellNow_(a.sheet, b.r1, b.c1);
@@ -1334,7 +1332,7 @@ function tClear_(a) {
       }
   }
   var census = '';
-  try {
+  {
     var shC = G.ss.getSheetByName(a.sheet);
     if (shC.getLastRow() * shC.getLastColumn() <= 20000 && shC.getLastRow() > 0) {
       var vC = shC.getDataRange().getValues();
@@ -1348,7 +1346,7 @@ function tClear_(a) {
           }
       census = ' Survivors on sheet by font color: ' + Object.keys(histC).map(function (k) { return k + '\u00d7' + histC[k]; }).join(', ') + '.';
     }
-  } catch (eC) {}
+  }
   ev_('write', { tool: 'clear_contents', sheet: a.sheet, ranges: ranges.join(','), cleared: cleared, census: census });
   return 'CLEARED ' + cleared + ' non-empty cells in ' + ranges.join(', ') + '.' + census + ' ' + writtenKofN_();
 }
@@ -1810,24 +1808,12 @@ function openai_(body) {
     payload: JSON.stringify(body),
     muteHttpExceptions: true,
   };
-  for (var attempt = 0; ; attempt++) {
-    var res, code;
-    try {
-      res = UrlFetchApp.fetch('https://api.openai.com/v1/responses', opts);
-      code = res.getResponseCode();
-    } catch (e) {
-      if (attempt) throw e;
-      continue;
-    }
-    if (code === 200) return JSON.parse(res.getContentText());
-    if (attempt === 0 && (code === 429 || code >= 500)) {
-      Utilities.sleep(2000);
-      continue;
-    }
-    throw new Error(
-      'OpenAI HTTP ' + code + ': ' + res.getContentText().slice(0, 400),
-    );
-  }
+  var res = UrlFetchApp.fetch('https://api.openai.com/v1/responses', opts);
+  var code = res.getResponseCode();
+  if (code === 200) return JSON.parse(res.getContentText());
+  throw new Error(
+    'OpenAI HTTP ' + code + ': ' + res.getContentText().slice(0, 400),
+  );
 }
 function runTool_(name, args) {
   try {

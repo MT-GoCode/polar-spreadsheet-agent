@@ -1,9 +1,8 @@
 /** 15x3 sweep: RAM-sorted snake lanes, N workers. node offline/sweep.mjs [--workers 4] [--seeds 3] [--deadline 600] */
 import { execFile, execFileSync } from 'node:child_process';
-import { readFileSync, writeFileSync, appendFileSync, readdirSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, appendFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
-const TIMEOUT_BIN = existsSync('/opt/homebrew/bin/gtimeout') ? '/opt/homebrew/bin/gtimeout'
-  : existsSync('/usr/bin/timeout') ? 'timeout' : null;
+const TIMEOUT_BIN = process.platform === 'darwin' ? '/opt/homebrew/bin/gtimeout' : 'timeout';
 const root = path.resolve(new URL('..', import.meta.url).pathname);
 const args = Object.fromEntries(process.argv.slice(2).map((a,i,arr)=>a.startsWith('--')?[a.slice(2),arr[i+1]&&!arr[i+1].startsWith('--')?arr[i+1]:true]:[]).filter(x=>x.length));
 const WORKERS = +(args.workers||2), SEEDS = +(args.seeds||3), DEADLINE = +(args.deadline||600);
@@ -29,10 +28,8 @@ function status(){ writeFileSync(STATUS, JSON.stringify({done:results.length,tot
 function runOne(job) {
   active++; if (HEAVY.includes(job.t)) heavyActive++; const t0=Date.now();
   const hardCap=String(DEADLINE+180);
-  const argsArr = TIMEOUT_BIN
-    ? ['-s','KILL',hardCap,'node',path.join(root,'offline/runner.mjs'),'--task',job.t,'--tag','s'+job.s,'--deadline',String(DEADLINE)]
-    : [path.join(root,'offline/runner.mjs'),'--task',job.t,'--tag','s'+job.s,'--deadline',String(DEADLINE)];
-  const child = execFile(TIMEOUT_BIN || 'node', TIMEOUT_BIN ? argsArr : argsArr, {cwd:root, timeout:(DEADLINE+300)*1000, killSignal:'SIGKILL'},(err,stdout,stderr)=>{
+  const argsArr = ['-s','KILL',hardCap,'node',path.join(root,'offline/runner.mjs'),'--task',job.t,'--tag','s'+job.s,'--deadline',String(DEADLINE)];
+  const child = execFile(TIMEOUT_BIN, argsArr, {cwd:root, timeout:(DEADLINE+300)*1000, killSignal:'SIGKILL'},(err,stdout,stderr)=>{
     active--; if (HEAVY.includes(job.t)) heavyActive--;
     const wall=Math.round((Date.now()-t0)/1000);
     const m = /grade: score ([\d.]+)/.exec(stdout||'');
