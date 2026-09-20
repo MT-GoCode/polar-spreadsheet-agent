@@ -12,7 +12,11 @@ const tasks = Object.keys(WEIGHT).sort((a,b)=>WEIGHT[b]-WEIGHT[a]);
 const lanes = Array.from({length:WORKERS},()=>[]);
 tasks.forEach((t,i)=>{ const k = Math.floor(i/WORKERS)%2 ? WORKERS-1-(i%WORKERS) : i%WORKERS; lanes[k].push(t); });
 const queue = [];
-for (let s=1;s<=SEEDS;s++) for (let li=0;li<WORKERS;li++) for (const t of lanes[li]) queue.push({t,s,lane:li});
+for (let s=1;s<=SEEDS;s++) {
+  const maxLen = Math.max(...lanes.map(l=>l.length));
+  for (let k=0;k<maxLen;k++) for (let li=0;li<WORKERS;li++)
+    if (lanes[li][k] !== undefined) queue.push({t:lanes[li][k],s,lane:li});
+}
 const LOG = '/tmp/polar-sweep.log', STATUS='/tmp/polar-sweep-status.json';
 const results = [];
 let active=0, qi=0;
