@@ -1,0 +1,27 @@
+name: build-mog
+on: { workflow_dispatch: {} }
+permissions: { contents: write }
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - { os: ubuntu-latest, label: linux-x86_64 }
+          - { os: macos-latest,  label: darwin-arm64 }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: checkout mog (pinned)
+        uses: actions/checkout@v4
+        with: { repository: fundamental-research-labs/mog, ref: fa48399aaf79baf1a4c82bee7045912b473b4b8a }
+      - uses: dtolnay/rust-toolchain@stable
+      - name: build
+        run: cargo build -p mog --release --locked
+      - name: locate binary
+        run: |
+          BIN=$(ls target*/release/mog target/release/mog 2>/dev/null | head -1)
+          cp "$BIN" mog-${{ matrix.label }}
+      - name: upload to release
+        env: { GH_TOKEN: ${{ github.token }} }
+        run: |
+          gh release create mog-bin --repo ${{ github.repository }} -t "mog binaries" -n "pinned fa48399aaf79baf1a4c82bee7045912b473b4b8a" 2>/dev/null || true
+          gh release upload mog-bin mog-${{ matrix.label }} --repo ${{ github.repository }} --clobber

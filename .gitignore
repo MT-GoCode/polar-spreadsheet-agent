@@ -20,3 +20,4 @@ BenchmarkAuth.gs
 !.env.example
 offline-runs/
 work.xlsx
+.mog/
