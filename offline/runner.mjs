@@ -20,6 +20,7 @@ mkdirSync(process.env.MOG_SESSION_DIR, { recursive: true, mode: 0o700 });
 const shim = makeShim(work);
 let code = readFileSync(path.join(root, 'Prompts.gs'), 'utf8') + '\n' + readFileSync(path.join(root, 'Code.gs'), 'utf8');
 if (args.deadline) code = code.replace(/const DEADLINE_MS = [^;]+;/, `const DEADLINE_MS = ${Number(args.deadline) * 1000};`);
+if (Number(args.deadline) > 300) code = code.replace(/const MAX_TURNS = [^;]+;/, `const MAX_TURNS = 100;`);
 code += '\nreturn { runAgent: runAgent };';
 if (args.probe) {
   shim.globals.PropertiesService = { getScriptProperties: () => ({ getProperty: () => 'probe-key', setProperty: () => {}, deleteProperty: () => {} }) };
