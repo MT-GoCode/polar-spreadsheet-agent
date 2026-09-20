@@ -1,0 +1,6 @@
+v0 — first tool-loop agent (pre-SPEC), deployed as Apps Script version 2 (2026-09-18).
+Responses API loop; tools: read_range (TSV grid), write_cells (skip-non-blank), fill_formula
+(broken copyTo initially, later setFormulaR1C1), set_number_format, find, run_apps_script.
+Results: t01 PASS once (23 turns, $0.37) then 0% (simulated in JS, zero writes); t02 PASS ×2;
+t03/04/05 killed pre-turn (later root-caused: concurrency vs Runtime.gs 5-min signature window).
+Recovered from Apps Script version history after folder deletion.

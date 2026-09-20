@@ -13,21 +13,115 @@ import {
 } from './google-dispatch.mjs';
 
 async function main() {
+  // Timestamp in ms. Only used at the end to print final duration
   const started = Date.now();
+
+  // repo's root
   const root = fileURLToPath(new URL('..', import.meta.url));
+
+  // A one-line helper: read a file as text, parse it as JSON.
   const json = async (p) => JSON.parse(await fs.readFile(p, 'utf8'));
+
+  // inverse of the above, written as an atomic write.
+  // saves a json-string as a json-file
+  // Instead of writing straight to `p`, it writes pretty-printed JSON (2-space indent, trailing newline) to a temp file with a random suffix beside it, then renames the temp over the target. On POSIX filesystems rename is atomic
   const save = async (p, data) => {
     const temp = `${p}.${crypto.randomUUID()}.tmp`;
     await fs.writeFile(temp, JSON.stringify(data, null, 2) + '\n');
     await fs.rename(temp, p);
   };
+
+
+  /*
+  available reads benchmarks/grading_specs, a folder of jsons, one configuring each task, 'task_01.json', 'task_02.json', ..., 'task_15.json'
+
+  then parses that into task IDs:
+
+  readdir  →  ['task_01.json', 'task_02.json', ..., 'task_15.json', '.DS_Store']
+  filter   →  ['task_01.json', 'task_02.json', ..., 'task_15.json']
+  map      →  ['task_01',      'task_02',      ..., 'task_15']
+  sort     →  same, guaranteed ascending
+
+  available = ['task_01', 'task_02', ..., 'task_15']
+
+  */
+
+
   const available = (
     await fs.readdir(path.join(root, 'benchmarks/grading_specs'))
   )
     .filter((name) => /^task_\d{2}\.json$/.test(name))
     .map((name) => name.slice(0, -5))
     .sort();
+
+  /*
+
+  ANATOMY OF A SPEC (task_01.json)
+
+  {
+    "schema_version": 1,
+    "task_id": "task_01",                 // must equal the filename and folder name
+    "original_task_id": "task_05",        // FRL's numbering
+    "title": "Projected balance sheet",   // what --list prints [npm run bench -- --list]
+    "review_status": "prompt_scoped_v1", // pointless metadata
+    "sources": {                          // sha256 of the task inputs; grader refuses to run if they drift
+      "init.xlsx": "…", "golden.xlsx": "…", "prompt.txt": "…"
+    },
+    "tolerance": { "absolute": 1e-8, "relative": 1e-6 },
+
+    // Here is an example of the following keys
+    //         A            B         C
+    1   Item         2024      2025
+    2   Revenue      100       120        ← given inputs
+    3   Cost         -40       -50        ← given inputs
+    4   Total        [blank]   [blank]    ← agent must write =B2+B3, =C2+C3
+    5
+    6   Tax rate     [blank]              ← agent must type 0.25 (a number, not a formula)
+    7   Check        =B4-C4               ← existing formula, must not be touched
+
+    The spec for this task: "outputs": { "Model": ["B4:C4", "B6"] } 
+    **Which cells are graded.** Three cells. Each is compared to golden's _value_: B4 must be 60, C4 must be 70, B6 must be 0.25. 
+
+    Results:
+    • score (the 0.0–1.0 fraction, correct/total) is computed only over outputs cells — but a cell counts as correct only if its value matches and it satisfies formula_required/hardcode_required (specified below). So those two do affect the score; they just can't add cells to it.
+    • passed (the binary) additionally requires zero preservation violations (editable, style_editable, object_editable), every requirements check passing, which are specified below. Those can't move the score, but any one of them flips pass → fail.
+
+    "editable": { "Model": ["B4:C4", "B6"] }
+    **Which cells may differ from the starting file.** Same three here. If the agent also "helpfully" retypes A4 as "TOTAL" or nudges C7 — those are outside `editable` → preservation violation → task fails, even with 3/3 outputs right.
+
+    "formula_required": { "Model": ["B4:C4"] }
+    **Of the graded cells, which must contain a formula.** B4 = `=B2+B3` passes; B4 = `60` typed in gives the right value but fails with reason `formula_required`.
+
+    "hardcode_required": { "Model": ["B6"] }
+    **Of the graded cells, which must NOT contain a formula.** B6 = `0.25` passes; B6 = `=25/100` fails with `hardcode_required`. (Real models: inputs are literals, calculations are formulas.)
+
+    "style_editable": { "number_format": { "Model": ["B4:C4"] } }
+    **Which cells may have their formatting changed, per formatting field.** The agent may set a number format on B4:C4. If it also bolds them → `font` changed on a cell not whitelisted for `font` → violation. If it changes B2's number format → not whitelisted at all → violation.
+    SUBSET of editable
+
+    "object_editable": {}
+    **Which sheet-level objects may change.** Empty = the agent may not add/remove data validations, conditional formats, merges, etc. anywhere. (Task\_14 would list `["validations", "conditional_formats"]` for `Board Summary`.)
+
+
+    "outputs":          { "Model-Build": ["H104:L104", "H105:L105", … 19 ranges] },
+    "editable":         { "Model-Build": [ …same 19… ] },
+    "formula_required": { "Model-Build": [ …same 19… ] },
+    "hardcode_required": {},                            
+    "style_editable":   {}, 
+    "object_editable":  {},
+    "requirements": [ 
+      { "id": "balance_sheet_ties", "kind": "cell_value",
+        "ranges": { "Model-Build": ["H134:L134"] }, "value": 0, "absolute": 1e-6, "relative": 0 }
+    ],
+    "notes": []
+  }
+
+  */
+  
+  // const options = parseOptions(...) produces the `options` object every later part of `main()` reads.
   const options = parseOptions(process.argv.slice(2), available);
+
+  // nothing substantive, just a usage banner
   if (options.help || options.list) {
     console.log(
       options.list
@@ -59,6 +153,20 @@ an agent automatically. Prepared task copies can be consumed only once.`,
     );
     process.exit(0);
   }
+// questions when looking at the commands above:
+// how's --failed work? these hold state across runs?
+// Yes. Every run writes `grading-results/google-runs/latest.json` → pointer to its `report-*.json`. `--failed` reads that report, takes every task with `passed !== true`, and runs those on _fresh_ copies. Also checks the task inputs haven't changed since that run. It's your inner loop: edit `Code.gs`, `npm run bench -- --failed`.
+// one report for the whole run? YES. one folder `google-runs/<run_id>/` containing a `task_NN/` subfolder per task (the per-task artifacts: `request.json`, `response.json`, `grade.json`, xlsx exports, snapshots) plus one `report-<ts>.json` at the run level that aggregates every task's `grade.json` into a `tasks` array with the summary. `latest.json` just points at the newest report.
+
+// concurrency - what's default - All selected tasks at once (15 when you run everything). Each task is one HTTP request to Google, so they genuinely run in parallel on Google's side. Lower it with `--concurrency 3` if your LLM provider rate-limits you.
+
+// [i have no fucking idea what this below means, it'll be clear later i suppose]
+// prepare, prepared, prepared latest X - what? 
+// Splits a run in two. `--prepare 01 03` does the slow part now — copy workbooks in Drive, set calc settings, export baselines — and saves a manifest. `--prepared latest` later runs your _current_ `Code.gs` against those already-prepared copies; `--prepared latest 02` runs just one of them. Each copy is single-use. Point: shave ~10s of Drive copying off each iteration while you're editing.
+// keep-sheets,, cleanup, refresh-cache?
+// `--keep-sheets`: don't trash the run copies afterward, so you can open the live workbook your agent edited (URL is in the output and `grade.json`). Use it while debugging, always. `--cleanup`: trash every run copy in the Drive Runs folder — housekeeping after `--keep-sheets` piles up. `--refresh-cache`: re-export the golden xlsx files instead of using the cached ones; irrelevant unless setup is re-run.
+
+
   const runs = path.join(root, 'grading-results/google-runs');
   let previous;
   if (options.failed) {

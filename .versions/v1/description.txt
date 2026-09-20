@@ -1,0 +1,8 @@
+v1 — SPEC.md harness (attempt semantics), deploys 14-18 (2026-09-20).
+Observation-first (describe map injected turn 0; peek/find/trace/diff over snapshot+overlay),
+plan-as-contract (targets+kinds+assertions; runtime range⊆targets enforcement; revert on re-plan),
+typed format-safe writes + gated run_apps_script hatch, 8-check mechanical verifier at submit,
+full-fidelity chunked-checkpoint transcripts + doGet recovery, reasoning summaries logged.
+Post-adversarial (2 spec adversaries, 2 reliability audits, 1 code review — all findings fixed).
+Results at snapshot: t02 100% PASS, t06 100% PASS (after cutoff prompt fix; first attempt 53.6%),
+t09 PASS. Known-open: concurrency>3 hits Runtime.gs signature window; offline backend spec'd only.
