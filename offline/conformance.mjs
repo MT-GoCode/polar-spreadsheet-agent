@@ -118,6 +118,27 @@ const nrs = ss11.getNamedRanges();
 ok(nrs.length >= 1 && typeof nrs[0].getName() === 'string' && typeof nrs[0].getRange().getA1Notation() === 'string', 'named ranges readable', String(nrs.length));
 shim11.close(null);
 
+// ---------- D. describe v2 map gates (end-to-end probe runs) ----------
+console.log('D. map content gates (probe runs)');
+import { execFileSync as _run } from 'node:child_process';
+import { readdirSync, readFileSync as _rf } from 'node:fs';
+function probeMap(task) {
+  _run('node', [path.join(root, 'offline/runner.mjs'), '--task', task, '--probe'], { cwd: root, timeout: 240000 });
+  const dirs = readdirSync(path.join(root, 'offline-runs')).filter(d => d.startsWith('task_' + task + '-')).sort();
+  const t = _rf(path.join(root, 'offline-runs', dirs[dirs.length - 1], 'transcript.md'), 'utf8');
+  const i = t.indexOf('WORKBOOK ');
+  return t.slice(i, i + 30000);
+}
+const m03 = probeMap('03');
+ok(/\d{2,} distinct/.test(m03), 't03 map: high-cardinality label distinct-count present');
+ok(/hdr r\d+:/.test(m03), 't03 map: evaluated header row present');
+ok(/blank blocks \(likely output areas\)/.test(m03), 't03 map: blank-block inventory present');
+const m05 = probeMap('05');
+ok(/duplicate labels:/.test(m05), 't05 map: duplicate-label index present');
+ok(/values differ/.test(m05), 't05 map: value-divergence flag present');
+ok(/hardcodes in formula cols:/.test(m05) || /HARDCODE-IN-FORMULA-COLS/.test(m05), 't05 map: hardcode visibility present');
+ok(/sections?:|· [A-Z]+\d/.test(m05), 't05 map: section/label lines present');
+
 rmSync(tmp, { recursive: true, force: true });
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

@@ -150,6 +150,7 @@ function hb_(phase) {
 function snapshotAll_() {
   G.snap = {};
   G.baseErr = {};
+  var hotRefs = {};
   var sheets = G.ss.getSheets();
   for (var s = 0; s < sheets.length; s++) {
     var sh = sheets[s],
@@ -258,6 +259,147 @@ function rectGroups_(r1c1grid, R, C) {
   return rects;
 }
 
+
+// ---------- describe v2 helpers (pure snapshot computation) ----------
+function labelIndexLines_(sn, lastUsed) {
+  // leftmost text-dominant column = the label column
+  var best = -1, bestN = 0;
+  for (var j = 0; j < Math.min(4, sn.C); j++) {
+    var n = 0;
+    for (var i = 0; i < sn.R; i++)
+      if (typeof sn.v[i][j] === 'string' && sn.v[i][j] !== '' && !sn.f[i][j]) n++;
+    if (n > bestN) { bestN = n; best = j; }
+  }
+  if (best < 0 || bestN < 3) return [];
+  var out = [], runs = [], i = 0;
+  while (i < sn.R) {
+    var v = sn.v[i][best];
+    if (typeof v !== 'string' || v === '' || sn.f[i][best]) { i++; continue; }
+    var j2 = i;
+    while (j2 + 1 < sn.R && sn.v[j2 + 1][best] === v && !sn.f[j2 + 1][best]) j2++;
+    runs.push({ v: v, r1: i + 1, r2: j2 + 1 });
+    i = j2 + 1;
+  }
+  // section headers: label text with rest of row blank
+  var secs = [];
+  for (var k = 0; k < runs.length; k++) {
+    if (runs[k].r1 !== runs[k].r2) continue;
+    var r0 = runs[k].r1 - 1, lone = true;
+    for (var j3 = best + 1; j3 <= lastUsed; j3++)
+      if (sn.v[r0][j3] !== '' || sn.f[r0][j3]) { lone = false; break; }
+    if (lone) secs.push('r' + runs[k].r1 + ' "' + short_(runs[k].v, 40) + '"');
+  }
+  if (secs.length) out.push('  sections: ' + secs.slice(0, 12).join(' · ') + (secs.length > 12 ? ' +' + (secs.length - 12) + ' more' : ''));
+  // duplicate labels with value-divergence flag
+  var byLabel = {};
+  runs.forEach(function (rn) { (byLabel[rn.v] = byLabel[rn.v] || []).push(rn); });
+  var dups = [], dupN = 0;
+  for (var lbl in byLabel)
+    if (byLabel[lbl].length > 1 && dupN < 6) {
+      var occ = byLabel[lbl], differ = false;
+      for (var jc = best + 1; jc <= lastUsed && !differ; jc++) {
+        var v0 = sn.v[occ[0].r1 - 1][jc], v1 = sn.v[occ[1].r1 - 1][jc];
+        if (typeof v0 === 'number' && typeof v1 === 'number' && Math.abs(v0 - v1) > 1e-9) differ = true;
+      }
+      dups.push('"' + short_(lbl, 30) + '" ×' + occ.length + ': ' +
+        occ.slice(0, 4).map(function (o) { return 'r' + o.r1; }).join(',') +
+        (differ ? ' (values differ)' : ''));
+      dupN++;
+    }
+  if (dups.length) out.push('  duplicate labels: ' + dups.join(' · '));
+  // label runs or distinct-count for high cardinality
+  var distinct = Object.keys(byLabel).length;
+  if (distinct > 30) {
+    var ks = Object.keys(byLabel).sort();
+    out.push('  labels col ' + colStr_(best + 1) + ': ' + distinct + ' distinct ("' + short_(ks[0], 24) + '" … "' + short_(ks[ks.length - 1], 24) + '")');
+  } else {
+    for (var m = 0; m < Math.min(runs.length, 25); m++) {
+      var rn2 = runs[m];
+      out.push('  · ' + colStr_(best + 1) + rn2.r1 + (rn2.r2 > rn2.r1 ? ':' + rn2.r2 + ' ×' + (rn2.r2 - rn2.r1 + 1) : '') + ' "' + short_(rn2.v, 40) + '"');
+    }
+    if (runs.length > 25) out.push('  · +' + (runs.length - 25) + ' more label runs');
+  }
+  return out;
+}
+function blankBlockLines_(sn, comp, lastUsed, name) {
+  var grid = [];
+  for (var i = 0; i < sn.R; i++) {
+    var row = [];
+    for (var j = 0; j <= lastUsed; j++)
+      row.push(sn.v[i][j] === '' && !sn.f[i][j] && comp[j] !== 'blank' ? 'B' : '');
+    grid.push(row);
+  }
+  var rects = rectGroups_(grid, sn.R, lastUsed + 1).filter(function (rc) {
+    return rc.rf === 'B' && (rc.c2 - rc.c1 + 1) * (rc.i2 - rc.i1 + 1) >= 8;
+  });
+  rects.sort(function (a, b) {
+    return (b.c2 - b.c1 + 1) * (b.i2 - b.i1 + 1) - (a.c2 - a.c1 + 1) * (a.i2 - a.i1 + 1);
+  });
+  if (!rects.length) return [];
+  var parts = rects.slice(0, 6).map(function (rc) {
+    var hdr = headerOf_(name, rc.c1, rc.i1);
+    return colStr_(rc.c1) + rc.i1 + ':' + colStr_(rc.c2) + rc.i2 + (hdr ? ' (under "' + short_(hdr, 20) + '")' : '');
+  });
+  return ['  blank blocks (likely output areas): ' + parts.join(' · ')];
+}
+function headerRowLine_(sn) {
+  for (var i = 0; i < Math.min(10, sn.R); i++) {
+    var n = 0;
+    for (var j = 0; j <= Math.min(sn.C - 1, 60); j++) if (sn.v[i][j] !== '') n++;
+    if (n < 3) continue;
+    // arithmetic numeric series compress
+    var vals = sn.v[i], first = -1;
+    for (var j2 = 0; j2 < sn.C; j2++) if (typeof vals[j2] === 'number') { first = j2; break; }
+    if (first >= 0) {
+      var last = first, d = null, okSeries = true, cnt = 1;
+      for (var j3 = first + 1; j3 < sn.C && typeof vals[j3] === 'number'; j3++) {
+        var dd = vals[j3] - vals[j3 - 1];
+        if (d === null) d = dd;
+        else if (Math.abs(dd - d) > 1e-9) { okSeries = false; break; }
+        last = j3; cnt++;
+      }
+      if (okSeries && cnt >= 4)
+        return '  hdr r' + (i + 1) + ': ' + colStr_(first + 1) + ':' + colStr_(last + 1) + ' = ' + full_(vals[first]) + '..' + full_(vals[last]) + (d !== 1 ? ' step ' + full_(d) : '');
+    }
+    var cells = [];
+    for (var j4 = 0; j4 < sn.C && cells.length < 15; j4++)
+      if (vals[j4] !== '') cells.push(colStr_(j4 + 1) + '="' + short_(vals[j4], 24) + '"');
+    return '  hdr r' + (i + 1) + ': ' + cells.join(' ') + (n > 15 ? ' +' + (n - 15) + ' more' : '');
+  }
+  return null;
+}
+function hardcodeCellLines_(sn, comp) {
+  var hits = [];
+  for (var j = 0; j < sn.C && hits.length <= 8; j++) {
+    if (comp[j] !== 'formula') continue;
+    for (var i = 0; i < sn.R && hits.length <= 8; i++)
+      if (!sn.f[i][j] && typeof sn.v[i][j] === 'number')
+        hits.push(colStr_(j + 1) + (i + 1) + '=' + full_(sn.v[i][j]));
+  }
+  if (!hits.length) return [];
+  return ['  hardcodes in formula cols: ' + hits.slice(0, 8).join(', ') + (hits.length > 8 ? ' +more' : '')];
+}
+function groupSourceSuffix_(rc, sheetName) {
+  // dominant far/cross-sheet source bbox for a formula rect-group
+  var re = /((?:'[^']+'|[A-Za-z_][A-Za-z0-9_. ]*)!)?(?<![A-Za-z0-9_.$])R(\[-?\d+\]|\d+)?C(\[-?\d+\]|\d+)?(?![A-Za-z0-9_.([])/g;
+  var body = String(rc.rf).replace(/"(?:[^"]|"")*"/g, ''), m, best = null;
+  while ((m = re.exec(body))) {
+    var sh = m[1] ? m[1].replace(/^'|'?!$/g, '') : sheetName;
+    var rr = m[2] || '[0]', cc = m[3] || '[0]';
+    var absR = rr.charAt(0) !== '[', absC = cc.charAt(0) !== '[';
+    var r1 = absR ? +rr : rc.i1 + (+rr.slice(1, -1));
+    var r2 = absR ? +rr : rc.i2 + (+rr.slice(1, -1));
+    var c1 = absC ? +cc : rc.c1 + (+cc.slice(1, -1));
+    var c2 = absC ? +cc : rc.c2 + (+cc.slice(1, -1));
+    if (r1 < 1 || c1 < 1) continue;
+    var far = sh !== sheetName || Math.abs(r1 - rc.i1) > 20 || Math.abs(c1 - rc.c1) > 20 || (absR && absC);
+    if (!far) continue;
+    var area = (r2 - r1 + 1) * (c2 - c1 + 1);
+    if (!best || area > best.area)
+      best = { area: area, txt: (sh !== sheetName ? "'" + sh + "'!" : '') + colStr_(c1) + r1 + (r2 > r1 || c2 > c1 ? ':' + colStr_(c2) + r2 : '') };
+  }
+  return best ? '  ← ' + best.txt : '';
+}
 function describe_() {
   var L = [];
   var iter = G.ss.isIterativeCalculationEnabled();
@@ -335,11 +477,18 @@ function describe_() {
           (G.baseErr[name].length > 6 ? '…' : ''),
       );
     // column composition
+    var hdrRow0 = -1;
+    for (var ih = 0; ih < Math.min(10, R); ih++) {
+      var nh = 0;
+      for (var jh = 0; jh < Math.min(C, 60); jh++) if (sn.v[ih][jh] !== '') nh++;
+      if (nh >= 3) { hdrRow0 = ih; break; }
+    }
     var comp = [];
     for (var j3 = 0; j3 < C; j3++) {
       var ne = 0,
         ff = 0;
       for (var i3 = 0; i3 < R; i3++) {
+        if (i3 === hdrRow0) continue;
         var has = sn.f[i3][j3] !== '' || sn.v[i3][j3] !== '';
         if (has) {
           ne++;
@@ -360,25 +509,37 @@ function describe_() {
     for (var j4 = 0; j4 < C; j4++) if (comp[j4] !== 'blank') lastUsed = j4;
     // formula groups
     var rects = rectGroups_(sn.r, R, C);
-    if (rects.length) {
+    // merge groups with identical formula+columns split only by blank rows
+    var byKey = {}, merged = [];
+    rects.forEach(function (rc) {
+      var key = rc.rf + '|' + rc.c1 + '|' + rc.c2;
+      if (byKey[key]) {
+        byKey[key].i2 = Math.max(byKey[key].i2, rc.i2);
+        byKey[key].segs++;
+        byKey[key].n += (rc.c2 - rc.c1 + 1) * (rc.i2 - rc.i1 + 1);
+      } else {
+        byKey[key] = { rf: rc.rf, c1: rc.c1, c2: rc.c2, i1: rc.i1, i2: rc.i2, segs: 1, n: (rc.c2 - rc.c1 + 1) * (rc.i2 - rc.i1 + 1) };
+        merged.push(byKey[key]);
+      }
+    });
+    var ones = 0;
+    merged = merged.filter(function (rc) {
+      if (rc.n === 1 && typeof (sn.v[rc.i1 - 1] || [])[rc.c1 - 1] === 'string') { ones++; return false; }
+      return true;
+    });
+    if (merged.length) {
       Ls.push('  formula groups:');
-      for (var g = 0; g < Math.min(rects.length, 14); g++) {
-        var rc = rects[g];
+      for (var g = 0; g < Math.min(merged.length, 14); g++) {
+        var rc = merged[g];
         Ls.push(
-          '    ' +
-            colStr_(rc.c1) +
-            rc.i1 +
-            ':' +
-            colStr_(rc.c2) +
-            rc.i2 +
-            ' ×' +
-            (rc.c2 - rc.c1 + 1) * (rc.i2 - rc.i1 + 1) +
-            '  ' +
-            rc.rf.slice(0, 105),
+          '    ' + colStr_(rc.c1) + rc.i1 + ':' + colStr_(rc.c2) + rc.i2 +
+            ' ×' + rc.n + (rc.segs > 1 ? ' (' + rc.segs + ' segs)' : '') +
+            '  ' + rc.rf.slice(0, 105) + groupSourceSuffix_(rc, name),
         );
       }
-      if (rects.length > 14)
-        Ls.push('    [omitted: ' + (rects.length - 14) + ' more groups]');
+      if (merged.length > 14)
+        Ls.push('    [omitted: ' + (merged.length - 14) + ' more groups]');
+      if (ones) Ls.push('    [+' + ones + ' single text-formula cells omitted]');
     }
     // row structure (holes + hardcodes), gated
     if (cells <= BIG_SHEET_CELLS * 6) {
@@ -423,6 +584,7 @@ function describe_() {
         var pp = sigs[i6].split('|');
         var cnt6 = j6 - i6 + 1;
         mixed.push({
+          hard: pp[2] === '1' ? 1 : 0,
           blanks: (pp[0].match(/\.(\d+)/g) || []).reduce(function (a, m2) {
             return a + +m2.slice(1);
           }, 0),
@@ -439,17 +601,17 @@ function describe_() {
       }
       if (mixed.length) {
         mixed.sort(function (a, b) {
-          return b.blanks - a.blanks;
+          return b.hard - a.hard || b.blanks - a.blanks;
         });
         Ls.push(
           '  row structure (F=formula V=value .=blank, width ' +
             colStr_(lastUsed + 1) +
-            '; most-blank first):',
+            '; hardcodes first):',
         );
-        for (var m6 = 0; m6 < Math.min(mixed.length, 12); m6++)
+        for (var m6 = 0; m6 < Math.min(mixed.length, 8); m6++)
           Ls.push(mixed[m6].line);
-        if (mixed.length > 12)
-          Ls.push('    [omitted: ' + (mixed.length - 12) + ' more row groups]');
+        if (mixed.length > 8)
+          Ls.push('    [omitted: ' + (mixed.length - 8) + ' more row groups]');
       }
     }
     var segs = [],
@@ -462,6 +624,16 @@ function describe_() {
       }
     if (segs.length)
       Ls.push('  column composition: ' + segs.slice(0, 12).join(' · '));
+    if (cells <= BIG_SHEET_CELLS * 6) {
+      var hd = headerRowLine_(sn);
+      if (hd) Ls.push(hd);
+      Ls = Ls.concat(blankBlockLines_(sn, comp, lastUsed, name));
+      Ls = Ls.concat(hardcodeCellLines_(sn, comp));
+      Ls = Ls.concat(labelIndexLines_(sn, lastUsed));
+    } else {
+      var hd2 = headerRowLine_(sn);
+      if (hd2) Ls.push(hd2);
+    }
     // colors/DV gated
     if (cells > BIG_SHEET_CELLS)
       Ls.push('  [font colors & data-validation not scanned: sheet >' + BIG_SHEET_CELLS + ' cells — use peek modes]');
@@ -477,6 +649,7 @@ function describe_() {
               hist[col] = (hist[col] || 0) + 1;
             }
         var hk = Object.keys(hist);
+        if (hk.length === 1) Ls.push('  font colors: uniform (' + hk[0] + ')');
         if (hk.length > 1) {
           hk.sort(function (a, b) {
             return hist[b] - hist[a];
@@ -551,47 +724,58 @@ function describe_() {
     } catch (eCF) {
       Ls.push('  conditional-format: UNAVAILABLE (' + eCF + ')');
     }
-    // cross-sheet refs
-    var xs = {};
+    // hot absolute refs (workbook-level tally, emitted after the sheet loop)
     for (var i9 = 0; i9 < R; i9++)
       for (var j10 = 0; j10 < C; j10++) {
         var f9 = sn.f[i9][j10];
-        if (f9) {
-          var mm = f9.match(/'([^']+)'!|([A-Za-z_][A-Za-z0-9_. ]*)!/g);
-          if (mm)
-            for (var q = 0; q < mm.length; q++) {
-              var t9 = mm[q].replace(/^'|'!$|!$/g, '');
-              if (t9 !== name && G.snap[t9]) xs[t9] = (xs[t9] || 0) + 1;
-            }
-        }
+        if (!f9) continue;
+        var mm = f9.replace(/"(?:[^"]|"")*"/g, '').match(/((?:'[^']+'|[A-Za-z_][A-Za-z0-9_. ]*)!)?\$([A-Z]{1,3})\$([0-9]+)(?![A-Za-z0-9_(:])/g);
+        if (mm)
+          for (var q = 0; q < mm.length; q++) {
+            var mq = mm[q].match(/((?:'[^']+'|[A-Za-z_][A-Za-z0-9_. ]*)!)?\$([A-Z]{1,3})\$([0-9]+)/);
+            var tsh = mq[1] ? mq[1].replace(/^'|'?!$/g, '') : name;
+            if (!G.snap[tsh]) continue;
+            var hkey = tsh + '!' + mq[2] + mq[3];
+            hotRefs[hkey] = (hotRefs[hkey] || 0) + 1;
+          }
       }
-    var xk = Object.keys(xs);
-    if (xk.length)
-      Ls.push(
-        '  refs → ' +
-          xk
-            .map(function (k3) {
-              return k3 + ' (' + xs[k3] + ')';
-            })
-            .join(', '),
-      );
     // budget
+    // trim priority: row-structure detail first, then formula groups, then label runs.
+    // Never trim: errors, blank blocks, hardcodes, duplicate labels, sections, hdr,
+    // font/DV/CF lines, distinct-count.
+    function trimClass_(ln) {
+      if (/^    r\d/.test(ln)) return 0;
+      if (/^    [A-Z]/.test(ln) || /^    \[/.test(ln)) return 1;
+      if (/^  · /.test(ln)) return 2;
+      return 9;
+    }
     var bytes = Ls.join('\n').length;
-    while (bytes > 1500 && Ls.length > 3) {
-      var worst = 2,
-        wl = 0;
+    var pass = 0;
+    while (bytes > 1800 && pass < 3) {
+      var worst = -1, wl = 0;
       for (var z = 2; z < Ls.length; z++)
-        if (Ls[z].indexOf('    ') === 0 && Ls[z].length > wl) {
+        if (trimClass_(Ls[z]) === pass && Ls[z].length > wl) {
           wl = Ls[z].length;
           worst = z;
         }
-      if (wl === 0) break;
+      if (worst < 0) { pass++; continue; }
       Ls.splice(worst, 1);
       if (Ls.indexOf('  [trimmed to budget]') < 0)
         Ls.push('  [trimmed to budget]');
       bytes = Ls.join('\n').length;
     }
     L = L.concat(Ls);
+  }
+  var hotK = Object.keys(hotRefs).filter(function (k) { return hotRefs[k] > 50; });
+  if (hotK.length) {
+    hotK.sort(function (a, b) { return hotRefs[b] - hotRefs[a]; });
+    L.push('');
+    hotK.slice(0, 4).forEach(function (k) {
+      var mh = k.match(/^(.*)!([A-Z]+)([0-9]+)$/);
+      var cch = cellNow_(mh[1], +mh[3], colNum_(mh[2]));
+      var lbl = labelOf_(mh[1], +mh[3], colNum_(mh[2]));
+      L.push('HOT REF ' + k + ' = ' + full_(cch.v) + (lbl ? ' ("' + lbl + '")' : '') + ': referenced by ' + hotRefs[k] + ' formulas');
+    });
   }
   return L.join('\n');
 }
@@ -996,18 +1180,22 @@ function tDiff_() {
 }
 
 // ---------- plan ----------
-function inTargets_(sheet, b) {
+function inTargets_(sheet, b, wantKinds) {
   if (!G.plan) return false;
-  var ts = [], first = null;
+  var ts = [], first = null, containers = [];
   for (var i = 0; i < G.plan.targets.length; i++) {
     var t = G.plan.targets[i];
     if (t.sheetName !== sheet) continue;
     var tb = t.bounds;
-    if (b.r1 >= tb.r1 && b.r2 <= tb.r2 && b.c1 >= tb.c1 && b.c2 <= tb.c2)
-      return t;
+    if (b.r1 >= tb.r1 && b.r2 <= tb.r2 && b.c1 >= tb.c1 && b.c2 <= tb.c2) {
+      if (!wantKinds || wantKinds.indexOf(t.kind) >= 0) return t;
+      containers.push(t);
+      continue;
+    }
     ts.push(t);
     if (!first && !(tb.r2 < b.r1 || tb.r1 > b.r2 || tb.c2 < b.c1 || tb.c1 > b.c2)) first = t;
   }
+  if (containers.length) return containers[0]; // contained but kind-mismatched: caller explains
   // no single container: accept if the union of same-sheet targets covers every cell
   if (!first) return false;
   for (var r = b.r1; r <= b.r2; r++)
@@ -1058,14 +1246,16 @@ function tPlan_(a) {
     if (!G.snap[sr.sheet])
       return 'REFUSED: unknown sheet in target: ' + t.range;
     var quote = ((t.intent || '') + ' ' + (t.prompt_quote || '')).toLowerCase();
-    if (
-      t.kind === 'formula' &&
-      /hardcode|hard-code|\btype\b|\bstore\b|\benter\b|\bpaste\b/.test(quote)
-    )
+    if (t.kind === 'formula' && /hardcode|hard-code/.test(quote))
       return (
         'REFUSED: target ' +
         t.range +
-        ' intent mentions typing/hardcoding/storing but kind=formula. Use kind=value for literals.'
+        ' intent mentions hardcoding but kind=formula. Use kind=value for literals.'
+      );
+    if (t.kind === 'formula' && /\btype\b|\bstore\b|\benter\b|\bpaste\b/.test(quote))
+      warn.push(
+        'WARN: target ' + t.range +
+        ' intent mentions typing/storing but kind=formula — if the task wants a literal, use kind=value.',
       );
     t.sheetName = sr.sheet;
     t.bounds = parseA1_(sr.a1);
@@ -1157,7 +1347,8 @@ function tPlan_(a) {
     asserts.length +
     ' assertions.' +
     (hasEq ? '' : ' WEAK — no equals-assertion: values will be unverified.') +
-    reverted
+    reverted +
+    (warn.length ? '\n' + warn.join('\n') : '')
   );
 }
 
@@ -1260,11 +1451,11 @@ function deltaRead_(sheet, b) {
   }
   return { lines: out, errs: errs, sampled: sampled };
 }
-function guardWrite_(sheet, a1) {
+function guardWrite_(sheet, a1, wantKinds) {
   if (!G.plan)
     return 'REFUSED: no plan on file. Call set_new_plan first — writes are checked against your declared targets.';
   var b = parseA1_(a1);
-  var t = inTargets_(sheet, b);
+  var t = inTargets_(sheet, b, wantKinds);
   if (!t)
     return (
       'REFUSED: ' +
@@ -1282,11 +1473,12 @@ function guardWrite_(sheet, a1) {
   return t;
 }
 function tFill_(a) {
-  var t = guardWrite_(a.sheet, a.range);
+  var t = guardWrite_(a.sheet, a.range, ['formula']);
   if (typeof t === 'string') return t;
   if (t.kind !== 'formula')
     return (
-      'REFUSED: target ' +
+      'REFUSED (kind mismatch): covering target is kind=' + t.kind +
+      '. fill writes formulas — declare a kind=formula target for this range; a format target only licenses set_number_format. Target: ' +
       t.range +
       ' is kind=' +
       t.kind +
@@ -1341,7 +1533,7 @@ function tWriteCells_(a) {
   if (!cells.length) return 'REFUSED: empty cells list.';
   if (cells.length > 200) return 'REFUSED: >200 cells; use fill for blocks.';
   for (var i = 0; i < cells.length; i++) {
-    var g = guardWrite_(a.sheet, cells[i].a1);
+    var g = guardWrite_(a.sheet, cells[i].a1, ['formula', 'value', 'clear']);
     if (typeof g === 'string') return g + ' (cell ' + cells[i].a1 + ')';
   }
   var sh = G.ss.getSheetByName(a.sheet);
