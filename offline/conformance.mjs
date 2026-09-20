@@ -118,26 +118,94 @@ const nrs = ss11.getNamedRanges();
 ok(nrs.length >= 1 && typeof nrs[0].getName() === 'string' && typeof nrs[0].getRange().getA1Notation() === 'string', 'named ranges readable', String(nrs.length));
 shim11.close(null);
 
-// ---------- D. describe v2 map gates (end-to-end probe runs) ----------
-console.log('D. map content gates (probe runs)');
-import { execFileSync as _run } from 'node:child_process';
-import { readdirSync, readFileSync as _rf } from 'node:fs';
-function probeMap(task) {
-  _run('node', [path.join(root, 'offline/runner.mjs'), '--task', task, '--probe'], { cwd: root, timeout: 240000 });
-  const dirs = readdirSync(path.join(root, 'offline-runs')).filter(d => d.startsWith('task_' + task + '-')).sort();
-  const t = _rf(path.join(root, 'offline-runs', dirs[dirs.length - 1], 'transcript.md'), 'utf8');
-  const i = t.indexOf('WORKBOOK ');
-  return t.slice(i, i + 30000);
+// ---------- D. map-builder unit tests (synthetic sheets, no task coupling) ----------
+console.log('D. map builder units');
+import { readFileSync as _rf } from 'node:fs';
+const gnames = ['SpreadsheetApp','UrlFetchApp','CacheService','PropertiesService','Utilities','ContentService'];
+const codeSrc = _rf(path.join(root,'Prompts.gs'),'utf8') + '\n' + _rf(path.join(root,'Code.gs'),'utf8') +
+  '\nreturn { T: { labelIndexLines_, blankBlockLines_, headerRowLine_, hardcodeCellLines_, groupSourceSuffix_, setG: function(g){G=g;} } };';
+const T = new Function(...gnames, codeSrc)(...gnames.map(() => ({}))).T;
+
+function makeSn(rows) {
+  // rows: array of arrays; a string starting '=' is a formula, else a value ('' or undefined = blank)
+  const R = rows.length, C = Math.max(...rows.map(r => r.length));
+  const v = [], f = [], r = [];
+  for (let i = 0; i < R; i++) {
+    v.push([]); f.push([]); r.push([]);
+    for (let j = 0; j < C; j++) {
+      const cell = rows[i][j];
+      const isF = typeof cell === 'string' && cell.startsWith('=');
+      f[i][j] = isF ? cell : '';
+      v[i][j] = isF || cell === undefined ? '' : cell;
+      r[i][j] = isF ? toR1C1(cell, i + 1, j + 1) : '';
+    }
+  }
+  return { v, f, r, R, C };
 }
-const m03 = probeMap('03');
-ok(/· [A-Z]+\d+(:\d+ ×\d+)? "/.test(m03), 't03 map: label index runs present');
-ok(/hdr r\d+:/.test(m03), 't03 map: evaluated header row present');
-ok(/blank blocks \(likely output areas\)/.test(m03), 't03 map: blank-block inventory present');
-const m05 = probeMap('05');
-ok(/duplicate labels:/.test(m05), 't05 map: duplicate-label index present');
-ok(/values differ/.test(m05), 't05 map: value-divergence flag present');
-ok(/hardcodes in formula cols:/.test(m05) || /HARDCODE-IN-FORMULA-COLS/.test(m05), 't05 map: hardcode visibility present');
-ok(/sections?:|· [A-Z]+\d/.test(m05), 't05 map: section/label lines present');
+function compOf(sn) {
+  let hdr = -1;
+  for (let i = 0; i < Math.min(10, sn.R); i++) { let n = 0; for (let j = 0; j < Math.min(sn.C, 60); j++) if (sn.v[i][j] !== '') n++; if (n >= 3) { hdr = i; break; } }
+  const comp = [];
+  for (let j = 0; j < sn.C; j++) { let ne = 0, ff = 0; for (let i = 0; i < sn.R; i++) { if (i === hdr) continue; const has = sn.f[i][j] !== '' || sn.v[i][j] !== ''; if (has) { ne++; if (sn.f[i][j]) ff++; } } comp.push(ne === 0 ? 'blank' : ff / ne > 0.6 ? 'formula' : ff / ne < 0.4 ? 'value' : 'mixed'); }
+  return comp;
+}
+const lastUsedOf = comp => { let l = 0; for (let j = 0; j < comp.length; j++) if (comp[j] !== 'blank') l = j; return l; };
+
+// labelIndexLines_: non-consecutive duplicate label with differing sibling value
+{
+  const sn = makeSn([['Cost', 10], ['Rev', 5], ['Cost', 20]]);
+  const out = T.labelIndexLines_(sn, lastUsedOf(compOf(sn))).join('\n');
+  ok(/duplicate labels:/.test(out) && /"Cost" ×2/.test(out) && /values differ/.test(out), 'labelIndex: duplicate + values-differ', out);
+}
+// labelIndexLines_: lone text row → section
+{
+  const sn = makeSn([['Assumptions'], ['Rate', 0.05], ['Term', 5], ['Fee', 3]]);
+  const out = T.labelIndexLines_(sn, lastUsedOf(compOf(sn))).join('\n');
+  ok(/sections:.*Assumptions/.test(out), 'labelIndex: section header', out);
+}
+// labelIndexLines_: high cardinality → distinct-count
+{
+  const rows = []; for (let i = 1; i <= 40; i++) rows.push(['Item ' + i, i]);
+  const sn = makeSn(rows);
+  const out = T.labelIndexLines_(sn, lastUsedOf(compOf(sn))).join('\n');
+  ok(/40 distinct/.test(out), 'labelIndex: high-cardinality distinct-count', out);
+}
+// headerRowLine_: numeric arithmetic series compresses
+{
+  const sn = makeSn([['Year', 2021, 2022, 2023, 2024, 2025]]);
+  const out = T.headerRowLine_(sn) || '';
+  ok(/= 2021\.\.2025/.test(out), 'header: numeric series compressed', out);
+}
+// headerRowLine_: text headers listed with columns
+{
+  const sn = makeSn([['Name', 'Amount', 'Date']]);
+  const out = T.headerRowLine_(sn) || '';
+  ok(/A="Name"/.test(out) && /B="Amount"/.test(out), 'header: text columns', out);
+}
+// hardcodeCellLines_: numeric constant inside a formula column
+{
+  const sn = makeSn([['x', '=A1'], ['y', 42], ['z', '=A3']]);
+  const out = T.hardcodeCellLines_(sn, compOf(sn)).join('\n');
+  ok(/hardcodes in formula cols:.*B2=42/.test(out), 'hardcode: constant in formula col', out);
+}
+// blankBlockLines_: header-only blank column is flagged as output area
+{
+  const rows = [['Cust', 'Year', 'Amount']];
+  for (let i = 1; i <= 10; i++) rows.push(['C' + i, 2020 + i]);   // Amount col blank
+  const sn = makeSn(rows);
+  T.setG({ snap: { TestSheet: sn } });
+  const comp = compOf(sn);
+  const out = T.blankBlockLines_(sn, comp, lastUsedOf(comp), 'TestSheet').join('\n');
+  ok(/blank blocks .*C2:C11.*under "Amount"/.test(out), 'blankBlock: header-only blank column', out);
+  T.setG(null);
+}
+// groupSourceSuffix_: cross-sheet source shown, near ref suppressed
+{
+  const cross = T.groupSourceSuffix_({ rf: "=SUM('Data'!R5C3:R9C3)", c1: 1, c2: 1, i1: 1, i2: 1 }, 'Model');
+  ok(/'Data'!C/.test(cross), 'groupSource: cross-sheet ref shown', cross);
+  const near = T.groupSourceSuffix_({ rf: '=R[-1]C[0]', c1: 3, c2: 3, i1: 5, i2: 5 }, 'Model');
+  ok(near === '', 'groupSource: near ref suppressed', JSON.stringify(near));
+}
 
 rmSync(tmp, { recursive: true, force: true });
 console.log(`\n${pass} passed, ${fail} failed`);
