@@ -24,7 +24,8 @@ function log(m){ appendFileSync(LOG, `[${new Date().toISOString().slice(11,19)}]
 function status(){ writeFileSync(STATUS, JSON.stringify({done:results.length,total:queue.length,active,last:results.slice(-3)},null,1)); }
 function runOne(job, laneQueue) {
   active++; const t0=Date.now();
-  const child = execFile('node',[path.join(root,'offline/runner.mjs'),'--task',job.t,'--tag','s'+job.s,'--deadline',String(DEADLINE)],{cwd:root, timeout:(DEADLINE+240)*1000},(err,stdout,stderr)=>{
+  const hardCap=String(DEADLINE+180);
+  const child = execFile('timeout',['-s','KILL',hardCap,'node',path.join(root,'offline/runner.mjs'),'--task',job.t,'--tag','s'+job.s,'--deadline',String(DEADLINE)],{cwd:root, timeout:(DEADLINE+300)*1000, killSignal:'SIGKILL'},(err,stdout,stderr)=>{
     active--;
     const wall=Math.round((Date.now()-t0)/1000);
     const m = /grade: score ([\d.]+)/.exec(stdout||'');
@@ -35,7 +36,8 @@ function runOne(job, laneQueue) {
     results.push(rec);
     log(`t${job.t} s${job.s} → ${rec.status} score=${rec.score} turns=${rec.turns} wall=${wall}s${wall>300?' OVER-5M':''}`);
     // metadata sidecar
-    if (rec.dir) try { writeFileSync(path.join(rec.dir,'meta.json'), JSON.stringify(rec,null,1)); } catch(e){}
+    if (rec.dir) { try { writeFileSync(path.join(rec.dir,'meta.json'), JSON.stringify(rec,null,1)); } catch(e){}
+      try { execFileSync('sh',['-c',`MOG_SESSION_DIR='${rec.dir}/.mogsess' '${root}/.mog/bin/mog' --close-all --discard 2>/dev/null || true`],{timeout:20000}); } catch(e){} }
     status(); next();
   });
 }

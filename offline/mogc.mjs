@@ -6,7 +6,7 @@ import path from 'node:path';
 const REPO_LOCAL = path.resolve(new URL('..', import.meta.url).pathname, '.mog/bin/mog');
 const CANDIDATES = [process.env.MOG_BIN, REPO_LOCAL, `${homedir()}/code/mog/target-native/release/mog`,
   `${homedir()}/code/mog/target/release/mog`, `${homedir()}/bin/mog-linux`].filter(Boolean);
-const MOGBIN = CANDIDATES.find(existsSync) || CANDIDATES[1];
+export const MOGBIN = CANDIDATES.find(existsSync) || CANDIDATES[1];
 export function openSession(xlsxPath) {
   const id = execFileSync(MOGBIN, ['-s', '-i', xlsxPath], { encoding: 'utf8' }).trim().split('\n').pop().trim();
   return id;

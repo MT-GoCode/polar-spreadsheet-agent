@@ -1,6 +1,6 @@
 /** Apps Script API shim over a mog session. Code.gs runs byte-identical on top of this.
  * Honest gaps (throw → in-band tool ERROR): DV/CF builders, per-cell font colors. */
-import { openSession, exec, execJSON, closeSession } from './mogc.mjs';
+import { openSession, exec, execJSON, closeSession, MOGBIN } from './mogc.mjs';
 import { toR1C1 } from './a1r1c1.mjs';
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
@@ -148,6 +148,6 @@ export function makeShim(xlsxPath) {
       formatDate: (d) => `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}` },
     ContentService: { createTextOutput: (t) => ({ setMimeType: () => t }), MimeType: { JSON: 'json' } },
   };
-  return { globals, close: (outPath) => closeSession(session, outPath), session };
+  return { globals, close: (outPath) => closeSession(session, outPath), session, mogbin: MOGBIN };
 }
 import * as shimConv from './a1r1c1.mjs';

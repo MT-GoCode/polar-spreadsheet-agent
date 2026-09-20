@@ -15,6 +15,8 @@ const work = path.join(dir, 'work.xlsx');
 copyFileSync(path.join(root, 'benchmarks/tasks', tid, 'init.xlsx'), work);
 const prompt = readFileSync(path.join(root, 'benchmarks/tasks', tid, 'prompt.txt'), 'utf8');
 
+process.env.MOG_SESSION_DIR = path.join(dir, '.mogsess');
+mkdirSync(process.env.MOG_SESSION_DIR, { recursive: true, mode: 0o700 });
 const shim = makeShim(work);
 let code = readFileSync(path.join(root, 'Prompts.gs'), 'utf8') + '\n' + readFileSync(path.join(root, 'Code.gs'), 'utf8');
 if (args.deadline) code = code.replace(/const DEADLINE_MS = [^;]+;/, `const DEADLINE_MS = ${Number(args.deadline) * 1000};`);
@@ -31,7 +33,8 @@ const t0 = Date.now();
 let result;
 try { result = api.runAgent({ prompt, spreadsheetId: 'offline' }); }
 catch (e) { result = { status: 'runner_error', error: String(e && e.stack || e) }; }
-shim.close(path.join(dir, 'submission.xlsx'));
+finally { try { shim.close(path.join(dir, 'submission.xlsx')); } catch (e) {}
+  try { execFileSync(shim.mogbin || 'true', ['--close-all', '--discard'], { env: process.env, timeout: 30000 }); } catch (e) {} }
 writeFileSync(path.join(dir, 'response.json'), JSON.stringify({ taskId: tid, backend: 'mog', response: result }, null, 1));
 console.log('status:', result.status, '| turns:', result.turns, '| cost:', result.cost_usd, '| wall:', Math.round((Date.now() - t0) / 1000) + 's');
 try {
