@@ -6,7 +6,7 @@
 const MODEL = 'gpt-5.4';
 const EFFORT = 'medium';
 const MAX_OUT = 16000;
-const DEADLINE_MS = 300 * 1000;
+const DEADLINE_MS = 1200 * 1000; // 20 min (offline/mog). Online Apps Script still hard-kills at 6 min regardless.
 const MODEL_CALL_MIN_LEFT = 75 * 1000;
 const HARD_RETURN_LEFT = 30 * 1000;
 const PRICE = { inp: 2.5, cached: 0.25, out: 15 }; // $/M
