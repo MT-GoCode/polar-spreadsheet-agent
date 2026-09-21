@@ -7,8 +7,9 @@
  * on admission and reaped on exit (freeing its budget) — no persistent worker pool.
  * The RAM cap is honored except a single run larger than the whole budget, which runs
  * alone. */
-import { execFile, execFileSync } from 'node:child_process';
-import { writeFileSync, appendFileSync, readdirSync } from 'node:fs';
+import { spawn, execFileSync } from 'node:child_process';
+import { writeFileSync, appendFileSync, readdirSync, readFileSync, openSync, closeSync, mkdirSync } from 'node:fs';
+import { MOGBIN } from './mogc.mjs';
 import path from 'node:path';
 
 const TIMEOUT_BIN = process.platform === 'darwin' ? '/opt/homebrew/bin/gtimeout' : 'timeout';
@@ -62,27 +63,46 @@ const status = () => writeFileSync(STATUS, JSON.stringify({ done: results.length
 function runOne(job) {
   job.started = true; active++; ramUsed += job.mb;
   const t0 = Date.now();
-  const argv = ['-s', 'KILL', String(DEADLINE + 180), 'node', path.join(root, 'offline/runner.mjs'), '--task', job.t, '--tag', 's' + job.s, '--deadline', String(DEADLINE)];
-  execFile(TIMEOUT_BIN, argv, { cwd: root, timeout: (DEADLINE + 300) * 1000, killSignal: 'SIGKILL', maxBuffer: 16 * 1024 * 1024 }, (err, stdout) => {
+  const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const dir = path.join(root, 'offline-runs', 's' + job.s + '-task_' + job.t + '-' + stamp);
+  mkdirSync(dir, { recursive: true });
+  const outPath = path.join(dir, 'run.out');
+  const out = openSync(outPath, 'w');
+  // Redirect the child's output to a FILE, not a pipe: a SIGKILLed runner can orphan its mog
+  // daemon which would keep a pipe open and hang execFile forever. With a file, 'exit' fires
+  // on runner death regardless of the orphan, and we then reap the run's own mog session.
+  const argv = ['-s', 'KILL', String(DEADLINE + 180), 'node', path.join(root, 'offline/runner.mjs'),
+    '--task', job.t, '--tag', 's' + job.s, '--deadline', String(DEADLINE), '--outdir', dir];
+  const child = spawn(TIMEOUT_BIN, argv, { cwd: root, stdio: ['ignore', out, out] });
+  const killTimer = setTimeout(() => { try { child.kill('SIGKILL'); } catch (e) {} }, (DEADLINE + 300) * 1000);
+  let done = false;
+  function finalize(code, signal, spawnErr) {
+    if (done) return; done = true;
+    clearTimeout(killTimer);
+    try { closeSync(out); } catch (e) {}
     active--; ramUsed -= job.mb;
     const wall = Math.round((Date.now() - t0) / 1000);
-    const g = re => (re.exec(stdout || '') || [])[1];
+    let so = ''; try { so = readFileSync(outPath, 'utf8'); } catch (e) {}
+    const g = re => (re.exec(so) || [])[1];
+    const killed = signal === 'SIGKILL' || code === 137;
     const rec = {
       task: job.t, seed: job.s, mb: job.mb,
       score: g(/grade: score ([\d.]+)/) != null ? +g(/grade: score ([\d.]+)/) : null,
-      status: g(/status: (\w+)/) || (err && err.signal ? 'killed_' + err.signal : err ? 'spawn_error' : '?'),
+      status: g(/status: (\w+)/) || (killed ? 'killed_SIGKILL' : spawnErr ? 'spawn_error' : code ? 'exit_' + code : '?'),
       turns: g(/turns: (\d+)/) != null ? +g(/turns: (\d+)/) : null,
-      wall, dir: (g(/dir: (.*)/) || '').trim() || null,
-      grade_error: g(/grade failed: (.*)/) || null, err: err ? String(err).slice(0, 150) : null,
+      wall, dir,
+      grade_error: g(/grade failed: (.*)/) || null,
+      err: spawnErr ? String(spawnErr).slice(0, 150) : signal ? 'signal ' + signal : null,
     };
     results.push(rec);
-    log(`t${job.t} s${job.s} → ${rec.status} score=${rec.score} turns=${rec.turns} wall=${wall}s`);
-    if (rec.dir) {
-      try { writeFileSync(path.join(rec.dir, 'meta.json'), JSON.stringify(rec, null, 1)); } catch (e) {}
-      try { execFileSync('sh', ['-c', `MOG_SESSION_DIR='${rec.dir}/.mogsess' '${root}/.mog/bin/mog' --close-all --discard 2>/dev/null || true`], { timeout: 20000 }); } catch (e) {}
-    }
+    log(`t${job.t} s${job.s} \u2192 ${rec.status} score=${rec.score} turns=${rec.turns} wall=${wall}s`);
+    try { writeFileSync(path.join(dir, 'meta.json'), JSON.stringify(rec, null, 1)); } catch (e) {}
+    // reap THIS run's mog session (orphaned on SIGKILL) via the real mog binary, scoped to its dir
+    try { execFileSync(MOGBIN, ['--close-all', '--discard'], { env: Object.assign({}, process.env, { MOG_SESSION_DIR: path.join(dir, '.mogsess') }), timeout: 20000 }); } catch (e) {}
     status(); pump();
-  });
+  }
+  child.on('exit', (code, signal) => finalize(code, signal, null));
+  child.on('error', (e) => finalize(null, null, e));
 }
 function pump() {
   for (const job of runs) {
