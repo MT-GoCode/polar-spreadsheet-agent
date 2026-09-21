@@ -123,7 +123,7 @@ console.log('D. map builder units');
 import { readFileSync as _rf } from 'node:fs';
 const gnames = ['SpreadsheetApp','UrlFetchApp','CacheService','PropertiesService','Utilities','ContentService'];
 const codeSrc = _rf(path.join(root,'Prompts.gs'),'utf8') + '\n' + _rf(path.join(root,'Code.gs'),'utf8') +
-  '\nreturn { T: { labelIndexLines_, blankBlockLines_, headerRowLine_, hardcodeCellLines_, groupSourceSuffix_, setG: function(g){G=g;} } };';
+  '\nreturn { T: { labelIndexLines_, blankBlockLines_, headerLines_, hardcodeCellLines_, groupSourceSuffix_, setG: function(g){G=g;} } };';
 const T = new Function(...gnames, codeSrc)(...gnames.map(() => ({}))).T;
 
 function makeSn(rows) {
@@ -173,20 +173,41 @@ const lastUsedOf = comp => { let l = 0; for (let j = 0; j < comp.length; j++) if
 // headerRowLine_: numeric arithmetic series compresses
 {
   const sn = makeSn([['Year', 2021, 2022, 2023, 2024, 2025]]);
-  const out = T.headerRowLine_(sn) || '';
+  const out = T.headerLines_(sn).join('\n');
   ok(/= 2021\.\.2025/.test(out), 'header: numeric series compressed', out);
 }
 // headerRowLine_: text headers listed with columns
 {
   const sn = makeSn([['Name', 'Amount', 'Date']]);
-  const out = T.headerRowLine_(sn) || '';
+  const out = T.headerLines_(sn).join('\n');
   ok(/A="Name"/.test(out) && /B="Amount"/.test(out), 'header: text columns', out);
+}
+// headerLines_: arithmetic series living in a FORMULA row is caught, alongside text header (gap 2)
+{
+  const sn = makeSn([
+    ['Month', 'Jan', 'Feb', 'Mar', 'Apr'],
+    ['Period', '=B1', '=B2+1', '=C2+1', '=D2+1'],  // computed 1..? — need values
+  ]);
+  // formula row values are computed by mog at runtime; here simulate computed series in v
+  sn.v[1] = ['Period', 1, 2, 3, 4]; sn.C = 5;
+  const out = T.headerLines_(sn).join('\n');
+  ok(/hdr r2:.*= 1\.\.4/.test(out), 'header: series in formula row detected (gap 2)', out);
 }
 // hardcodeCellLines_: numeric constant inside a formula column
 {
   const sn = makeSn([['x', '=A1'], ['y', 42], ['z', '=A3']]);
   const out = T.hardcodeCellLines_(sn, compOf(sn)).join('\n');
-  ok(/hardcodes in formula cols:.*B2=42/.test(out), 'hardcode: constant in formula col', out);
+  ok(/constants in formula regions:.*B2=42/.test(out), 'hardcode: constant in formula col', out);
+}
+// hardcodeCellLines_: constant embedded in a formula-DOMINANT row (gap 1)
+{
+  // row 2: 4 formulas + one numeric constant in col C (an all-'value' column by composition)
+  const sn = makeSn([
+    ['Scenario', 'A', 'B', 'C', 'D', 'E'],
+    ['S1', '=A2', 42, '=C2', '=D2', '=E2'],
+  ]);
+  const out = T.hardcodeCellLines_(sn, compOf(sn)).join('\n');
+  ok(/constants in formula regions:.*C2=42/.test(out), 'hardcode: constant in formula-dominant row (gap 1)', out);
 }
 // blankBlockLines_: header-only blank column is flagged as output area
 {

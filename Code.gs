@@ -356,42 +356,90 @@ function blankBlockLines_(sn, comp, lastUsed, name) {
   });
   return ['  blank blocks (likely output areas): ' + parts.join(' · ')];
 }
-function headerRowLine_(sn) {
+function seriesInRow_(vals, C) {
+  // longest arithmetic numeric run in a row (values grid holds computed formula values too)
+  var best = null;
+  for (var s = 0; s < C; s++) {
+    if (typeof vals[s] !== 'number') continue;
+    var last = s, d = null, cnt = 1;
+    for (var j = s + 1; j < C && typeof vals[j] === 'number'; j++) {
+      var dd = vals[j] - vals[j - 1];
+      if (d === null) d = dd;
+      else if (Math.abs(dd - d) > 1e-9) break;
+      last = j; cnt++;
+    }
+    if (cnt >= 4 && (!best || cnt > best.cnt)) best = { first: s, last: last, d: d, cnt: cnt };
+    s = last;
+  }
+  return best;
+}
+function headerLines_(sn) {
+  var out = [];
+  // (a) first label/header row: >=3 nonblanks
+  var textRow = -1;
   for (var i = 0; i < Math.min(10, sn.R); i++) {
     var n = 0;
     for (var j = 0; j <= Math.min(sn.C - 1, 60); j++) if (sn.v[i][j] !== '') n++;
-    if (n < 3) continue;
-    // arithmetic numeric series compress
-    var vals = sn.v[i], first = -1;
-    for (var j2 = 0; j2 < sn.C; j2++) if (typeof vals[j2] === 'number') { first = j2; break; }
-    if (first >= 0) {
-      var last = first, d = null, okSeries = true, cnt = 1;
-      for (var j3 = first + 1; j3 < sn.C && typeof vals[j3] === 'number'; j3++) {
-        var dd = vals[j3] - vals[j3 - 1];
-        if (d === null) d = dd;
-        else if (Math.abs(dd - d) > 1e-9) { okSeries = false; break; }
-        last = j3; cnt++;
-      }
-      if (okSeries && cnt >= 4)
-        return '  hdr r' + (i + 1) + ': ' + colStr_(first + 1) + ':' + colStr_(last + 1) + ' = ' + full_(vals[first]) + '..' + full_(vals[last]) + (d !== 1 ? ' step ' + full_(d) : '');
-    }
-    var cells = [];
-    for (var j4 = 0; j4 < sn.C && cells.length < 15; j4++)
-      if (vals[j4] !== '') cells.push(colStr_(j4 + 1) + '="' + short_(vals[j4], 24) + '"');
-    return '  hdr r' + (i + 1) + ': ' + cells.join(' ') + (n > 15 ? ' +' + (n - 15) + ' more' : '');
+    if (n >= 3) { textRow = i; break; }
   }
-  return null;
+  // (b) best arithmetic series row (period axis) anywhere in the first 12 rows —
+  //     reads sn.v so a formula-valued axis (=R[0]C[-1]+1) is caught too
+  var seriesRow = -1, seriesBest = null;
+  for (var i2 = 0; i2 < Math.min(12, sn.R); i2++) {
+    var sb = seriesInRow_(sn.v[i2], sn.C);
+    if (sb && (!seriesBest || sb.cnt > seriesBest.cnt)) { seriesBest = sb; seriesRow = i2; }
+  }
+  function seriesLine(r, sb) {
+    return '  hdr r' + (r + 1) + ': ' + colStr_(sb.first + 1) + ':' + colStr_(sb.last + 1) +
+      ' = ' + full_(sn.v[r][sb.first]) + '..' + full_(sn.v[r][sb.last]) + (sb.d !== 1 ? ' step ' + full_(sb.d) : '');
+  }
+  if (textRow >= 0 && textRow !== seriesRow) {
+    var vals = sn.v[textRow], nn = 0, cells = [];
+    for (var j4 = 0; j4 < sn.C; j4++) if (vals[j4] !== '') nn++;
+    for (var j5 = 0; j5 < sn.C && cells.length < 15; j5++)
+      if (vals[j5] !== '') cells.push(colStr_(j5 + 1) + '="' + short_(vals[j5], 24) + '"');
+    out.push('  hdr r' + (textRow + 1) + ': ' + cells.join(' ') + (nn > 15 ? ' +' + (nn - 15) + ' more' : ''));
+  }
+  if (seriesRow >= 0) out.push(seriesLine(seriesRow, seriesBest));
+  else if (textRow >= 0 && out.length === 0) {
+    var vals2 = sn.v[textRow], nn2 = 0, cells2 = [];
+    for (var j6 = 0; j6 < sn.C; j6++) if (vals2[j6] !== '') nn2++;
+    for (var j7 = 0; j7 < sn.C && cells2.length < 15; j7++)
+      if (vals2[j7] !== '') cells2.push(colStr_(j7 + 1) + '="' + short_(vals2[j7], 24) + '"');
+    out.push('  hdr r' + (textRow + 1) + ': ' + cells2.join(' ') + (nn2 > 15 ? ' +' + (nn2 - 15) + ' more' : ''));
+  }
+  return out;
 }
 function hardcodeCellLines_(sn, comp) {
-  var hits = [];
-  for (var j = 0; j < sn.C && hits.length <= 8; j++) {
+  var seen = {}, hits = [];
+  function add(i, j) {
+    var a1 = colStr_(j + 1) + (i + 1);
+    if (seen[a1]) return;
+    seen[a1] = 1;
+    hits.push(a1 + '=' + full_(sn.v[i][j]));
+  }
+  // column-wise: constant sitting in a formula-dominant column
+  for (var j = 0; j < sn.C; j++) {
     if (comp[j] !== 'formula') continue;
-    for (var i = 0; i < sn.R && hits.length <= 8; i++)
-      if (!sn.f[i][j] && typeof sn.v[i][j] === 'number')
-        hits.push(colStr_(j + 1) + (i + 1) + '=' + full_(sn.v[i][j]));
+    for (var i = 0; i < sn.R; i++)
+      if (!sn.f[i][j] && typeof sn.v[i][j] === 'number') add(i, j);
+  }
+  // row-wise: constant sitting in a formula-dominant row (catches all-constant metric
+  // columns that read as 'value' but sit among formula siblings — general anomaly).
+  for (var i2 = 0; i2 < sn.R; i2++) {
+    var ff = 0, used = 0, consts = [];
+    for (var j2 = 0; j2 < sn.C; j2++) {
+      var has = sn.f[i2][j2] !== '' || sn.v[i2][j2] !== '';
+      if (!has) continue;
+      used++;
+      if (sn.f[i2][j2]) ff++;
+      else if (typeof sn.v[i2][j2] === 'number') consts.push(j2);
+    }
+    if (ff >= 3 && ff / used >= 0.6)
+      for (var k = 0; k < consts.length; k++) add(i2, consts[k]);
   }
   if (!hits.length) return [];
-  return ['  hardcodes in formula cols: ' + hits.slice(0, 8).join(', ') + (hits.length > 8 ? ' +more' : '')];
+  return ['  constants in formula regions: ' + hits.slice(0, 8).join(', ') + (hits.length > 8 ? ' +' + (hits.length - 8) + ' more' : '')];
 }
 function groupSourceSuffix_(rc, sheetName) {
   // dominant far/cross-sheet source bbox for a formula rect-group
@@ -640,14 +688,12 @@ function describe_() {
     if (segs.length)
       Ls.push('  column composition: ' + segs.slice(0, 12).join(' · '));
     if (cells <= BIG_SHEET_CELLS * 6) {
-      var hd = headerRowLine_(sn);
-      if (hd) Ls.push(hd);
+      Ls = Ls.concat(headerLines_(sn));
       Ls = Ls.concat(blankBlockLines_(sn, comp, lastUsed, name));
       Ls = Ls.concat(hardcodeCellLines_(sn, comp));
       Ls = Ls.concat(labelIndexLines_(sn, lastUsed));
     } else {
-      var hd2 = headerRowLine_(sn);
-      if (hd2) Ls.push(hd2);
+      Ls = Ls.concat(headerLines_(sn));
     }
     // colors/DV gated
     if (cells > BIG_SHEET_CELLS)
