@@ -1340,23 +1340,30 @@ function coverageFrac_(targets, asserts) {
   return Math.min(1, covered / tot);
 }
 function adversaryReview_(clean, asserts, coverage) {
-  var toolResults = [];
-  for (var i = G.trace.length - 1; i >= 0 && toolResults.length < 40; i--) {
+  // Full union of the model's exploration READ calls (describe = G.map; peek/find/trace/diff),
+  // compiled from the trace where each call's result was saved at call time. No caps.
+  var reads = [];
+  for (var i = 0; i < G.trace.length; i++) {
     var e = G.trace[i];
-    if (e.t === 'call' && e.out) toolResults.unshift(e.tool + ': ' + String(e.out).slice(0, 600));
+    if (e.t === 'call' && ['peek', 'find', 'trace', 'diff'].indexOf(e.tool) >= 0)
+      reads.push(e.tool + '(' + (e.args || '') + ') \u2192\n' + String(e.out || ''));
   }
-  var planStr = clean.map(function (t) { return t.range + ' [' + t.kind + '] ' + (t.intent || ''); }).join('\n');
-  var assertStr = asserts.map(function (a) { return a.check + ' ' + a.range + (a.value !== undefined ? ' == ' + a.value : ''); }).join('\n') || '(none)';
-  var sys = 'You are an adversarial plan reviewer for a spreadsheet agent. You see the TASK, the WORKBOOK MAP, the exploration results, and the PLAN (targets + assertions) BEFORE any cells are written. Be terse and concrete. Check in priority order: '
-    + '1) IMPLICIT ASSUMPTIONS / INSUFFICIENT EXPLORATION: does the plan assume a source cell, a column meaning, a sign, a unit, or a duplicate-label choice that was never verified by a peek or trace? Name each unverified assumption. '
+  var planStr = clean.map(function (t) { return t.range + ' [' + t.kind + '] ' + (t.intent || '') + (t.prompt_quote ? '  quote:"' + t.prompt_quote + '"' : ''); }).join('\n');
+  var assertStr = asserts.map(function (a) { return a.check + ' ' + a.range + (a.value !== undefined ? ' == ' + a.value : '') + (a.reason ? '  (' + a.reason + ')' : ''); }).join('\n') || '(none)';
+  var sys = 'You are an adversarial plan reviewer for a spreadsheet agent. You receive the TASK, the WORKBOOK MAP (describe), the FULL set of exploration read-calls and their results, and the PLAN (targets + assertions) BEFORE any cells are written. Be terse and concrete. Check, in priority order: '
+    + '1) IMPLICIT ASSUMPTIONS / INSUFFICIENT EXPLORATION: does the plan assume a source cell, a column meaning, a sign, a unit, a period-1 column, or a duplicate-label choice that was never verified by a peek or trace? Name each unverified assumption and what to check. '
     + '2) CLAUSE COVERAGE: is every instruction and constraint in the task addressed by a target or intent? Name any missed clause. '
-    + '3) CIRCULAR OR SELF-SERVING CHECKS: are the assertions independent, or do they merely restate the intended output? Assertion coverage is ' + Math.round(coverage * 100) + ' percent of output cells; if low, most of the output is unverified. '
-    + '4) PLAN COMPLETENESS: do the targets cover the whole required output region with no gaps? '
-    + 'Return concerns as a short bullet list, or exactly NO CONCERNS if the plan is sound. Do not restate the plan.';
-  var user = 'TASK:\n' + (G.prompt || '') + '\n\nWORKBOOK MAP:\n' + String(G.map || '').slice(0, 8000)
-    + '\n\nEXPLORATION (recent tool results):\n' + toolResults.join('\n').slice(0, 6000)
-    + '\n\nPLAN TARGETS:\n' + planStr + '\n\nASSERTIONS:\n' + assertStr;
-  var res = openai_({ model: MODEL, reasoning: { effort: EFFORT }, instructions: sys, input: [{ role: 'user', content: user }], max_output_tokens: 1500, store: false });
+    + '3) CIRCULAR OR SELF-SERVING CHECKS: are the assertions independent, or do they merely restate the intended output? Assertion coverage is ' + Math.round(coverage * 100) + ' percent of output cells; if low, most of the output is unverified — say so. '
+    + '4) SIGN / UNIT / CONVENTION: will the planned outputs match the sign and unit conventions of parallel existing cells and the task wording? '
+    + '5) PLAN COMPLETENESS: do the targets cover the whole required output region with no gaps? '
+    + 'Return concerns as a short bullet list (each: the problem + the specific check to run), or exactly NO CONCERNS if the plan is sound. Do not restate the plan.';
+  var user = '=== TASK ===\n' + (G.prompt || '')
+    + '\n\n=== WORKBOOK MAP (describe) ===\n' + (G.map || '')
+    + '\n\n=== EXPLORATION (every read call and its result) ===\n' + (reads.length ? reads.join('\n\n') : '(no exploration done)')
+    + '\n\n=== PLAN TARGETS ===\n' + planStr
+    + '\n\n=== PLAN ASSERTIONS ===\n' + assertStr
+    + '\n\nReview the plan against the checklist and list concerns, or reply NO CONCERNS.';
+  var res = openai_({ model: MODEL, reasoning: { effort: EFFORT }, instructions: sys, input: [{ role: 'user', content: user }], store: false });
   var out = '';
   (res.output || []).forEach(function (o) { (o.content || []).forEach(function (cc) { if (cc.text) out += cc.text; }); });
   return out.trim();
@@ -1513,17 +1520,13 @@ function tPlan_(a) {
   if (G.attempt === 1) {
     var cov = coverageFrac_(clean, asserts);
     ev_('coverage', { frac: cov });
-    if (DEADLINE_MS - (Date.now() - G.t0) >= MODEL_CALL_MIN_LEFT) {
-      try {
-        var concerns = adversaryReview_(clean, asserts, cov);
-        ev_('adversary', { concerns: concerns });
-        if (concerns && !/^NO CONCERNS/i.test(concerns))
-          advNote = '\n\nPLAN REVIEW (independent reviewer; address before writing):\n' + concerns;
-      } catch (e) {
-        ev_('adversary_error', { err: String(e).slice(0, 200) });
-      }
-    } else {
-      ev_('adversary_skipped', { reason: 'deadline' });
+    try {
+      var concerns = adversaryReview_(clean, asserts, cov);
+      ev_('adversary', { concerns: concerns });
+      if (concerns && !/^NO CONCERNS/i.test(concerns))
+        advNote = '\n\nPLAN REVIEW (independent reviewer; address before writing):\n' + concerns;
+    } catch (e) {
+      ev_('adversary_error', { err: String(e).slice(0, 200) });
     }
   }
   return (
