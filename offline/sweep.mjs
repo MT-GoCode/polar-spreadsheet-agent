@@ -1,7 +1,7 @@
 /** Sweep with smart RAM allocation.
- *   node offline/sweep.mjs --ram 24 [--seeds 3] [--deadline 1200] [--exclude 14] [--tasks 03,04]
+ *   node offline/sweep.mjs --ram-cap 24 [--seeds 3] [--deadline 1200] [--exclude 14] [--tasks 03,04]
  *
- * --ram GB is the only capacity knob. Every (task,seed) run is admitted when its
+ * --ram-cap GB is the only capacity knob. Every (task,seed) run is admitted when its
  * estimated footprint fits the remaining budget; biggest workbooks go first so slow
  * ones start early and smaller ones backfill the gaps. One OS process per run, spawned
  * on admission and reaped on exit (freeing its budget) — no persistent worker pool.
@@ -14,9 +14,9 @@ import path from 'node:path';
 const TIMEOUT_BIN = process.platform === 'darwin' ? '/opt/homebrew/bin/gtimeout' : 'timeout';
 const root = path.resolve(new URL('..', import.meta.url).pathname);
 const args = Object.fromEntries(process.argv.slice(2).map((a, i, arr) => a.startsWith('--') ? [a.slice(2), arr[i + 1] && !arr[i + 1].startsWith('--') ? arr[i + 1] : true] : []).filter(x => x.length));
-if (!args.ram) { console.error('usage: sweep.mjs --ram <GB> [--seeds N] [--deadline S] [--exclude t,t] [--tasks t,t]'); process.exit(2); }
+if (!args["ram-cap"]) { console.error('usage: sweep.mjs --ram-cap <GB> [--seeds N] [--deadline S] [--exclude t,t] [--tasks t,t]'); process.exit(2); }
 
-const BUDGET_MB = +args.ram * 1024;
+const BUDGET_MB = +args["ram-cap"] * 1024;
 const SEEDS = +(args.seeds || 3), DEADLINE = +(args.deadline || 1200);
 const EXCLUDE = args.exclude ? String(args.exclude).split(',') : [];
 const ONLY = args.tasks ? String(args.tasks).split(',') : null;
