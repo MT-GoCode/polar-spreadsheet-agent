@@ -1298,7 +1298,8 @@ function refSets_() {
           var ep = rest.split(':');
           function pc(x) { var g = x.match(/([A-Z]{1,3})?([0-9]+)?/); return { c: g[1] ? colNum_(g[1]) : null, r: g[2] ? +g[2] : null }; }
           var a = pc(ep[0]), b = pc(ep[1] || '');
-          ranges.push({ sheet: tgt, c1: a.c || 1, c2: b.c || a.c || 16384, r1: a.r || 1, r2: b.r || a.r || 1048576 });
+          if (ranges.length < 5000)
+            ranges.push({ sheet: tgt, c1: a.c || 1, c2: b.c || a.c || 16384, r1: a.r || 1, r2: b.r || a.r || 1048576 });
           return full.replace(/./g, ' ');
         });
         var m;
@@ -1512,13 +1513,17 @@ function tPlan_(a) {
   if (G.attempt === 1) {
     var cov = coverageFrac_(clean, asserts);
     ev_('coverage', { frac: cov });
-    try {
-      var concerns = adversaryReview_(clean, asserts, cov);
-      ev_('adversary', { concerns: concerns });
-      if (concerns && !/^NO CONCERNS/i.test(concerns))
-        advNote = '\n\nPLAN REVIEW (independent reviewer; address before writing):\n' + concerns;
-    } catch (e) {
-      ev_('adversary_error', { err: String(e).slice(0, 200) });
+    if (DEADLINE_MS - (Date.now() - G.t0) >= MODEL_CALL_MIN_LEFT) {
+      try {
+        var concerns = adversaryReview_(clean, asserts, cov);
+        ev_('adversary', { concerns: concerns });
+        if (concerns && !/^NO CONCERNS/i.test(concerns))
+          advNote = '\n\nPLAN REVIEW (independent reviewer; address before writing):\n' + concerns;
+      } catch (e) {
+        ev_('adversary_error', { err: String(e).slice(0, 200) });
+      }
+    } else {
+      ev_('adversary_skipped', { reason: 'deadline' });
     }
   }
   return (
@@ -2250,15 +2255,23 @@ function verify_() {
         }
         if (as.check === 'equals_old') {
           var sne = G.snap[as.sheetName];
-          var ov7 = (sne && (b2.r1 + i2) <= sne.R && (b2.c1 + j2) <= sne.C)
-            ? sne.v[b2.r1 + i2 - 1][b2.c1 + j2 - 1] : '';
-          var tolo = as.tol || 1e-6;
-          var v2o = typeof v2 === 'number' ? v2
-            : (typeof v2 === 'string' && v2 !== '' && isFinite(Number(v2)) ? Number(v2) : null);
-          var ovo = typeof ov7 === 'number' ? ov7
-            : (typeof ov7 === 'string' && ov7 !== '' && isFinite(Number(ov7)) ? Number(ov7) : null);
-          if (ovo === null || v2o === null || Math.abs(v2o - ovo) > Math.max(tolo, Math.abs(ovo) * 1e-6))
-            bad.push(a12 + '=' + short_(v2, 12) + ' (old ' + short_(ov7, 12) + ')');
+          var inR = sne && (b2.r1 + i2) <= sne.R && (b2.c1 + j2) <= sne.C;
+          if (!inR) {
+            bad.push(a12 + ' (no run-start value — cell was blank/outside; equals_old needs a pre-existing value)');
+          } else {
+            var ov7 = sne.v[b2.r1 + i2 - 1][b2.c1 + j2 - 1];
+            var tolo = as.tol || 1e-6;
+            var v2o = typeof v2 === 'number' ? v2
+              : (typeof v2 === 'string' && v2 !== '' && isFinite(Number(v2)) ? Number(v2) : null);
+            var ovo = typeof ov7 === 'number' ? ov7
+              : (typeof ov7 === 'string' && ov7 !== '' && isFinite(Number(ov7)) ? Number(ov7) : null);
+            if (ovo !== null && v2o !== null) {
+              if (Math.abs(v2o - ovo) > Math.max(tolo, Math.abs(ovo) * 1e-6))
+                bad.push(a12 + '=' + short_(v2, 12) + ' (old ' + short_(ov7, 12) + ')');
+            } else if (String(v2) !== String(ov7)) {
+              bad.push(a12 + '=' + short_(v2, 12) + ' (old ' + short_(ov7, 12) + ')');
+            }
+          }
         }
         if (as.check === 'nonblank' && v2 === '') bad.push(a12);
         if (as.check === 'blank' && v2 !== '') bad.push(a12);

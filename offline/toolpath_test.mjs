@@ -39,12 +39,13 @@ let G = freshG();
 const sheet = G.ss.getSheets()[0].getName();
 const sn = G.snap[sheet];
 const A1 = (i, j) => String.fromCharCode(65 + j) + (i + 1);
-let nb = null, bl = null, numc = null, numOld = null;
+let nb = null, bl = null, numc = null, numOld = null, txtc = null, txtOld = null;
 for (let i = 0; i < sn.R; i++) for (let j = 0; j < sn.C; j++) {
   const has = sn.f[i][j] !== '' || (sn.v[i][j] !== '' && sn.v[i][j] != null);
   if (has && !nb) nb = A1(i, j);
   if (!has && !bl) bl = A1(i, j);
   if (typeof sn.v[i][j] === 'number' && sn.f[i][j] === '' && !numc) { numc = A1(i, j); numOld = sn.v[i][j]; }
+  if (typeof sn.v[i][j] === 'string' && sn.v[i][j].trim() && sn.f[i][j] === '' && !txtc && A1(i, j) !== nb) { txtc = A1(i, j); txtOld = sn.v[i][j]; }
 }
 console.log('sheet', sheet, '| nonblank', nb, '| blank', bl, '| numeric', numc, '=', numOld);
 
@@ -70,6 +71,14 @@ if (numc) {
   T.tFill_({ sheet, range: numc, formula_r1c1: '=' + (numOld + 12345), force: true });
   ok(/V7 ASSERT FAIL equals_old/.test(T.verify_().text), 'H7: equals_old fails when value differs');
 } else console.log('  (no numeric cell for H7 — skipped)');
+
+// H7: equals_old on a TEXT run-start value (regression guard for the string branch)
+if (txtc) {
+  freshG();
+  T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + txtc, kind: 'formula', intent: 't' }]), assertions_json: JSON.stringify([{ range: sheet + '!' + txtc, check: 'equals_old' }]), rationale: 't' });
+  T.tFill_({ sheet, range: txtc, formula_r1c1: '="' + String(txtOld).replace(/"/g, '""') + '"', force: true });
+  ok(/V7 assert ok: equals_old/.test(T.verify_().text), 'H7: equals_old passes on reproduced TEXT value (not just numeric)');
+} else console.log('  (no text cell for text equals_old — skipped)');
 
 shim.close(null);
 console.log(`\n${pass} passed, ${fail} failed`);
