@@ -189,6 +189,12 @@ function cellNow_(sheet, r, c) {
     v: sn.v[r - 1][c - 1],
   };
 }
+function snapBlank_(sheet, r, c) {
+  var sn = G.snap[sheet];
+  if (!sn || r > sn.R || c > sn.C) return true; // outside run-start used range = blank
+  var f = sn.f[r - 1][c - 1], v = sn.v[r - 1][c - 1];
+  return f === '' && (v === '' || v === null);
+}
 function labelOf_(sheet, r, cMax) {
   var sn = G.snap[sheet];
   if (!sn) return '';
@@ -260,7 +266,7 @@ function rectGroups_(r1c1grid, R, C) {
 
 
 // ---------- describe v2 helpers (pure snapshot computation) ----------
-function labelIndexLines_(sn, lastUsed) {
+function labelIndexLines_(sn, lastUsed, rs, sheetName) {
   // leftmost text-dominant column = the label column
   var best = -1, bestN = 0;
   for (var j = 0; j < Math.min(4, sn.C); j++) {
@@ -301,7 +307,10 @@ function labelIndexLines_(sn, lastUsed) {
         if (typeof v0 === 'number' && typeof v1 === 'number' && Math.abs(v0 - v1) > 1e-9) differ = true;
       }
       dups.push('"' + short_(lbl, 30) + '" ×' + occ.length + ': ' +
-        occ.slice(0, 4).map(function (o) { return 'r' + o.r1; }).join(',') +
+        occ.slice(0, 4).map(function (o) {
+          var st = rs ? '[' + cellRefStatus_(rs, sheetName, o.r1, best + 2, lastUsed + 1) + ']' : '';
+          return 'r' + o.r1 + st;
+        }).join(',') +
         (differ ? ' (values differ)' : ''));
       dupN++;
     }
@@ -691,7 +700,7 @@ function describe_() {
       Ls = Ls.concat(headerLines_(sn));
       Ls = Ls.concat(blankBlockLines_(sn, comp, lastUsed, name));
       Ls = Ls.concat(hardcodeCellLines_(sn, comp));
-      Ls = Ls.concat(labelIndexLines_(sn, lastUsed));
+      Ls = Ls.concat(labelIndexLines_(sn, lastUsed, refSets_(), name));
     } else {
       Ls = Ls.concat(headerLines_(sn));
     }
@@ -1270,6 +1279,87 @@ function inTargets_(sheet, b, wantKinds) {
     }
   return first;
 }
+// ---------- reference graph + plan-review helpers ----------
+function refSets_() {
+  if (G.refSets) return G.refSets;
+  var direct = {}, ranges = [];
+  var rangeRe = /((?:'[^']+'|[A-Za-z_][A-Za-z0-9_. ]*)!)?\$?[A-Z]{1,3}\$?[0-9]*:\$?[A-Z]{1,3}\$?[0-9]*/g;
+  var cellRe = /((?:'[^']+'|[A-Za-z_][A-Za-z0-9_. ]*)!)?\$?([A-Z]{1,3})\$?([0-9]+)/g;
+  for (var sheet in G.snap) {
+    var sn = G.snap[sheet];
+    for (var i = 0; i < sn.R; i++)
+      for (var j = 0; j < sn.C; j++) {
+        var f = sn.f[i][j];
+        if (!f || f.charAt(0) !== '=') continue;
+        var body = f.replace(/"(?:[^"]|"")*"/g, '');
+        var masked = body.replace(rangeRe, function (full, sh) {
+          var tgt = sh ? sh.replace(/^'|'?!$/g, '') : sheet;
+          var rest = full.replace(/^(?:'[^']+'|[A-Za-z_][A-Za-z0-9_. ]*)!/, '');
+          var ep = rest.split(':');
+          function pc(x) { var g = x.match(/([A-Z]{1,3})?([0-9]+)?/); return { c: g[1] ? colNum_(g[1]) : null, r: g[2] ? +g[2] : null }; }
+          var a = pc(ep[0]), b = pc(ep[1] || '');
+          ranges.push({ sheet: tgt, c1: a.c || 1, c2: b.c || a.c || 16384, r1: a.r || 1, r2: b.r || a.r || 1048576 });
+          return full.replace(/./g, ' ');
+        });
+        var m;
+        cellRe.lastIndex = 0;
+        while ((m = cellRe.exec(masked))) {
+          var tgt2 = m[1] ? m[1].replace(/^'|'?!$/g, '') : sheet;
+          direct[tgt2 + '!' + colNum_(m[2]) + ':' + +m[3]] = 1;
+        }
+      }
+  }
+  G.refSets = { direct: direct, ranges: ranges };
+  return G.refSets;
+}
+function cellRefStatus_(rs, sheet, row, c1, c2) {
+  for (var c = c1; c <= c2; c++)
+    if (rs.direct[sheet + '!' + c + ':' + row]) return 'live';
+  for (var k = 0; k < rs.ranges.length; k++) {
+    var rg = rs.ranges[k];
+    if (rg.sheet === sheet && row >= rg.r1 && row <= rg.r2 && !(c2 < rg.c1 || c1 > rg.c2)) return 'ambiguous';
+  }
+  return 'stale';
+}
+function coverageFrac_(targets, asserts) {
+  function area(b) { return (b.r2 - b.r1 + 1) * (b.c2 - b.c1 + 1); }
+  var tot = 0;
+  targets.forEach(function (t) { if (t.kind === 'formula' || t.kind === 'value') tot += area(t.bounds); });
+  if (!tot) return 1;
+  var covered = 0;
+  targets.forEach(function (t) {
+    if (t.kind !== 'formula' && t.kind !== 'value') return;
+    asserts.forEach(function (as) {
+      if ((as.check !== 'equals' && as.check !== 'equals_old') || as.sheetName !== t.sheetName) return;
+      var r1 = Math.max(t.bounds.r1, as.bounds.r1), r2 = Math.min(t.bounds.r2, as.bounds.r2);
+      var c1 = Math.max(t.bounds.c1, as.bounds.c1), c2 = Math.min(t.bounds.c2, as.bounds.c2);
+      if (r1 <= r2 && c1 <= c2) covered += (r2 - r1 + 1) * (c2 - c1 + 1);
+    });
+  });
+  return Math.min(1, covered / tot);
+}
+function adversaryReview_(clean, asserts, coverage) {
+  var toolResults = [];
+  for (var i = G.trace.length - 1; i >= 0 && toolResults.length < 40; i--) {
+    var e = G.trace[i];
+    if (e.t === 'call' && e.out) toolResults.unshift(e.tool + ': ' + String(e.out).slice(0, 600));
+  }
+  var planStr = clean.map(function (t) { return t.range + ' [' + t.kind + '] ' + (t.intent || ''); }).join('\n');
+  var assertStr = asserts.map(function (a) { return a.check + ' ' + a.range + (a.value !== undefined ? ' == ' + a.value : ''); }).join('\n') || '(none)';
+  var sys = 'You are an adversarial plan reviewer for a spreadsheet agent. You see the TASK, the WORKBOOK MAP, the exploration results, and the PLAN (targets + assertions) BEFORE any cells are written. Be terse and concrete. Check in priority order: '
+    + '1) IMPLICIT ASSUMPTIONS / INSUFFICIENT EXPLORATION: does the plan assume a source cell, a column meaning, a sign, a unit, or a duplicate-label choice that was never verified by a peek or trace? Name each unverified assumption. '
+    + '2) CLAUSE COVERAGE: is every instruction and constraint in the task addressed by a target or intent? Name any missed clause. '
+    + '3) CIRCULAR OR SELF-SERVING CHECKS: are the assertions independent, or do they merely restate the intended output? Assertion coverage is ' + Math.round(coverage * 100) + ' percent of output cells; if low, most of the output is unverified. '
+    + '4) PLAN COMPLETENESS: do the targets cover the whole required output region with no gaps? '
+    + 'Return concerns as a short bullet list, or exactly NO CONCERNS if the plan is sound. Do not restate the plan.';
+  var user = 'TASK:\n' + (G.prompt || '') + '\n\nWORKBOOK MAP:\n' + String(G.map || '').slice(0, 8000)
+    + '\n\nEXPLORATION (recent tool results):\n' + toolResults.join('\n').slice(0, 6000)
+    + '\n\nPLAN TARGETS:\n' + planStr + '\n\nASSERTIONS:\n' + assertStr;
+  var res = openai_({ model: MODEL, reasoning: { effort: EFFORT }, instructions: sys, input: [{ role: 'user', content: user }], max_output_tokens: 1500, store: false });
+  var out = '';
+  (res.output || []).forEach(function (o) { (o.content || []).forEach(function (cc) { if (cc.text) out += cc.text; }); });
+  return out.trim();
+}
 function tPlan_(a) {
   var targets, asserts;
   try {
@@ -1326,7 +1416,7 @@ function tPlan_(a) {
   for (var j = 0; j < asserts.length; j++) {
     var as = asserts[j];
     if (
-      ['equals', 'nonblank', 'blank', 'no_error', 'format', 'waive'].indexOf(
+      ['equals', 'equals_old', 'nonblank', 'blank', 'no_error', 'format', 'waive'].indexOf(
         as.check,
       ) < 0
     )
@@ -1344,7 +1434,7 @@ function tPlan_(a) {
     } catch (e3) {
       return 'REFUSED: assertion ' + (as.range || '?') + ': ' + e3.message;
     }
-    if (as.check === 'equals') hasEq = true;
+    if (as.check === 'equals' || as.check === 'equals_old') hasEq = true;
   }
   // Sticky failed assertions: a new plan overlapping a previously-failed
   // assertion's range must revise (equals/blank) or explicitly waive it.
@@ -1364,7 +1454,7 @@ function tPlan_(a) {
       var na = asserts[ai];
       if (
         na.sheetName === old.sheetName &&
-        ['equals', 'blank', 'waive'].indexOf(na.check) >= 0 &&
+        ['equals', 'equals_old', 'blank', 'waive'].indexOf(na.check) >= 0 &&
         !(na.bounds.r2 < old.bounds.r1 || na.bounds.r1 > old.bounds.r2 || na.bounds.c2 < old.bounds.c1 || na.bounds.c1 > old.bounds.c2)
       ) { carried = true; break; }
     }
@@ -1399,6 +1489,38 @@ function tPlan_(a) {
     asserts: asserts.length,
     weak: !hasEq,
   });
+  // H4 independent-anchor WARN: is any assertion independent of the writes?
+  var hasIndep = false;
+  for (var ia = 0; ia < asserts.length; ia++) {
+    var aa = asserts[ia];
+    if (aa.check === 'equals_old') { hasIndep = true; break; } // vs run-start value = independent
+    if (aa.check === 'equals' || aa.check === 'nonblank' || aa.check === 'no_error') {
+      var outside = true;
+      for (var ib = 0; ib < clean.length; ib++) {
+        var tb2 = clean[ib].bounds;
+        if (clean[ib].sheetName === aa.sheetName &&
+            !(aa.bounds.r2 < tb2.r1 || aa.bounds.r1 > tb2.r2 || aa.bounds.c2 < tb2.c1 || aa.bounds.c1 > tb2.c2)) { outside = false; break; }
+      }
+      if (outside) { hasIndep = true; break; }
+    }
+  }
+  var anchorWarn = (!hasIndep && clean.length)
+    ? '\nWARN: no assertion is independent of your writes (all checks sit on cells you will write). Add an equals_old, or an equals/nonblank on a cell you are NOT writing, so a check can actually catch a wrong value.'
+    : '';
+  // H9 coverage + H6 adversary review — once, at the first plan, before writes
+  var advNote = '';
+  if (G.attempt === 1) {
+    var cov = coverageFrac_(clean, asserts);
+    ev_('coverage', { frac: cov });
+    try {
+      var concerns = adversaryReview_(clean, asserts, cov);
+      ev_('adversary', { concerns: concerns });
+      if (concerns && !/^NO CONCERNS/i.test(concerns))
+        advNote = '\n\nPLAN REVIEW (independent reviewer; address before writing):\n' + concerns;
+    } catch (e) {
+      ev_('adversary_error', { err: String(e).slice(0, 200) });
+    }
+  }
   return (
     'PLAN ACCEPTED (attempt ' +
     G.attempt +
@@ -1409,7 +1531,9 @@ function tPlan_(a) {
     ' assertions.' +
     (hasEq ? '' : ' WEAK — no equals-assertion: values will be unverified.') +
     reverted +
-    (warn.length ? '\n' + warn.join('\n') : '')
+    (warn.length ? '\n' + warn.join('\n') : '') +
+    anchorWarn +
+    advNote
   );
 }
 
@@ -1546,6 +1670,15 @@ function tFill_(a) {
       '; fill writes formulas.'
     );
   var b = parseA1_(a.range);
+  if (!a.force)
+    for (var rr0 = b.r1; rr0 <= b.r2; rr0++)
+      for (var cc0 = b.c1; cc0 <= b.c2; cc0++)
+        if (!snapBlank_(a.sheet, rr0, cc0))
+          return (
+            'REFUSED: ' + a.sheet + '!' + colStr_(cc0) + rr0 +
+            ' had content at run-start; this fill would overwrite it. Pass force:true to replace ' +
+            '(e.g. hardcode→formula), or narrow the range to blank output cells only.'
+          );
   var sh = G.ss.getSheetByName(a.sheet);
   sh.getRange(a.range).setFormulaR1C1(a.formula_r1c1);
   var fA1 = sh.getRange(b.r1, b.c1).getFormula();
@@ -1597,6 +1730,18 @@ function tWriteCells_(a) {
     var g = guardWrite_(a.sheet, cells[i].a1, ['formula', 'value', 'clear']);
     if (typeof g === 'string') return g + ' (cell ' + cells[i].a1 + ')';
   }
+  if (!a.force)
+    for (var pj = 0; pj < cells.length; pj++) {
+      var pc = cells[pj].content;
+      if (pc === '' || pc === null) continue; // clears are fine
+      var pb = parseA1_(cells[pj].a1);
+      if (!snapBlank_(a.sheet, pb.r1, pb.c1))
+        return (
+          'REFUSED: ' + a.sheet + '!' + cells[pj].a1 +
+          ' had content at run-start; writing would overwrite it. Pass force:true to replace, ' +
+          'or clear it via a clear-kind target.'
+        );
+    }
   var sh = G.ss.getSheetByName(a.sheet);
   var minR = 1e9,
     maxR = 0,
@@ -2035,6 +2180,33 @@ function verify_() {
     rep.push('V2 KIND FAIL: ' + kindFails.slice(0, 8).join('; ') + (kindFails.length > 8 ? ' +' + (kindFails.length - 8) + ' more' : ''));
     fails++;
   } else rep.push('V2 kinds ok');
+  // V2b completeness: a declared formula/value target must not contain blank holes
+  // unless a blank assertion covers them.
+  function blankAsserted_(sheet, r, cc) {
+    for (var z = 0; z < G.plan.asserts.length; z++) {
+      var az = G.plan.asserts[z];
+      if (az.check !== 'blank' || az.sheetName !== sheet) continue;
+      if (r >= az.bounds.r1 && r <= az.bounds.r2 && cc >= az.bounds.c1 && cc <= az.bounds.c2) return true;
+    }
+    return false;
+  }
+  var holes = [];
+  for (var th = 0; th < G.plan.targets.length; th++) {
+    var tgh = G.plan.targets[th];
+    if (tgh.kind !== 'formula' && tgh.kind !== 'value') continue;
+    for (var rh = tgh.bounds.r1; rh <= tgh.bounds.r2 && holes.length <= 12; rh++)
+      for (var ch = tgh.bounds.c1; ch <= tgh.bounds.c2 && holes.length <= 12; ch++) {
+        var cn = cellNow_(tgh.sheetName, rh, ch);
+        var blank = !cn.f && (cn.v === '' || cn.v === null);
+        if (blank && !blankAsserted_(tgh.sheetName, rh, ch))
+          holes.push(tgh.sheetName + '!' + colStr_(ch) + rh);
+      }
+  }
+  if (holes.length) {
+    rep.push('V2b HOLE FAIL: declared target cells left blank (assert blank to license): ' +
+      holes.slice(0, 12).join(', ') + (holes.length > 12 ? ' +more' : ''));
+    fails++;
+  } else rep.push('V2b no holes');
   if (newErrs.length) {
     rep.push('V5 NEW-ERROR FAIL: ' + newErrs.slice(0, 10).join('; ') + (newErrs.length > 10 ? ' +' + (newErrs.length - 10) + ' more' : ''));
     fails++;
@@ -2075,6 +2247,18 @@ function verify_() {
             Math.abs(v2n - as.value) > Math.max(tol, Math.abs(as.value) * 1e-6)
           )
             bad.push(a12 + '=' + short_(v2, 12));
+        }
+        if (as.check === 'equals_old') {
+          var sne = G.snap[as.sheetName];
+          var ov7 = (sne && (b2.r1 + i2) <= sne.R && (b2.c1 + j2) <= sne.C)
+            ? sne.v[b2.r1 + i2 - 1][b2.c1 + j2 - 1] : '';
+          var tolo = as.tol || 1e-6;
+          var v2o = typeof v2 === 'number' ? v2
+            : (typeof v2 === 'string' && v2 !== '' && isFinite(Number(v2)) ? Number(v2) : null);
+          var ovo = typeof ov7 === 'number' ? ov7
+            : (typeof ov7 === 'string' && ov7 !== '' && isFinite(Number(ov7)) ? Number(ov7) : null);
+          if (ovo === null || v2o === null || Math.abs(v2o - ovo) > Math.max(tolo, Math.abs(ovo) * 1e-6))
+            bad.push(a12 + '=' + short_(v2, 12) + ' (old ' + short_(ov7, 12) + ')');
         }
         if (as.check === 'nonblank' && v2 === '') bad.push(a12);
         if (as.check === 'blank' && v2 !== '') bad.push(a12);
@@ -2280,6 +2464,8 @@ function runAgentInner_(req, t0) {
     ss: SpreadsheetApp.openById(id),
     id: id,
     t0: t0,
+    prompt: prompt,
+    map: null,
     writes: {},
     oldmap: {},
     fmtBase: {},
@@ -2305,6 +2491,7 @@ function runAgentInner_(req, t0) {
   snapshotAll_();
   hb_('snapshot_done');
   var map = describe_();
+  G.map = map;
   ev_('map', { bytes: map.length, text: map, task: prompt });
   hb_('describe_done');
   ckpt_();

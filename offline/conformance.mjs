@@ -123,7 +123,7 @@ console.log('D. map builder units');
 import { readFileSync as _rf } from 'node:fs';
 const gnames = ['SpreadsheetApp','UrlFetchApp','CacheService','PropertiesService','Utilities','ContentService'];
 const codeSrc = _rf(path.join(root,'Prompts.gs'),'utf8') + '\n' + _rf(path.join(root,'Code.gs'),'utf8') +
-  '\nreturn { T: { labelIndexLines_, blankBlockLines_, headerLines_, hardcodeCellLines_, groupSourceSuffix_, setG: function(g){G=g;} } };';
+  '\nreturn { T: { labelIndexLines_, blankBlockLines_, headerLines_, hardcodeCellLines_, groupSourceSuffix_, refSets_, cellRefStatus_, coverageFrac_, setG: function(g){G=g;} } };';
 const T = new Function(...gnames, codeSrc)(...gnames.map(() => ({}))).T;
 
 function makeSn(rows) {
@@ -226,6 +226,36 @@ const lastUsedOf = comp => { let l = 0; for (let j = 0; j < comp.length; j++) if
   ok(/'Data'!C/.test(cross), 'groupSource: cross-sheet ref shown', cross);
   const near = T.groupSourceSuffix_({ rf: '=R[-1]C[0]', c1: 3, c2: 3, i1: 5, i2: 5 }, 'Model');
   ok(near === '', 'groupSource: near ref suppressed', JSON.stringify(near));
+}
+
+// H5: refSets_ live/stale from formula graph
+{
+  // Sheet1 has a formula in B2 that references A5 (single cell); A9 is unreferenced.
+  const mk = (rows) => { const R=rows.length,C=Math.max(...rows.map(r=>r.length)),v=[],f=[],r=[];
+    for(let i=0;i<R;i++){v.push([]);f.push([]);r.push([]);for(let j=0;j<C;j++){const c=rows[i][j];const isF=typeof c==='string'&&c.startsWith('=');f[i][j]=isF?c:'';v[i][j]=isF||c===undefined?'':c;r[i][j]='';}}return{v,f,r,R,C};};
+  const sn = mk([['x',0],['y','=A5'],['z',0],['w',0],['lbl',7],['q',0],['e',0],['t',0],['orphan',3]]);
+  T.setG({ snap: { S1: sn } });
+  const rs = T.refSets_();
+  ok(T.cellRefStatus_(rs,'S1',5,1,2)==='live', 'refSets: referenced row = live', T.cellRefStatus_(rs,'S1',5,1,2));
+  ok(T.cellRefStatus_(rs,'S1',9,1,2)==='stale', 'refSets: unreferenced row = stale', T.cellRefStatus_(rs,'S1',9,1,2));
+  T.setG(null);
+}
+// H5: whole-column ref → ambiguous, not live
+{
+  const mk = (rows) => { const R=rows.length,C=Math.max(...rows.map(r=>r.length)),v=[],f=[],r=[];
+    for(let i=0;i<R;i++){v.push([]);f.push([]);r.push([]);for(let j=0;j<C;j++){const c=rows[i][j];const isF=typeof c==='string'&&c.startsWith('=');f[i][j]=isF?c:'';v[i][j]=isF||c===undefined?'':c;r[i][j]='';}}return{v,f,r,R,C};};
+  const sn = mk([['=SUM(B1:B9)',1],['a',2],['b',3]]);
+  T.setG({ snap: { S1: sn } });
+  const rs = T.refSets_();
+  ok(T.cellRefStatus_(rs,'S1',2,2,2)==='ambiguous', 'refSets: whole-range member = ambiguous (not live)', T.cellRefStatus_(rs,'S1',2,2,2));
+  T.setG(null);
+}
+// H9: coverageFrac_
+{
+  const tgt=[{kind:'formula',sheetName:'S1',bounds:{r1:1,r2:10,c1:1,c2:1}}]; // 10 cells
+  const as=[{check:'equals',sheetName:'S1',bounds:{r1:1,r2:5,c1:1,c2:1}}];   // 5 covered
+  ok(Math.abs(T.coverageFrac_(tgt,as)-0.5)<1e-9, 'coverageFrac: half covered', T.coverageFrac_(tgt,as));
+  ok(T.coverageFrac_(tgt,[])===0, 'coverageFrac: none covered = 0', T.coverageFrac_(tgt,[]));
 }
 
 rmSync(tmp, { recursive: true, force: true });

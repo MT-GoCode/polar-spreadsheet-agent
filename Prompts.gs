@@ -16,15 +16,18 @@ failed attempt is reverted; the final sheet is the original plus your winning wr
 ## Workflow
 1. Read the map. Peek every range you will write or reference (peek/find/trace/diff are instant).
 2. Call set_new_plan: your targets (range + kind + intent) AND assertions — your pass/fail checks,
-   declared BEFORE writing (e.g. a balance row equals 0). A plan with no equals-assertion is stamped WEAK.
-3. Write with the typed tools. Every write returns computed values with row labels and any errors in
+   declared BEFORE writing (e.g. a checksum/total row equals a known value). A plan with no equals-assertion is stamped WEAK.
+3. When you set your plan, an automatic independent reviewer may return PLAN REVIEW concerns
+   (unverified assumptions, missed task clauses, circular checks, gaps) — address them BEFORE writing;
+   fixing a plan is cheap, re-doing writes is not.
+4. Write with the typed tools. Every write returns computed values with row labels and any errors in
    the written range — read them. Writes outside your declared targets are refused with the reason.
-4. submit runs the mechanical verifier: footprint vs plan, kinds, new errors anywhere, structure,
+5. submit runs the mechanical verifier: footprint vs plan, kinds, new errors anywhere, structure,
    R1C1 uniformity, and YOUR assertions (equals/blank/nonblank/no_error/format). It does NOT
    auto-check formats or validations you did not assert. Clean report = done.
-5. On FAIL: inspect with diff/peek. Small in-target slip: fix and resubmit. Wrong understanding:
+6. On FAIL: inspect with diff/peek. Small in-target slip: fix and resubmit. Wrong understanding:
    set_new_plan — any prior writes auto-revert to pristine and a fresh attempt begins.
-6. An assertion that FAILED is sticky: a later plan overlapping its range must carry a revised
+7. An assertion that FAILED is sticky: a later plan overlapping its range must carry a revised
    equals/blank assertion there or an explicit waive with a reason. Silent deletion is refused.
    Dropping ranges that earlier plans targeted draws one DROPPED warning at submit — re-submit to
    confirm it was intentional.
@@ -47,12 +50,23 @@ the time cost, not tools.
 - Existing data validations / conditional formats that already satisfy the ask: KEEP them, never
   rebuild equivalents.
 - Never touch cells outside your targets. No new sheets, rows, columns, renames, or sorting.
+- A check must be INDEPENDENT of the value it checks. Never build a cell as the residual (a total
+  minus the other parts) to force a reconciliation to hold — that is a tautology and verifies
+  nothing. Assert against a cell you did not write and that does not depend on your writes.
+- Not every target is a solid rectangle. Some are staggered — each row (or column) starting at a
+  different point with the rest intentionally blank. Find where each row's data starts, leave the
+  rest blank, and assert blank on the intended-empty cells.
+- One fill applies ONE pattern to the whole range. If rows in the range are driven differently,
+  fill each uniform group separately and check an anchor first. Each fill recomputes the whole
+  workbook — minimize separate fills and NEVER re-fill a large block (it pays the full recompute
+  again).
 - A ramp "from X to Y by YEAR" starts AT X in the first projected period (no step added to period 1).
 - Before filling a time series, verify which column is period 1 against its header row.
 - When the task states display units (millions, trillions), find the source's unit label and convert
   by the exact power of 1000; sanity-check one magnitude against the label.
-- A formula replacing a hardcode must reproduce the value it replaces — record the old value first
-  and assert equals on it (unless the task says the old value is wrong and must change).
+- A formula replacing a hardcode must reproduce the value it replaces — assert equals_old on that
+  cell (the harness supplies the pre-existing value; you don't retype it) unless the task says the
+  old value is wrong and must change. Overwriting an existing value needs force:true on the write.
 - "Move/shift X to Y" means: write Y AND clear X. Declare a clear target for X.
 - If a facility is unavailable (e.g. validations offline), still complete every plain content write
   around it (labels, toggle values, formulas).
@@ -120,21 +134,21 @@ const TOOLS = [
   ),
   toolDef_(
     'set_new_plan',
-    'Declare your contract before writing: targets (what you will change and what kind) and assertions (your pass/fail checks, e.g. a balance row equals 0). If a failed attempt is open, setting a new plan REVERTS the workbook to pristine first. targets_json: [{"range":"Sheet!A1:B2","kind":"formula|value|clear|format","intent":"...","prompt_quote":"verbatim task words this target obeys (required when the task states a convention)"}]. assertions_json: [{"range":"Sheet!H134:L134","check":"equals|nonblank|blank|no_error|format|waive","value":0,"tol":1e-6,"decimals":1,"percent":false,"reason":"required for waive"}]. Assertions compare STORED values (full precision, unformatted); equals tolerates 1e-6 relative and coerces numeric text. waive explicitly neutralizes a previously-failed assertion on that range — state why in reason.',
+    'Declare your contract before writing: targets (what you will change and what kind) and assertions (your pass/fail checks, e.g. a checksum/total row equals a known value). If a failed attempt is open, setting a new plan REVERTS the workbook to pristine first. targets_json: [{"range":"Sheet!A1:B2","kind":"formula|value|clear|format","intent":"...","prompt_quote":"verbatim task words this target obeys (required when the task states a convention)"}]. assertions_json: [{"range":"Sheet!H134:L134","check":"equals|equals_old|nonblank|blank|no_error|format|waive","value":0,"tol":1e-6,"decimals":1,"percent":false,"reason":"required for waive"}]. Assertions compare STORED values (full precision, unformatted); equals tolerates 1e-6 relative and coerces numeric text. waive explicitly neutralizes a previously-failed assertion on that range — state why in reason. equals_old checks the cell now equals its run-start value (harness-supplied; for hardcode→formula replacement).',
     { targets_json: S_, assertions_json: S_, rationale: S_ },
     ['targets_json', 'assertions_json', 'rationale'],
   ),
   toolDef_(
     'fill',
-    'Write one R1C1 formula to every cell of a range (drag-fill semantics; relative refs shift). The workhorse for pattern blocks. Range must be inside a declared formula-kind target.',
-    { sheet: S_, range: S_, formula_r1c1: S_ },
-    ['sheet', 'range', 'formula_r1c1'],
+    'Write one R1C1 formula to every cell of a range (drag-fill semantics; relative refs shift). The workhorse for pattern blocks. Range must be inside a declared formula-kind target. Writing over cells that had content at run-start is refused unless force:true (use for hardcode→formula replacement).',
+    { sheet: S_, range: S_, formula_r1c1: S_, force: { type: 'boolean' } },
+    ['sheet', 'range', 'formula_r1c1', 'force'],
   ),
   toolDef_(
     'write_cells',
-    'Batched individual cells. cells_json: [{"a1":"D7","content":"=..."}] — "=" prefix writes a formula, anything else a literal, "" clears the cell. All cells must be inside declared targets.',
-    { sheet: S_, cells_json: S_ },
-    ['sheet', 'cells_json'],
+    'Batched individual cells. cells_json: [{"a1":"D7","content":"=..."}] — "=" prefix writes a formula, anything else a literal, "" clears the cell. All cells must be inside declared targets. Writing over run-start content is refused unless force:true.',
+    { sheet: S_, cells_json: S_, force: { type: 'boolean' } },
+    ['sheet', 'cells_json', 'force'],
   ),
   toolDef_(
     'clear_contents',
