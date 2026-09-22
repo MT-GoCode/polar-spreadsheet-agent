@@ -141,6 +141,20 @@ G = freshG();
 const p2b = T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + bl, kind: 'formula', intent: 'x' }]), assertions_json: '[]', rationale: 't' });
 ok(!/ALREADY OCCUPIED/.test(p2b), 'P2: occupancy notice silent on an empty target');
 
+// ---- Phase 5: the hardcode-intent lint is gone ----
+// It fired 23 times across two sweeps with a 100% false-positive rate, because the
+// system prompt orders verbatim quoting and three tasks use the word "hardcode" in
+// their instructions. Target kind is enforced mechanically by V2 instead.
+G = freshG();
+const p5 = T.tPlan_({
+  targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'formula',
+    intent: 'replace the hardcoded values with live formulas',
+    prompt_quote: 'currently hold hardcoded values — replace those with live formulas' }]),
+  assertions_json: '[]', rationale: 't',
+});
+ok(/PLAN ACCEPTED/.test(p5), 'P5: a formula target quoting "hardcoded" is accepted, not refused', p5.slice(0, 100));
+ok(!/intent mentions/.test(p5), 'P5: no intent-wording lint in the response');
+
 shim.close(null);
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

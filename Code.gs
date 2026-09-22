@@ -1464,18 +1464,6 @@ function tPlan_(a) {
     }
     if (!G.snap[sr.sheet])
       return 'REFUSED: unknown sheet in target: ' + t.range;
-    var quote = ((t.intent || '') + ' ' + (t.prompt_quote || '')).toLowerCase();
-    if (t.kind === 'formula' && /hardcode|hard-code/.test(quote))
-      return (
-        'REFUSED: target ' +
-        t.range +
-        ' intent mentions hardcoding but kind=formula. Use kind=value for literals.'
-      );
-    if (t.kind === 'formula' && /\btype\b|\bstore\b|\benter\b|\bpaste\b/.test(quote))
-      warn.push(
-        'WARN: target ' + t.range +
-        ' intent mentions typing/storing but kind=formula — if the task wants a literal, use kind=value.',
-      );
     t.sheetName = sr.sheet;
     t.bounds = parseA1_(sr.a1);
     clean.push(t);
