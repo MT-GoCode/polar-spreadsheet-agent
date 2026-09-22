@@ -189,3 +189,57 @@ can without knowing the answer.
 
 Six sweeps, ~$137 total: 14x1 regression pass (~$8), 3-seed sweep 1 ($49.66), 3-seed sweep 2
 ($33.67), 4-task re-check ($7.81), two t01 checks (~$4), final 3-seed sweep (~$34).
+
+
+## Final verdict: zero significant regressions, measured properly
+
+The suite aggregate was the wrong instrument. Three full 14x3 sweeps of near-identical code
+gave **20, 24, 21** passes against a baseline of 21 -- a 4-task spread with only 6 of 14
+tasks stable between runs. Reading 24 as an improvement was a mistake on my part.
+
+"Did anything regress" is a cheaper and sharper question, because only tasks that PASSED at
+baseline can regress: t07/t10/t12/t13/t15 were 0/3 and are excluded by construction. Five
+seeds on the 8 tasks that can move cost ~$17 instead of ~$80 for the full suite.
+
+8 tasks x 5 seeds: **34/40**. Pooled with every other run of the final code
+(`tools/regression_check.py --since 2026-09-22T05-06`, one-sided Fisher exact per task,
+pass/fail taken from gate.json):
+
+| task | baseline | current | p(regress) | |
+|---|---|---|---|---|
+| t01 | 3/3 | 8/11 (73%) | 0.453 | lower, not significant |
+| t02 | 3/3 | 8/8 | 1.000 | no drop |
+| t03 | 3/3 | 8/8 | 1.000 | no drop |
+| t04 | 1/2 | 1/2 | 0.833 | no drop |
+| t05 | 1/3 | 2/8 (25%) | 0.661 | lower, not significant |
+| t06 | 3/3 | 7/8 (88%) | 0.727 | lower, not significant |
+| t07 | 0/3 | **3/3** | n/a | cannot regress -- clear win |
+| t08 | 1/2 | 5/8 (62%) | 0.867 | improved |
+| t09 | 3/3 | 7/8 (88%) | 0.727 | lower, not significant |
+| t11 | 3/3 | 8/8 | 1.000 | no drop |
+| t10 t12 t13 t15 | 0/3 | 0/3 | n/a | cannot regress |
+
+**Regressions at p<0.05: none.**
+
+Expected passes per 14-task run, summing per-task rates: baseline **7.33/14**, current
+**7.85/14** (+0.52). The gain is t07 and t08; t01 is the offsetting loss.
+
+### Honest limits on that claim
+
+The power is poor and the tool prints it per line. With a 3-seed baseline, even a 3/3 -> 1/8
+fall would not reach p<0.05, so "no evidence of regression" is not "no regression". The
+underpowered side is the BASELINE, and it cannot be re-run cheaply -- those artifacts came
+from code that no longer exists. t01 at 8/11 against 3/3 is the one genuinely unresolved
+case: its failure is a comprehension coin-flip on the PIK routing, and a 3/3 baseline is
+entirely consistent with an ~80% task.
+
+### Not claimed
+
+Any improvement in the suite aggregate. It is unresolvable at any seed count worth buying,
+which is itself the finding that matters for a 15/15 target: a harness that deserves 13
+will show 11-15 depending on the run, and a single 15/15 would not be evidence either.
+
+### Resolvable, because it pools over 166 runs
+
+Median cost $0.66 -> $0.54-0.57 and median turns 23 -> 18-20: roughly 15-20% cheaper and
+shorter per run, with the LLM plan reviewer removed.
