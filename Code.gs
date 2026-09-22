@@ -2408,14 +2408,6 @@ function verify_() {
   // Staircase blanks (filled on one side only) are spared, so a vintage triangle is fine.
   // Targets: task_04 s2's Monthly Cohorts row 56 (116 cells, filled above and below) and
   // task_10 s3's D&A Schedule C11:C21, which is the only thing between 0.985 and a pass.
-  function waived_(sheet, r, cc) {
-    for (var z2 = 0; z2 < G.plan.asserts.length; z2++) {
-      var aw = G.plan.asserts[z2];
-      if (aw.check !== 'waive' || aw.sheetName !== sheet) continue;
-      if (r >= aw.bounds.r1 && r <= aw.bounds.r2 && cc >= aw.bounds.c1 && cc <= aw.bounds.c2) return true;
-    }
-    return false;
-  }
   function filledNow_(sheet, r, cc) {
     var c0 = cellNow_(sheet, r, cc);
     return !!(c0.f || (c0.v !== '' && c0.v !== null));
@@ -2427,7 +2419,6 @@ function verify_() {
     for (var rs2 = tgs.bounds.r1; rs2 <= tgs.bounds.r2 && sandwich.length <= 12; rs2++)
       for (var cs2 = tgs.bounds.c1; cs2 <= tgs.bounds.c2 && sandwich.length <= 12; cs2++) {
         if (filledNow_(tgs.sheetName, rs2, cs2)) continue;
-        if (waived_(tgs.sheetName, rs2, cs2)) continue;
         var up = false, dn = false, lf2 = false, rt = false;
         for (var ru = tgs.bounds.r1; ru < rs2; ru++) if (filledNow_(tgs.sheetName, ru, cs2)) { up = true; break; }
         for (var rd = rs2 + 1; rd <= tgs.bounds.r2; rd++) if (filledNow_(tgs.sheetName, rd, cs2)) { dn = true; break; }
@@ -2440,8 +2431,10 @@ function verify_() {
   if (sandwich.length) {
     rep.push(
       'V2c SANDWICHED-HOLE FAIL: blank cells with filled cells on BOTH sides inside a declared' +
-        ' target — an omission, not an intentional gap (a blank assertion does NOT license this;' +
-        ' only waive with a reason does): ' +
+        ' formula/value target — that is an omission, not an intentional gap. No assertion' +
+        ' licenses it (a blank assertion is exactly how this class of error gets certified).' +
+        ' Either fill them, or split the target so an intentionally-blank cell is not declared' +
+        ' as a formula/value output: ' +
         sandwich.slice(0, 12).join(', ') + (sandwich.length > 12 ? ' +more' : ''),
     );
     fails++;

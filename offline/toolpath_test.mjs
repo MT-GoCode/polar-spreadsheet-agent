@@ -249,7 +249,7 @@ ok(/UNVERIFIED: 1 of 1 output cells/.test(r46) && /Nothing here can detect a wro
   const acc = T.tPlan_({
     targets_json: JSON.stringify([{ range: sheet + '!' + rng, kind: 'formula', intent: 'x' }]),
     assertions_json: JSON.stringify([
-      { check: 'waive', range: sheet + '!' + rng, reason: 'unit test' },
+      { check: 'waive', range: sheet + '!' + col + r0, reason: 'unit test' },
       { check: 'blank', range: sheet + '!' + mid },
     ]),
     rationale: 't',
@@ -272,7 +272,7 @@ ok(/UNVERIFIED: 1 of 1 output cells/.test(r46) && /Nothing here can detect a wro
   T.tPlan_({
     targets_json: JSON.stringify([{ range: sheet + '!' + rng, kind: 'formula', intent: 'x' }]),
     assertions_json: JSON.stringify([
-      { check: 'waive', range: sheet + '!' + rng, reason: 'unit test' },
+      { check: 'waive', range: sheet + '!' + col + (r0 + 2), reason: 'unit test' },
       { check: 'blank', range: sheet + '!' + col + r0 },
     ]),
     rationale: 't',
