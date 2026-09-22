@@ -237,52 +237,6 @@ const r46 = T.verify_().text;
 ok(/UNVERIFIED: 1 of 1 output cells/.test(r46) && /Nothing here can detect a wrong value/.test(r46),
   'P4: UNVERIFIED line reports zero harness-owned coverage', (r46.match(/UNVERIFIED[^\n]*/) || [''])[0].slice(0, 130));
 
-// ---- V2c: a sandwiched hole is an omission, and a blank assertion must not license it ----
-// Build a 3-cell column target, fill the two ends, leave the middle blank, and license
-// that middle with a blank assertion -- which is exactly how task_10 certified its own
-// gap. V2b is satisfied; V2c must still fail.
-(function () {
-  const m = /^([A-Z]+)(\d+)$/.exec(bl);
-  const col = m[1], r0 = +m[2];
-  const rng = col + r0 + ':' + col + (r0 + 2);
-  const mid = col + (r0 + 1);
-  G = freshG();
-  const acc = T.tPlan_({
-    targets_json: JSON.stringify([{ range: sheet + '!' + rng, kind: 'formula', intent: 'x' }]),
-    assertions_json: JSON.stringify([
-      { check: 'waive', range: sheet + '!' + col + r0, reason: 'unit test' },
-      { check: 'blank', range: sheet + '!' + mid },
-    ]),
-    rationale: 't',
-  });
-  if (!/PLAN ACCEPTED/.test(acc)) { ok(false, 'V2c: setup plan accepted', acc.slice(0, 90)); return; }
-  T.tFill_({ sheet, range: col + r0, formula_r1c1: '=1+1', force: true });
-  T.tFill_({ sheet, range: col + (r0 + 2), formula_r1c1: '=1+1', force: true });
-  const rv = T.verify_().text;
-  ok(/V2b no holes/.test(rv), 'V2c: blank assertion satisfies V2b (the old escape)', (rv.match(/V2b[^\n]*/) || [''])[0]);
-  ok(/V2c SANDWICHED-HOLE FAIL/.test(rv) && rv.indexOf(mid) >= 0,
-    'V2c: sandwiched hole still fails despite the blank assertion', (rv.match(/V2c[^\n]*/) || [''])[0].slice(0, 120));
-})();
-
-// A staircase blank -- filled on ONE side only -- must be spared, or vintage triangles break.
-(function () {
-  const m = /^([A-Z]+)(\d+)$/.exec(bl);
-  const col = m[1], r0 = +m[2];
-  const rng = col + r0 + ':' + col + (r0 + 2);
-  G = freshG();
-  T.tPlan_({
-    targets_json: JSON.stringify([{ range: sheet + '!' + rng, kind: 'formula', intent: 'x' }]),
-    assertions_json: JSON.stringify([
-      { check: 'waive', range: sheet + '!' + col + (r0 + 2), reason: 'unit test' },
-      { check: 'blank', range: sheet + '!' + col + r0 },
-    ]),
-    rationale: 't',
-  });
-  T.tFill_({ sheet, range: col + (r0 + 1) + ':' + col + (r0 + 2), formula_r1c1: '=1+1', force: true });
-  const rv2 = T.verify_().text;
-  ok(/V2c no sandwiched holes/.test(rv2), 'V2c: leading (staircase) blank is spared', (rv2.match(/V2c[^\n]*/) || [''])[0].slice(0, 120));
-})();
-
 // ---- the hatch ban must not be defeatable by building the method name at runtime ----
 // HATCH_BAN matches source text, so "var m='setF'+'ontColor'; range[m](...)" contained no
 // banned substring. offline_gate.py forgives every offline font/fill violation on the

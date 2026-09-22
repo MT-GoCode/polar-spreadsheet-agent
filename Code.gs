@@ -2401,63 +2401,18 @@ function verify_() {
       holes.slice(0, 12).join(', ') + (holes.length > 12 ? ' +more' : ''));
     fails++;
   } else rep.push('V2b no holes');
-  // V2c region continuity ("sandwiched hole"). A blank with filled cells on BOTH sides,
-  // in the same row or the same column of a declared formula/value target, is an omission
-  // the model licensed with its own blank assertion -- which is why V2b could not catch
-  // it. No assertion of any kind licenses it -- not blank, not waive. The only way out
-  // is to narrow the target so an intentionally-blank cell is not declared as an output.
-  // Staircase blanks (filled on one side only) are spared, so a vintage triangle is fine.
-  // Targets: task_04 s2's Monthly Cohorts row 56 (116 cells, filled above and below) and
-  // task_10 s3's D&A Schedule C11:C21, which is the only thing between 0.985 and a pass.
-  function filledNow_(sheet, r, cc) {
-    var c0 = cellNow_(sheet, r, cc);
-    return !!(c0.f || (c0.v !== '' && c0.v !== null));
-  }
-  var sandwich = [];
-  for (var ts = 0; ts < G.plan.targets.length; ts++) {
-    var tgs = G.plan.targets[ts];
-    if (tgs.kind !== 'formula' && tgs.kind !== 'value') continue;
-    var b = tgs.bounds;
-    // One pass to record, per row and per column of this target, the first and last
-    // filled offset. The sandwich test is then O(1) per cell, so the whole axis costs
-    // O(target cells) -- the same order as the V1 footprint scan it runs beside.
-    var rowFirst = [], rowLast = [], colFirst = [], colLast = [], filled = [];
-    for (var r = b.r1; r <= b.r2; r++) {
-      var ri = r - b.r1;
-      filled[ri] = [];
-      rowFirst[ri] = -1; rowLast[ri] = -1;
-      for (var c = b.c1; c <= b.c2; c++) {
-        var ci = c - b.c1;
-        var isF = filledNow_(tgs.sheetName, r, c);
-        filled[ri][ci] = isF;
-        if (!isF) continue;
-        if (rowFirst[ri] < 0) rowFirst[ri] = ci;
-        rowLast[ri] = ci;
-        if (colFirst[ci] === undefined || colFirst[ci] < 0) colFirst[ci] = ri;
-        colLast[ci] = ri;
-      }
-    }
-    for (var r2 = b.r1; r2 <= b.r2 && sandwich.length <= 12; r2++)
-      for (var c2 = b.c1; c2 <= b.c2 && sandwich.length <= 12; c2++) {
-        var ri2 = r2 - b.r1, ci2 = c2 - b.c1;
-        if (filled[ri2][ci2]) continue;
-        var vertical = colFirst[ci2] !== undefined && colFirst[ci2] >= 0 &&
-          colFirst[ci2] < ri2 && colLast[ci2] > ri2;
-        var horizontal = rowFirst[ri2] >= 0 && rowFirst[ri2] < ci2 && rowLast[ri2] > ci2;
-        if (vertical || horizontal) sandwich.push(tgs.sheetName + '!' + colStr_(c2) + r2);
-      }
-  }
-  if (sandwich.length) {
-    rep.push(
-      'V2c SANDWICHED-HOLE FAIL: blank cells with filled cells on BOTH sides inside a declared' +
-        ' formula/value target — that is an omission, not an intentional gap. No assertion' +
-        ' licenses it (a blank assertion is exactly how this class of error gets certified).' +
-        ' Either fill them, or split the target so an intentionally-blank cell is not declared' +
-        ' as a formula/value output: ' +
-        sandwich.slice(0, 12).join(', ') + (sandwich.length > 12 ? ' +more' : ''),
-    );
-    fails++;
-  } else rep.push('V2c no sandwiched holes');
+  // V2c (omitted-cell-in-region, from PLAN-verif-v4) was REMOVED after measurement.
+  // The idea was that a blank with filled cells on both sides inside a declared
+  // formula/value target is an omission rather than an intentional gap. It is not
+  // decidable without the grading spec: task_04 s2's Monthly Cohorts row 56 (116 blank
+  // cells, filled above and below) is a genuine omission, while task_01's Model-Build row
+  // 133 is structurally identical and is correct -- that task's output rows are
+  // non-contiguous by spec (…132, 134, with 133 not an output). V2c failed task_01 for it,
+  // the model replanned to split its targets, and in the churn it misrouted a 2.406616
+  // term through rows 124-130: 3/3 became 1/3. V2b already covers the same ground and has
+  // an escape (a blank assertion) that does not manufacture false failures, and the cost
+  // of that escape -- that an asserted blank can never catch a mistake -- is now stated in
+  // the system prompt and in the UNVERIFIED line instead.
   if (newErrs.length) {
     rep.push('V5 NEW-ERROR FAIL: ' + newErrs.slice(0, 10).join('; ') + (newErrs.length > 10 ? ' +' + (newErrs.length - 10) + ' more' : ''));
     fails++;
