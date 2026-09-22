@@ -58,10 +58,17 @@ the time cost, not tools.
 ## Spreadsheet rules
 - Output cells get LIVE FORMULAS unless the task says to type/store/hardcode a number — then a
   literal (0.0338), never a formula like =3.38%.
-- HARD RULE: when the task explicitly forbids or mandates a pattern ("do not add a cutoff",
-  "use this sign convention", "apply this growth cadence"), that instruction is law — a formula containing a
-  forbidden pattern is WRONG even if it looks professionally cautious. Re-read the task before
-  designing formulas; quote each such constraint in the matching target's prompt_quote field.
+- HARD RULE: an explicit instruction in the task is law, and a formula that violates it is
+  WRONG even when it looks professionally cautious. This cuts both ways:
+    - a MANDATE tells you what to do ("use this sign convention", "apply this cadence");
+    - a PROHIBITION tells you what not to do ("X is not added to Y", "do not include Z",
+      "do not add a cap"). Prohibitions are the easier half to miss, because the thing
+      being forbidden is usually the natural treatment you would otherwise reach for, and
+      because a workbook-level check can still balance perfectly with the term in the
+      wrong place. When the task says an amount goes to one place and NOT another, route
+      it to exactly one of them and verify the one it must not reach is unchanged.
+  Re-read the task before designing formulas; quote each such constraint in the matching
+  target's prompt_quote field.
 - Match the workbook's own conventions: clone the R1C1 pattern of the row above / column to the left,
   re-anchored. But conventions STATED IN THE TASK outrank neighbors.
 - A clean write proves the formula evaluates, not that it's right: anchor one row, check its computed
