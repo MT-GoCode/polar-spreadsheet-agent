@@ -174,7 +174,8 @@ const r41 = T.tPlan_({
   assertions_json: JSON.stringify([{ check: 'no_error', range: sheet + '!' + nb }]),
   rationale: 't',
 });
-ok(/REFUSED/.test(r41) && /no check the harness owns/.test(r41), 'P4: plan with only model-authored checks is refused', r41.slice(0, 100));
+ok(/PLAN ACCEPTED/.test(r41) && /no check in this plan is owned by the harness/.test(r41),
+  'P4: plan with only model-authored checks warns (refusing it forced false anchors)', r41.slice(0, 120));
 
 // equals_old satisfies it.
 G = freshG();
@@ -366,6 +367,19 @@ const qw = T.tPlan_({
   rationale: 't',
 });
 ok(/PLAN ACCEPTED/.test(qw) && /not verbatim task text/.test(qw), 'quote: non-verbatim quote on a formula target warns, not refuses', qw.slice(0, 110));
+
+// V3 must NOT fire when the cell's CONTENT changed: offline the engine rewrites a cell's
+// number format to "@" when the formula contains a % literal, and reporting that made the
+// state unfixable (the only tool that could undo it needs a task-licensed quote).
+G = freshG();
+T.tPlan_({
+  targets_json: JSON.stringify([{ range: sheet + '!' + bl, kind: 'formula', intent: 'x' }]),
+  assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + bl, reason: 'unit test' }]),
+  rationale: 't',
+});
+T.tFill_({ sheet, range: bl, formula_r1c1: '=1.4%+0.01', force: false });
+const v3c = T.verify_().text;
+ok(/V3 number formats ok/.test(v3c), 'V3: a format change on a cell whose content was written is not reported', (v3c.match(/V3[^\n]*/) || [''])[0].slice(0, 110));
 
 shim.close(null);
 console.log(`\n${pass} passed, ${fail} failed`);

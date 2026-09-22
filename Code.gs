@@ -1577,18 +1577,20 @@ function tPlan_(a) {
   var needsOwned = false;
   for (var ni = 0; ni < clean.length; ni++)
     if (clean[ni].kind === 'formula' || clean[ni].kind === 'value') { needsOwned = true; break; }
+  // A strong WARN, not a refusal. As a refusal it forced the model to manufacture an
+  // anchor whether or not a true one existed, and equals_ref only expresses strict
+  // equality with another cell -- which is rarely the real relationship. task_10 asserted
+  // equals_ref against cells its outputs do not equal (O45 vs a ref, O30, F111...), those
+  // failed, it replanned, and it burned 74 turns / $4.08 / 1036s to score 0.62. The
+  // UNVERIFIED line at submit reports the consequence honestly instead.
   if (needsOwned && !ownsOne)
-    return (
-      'REFUSED: this plan has no check the harness owns, so nothing in it can detect a wrong' +
-      ' value — every equals/nonblank/no_error/blank compares against a number you chose.' +
-      ' Add at least one of:\n' +
-      '  equals_old on a cell whose pre-existing value your formula must reproduce' +
-      ' (the harness supplies that value), or\n' +
-      '  equals_ref {"check":"equals_ref","range":"Sheet!A1","ref":"Sheet!B2"} where ref is a' +
-      ' cell you are NOT writing that your output must equal (the harness reads it).\n' +
-      'If genuinely no such anchor exists, say so in the rationale and add' +
-      ' {"check":"waive","range":...,"reason":...} — but look first: a total, a subtotal, a' +
-      ' prior-period column, or a parallel row you are not touching usually works.'
+    warn.push(
+      'WARN: no check in this plan is owned by the harness, so nothing in it can detect a' +
+        ' wrong value — every equals/nonblank/no_error/blank compares against a number you' +
+        ' chose. Add equals_old on a cell whose pre-existing value your formula must' +
+        ' reproduce, or equals_ref {"range":"Sheet!A1","ref":"Sheet!B2"} where ref is a cell' +
+        ' you are NOT writing that your output must EQUAL. Only add one if it is genuinely' +
+        ' true: a false anchor costs more than no anchor.',
     );
   var anchorWarn = (!hasIndep && clean.length)
     ? '\nWARN: no assertion sits outside the cells you will write; your harness-owned check is the only thing that can catch a wrong value here.'
@@ -2306,11 +2308,23 @@ function verify_() {
           refTexts.push(name + '!' + a1);
         // V3: number-format preservation. A format change outside a format-kind target
         // is a preservation violation the grader will score, so fail it here.
+        // V3 fires only where the CONTENT did not change. A format difference on a cell
+        // whose content the agent legitimately wrote is either licensed by that content
+        // target or a side-effect of the write, not a deliberate reformat -- and offline
+        // it is usually the latter: the engine sets a cell's number format to "@" when the
+        // formula contains a % literal (measured: "=1.4%+((G$14-2024)/4)*(5%-1.4%)" stores
+        // the right value and silently rewrites General to "@"; Sheets does not do this).
+        // Reporting that made the state unfixable, because the only tool that could undo
+        // it is refused without a task-licensed format quote, and task_07 burned 44 turns
+        // and $1.22 thrashing, taking its score from 1.000 to 0.48.
+        // Deliberate reformatting is prevented at the tool instead (tNumFmt_ needs a
+        // verbatim task quote asking for a number format); V3 is the backstop for cells
+        // the agent never otherwise touched.
         var ft3 =
-          lnf && i < sn.R && j < sn.C && lnf[i][j] !== sn.nf[i][j]
+          lnf && i < sn.R && j < sn.C && !changed && lnf[i][j] !== sn.nf[i][j]
             ? inTargets_(name, parseA1_(a1), ['format'])
             : null;
-        if (lnf && i < sn.R && j < sn.C && lnf[i][j] !== sn.nf[i][j] &&
+        if (lnf && i < sn.R && j < sn.C && !changed && lnf[i][j] !== sn.nf[i][j] &&
             !(ft3 && ft3.kind === 'format'))
           fmtOff.push(name + '!' + a1 + ' (' + (sn.nf[i][j] || 'General') + ' \u2192 ' + (lnf[i][j] || 'General') + ')');
       }

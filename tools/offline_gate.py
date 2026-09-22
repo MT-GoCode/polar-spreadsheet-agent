@@ -19,6 +19,14 @@ violation and rebuilds from Sheets entered-state; these corrections mirror that.
       are NOT forgiven, because the agent can and does change those.
   (c) cell_content where both sides are plain numbers differing only in float
       serialization (engine shortens 52.910000000000004 to 52.91).
+  (d) cell_style number_format on a cell whose CONTENT the agent changed. Measured: the
+      engine rewrites a cell's number format to "@" when the formula contains a % literal
+      ("=1.4%+((G$14-2024)/4)*(5%-1.4%)" stores the correct value and silently turns
+      General into "@"); Google Sheets does not. A deliberate reformat is prevented at the
+      tool (tNumFmt_ requires a verbatim task quote asking for a number format), so a
+      format difference on a cell that was also written is taken as engine drift.
+      LIMITATION of this estimate: if a deliberate reformat ever reaches a cell the agent
+      also wrote, this forgives it while the real grader would not.
 
 Correction (a) -- grading against a shim round-tripped init.xlsx -- is not here; it is
 an input change, see offline/baseline.mjs.
@@ -30,6 +38,17 @@ permitted has its font forgiven too. Only an online run certifies a pass
 import argparse, json, sys, os
 
 REL_TOL = 1e-12  # last-ulp only: 52.910000000000004 vs 52.91 is 6.7e-17 relative
+
+
+def content_changed(initial, submission, v):
+    """Did the agent write this cell's content (formula or value), as opposed to only its
+    format? Compared against the round-tripped baseline, so serialization is not a change."""
+    from grader.workbook import get_cell, raw
+    b = get_cell(initial, v["sheet"], v["cell"])
+    a = get_cell(submission, v["sheet"], v["cell"])
+    if raw(b) == raw(a):
+        return False
+    return not float_only(b, a)
 
 
 def float_only(before, after):
@@ -46,10 +65,15 @@ def float_only(before, after):
 
 def gate(spec, grade, initial, submission):
     from grader.workbook import get_cell
-    real, dropped = [], {"engine_font_fill_rewrite": 0, "float_serialization": 0}
+    real, dropped = [], {"engine_font_fill_rewrite": 0, "float_serialization": 0,
+                         "engine_numfmt_on_written_cell": 0}
     for v in grade["preservation"]["violations"]:
         if v["kind"] == "cell_style" and v.get("field") in ("font", "fill"):
             dropped["engine_font_fill_rewrite"] += 1
+            continue
+        if (v["kind"] == "cell_style" and v.get("field") == "number_format"
+                and initial is not None and content_changed(initial, submission, v)):
+            dropped["engine_numfmt_on_written_cell"] += 1
             continue
         if v["kind"] == "cell_content" and initial is not None:
             if float_only(get_cell(initial, v["sheet"], v["cell"]),
