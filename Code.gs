@@ -15,6 +15,17 @@ const PRICE = { inp: 2.5, cached: 0.25, out: 15 }; // $/M
 // +1 real pass against -2 seeds on task_13 and -1 on task_12. Flag kept so the A/B is
 // re-runnable; occupancyNotice_ covers most of what it got right, deterministically.
 const ADVERSARY = false;
+// One map budget, one knob. Replaces the per-sheet 1800-byte cap and trimClass_, which
+// ranked line SHAPES: row structure died first, formula groups second, while the
+// font-colour histogram and the DV/CF notices were unreachable at class 9. 30 of 53 sheet
+// sections ended up shipping a "formula groups:" header with nothing beneath it.
+// describe_ now renders at a detail depth k and describeBudgeted_ binary-searches the
+// largest k that fits, so every section of every sheet is elided to the SAME depth and a
+// section is shortened only if it personally has more items than 2k. Measured full-detail
+// maps are 2.5-16KB, so this saturates (k = MAP_DEPTH_MAX, nothing elided) on every
+// benchmark workbook; it only bites if a much larger workbook arrives.
+const MAP_BUDGET = 24000;
+const MAP_DEPTH_MAX = 40;
 const ERRS = [
   '#REF!',
   '#VALUE!',
@@ -337,7 +348,8 @@ function labelIndexLines_(sn, lastUsed, rs, sheetName) {
     var ks = Object.keys(byLabel).sort();
     out.push('  labels col ' + colStr_(best + 1) + ': ' + distinct + ' distinct ("' + short_(ks[0], 24) + '" … "' + short_(ks[ks.length - 1], 24) + '")');
   } else {
-    for (var m = 0; m < Math.min(runs.length, 25); m++) {
+    var rCap = Math.max(1, Math.round(mapDepth_() * 0.625)); // 25 at full depth
+    for (var m = 0; m < Math.min(runs.length, rCap); m++) {
       var rn2 = runs[m];
       out.push('  · ' + colStr_(best + 1) + rn2.r1 + (rn2.r2 > rn2.r1 ? ':' + rn2.r2 + ' ×' + (rn2.r2 - rn2.r1 + 1) : '') + ' "' + short_(rn2.v, 40) + '"');
     }
@@ -403,9 +415,10 @@ function seriesInRow_(vals, C) {
   return best;
 }
 function headerCells_(vals, C) {
+  var K_ = mapDepth_();
   var idx = [];
   for (var j = 0; j < C; j++) if (vals[j] !== '' && vals[j] !== null) idx.push(j);
-  var EDGE = 20; // head/tail; shows every label header in this corpus (max 30)
+  var EDGE = K_; // head/tail; at full depth this shows every label header in this corpus (max 30)
   var parts = [], elided = 0;
   if (idx.length <= EDGE * 2) {
     for (var k = 0; k < idx.length; k++)
@@ -488,7 +501,8 @@ function hardcodeCellLines_(sn, comp) {
       for (var k = 0; k < consts.length; k++) add(i2, consts[k]);
   }
   if (!hits.length) return [];
-  return ['  constants in formula regions: ' + hits.slice(0, 8).join(', ') + (hits.length > 8 ? ' +' + (hits.length - 8) + ' more' : '')];
+  var hCap = Math.max(1, Math.round(mapDepth_() * 0.2)); // 8 at full depth
+  return ['  constants in formula regions: ' + hits.slice(0, hCap).join(', ') + (hits.length > hCap ? ' +' + (hits.length - hCap) + ' more' : '')];
 }
 function groupSourceSuffix_(rc, sheetName) {
   // dominant far/cross-sheet source bbox for a formula rect-group
@@ -552,7 +566,7 @@ function nfLegend_(sn, lastUsed) {
  * (368/368). It also replaces "column composition" and the old "row structure", which
  * dropped any row lacking both a formula and a hole and then kept only 8 groups. */
 function rowsSection_(sn, lastUsed, nfc) {
-  var EDGE = 15; // head/tail row groups; elision is always reported with the true count
+  var EDGE = Math.max(1, Math.round(mapDepth_() * 0.375)); // head/tail row groups (15 at full depth)
   var sigs = [];
   for (var i = 0; i < sn.R; i++) {
     var toks = [];
@@ -597,6 +611,31 @@ function rowsSection_(sn, lastUsed, nfc) {
     .concat(groups.slice(0, EDGE))
     .concat(['    [' + (groups.length - EDGE * 2) + ' of ' + groups.length + ' row groups elided here]'])
     .concat(groups.slice(groups.length - EDGE));
+}
+var MAP_DEPTH_ = MAP_DEPTH_MAX;
+function mapDepth_() { return MAP_DEPTH_; }
+/** Largest detail depth whose rendered map fits MAP_BUDGET. Bytes are non-decreasing in
+ * depth, so a binary search is well posed; k never drops below 1, so no section can lose
+ * its first and last item, and every elision states its own true count. */
+function describeBudgeted_() {
+  var lo = 1, hi = MAP_DEPTH_MAX, bestTxt = null, bestK = 1;
+  MAP_DEPTH_ = hi;
+  var full = describe_();
+  if (full.length <= MAP_BUDGET) {
+    MAP_DEPTH_ = MAP_DEPTH_MAX;
+    return full + '\nMAP depth ' + hi + '/' + MAP_DEPTH_MAX + ' (complete), ' + full.length + 'B of ' + MAP_BUDGET + 'B budget.';
+  }
+  while (lo <= hi) {
+    var mid = Math.floor((lo + hi) / 2);
+    MAP_DEPTH_ = mid;
+    var txt = describe_();
+    if (txt.length <= MAP_BUDGET) { bestTxt = txt; bestK = mid; lo = mid + 1; }
+    else hi = mid - 1;
+  }
+  if (!bestTxt) { MAP_DEPTH_ = 1; bestTxt = describe_(); bestK = 1; }
+  MAP_DEPTH_ = MAP_DEPTH_MAX;
+  return bestTxt + '\nMAP depth ' + bestK + '/' + MAP_DEPTH_MAX + ' — sections with more than ' +
+    (2 * bestK) + ' items are elided, each stating its own count. ' + bestTxt.length + 'B of ' + MAP_BUDGET + 'B budget.';
 }
 function describe_() {
   var L = [];
@@ -729,7 +768,8 @@ function describe_() {
     });
     if (merged.length) {
       Ls.push('  formula groups:');
-      for (var g = 0; g < Math.min(merged.length, 14); g++) {
+      var gCap = Math.max(1, Math.round(mapDepth_() * 0.35)); // 14 at full depth
+      for (var g = 0; g < Math.min(merged.length, gCap); g++) {
         var rc = merged[g];
         Ls.push(
           '    ' + colStr_(rc.c1) + rc.i1 + ':' + colStr_(rc.c2) + rc.i2 +
@@ -737,8 +777,8 @@ function describe_() {
             '  ' + rc.rf.slice(0, 105) + groupSourceSuffix_(rc, name),
         );
       }
-      if (merged.length > 14)
-        Ls.push('    [omitted: ' + (merged.length - 14) + ' more groups]');
+      if (merged.length > gCap)
+        Ls.push('    [omitted: ' + (merged.length - gCap) + ' more groups]');
       if (ones) Ls.push('    [+' + ones + ' single text-formula cells omitted]');
     }
     // Structure: one line per distinct run of identical rows, blanks stated by absence.
