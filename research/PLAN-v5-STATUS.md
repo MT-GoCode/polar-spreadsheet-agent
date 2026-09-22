@@ -31,7 +31,32 @@ and `node offline/toolpath_test.mjs` (33, up from 7). Both green.
 | 5.2 dead prompt lines | done | "Budget ~5 minutes" (23 of 40 runs exceeded it), the map-trust claim, the millions/trillions prior |
 | 5.3 blank-assertion guidance | done | rewritten; it was the direct cause of t10's certified hole |
 | 5.4 de-leaked task priors | done | the ramp, sign, move/shift and `+48.61bps` examples each mapped 1:1 to one task. `grep` for all of them returns nothing |
-| 6.2 gates before a paid sweep | done | sweep refuses to start on a red gate |
+| 6.2 gates before a paid sweep | done | observed in the final sweep log: `gate ok: conformance -> 49 passed`, `gate ok: toolpath -> 42 passed` before any spend |
+| 4.1 footprint vs run-start state | **withdrawn, with the reason** | not implementable as written: every legitimate fill writes cells that were blank at run start, and task_12's over-wide target already carried a plausible quote. The map fix (3b) removed the cause instead. The verbatim-quote check is the salvageable part and shipped |
+
+## Code review round (6 findings, all verified before fixing)
+
+| # | finding | fix |
+|---|---|---|
+| 1 | **critical**: `equals_ref` was missing from the sticky-failed-assertion carry whitelist while `Prompts.gs` promised it worked — any `equals_ref` that failed once could only be carried by a semantically wrong substitute or by giving up with `waive`, defeating the whole point of 4.2 | added to the whitelist; test |
+| 2 | the hatch ban matched source text, so `var m='setF'+'ontColor'; range[m](...)` walked through it — and `offline_gate.py` forgives every font/fill violation on the premise that no tool can write font or fill, so the bypass would have reported a **false pass** | reject the syntax instead of chasing names: computed method calls, `Reflect`, `eval`, `new Function`, `.constructor`, `apply`/`call`/`bind`. Verified it blocks the bypass and not array indexing; 4 tests |
+| 3 | `labelIndexLines_` showed up to 30 label runs but printed "+N more" against a stale threshold of 25, so 26–30 runs were shown in full **and** claimed as elided | one constant for both |
+| 4 | V2c scanned up to four full target rows/columns per blank cell — O(N·(rows+cols)) | one O(target cells) pass recording per-row/column filled extents; the test is now O(1) per cell. **No budget or cap needed** |
+| 5 | `baseline.mjs` created its temp dir and mutated `MOG_SESSION_DIR` outside the `try`, leaking both on an early throw | widened the `try` |
+| 6 | dead code: `blankBlockLines_` (call site removed in 3b, reachable only from a conformance test that gave false confidence in an unreachable feature) and the 5000-row `DATA SHEET` shortcut, which fires on zero tasks and would have replaced the one perfect map with a single header line | both deleted, with the test |
+
+## The self-authorization hole the regression sweep exposed
+
+The 14-task sweep showed task_07 failing **again** at score 1.000 with 15 `number_format`
+violations: the model declared a format target covering the cells, so V3 licensed it. Same
+shape as the plan-footprint problem — the agent grants itself the permission the axis checks.
+
+Closed by making quotes evidence rather than assertions. The harness holds the task prompt, so
+a `format` target now needs a `prompt_quote` that appears **verbatim** in the task text, and
+`set_number_format` additionally needs that quote to ask for a number format and not to be a
+preservation instruction. Measured against all 15 task texts, the phrases
+`number format|formatting|decimal place` select exactly the tasks whose specs require a format
+change (08, 09, 14) and exclude task_07, whose only formatting instruction concerns a border.
 
 ## Measured effect so far (2-run smoke, `gpt-5.4`/medium, reviewer off)
 
