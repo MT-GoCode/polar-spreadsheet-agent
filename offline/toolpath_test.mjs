@@ -155,6 +155,16 @@ const p5 = T.tPlan_({
 ok(/PLAN ACCEPTED/.test(p5), 'P5: a formula target quoting "hardcoded" is accepted, not refused', p5.slice(0, 100));
 ok(!/intent mentions/.test(p5), 'P5: no intent-wording lint in the response');
 
+// ---- the premise tools/offline_gate.py relies on: no tool can write font or fill ----
+// The gate forgives every offline cell_style font/fill violation as an engine artifact.
+// That is only sound while the agent genuinely cannot produce one. Enforce it here.
+G = freshG();
+T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x' }]), assertions_json: '[]', rationale: 't' });
+for (const call of ['setFontColor(\'#ff0000\')', 'setFontWeight(\'bold\')', 'setBackground(\'#ff0000\')', 'setFontSize(20)']) {
+  const r = T.tHatch_({ code: "ss.getSheetByName('" + sheet + "').getRange('" + nb + "')." + call + ";", touches_json: JSON.stringify([sheet + '!' + nb]) });
+  ok(/REFUSED/.test(r) && /banned/.test(r), 'gate premise: hatch refuses ' + call.split('(')[0], r.slice(0, 80));
+}
+
 shim.close(null);
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

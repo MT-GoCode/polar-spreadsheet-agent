@@ -63,6 +63,7 @@ const status = () => writeFileSync(STATUS, JSON.stringify({ done: results.length
 
 function runOne(job) {
   job.started = true; active++; ramUsed += job.mb;
+  status(); // otherwise the status file only updates on completion and reads 0 mid-sweep
   const t0 = Date.now();
   const stamp = new Date().toISOString().replace(/[:.]/g, '-');
   const dir = path.join(root, 'offline-runs', 's' + job.s + '-task_' + job.t + '-' + stamp);

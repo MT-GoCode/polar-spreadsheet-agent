@@ -7,10 +7,16 @@ number approximates what native grading reports. Online,
 grader/native_preservation.reconcile() discards every export-basis cell_content
 violation and rebuilds from Sheets entered-state; these corrections mirror that.
 
-  (b) cell_style font/fill on a cell inside ANY populated style_editable range.
-      The engine rewrites a cell's whole style record when it writes that cell's number
-      format or border, fabricating font/fill diffs. Measured: setting a cell's own
-      existing number format yields 7 violations on 3 cells.
+  (b) cell_style font/fill, anywhere. The agent has NO way to change a cell's font or
+      fill: there is no typed tool for either, and HATCH_BAN blocks setFont*/setBackground*
+      in run_apps_script. Every offline font/fill diff is therefore the engine rewriting a
+      cell's whole style record when it writes that cell's number format or border --
+      measured: setting a cell's own EXISTING number format yields 7 violations on 3 cells,
+      and Google Sheets' setNumberFormat does not touch font or fill.
+      PREMISE: no tool can write font or fill. Enforced by the hatch-ban assertions in
+      offline/toolpath_test.mjs. If a font or fill tool is ever added, delete this rule --
+      it would then hide real violations. number_format, border, alignment and protection
+      are NOT forgiven, because the agent can and does change those.
   (c) cell_content where both sides are plain numbers differing only in float
       serialization (engine shortens 52.910000000000004 to 52.91).
 
@@ -24,16 +30,6 @@ permitted has its font forgiven too. Only an online run certifies a pass
 import argparse, json, sys, os
 
 REL_TOL = 1e-12  # last-ulp only: 52.910000000000004 vs 52.91 is 6.7e-17 relative
-
-
-def style_editable_cells(spec):
-    """Every cell named by any field of style_editable, as (sheet, address)."""
-    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    from grader.workbook import expand
-    cells = set()
-    for ranges_by_sheet in (spec.get("style_editable") or {}).values():
-        cells |= expand(ranges_by_sheet)
-    return cells
 
 
 def float_only(before, after):
@@ -50,12 +46,10 @@ def float_only(before, after):
 
 def gate(spec, grade, initial, submission):
     from grader.workbook import get_cell
-    allowed_style = style_editable_cells(spec)
-    real, dropped = [], {"style_editable_font_fill": 0, "float_serialization": 0}
+    real, dropped = [], {"engine_font_fill_rewrite": 0, "float_serialization": 0}
     for v in grade["preservation"]["violations"]:
-        key = (v.get("sheet"), v.get("cell"))
-        if v["kind"] == "cell_style" and v.get("field") in ("font", "fill") and key in allowed_style:
-            dropped["style_editable_font_fill"] += 1
+        if v["kind"] == "cell_style" and v.get("field") in ("font", "fill"):
+            dropped["engine_font_fill_rewrite"] += 1
             continue
         if v["kind"] == "cell_content" and initial is not None:
             if float_only(get_cell(initial, v["sheet"], v["cell"]),
