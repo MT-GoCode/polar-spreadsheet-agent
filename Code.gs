@@ -282,8 +282,10 @@ function rectGroups_(r1c1grid, R, C) {
 // ---------- describe v2 helpers (pure snapshot computation) ----------
 function labelIndexLines_(sn, lastUsed, rs, sheetName) {
   // leftmost text-dominant column = the label column
+  // Scanning only A-D missed task_12's Monthly Cash Flow labels (column E: 2 of 34
+  // output rows named) and Investment Summary's (columns A and H: 48%).
   var best = -1, bestN = 0;
-  for (var j = 0; j < Math.min(4, sn.C); j++) {
+  for (var j = 0; j < sn.C; j++) {
     var n = 0;
     for (var i = 0; i < sn.R; i++)
       if (typeof sn.v[i][j] === 'string' && sn.v[i][j] !== '' && !sn.f[i][j]) n++;
@@ -391,19 +393,51 @@ function seriesInRow_(vals, C) {
       else if (Math.abs(dd - d) > 1e-9) break;
       last = j; cnt++;
     }
-    if (cnt >= 4 && (!best || cnt > best.cnt)) best = { first: s, last: last, d: d, cnt: cnt };
+    // d === 0 is a row of identical numbers, not a period axis. Accepting it fabricated
+    // 7 axes in the corpus, e.g. "hdr r8: H:S = 31629..31629 step 0" on a DATA row of
+    // task_15's target sheet. Zero true positives came from the d === 0 branch.
+    if (cnt >= 4 && d !== null && Math.abs(d) > 1e-9 && (!best || cnt > best.cnt))
+      best = { first: s, last: last, d: d, cnt: cnt };
     s = last;
   }
   return best;
 }
+function headerCells_(vals, C) {
+  var idx = [];
+  for (var j = 0; j < C; j++) if (vals[j] !== '' && vals[j] !== null) idx.push(j);
+  var EDGE = 20; // head/tail; shows every label header in this corpus (max 30)
+  var parts = [], elided = 0;
+  if (idx.length <= EDGE * 2) {
+    for (var k = 0; k < idx.length; k++)
+      parts.push(colStr_(idx[k] + 1) + '="' + short_(vals[idx[k]], 24) + '"');
+  } else {
+    for (var k1 = 0; k1 < EDGE; k1++)
+      parts.push(colStr_(idx[k1] + 1) + '="' + short_(vals[idx[k1]], 24) + '"');
+    elided = idx.length - EDGE * 2;
+    parts.push('… +' + elided + ' more in the middle …');
+    for (var k2 = idx.length - EDGE; k2 < idx.length; k2++)
+      parts.push(colStr_(idx[k2] + 1) + '="' + short_(vals[idx[k2]], 24) + '"');
+  }
+  return parts.join(' ');
+}
 function headerLines_(sn) {
   var out = [];
-  // (a) first label/header row: >=3 nonblanks
-  var textRow = -1;
+  // (a) the header row. Taking the FIRST row with >=3 non-blanks let a sparse banner row
+  // shadow the real header: task_10's Operating Valuation row 4 ("Actuals"/"Forecast"/
+  // "Terminal Year", exactly 3) hid row 5, which carries the FY2023A..FY2035P axis the
+  // task is about. Take the widest row instead, ties broken toward more text cells, and
+  // scan every column rather than the first 60.
+  var textRow = -1, bestN = 0, bestText = -1;
   for (var i = 0; i < Math.min(10, sn.R); i++) {
-    var n = 0;
-    for (var j = 0; j <= Math.min(sn.C - 1, 60); j++) if (sn.v[i][j] !== '') n++;
-    if (n >= 3) { textRow = i; break; }
+    var n = 0, nt = 0;
+    for (var j = 0; j < sn.C; j++)
+      if (sn.v[i][j] !== '' && sn.v[i][j] !== null) {
+        n++;
+        if (typeof sn.v[i][j] === 'string') nt++;
+      }
+    if (n >= 3 && (n > bestN || (n === bestN && nt > bestText))) {
+      bestN = n; bestText = nt; textRow = i;
+    }
   }
   // (b) best arithmetic series row (period axis) anywhere in the first 12 rows —
   //     reads sn.v so a formula-valued axis (=R[0]C[-1]+1) is caught too
@@ -417,19 +451,11 @@ function headerLines_(sn) {
       ' = ' + full_(sn.v[r][sb.first]) + '..' + full_(sn.v[r][sb.last]) + (sb.d !== 1 ? ' step ' + full_(sb.d) : '');
   }
   if (textRow >= 0 && textRow !== seriesRow) {
-    var vals = sn.v[textRow], nn = 0, cells = [];
-    for (var j4 = 0; j4 < sn.C; j4++) if (vals[j4] !== '') nn++;
-    for (var j5 = 0; j5 < sn.C && cells.length < 15; j5++)
-      if (vals[j5] !== '') cells.push(colStr_(j5 + 1) + '="' + short_(vals[j5], 24) + '"');
-    out.push('  hdr r' + (textRow + 1) + ': ' + cells.join(' ') + (nn > 15 ? ' +' + (nn - 15) + ' more' : ''));
+    out.push('  hdr r' + (textRow + 1) + ': ' + headerCells_(sn.v[textRow], sn.C));
   }
   if (seriesRow >= 0) out.push(seriesLine(seriesRow, seriesBest));
   else if (textRow >= 0 && out.length === 0) {
-    var vals2 = sn.v[textRow], nn2 = 0, cells2 = [];
-    for (var j6 = 0; j6 < sn.C; j6++) if (vals2[j6] !== '') nn2++;
-    for (var j7 = 0; j7 < sn.C && cells2.length < 15; j7++)
-      if (vals2[j7] !== '') cells2.push(colStr_(j7 + 1) + '="' + short_(vals2[j7], 24) + '"');
-    out.push('  hdr r' + (textRow + 1) + ': ' + cells2.join(' ') + (nn2 > 15 ? ' +' + (nn2 - 15) + ' more' : ''));
+    out.push('  hdr r' + (textRow + 1) + ': ' + headerCells_(sn.v[textRow], sn.C));
   }
   return out;
 }
@@ -487,6 +513,7 @@ function groupSourceSuffix_(rc, sheetName) {
 }
 function describe_() {
   var L = [];
+  var unreadDV = null, unreadCF = null;
   var iter = G.ss.isIterativeCalculationEnabled();
   var named = [];
   var nrs = G.ss.getNamedRanges();
@@ -777,7 +804,7 @@ function describe_() {
             }
         if (dvn) Ls.push('  data-validation ×' + dvn + ': ' + dvex);
       } catch (eDV) {
-        Ls.push('  data-validation: UNAVAILABLE (' + eDV + ')');
+        unreadDV = String(eDV).slice(0, 60);
       }
     }
     try {
@@ -806,7 +833,7 @@ function describe_() {
         Ls.push('  conditional-format ×' + cfr.length + ': ' + cfl.join(' | '));
       }
     } catch (eCF) {
-      Ls.push('  conditional-format: UNAVAILABLE (' + eCF + ')');
+      unreadCF = String(eCF).slice(0, 60);
     }
     // hot absolute refs (workbook-level tally, emitted after the sheet loop)
     for (var i9 = 0; i9 < R; i9++)
@@ -827,15 +854,24 @@ function describe_() {
     // trim priority: row-structure detail first, then formula groups, then label runs.
     // Never trim: errors, blank blocks, hardcodes, duplicate labels, sections, hdr,
     // font/DV/CF lines, distinct-count.
+    // Trim order was inverted: row structure went first (class 0) and formula groups
+    // second, while the font-colour histogram and the DV/CF unavailability notices fell
+    // through to class 9 = never trimmed. 30 of 53 sheet sections ended up shipping a
+    // "formula groups:" header with nothing under it while boilerplate survived. Drop the
+    // lines no transcript ever cited first, and the sheet's own structure last.
     function trimClass_(ln) {
-      if (/^    r\d/.test(ln)) return 0;
-      if (/^    [A-Z]/.test(ln) || /^    \[/.test(ln)) return 1;
+      if (/^  font colors:/.test(ln)) return 0;
+      if (/^  (data-validation|conditional-format):/.test(ln)) return 0;
+      if (/^  labels col /.test(ln)) return 1;
+      if (/^  duplicate labels/.test(ln)) return 1;
       if (/^  · /.test(ln)) return 2;
+      if (/^    [A-Z]/.test(ln) || /^    \[/.test(ln)) return 3;
+      if (/^    r\d/.test(ln)) return 4;
       return 9;
     }
     var bytes = Ls.join('\n').length;
     var pass = 0;
-    while (bytes > 1800 && pass < 3) {
+    while (bytes > 1800 && pass <= 4) {
       var worst = -1, wl = 0;
       for (var z = 2; z < Ls.length; z++)
         if (trimClass_(Ls[z]) === pass && Ls[z].length > wl) {
@@ -849,6 +885,16 @@ function describe_() {
       bytes = Ls.join('\n').length;
     }
     L = L.concat(Ls);
+  }
+  if (unreadDV || unreadCF) {
+    L.push('');
+    L.push(
+      'NOT READABLE ON THIS BACKEND (workbook-wide, stated once): ' +
+        (unreadDV ? 'data-validation' : '') +
+        (unreadDV && unreadCF ? ' and ' : '') +
+        (unreadCF ? 'conditional-format' : '') +
+        ' rules. Absence of a dv/cf line on a sheet therefore means "not read", not "none".',
+    );
   }
   var hotK = Object.keys(hotRefs).filter(function (k) { return hotRefs[k] > 50; });
   if (hotK.length) {
