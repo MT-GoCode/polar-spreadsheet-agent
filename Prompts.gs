@@ -19,20 +19,27 @@ failed attempt is reverted; the final sheet is the original plus your winning wr
 ## Workflow
 1. Read the map. Peek every range you will write or reference (peek/find/trace/diff are instant).
 2. Call set_new_plan: your targets (range + kind + intent) AND assertions — your pass/fail checks,
-   declared BEFORE writing (e.g. a checksum/total row equals a known value). A plan with no equals-assertion is stamped WEAK.
-3. When you set your plan, an automatic independent reviewer may return PLAN REVIEW concerns
-   (unverified assumptions, missed task clauses, circular checks, gaps) — address them BEFORE writing;
-   fixing a plan is cheap, re-doing writes is not.
+   declared BEFORE writing. EVERY plan that writes formulas or values MUST carry at least one
+   HARNESS-OWNED check, or it is refused: equals_old (the harness supplies the cell's run-start
+   value) or equals_ref (the harness reads a cell you are NOT writing). Reason: equals, nonblank,
+   no_error and blank all compare against a number YOU chose, so a confidently wrong answer
+   satisfies them — they cannot detect an error you did not know you made. Look for the anchor
+   before you write: a total, a subtotal, a prior-period column, a parallel row you are not
+   touching, or the value a hardcode you are replacing already had.
+3. Read the plan response: occupancy (which target cells already hold content), warnings, and any
+   refusal. Fixing a plan is cheap, re-doing writes is not.
 4. Write with the typed tools. Every write returns computed values with row labels and any errors in
    the written range — read them. Writes outside your declared targets are refused with the reason.
 5. submit runs the mechanical verifier: footprint vs plan, kinds, NUMBER-FORMAT PRESERVATION
    (any cell reformatted outside a format-kind target fails), new errors anywhere, structure,
-   R1C1 uniformity, and YOUR assertions (equals/blank/nonblank/no_error/format). It does not
-   check fonts, fills, borders or validations you did not assert. Clean report = done.
+   R1C1 uniformity, and YOUR assertions. It does not check fonts, fills, borders or validations
+   you did not assert. A clean report means your checks passed — it does NOT mean the answer is
+   right, only that nothing you declared caught a problem. Read the UNVERIFIED line: cells with no
+   harness-owned check behind them are unproven, not confirmed.
 6. On FAIL: inspect with diff/peek. Small in-target slip: fix and resubmit. Wrong understanding:
    set_new_plan — any prior writes auto-revert to pristine and a fresh attempt begins.
 7. An assertion that FAILED is sticky: a later plan overlapping its range must carry a revised
-   equals/blank assertion there or an explicit waive with a reason. Silent deletion is refused.
+   equals/equals_ref/blank assertion there or an explicit waive with a reason. Silent deletion is refused.
    Dropping ranges that earlier plans targeted draws one DROPPED warning at submit — re-submit to
    confirm it was intentional.
 Batch independent tool calls into one turn (multiple peeks; plan+writes; writes+submit) — turns are
@@ -77,6 +84,8 @@ the time cost, not tools.
 - Before filling a time series, verify which column is period 1 against its header row.
 - When the task states display units, find the source's unit label, convert by the exact power of
   10 between them, and sanity-check one magnitude against the label.
+- Asserting equals against a number you computed yourself proves only that the cell holds what you
+  put in it. Prefer equals_ref against a cell you are not writing, or equals_old.
 - A formula replacing a hardcode must reproduce the value it replaces — assert equals_old on that
   cell (the harness supplies the pre-existing value; you don't retype it) unless the task says the
   old value is wrong and must change. Overwriting an existing value needs force:true on the write.
@@ -149,7 +158,7 @@ const TOOLS = [
   ),
   toolDef_(
     'set_new_plan',
-    'Declare your contract before writing: targets (what you will change and what kind) and assertions (your pass/fail checks, e.g. a checksum/total row equals a known value). If a failed attempt is open, setting a new plan REVERTS the workbook to pristine first. targets_json: [{"range":"Sheet!A1:B2","kind":"formula|value|clear|format","intent":"...","prompt_quote":"verbatim task words this target obeys (required when the task states a convention)"}]. assertions_json: [{"range":"Sheet!H134:L134","check":"equals|equals_old|nonblank|blank|no_error|format|waive","value":0,"tol":1e-6,"decimals":1,"percent":false,"reason":"required for waive"}]. Assertions compare STORED values (full precision, unformatted); equals tolerates 1e-6 relative and coerces numeric text. waive explicitly neutralizes a previously-failed assertion on that range — state why in reason. equals_old checks the cell now equals its run-start value (harness-supplied; for hardcode→formula replacement).',
+    'Declare your contract before writing: targets (what you will change and what kind) and assertions (your pass/fail checks, e.g. a checksum/total row equals a known value). If a failed attempt is open, setting a new plan REVERTS the workbook to pristine first. targets_json: [{"range":"Sheet!A1:B2","kind":"formula|value|clear|format","intent":"...","prompt_quote":"verbatim task words this target obeys (required when the task states a convention)"}]. assertions_json: [{"range":"Sheet!H134:L134","check":"equals|equals_old|equals_ref|nonblank|blank|no_error|format|waive","value":0,"tol":1e-6,"ref":"Sheet!B2","decimals":1,"percent":false,"reason":"required for waive"}]. Assertions compare STORED values (full precision, unformatted); equals tolerates 1e-6 relative and coerces numeric text. REQUIRED FIELDS: equals needs value; format needs decimals (number) and percent (true/false); equals_ref needs ref; waive needs reason. At least one equals_old or equals_ref is required in any plan with formula/value targets. equals_old checks the cell now equals its run-start value (harness-supplied; for hardcode→formula replacement). equals_ref checks the cell equals another cell that you are NOT writing — the harness reads it, so the expected value is not yours to choose; a ref pointing at a cell you wrote is rejected. waive explicitly neutralizes a previously-failed assertion on that range — state why in reason.',
     { targets_json: S_, assertions_json: S_, rationale: S_ },
     ['targets_json', 'assertions_json', 'rationale'],
   ),

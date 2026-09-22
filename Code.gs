@@ -1472,7 +1472,7 @@ function tPlan_(a) {
   for (var j = 0; j < asserts.length; j++) {
     var as = asserts[j];
     if (
-      ['equals', 'equals_old', 'nonblank', 'blank', 'no_error', 'format', 'waive'].indexOf(
+      ['equals', 'equals_old', 'equals_ref', 'nonblank', 'blank', 'no_error', 'format', 'waive'].indexOf(
         as.check,
       ) < 0
     )
@@ -1483,6 +1483,49 @@ function tPlan_(a) {
         (as.range || '?') +
         ' needs a non-empty reason.'
       );
+    // 4.6: an equals with no value silently PASSED -- V7 computed Math.abs(v - undefined)
+    // and NaN > NaN is false, so the strongest axis became a free pass. Never observed in
+    // 1456 uses, but it is one malformed field away at all times.
+    if (as.check === 'equals' && (as.value === undefined || as.value === null))
+      return (
+        'REFUSED: equals assertion on ' + (as.range || '?') +
+        ' has no "value". Supply the expected value, or use equals_old (harness supplies the' +
+        ' run-start value) / equals_ref (harness reads a cell you are not writing).'
+      );
+    // 4.3: fmtMatches_ read `decimals || 0`, so a format assertion that omitted decimals
+    // silently demanded ZERO decimals and false-failed every real format. That is what
+    // forced all three task_09 seeds to escape via waive: 24 format-assertion failures
+    // across the corpus, then the model deleted the assertions -- 0 survive in any final
+    // plan. Require the fields the check actually needs.
+    if (as.check === 'format') {
+      if (typeof as.decimals !== 'number' || as.decimals < 0)
+        return (
+          'REFUSED: format assertion on ' + (as.range || '?') +
+          ' needs "decimals" (a non-negative number, e.g. 1 for "0.0").'
+        );
+      if (typeof as.percent !== 'boolean')
+        return (
+          'REFUSED: format assertion on ' + (as.range || '?') +
+          ' needs "percent" (true/false) so the check is unambiguous.'
+        );
+    }
+    if (as.check === 'equals_ref') {
+      if (!as.ref)
+        return (
+          'REFUSED: equals_ref on ' + (as.range || '?') +
+          ' needs "ref": a single cell (Sheet!A1) that you are NOT writing, whose value your' +
+          ' output must equal. The harness reads it, so the expected value is not yours to choose.'
+        );
+      try {
+        var rr2 = splitRef_(as.ref);
+        as.refSheet = rr2.sheet;
+        as.refBounds = parseA1_(rr2.a1);
+      } catch (e4) {
+        return 'REFUSED: equals_ref ref ' + as.ref + ': ' + e4.message;
+      }
+      if (!G.snap[as.refSheet])
+        return 'REFUSED: equals_ref ref names unknown sheet: ' + as.ref;
+    }
     try {
       var sr2 = splitRef_(as.range);
       as.sheetName = sr2.sheet;
@@ -1490,7 +1533,7 @@ function tPlan_(a) {
     } catch (e3) {
       return 'REFUSED: assertion ' + (as.range || '?') + ': ' + e3.message;
     }
-    if (as.check === 'equals' || as.check === 'equals_old') hasEq = true;
+    if (as.check === 'equals' || as.check === 'equals_old' || as.check === 'equals_ref') hasEq = true;
   }
   // Sticky failed assertions: a new plan overlapping a previously-failed
   // assertion's range must revise (equals/blank) or explicitly waive it.
@@ -1549,7 +1592,7 @@ function tPlan_(a) {
   var hasIndep = false;
   for (var ia = 0; ia < asserts.length; ia++) {
     var aa = asserts[ia];
-    if (aa.check === 'equals_old') { hasIndep = true; break; } // vs run-start value = independent
+    if (aa.check === 'equals_old' || aa.check === 'equals_ref') { hasIndep = true; break; } // harness-owned expected value
     if (aa.check === 'equals' || aa.check === 'nonblank' || aa.check === 'no_error') {
       var outside = true;
       for (var ib = 0; ib < clean.length; ib++) {
@@ -1560,8 +1603,31 @@ function tPlan_(a) {
       if (outside) { hasIndep = true; break; }
     }
   }
+  // A plan with no harness-owned check cannot detect a wrong value, and the corpus shows
+  // exactly that: the verifier returned PASS on 40 of 40 runs while 19 genuinely failed.
+  // equals/nonblank/no_error/blank all take their expected value from the model, so a
+  // confidently wrong answer satisfies them. equals_old and equals_ref do not.
+  var ownsOne = false;
+  for (var oi = 0; oi < asserts.length; oi++)
+    if (asserts[oi].check === 'equals_old' || asserts[oi].check === 'equals_ref') { ownsOne = true; break; }
+  var needsOwned = false;
+  for (var ni = 0; ni < clean.length; ni++)
+    if (clean[ni].kind === 'formula' || clean[ni].kind === 'value') { needsOwned = true; break; }
+  if (needsOwned && !ownsOne)
+    return (
+      'REFUSED: this plan has no check the harness owns, so nothing in it can detect a wrong' +
+      ' value — every equals/nonblank/no_error/blank compares against a number you chose.' +
+      ' Add at least one of:\n' +
+      '  equals_old on a cell whose pre-existing value your formula must reproduce' +
+      ' (the harness supplies that value), or\n' +
+      '  equals_ref {"check":"equals_ref","range":"Sheet!A1","ref":"Sheet!B2"} where ref is a' +
+      ' cell you are NOT writing that your output must equal (the harness reads it).\n' +
+      'If genuinely no such anchor exists, say so in the rationale and add' +
+      ' {"check":"waive","range":...,"reason":...} — but look first: a total, a subtotal, a' +
+      ' prior-period column, or a parallel row you are not touching usually works.'
+    );
   var anchorWarn = (!hasIndep && clean.length)
-    ? '\nWARN: no assertion is independent of your writes (all checks sit on cells you will write). Add an equals_old, or an equals/nonblank on a cell you are NOT writing, so a check can actually catch a wrong value.'
+    ? '\nWARN: no assertion sits outside the cells you will write; your harness-owned check is the only thing that can catch a wrong value here.'
     : '';
   // Deterministic occupancy notice: which cells in your targets already hold content.
   // Measured over 40 runs, this is what 7-9 of the LLM reviewer's 12 correct findings
@@ -2160,7 +2226,8 @@ function fmtMatches_(fmt, decimals, percent) {
   var m = sec.match(/\.([0#?]+)/);
   var d = m ? m[1].length : 0;
   var pct = sec.indexOf('%') >= 0;
-  return d === (decimals || 0) && pct === !!percent;
+  if (typeof decimals !== 'number') return false; // never silently demand 0 decimals
+  return d === decimals && pct === !!percent;
 }
 function verify_() {
   var rep = [],
@@ -2389,6 +2456,30 @@ function verify_() {
                 bad.push(a12 + '=' + short_(v2, 12) + ' (old ' + short_(ov7, 12) + ')');
             } else if (String(v2) !== String(ov7)) {
               bad.push(a12 + '=' + short_(v2, 12) + ' (old ' + short_(ov7, 12) + ')');
+            }
+          }
+        }
+        // equals_ref: the harness reads the reference cell, so the expected value is not
+        // the model's to choose. This is the fix for the tautology class -- 37 assertion
+        // cells across 9 runs where the asserted value was byte-identical to the model's
+        // own wrong output, so its verifier certified the error.
+        if (as.check === 'equals_ref') {
+          var refW = (G.writes[as.refSheet] || {})[colStr_(as.refBounds.c1) + as.refBounds.r1];
+          if (refW) {
+            bad.push(a12 + ' (ref ' + as.ref + ' is a cell YOU wrote — it proves nothing; point at a cell you are not writing)');
+          } else {
+            var rc7 = cellNow_(as.refSheet, as.refBounds.r1, as.refBounds.c1);
+            var rv7 = rc7 ? rc7.v : '';
+            var tolr = as.tol || 1e-6;
+            var v2r = typeof v2 === 'number' ? v2
+              : (typeof v2 === 'string' && v2 !== '' && isFinite(Number(v2)) ? Number(v2) : null);
+            var rvr = typeof rv7 === 'number' ? rv7
+              : (typeof rv7 === 'string' && rv7 !== '' && isFinite(Number(rv7)) ? Number(rv7) : null);
+            if (rvr !== null && v2r !== null) {
+              if (Math.abs(v2r - rvr) > Math.max(tolr, Math.abs(rvr) * 1e-6))
+                bad.push(a12 + '=' + short_(v2, 12) + ' (ref ' + as.ref + '=' + short_(rv7, 12) + ')');
+            } else if (String(v2) !== String(rv7)) {
+              bad.push(a12 + '=' + short_(v2, 12) + ' (ref ' + as.ref + '=' + short_(rv7, 12) + ')');
             }
           }
         }
