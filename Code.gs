@@ -10,6 +10,11 @@ const DEADLINE_MS = 1200 * 1000; // 20 min (offline/mog). Online Apps Script sti
 const MODEL_CALL_MIN_LEFT = 75 * 1000;
 const HARD_RETURN_LEFT = 30 * 1000;
 const PRICE = { inp: 2.5, cached: 0.25, out: 15 }; // $/M
+// LLM plan reviewer. OFF: over 40 runs it gave 12 correct / 9 wrong / 182 unfalsifiable
+// concerns, never once returned NO CONCERNS, added +50% cost and +48% wall, and netted
+// +1 real pass against -2 seeds on task_13 and -1 on task_12. Flag kept so the A/B is
+// re-runnable; occupancyNotice_ covers most of what it got right, deterministically.
+const ADVERSARY = false;
 const ERRS = [
   '#REF!',
   '#VALUE!',
@@ -1524,18 +1529,27 @@ function tPlan_(a) {
   var anchorWarn = (!hasIndep && clean.length)
     ? '\nWARN: no assertion is independent of your writes (all checks sit on cells you will write). Add an equals_old, or an equals/nonblank on a cell you are NOT writing, so a check can actually catch a wrong value.'
     : '';
-  // H9 coverage + H6 adversary review — once, at the first plan, before writes
+  // Deterministic occupancy notice: which cells in your targets already hold content.
+  // Measured over 40 runs, this is what 7-9 of the LLM reviewer's 12 correct findings
+  // were, at zero tokens and zero latency, and it cannot be wrong about the golden.
+  var occNote = occupancyNotice_(clean);
+  // H9 coverage + H6 adversary review. The reviewer is OFF by default: across 40 runs it
+  // produced 12 correct / 9 wrong / 182 unfalsifiable concerns, never once said
+  // NO CONCERNS, cost +50% and +48% wall, and netted +1 real pass against -2 seeds on
+  // task_13 and -1 on task_12. Kept behind the flag so the A/B stays re-runnable.
   var advNote = '';
   if (G.attempt === 1) {
     var cov = coverageFrac_(clean, asserts);
     ev_('coverage', { frac: cov });
-    try {
-      var concerns = adversaryReview_(clean, asserts, cov);
-      ev_('adversary', { concerns: concerns });
-      if (concerns && !/^NO CONCERNS/i.test(concerns))
-        advNote = '\n\nPLAN REVIEW (independent reviewer; address before writing):\n' + concerns;
-    } catch (e) {
-      ev_('adversary_error', { err: String(e).slice(0, 200) });
+    if (ADVERSARY) {
+      try {
+        var concerns = adversaryReview_(clean, asserts, cov);
+        ev_('adversary', { concerns: concerns });
+        if (concerns && !/^NO CONCERNS/i.test(concerns))
+          advNote = '\n\nPLAN REVIEW (independent reviewer; address before writing):\n' + concerns;
+      } catch (e) {
+        ev_('adversary_error', { err: String(e).slice(0, 200) });
+      }
     }
   }
   return (
@@ -1550,8 +1564,40 @@ function tPlan_(a) {
     reverted +
     (warn.length ? '\n' + warn.join('\n') : '') +
     anchorWarn +
+    occNote +
     advNote
   );
+}
+
+/** Cells inside the declared targets that already held content at run start, from the
+ * run-start snapshot. Informational: the write tools separately refuse these without
+ * force:true, so this is earlier notice, not new protection. */
+function occupancyNotice_(targets) {
+  var lines = [];
+  for (var i = 0; i < targets.length; i++) {
+    var t = targets[i], sn = G.snap[t.sheetName];
+    if (!sn || t.kind === 'format') continue;
+    var hits = [], n = 0;
+    for (var r = t.bounds.r1; r <= Math.min(t.bounds.r2, sn.R); r++)
+      for (var c = t.bounds.c1; c <= Math.min(t.bounds.c2, sn.C); c++) {
+        var f = sn.f[r - 1][c - 1], v = sn.v[r - 1][c - 1];
+        if (f === '' && (v === '' || v === null)) continue;
+        n++;
+        if (hits.length < 4)
+          hits.push(colStr_(c) + r + '=' + short_(f || v, 34));
+      }
+    if (n)
+      lines.push(
+        '  ' + t.range + ': ' + n + ' of ' +
+          ((t.bounds.r2 - t.bounds.r1 + 1) * (t.bounds.c2 - t.bounds.c1 + 1)) +
+          ' cells already hold content — ' + hits.join(', ') + (n > 4 ? ', …' : ''),
+      );
+  }
+  return lines.length
+    ? '\nALREADY OCCUPIED (run-start content inside your targets; overwriting needs force:true,' +
+        ' and anything you clobber that the task did not ask you to change fails preservation):\n' +
+        lines.join('\n')
+    : '';
 }
 
 // ---------- write path ----------

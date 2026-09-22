@@ -51,7 +51,7 @@ console.log('sheet', sheet, '| nonblank', nb, '| blank', bl, '| numeric', numc, 
 
 // H2 + adversary call-path
 let p = T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'formula', intent: 'test' }]), assertions_json: '[]', rationale: 't' });
-ok(/PLAN ACCEPTED/.test(p), 'plan accepted (H6 adversary call-path ran, no crash)', p.slice(0, 70));
+ok(/PLAN ACCEPTED/.test(p), 'plan accepted', p.slice(0, 70));
 ok(/REFUSED/.test(T.tFill_({ sheet, range: nb, formula_r1c1: '=1+1', force: false })), 'H2: overwrite non-blank refused without force');
 ok(/FILLED/.test(T.tFill_({ sheet, range: nb, formula_r1c1: '=1+1', force: true })), 'H2: overwrite allowed with force:true');
 
@@ -123,6 +123,23 @@ G = freshG();
 T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x' }]), assertions_json: '[]', rationale: 't' });
 const hatch = T.tHatch_({ code: "ss.getSheetByName('" + sheet + "').getRange('" + nb + "').setNumberFormat('0.0');", touches_json: JSON.stringify([sheet + '!' + nb]) });
 ok(/REFUSED/.test(hatch) && /banned/.test(hatch), 'P1: hatch refuses setNumberFormat', hatch.slice(0, 90));
+
+// ---- Phase 2: reviewer off by default, deterministic occupancy notice ----
+// The LLM reviewer must not run unless explicitly enabled. The shim's model stub would
+// answer NO CONCERNS, so the observable signal is the absence of any adversary trace
+// event and of the PLAN REVIEW block.
+G = freshG();
+const p2 = T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'formula', intent: 'x' }]), assertions_json: '[]', rationale: 't' });
+ok(!/PLAN REVIEW/.test(p2), 'P2: no PLAN REVIEW block when ADVERSARY is off');
+ok(!T.getG().trace.some((e) => e.t === 'adversary' || e.t === 'adversary_error'), 'P2: no adversary trace event when off');
+ok(T.getG().trace.some((e) => e.t === 'coverage'), 'P2: H9 coverage event still emitted');
+
+// The occupancy notice must name run-start content inside a target (nb is non-blank)...
+ok(/ALREADY OCCUPIED/.test(p2) && p2.indexOf(nb) >= 0, 'P2: occupancy notice names the occupied cell', p2.slice(-160));
+// ...and must stay silent for a target that is genuinely empty (bl is blank).
+G = freshG();
+const p2b = T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + bl, kind: 'formula', intent: 'x' }]), assertions_json: '[]', rationale: 't' });
+ok(!/ALREADY OCCUPIED/.test(p2b), 'P2: occupancy notice silent on an empty target');
 
 shim.close(null);
 console.log(`\n${pass} passed, ${fail} failed`);
