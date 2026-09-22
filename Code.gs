@@ -1412,6 +1412,11 @@ function tPlan_(a) {
     }
     if (!G.snap[sr.sheet])
       return 'REFUSED: unknown sheet in target: ' + t.range;
+    if (t.prompt_quote && t.kind !== 'format' && !quoteInPrompt_(t.prompt_quote))
+      warn.push(
+        'WARN: target ' + t.range + ' prompt_quote is not verbatim task text, so it is not' +
+          ' evidence of anything. Copy the words exactly or drop the field.',
+      );
     if (t.kind === 'format' && !quoteInPrompt_(t.prompt_quote))
       return (
         'REFUSED: format target ' + t.range +

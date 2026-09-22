@@ -357,6 +357,16 @@ T.tPlan_({
 });
 ok(/FORMAT SET/.test(T.tNumFmt_({ sheet, range: nb, format: '0.0' })), 'quote: the task\'s own formatting instruction licenses the write');
 
+// A non-verbatim quote on a non-format target warns but does not refuse: 5.1 showed that
+// a hard lint on quote wording only teaches the model to mutilate its quotes.
+G = freshG();
+const qw = T.tPlan_({
+  targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'formula', intent: 'x', prompt_quote: 'something the task never said at all' }]),
+  assertions_json: JSON.stringify([{ check: 'equals_old', range: sheet + '!' + nb }]),
+  rationale: 't',
+});
+ok(/PLAN ACCEPTED/.test(qw) && /not verbatim task text/.test(qw), 'quote: non-verbatim quote on a formula target warns, not refuses', qw.slice(0, 110));
+
 shim.close(null);
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
