@@ -84,6 +84,11 @@ the time cost, not tools.
 - Before filling a time series, verify which column is period 1 against its header row.
 - When the task states display units, find the source's unit label, convert by the exact power of
   10 between them, and sanity-check one magnitude against the label.
+- Sign conventions come from the workbook, not from intuition. When a column or row header names a
+  quantity that has a conventional direction (a discount, a premium, a "less"/"net" item, a margin,
+  an outflow), find the nearest EXISTING column or row whose header names the same kind of quantity
+  and match its sign on one row before filling the rest. A sign flip passes every check you can
+  write about your own output.
 - Asserting equals against a number you computed yourself proves only that the cell holds what you
   put in it. Prefer equals_ref against a cell you are not writing, or equals_old.
 - A formula replacing a hardcode must reproduce the value it replaces — assert equals_old on that

@@ -50,14 +50,14 @@ for (let i = 0; i < sn.R; i++) for (let j = 0; j < sn.C; j++) {
 console.log('sheet', sheet, '| nonblank', nb, '| blank', bl, '| numeric', numc, '=', numOld);
 
 // H2 + adversary call-path
-let p = T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'formula', intent: 'test' }]), assertions_json: '[]', rationale: 't' });
+let p = T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'formula', intent: 'test' }]), assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test: not exercising assertions here' }]), rationale: 't' });
 ok(/PLAN ACCEPTED/.test(p), 'plan accepted', p.slice(0, 70));
 ok(/REFUSED/.test(T.tFill_({ sheet, range: nb, formula_r1c1: '=1+1', force: false })), 'H2: overwrite non-blank refused without force');
 ok(/FILLED/.test(T.tFill_({ sheet, range: nb, formula_r1c1: '=1+1', force: true })), 'H2: overwrite allowed with force:true');
 
 // H8: blank hole in a declared formula target fails verify
 freshG();
-T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + bl, kind: 'formula', intent: 'test' }]), assertions_json: '[]', rationale: 't' });
+T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + bl, kind: 'formula', intent: 'test' }]), assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test: not exercising assertions here' }]), rationale: 't' });
 ok(/V2b HOLE FAIL/.test(T.verify_().text), 'H8: blank hole in declared target fails');
 
 // H7: equals_old
@@ -91,21 +91,21 @@ T.tPlan_({
     { range: sheet + '!' + nb, kind: 'formula', intent: 'write the value' },
     { range: sheet + '!' + nb, kind: 'format', intent: 'task asked for one decimal place' },
   ]),
-  assertions_json: '[]', rationale: 't',
+  assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test: not exercising assertions here' }]), rationale: 't',
 });
 const fmtRes = T.tNumFmt_({ sheet, range: nb, format: '0.0' });
 ok(/FORMAT SET/.test(fmtRes), 'P1: set_number_format works with a format target overlapping a formula target', fmtRes.slice(0, 90));
 
 // ...and is still refused when only a non-format target covers the range.
 G = freshG();
-T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'formula', intent: 'x' }]), assertions_json: '[]', rationale: 't' });
+T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'formula', intent: 'x' }]), assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test: not exercising assertions here' }]), rationale: 't' });
 const fmtRef = T.tNumFmt_({ sheet, range: nb, format: '0.0' });
 ok(/REFUSED/.test(fmtRef) && /format target covering/.test(fmtRef), 'P1: format write without a format target refused, with the fix named', fmtRef.slice(0, 90));
 
 // V3 fires when a format changes outside any format target (this is t07's failure mode:
 // outputs 25/25 on every seed, killed only by unrequested reformatting).
 G = freshG();
-T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x' }]), assertions_json: '[]', rationale: 't' });
+T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x' }]), assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test: not exercising assertions here' }]), rationale: 't' });
 T.tNumFmt_({ sheet, range: nb, format: '0.000%' });
 G.plan.targets[0].kind = 'formula';      // revoke the licence, keep the edit
 const v3 = T.verify_().text;
@@ -113,14 +113,14 @@ ok(/V3 FORMAT FAIL/.test(v3), 'P1: V3 fails a number-format change outside a for
 
 // ...and passes when the change is licensed.
 G = freshG();
-T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x' }]), assertions_json: '[]', rationale: 't' });
+T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x' }]), assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test: not exercising assertions here' }]), rationale: 't' });
 T.tNumFmt_({ sheet, range: nb, format: '0.000%' });
 const v3ok = T.verify_().text;
 ok(/V3 number formats ok/.test(v3ok), 'P1: V3 passes a licensed number-format change', v3ok.slice(0, 120));
 
 // The hatch must no longer be a way around the typed format tool.
 G = freshG();
-T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x' }]), assertions_json: '[]', rationale: 't' });
+T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x' }]), assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test: not exercising assertions here' }]), rationale: 't' });
 const hatch = T.tHatch_({ code: "ss.getSheetByName('" + sheet + "').getRange('" + nb + "').setNumberFormat('0.0');", touches_json: JSON.stringify([sheet + '!' + nb]) });
 ok(/REFUSED/.test(hatch) && /banned/.test(hatch), 'P1: hatch refuses setNumberFormat', hatch.slice(0, 90));
 
@@ -129,7 +129,7 @@ ok(/REFUSED/.test(hatch) && /banned/.test(hatch), 'P1: hatch refuses setNumberFo
 // answer NO CONCERNS, so the observable signal is the absence of any adversary trace
 // event and of the PLAN REVIEW block.
 G = freshG();
-const p2 = T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'formula', intent: 'x' }]), assertions_json: '[]', rationale: 't' });
+const p2 = T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'formula', intent: 'x' }]), assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test: not exercising assertions here' }]), rationale: 't' });
 ok(!/PLAN REVIEW/.test(p2), 'P2: no PLAN REVIEW block when ADVERSARY is off');
 ok(!T.getG().trace.some((e) => e.t === 'adversary' || e.t === 'adversary_error'), 'P2: no adversary trace event when off');
 ok(T.getG().trace.some((e) => e.t === 'coverage'), 'P2: H9 coverage event still emitted');
@@ -138,7 +138,7 @@ ok(T.getG().trace.some((e) => e.t === 'coverage'), 'P2: H9 coverage event still 
 ok(/ALREADY OCCUPIED/.test(p2) && p2.indexOf(nb) >= 0, 'P2: occupancy notice names the occupied cell', p2.slice(-160));
 // ...and must stay silent for a target that is genuinely empty (bl is blank).
 G = freshG();
-const p2b = T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + bl, kind: 'formula', intent: 'x' }]), assertions_json: '[]', rationale: 't' });
+const p2b = T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + bl, kind: 'formula', intent: 'x' }]), assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test: not exercising assertions here' }]), rationale: 't' });
 ok(!/ALREADY OCCUPIED/.test(p2b), 'P2: occupancy notice silent on an empty target');
 
 // ---- Phase 5: the hardcode-intent lint is gone ----
@@ -150,7 +150,7 @@ const p5 = T.tPlan_({
   targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'formula',
     intent: 'replace the hardcoded values with live formulas',
     prompt_quote: 'currently hold hardcoded values — replace those with live formulas' }]),
-  assertions_json: '[]', rationale: 't',
+  assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test: not exercising assertions here' }]), rationale: 't',
 });
 ok(/PLAN ACCEPTED/.test(p5), 'P5: a formula target quoting "hardcoded" is accepted, not refused', p5.slice(0, 100));
 ok(!/intent mentions/.test(p5), 'P5: no intent-wording lint in the response');
@@ -159,11 +159,82 @@ ok(!/intent mentions/.test(p5), 'P5: no intent-wording lint in the response');
 // The gate forgives every offline cell_style font/fill violation as an engine artifact.
 // That is only sound while the agent genuinely cannot produce one. Enforce it here.
 G = freshG();
-T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x' }]), assertions_json: '[]', rationale: 't' });
+T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x' }]), assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test: not exercising assertions here' }]), rationale: 't' });
 for (const call of ['setFontColor(\'#ff0000\')', 'setFontWeight(\'bold\')', 'setBackground(\'#ff0000\')', 'setFontSize(20)']) {
   const r = T.tHatch_({ code: "ss.getSheetByName('" + sheet + "').getRange('" + nb + "')." + call + ";", touches_json: JSON.stringify([sheet + '!' + nb]) });
   ok(/REFUSED/.test(r) && /banned/.test(r), 'gate premise: hatch refuses ' + call.split('(')[0], r.slice(0, 80));
 }
+
+// ---- Phase 4a: validated assertions, equals_ref, harness-owned requirement ----
+// A plan that writes formulas with no harness-owned check must be refused: this is the
+// root of the verifier returning PASS on 40 of 40 runs while 19 genuinely failed.
+G = freshG();
+const r41 = T.tPlan_({
+  targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'formula', intent: 'x' }]),
+  assertions_json: JSON.stringify([{ check: 'no_error', range: sheet + '!' + nb }]),
+  rationale: 't',
+});
+ok(/REFUSED/.test(r41) && /no check the harness owns/.test(r41), 'P4: plan with only model-authored checks is refused', r41.slice(0, 100));
+
+// equals_old satisfies it.
+G = freshG();
+ok(/PLAN ACCEPTED/.test(T.tPlan_({
+  targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'formula', intent: 'x' }]),
+  assertions_json: JSON.stringify([{ check: 'equals_old', range: sheet + '!' + nb }]),
+  rationale: 't',
+})), 'P4: equals_old satisfies the harness-owned requirement');
+
+// equals_ref rejects a ref the model itself wrote -- the tautology guard.
+G = freshG();
+T.tPlan_({
+  targets_json: JSON.stringify([{ range: sheet + '!' + bl, kind: 'formula', intent: 'x' }, { range: sheet + '!' + numc, kind: 'formula', intent: 'x' }]),
+  assertions_json: JSON.stringify([{ check: 'equals_ref', range: sheet + '!' + bl, ref: sheet + '!' + numc }]),
+  rationale: 't',
+});
+T.tFill_({ sheet, range: bl, formula_r1c1: '=' + numOld, force: false });
+T.tFill_({ sheet, range: numc, formula_r1c1: '=' + numOld, force: true });
+const r42 = T.verify_().text;
+ok(/is a cell YOU wrote/.test(r42), 'P4: equals_ref refuses a ref the model wrote', (r42.match(/V7[^\n]*/) || [''])[0].slice(0, 110));
+
+// equals_ref passes against an untouched cell holding the same value.
+G = freshG();
+T.tPlan_({
+  targets_json: JSON.stringify([{ range: sheet + '!' + bl, kind: 'formula', intent: 'x' }]),
+  assertions_json: JSON.stringify([{ check: 'equals_ref', range: sheet + '!' + bl, ref: sheet + '!' + numc }]),
+  rationale: 't',
+});
+T.tFill_({ sheet, range: bl, formula_r1c1: '=' + numOld, force: false });
+const r43 = T.verify_().text;
+ok(/V7 assert ok: equals_ref/.test(r43), 'P4: equals_ref passes against an untouched reference cell', (r43.match(/V7[^\n]*/) || [''])[0].slice(0, 110));
+
+// Malformed payloads are refused rather than silently passing.
+G = freshG();
+const r44 = T.tPlan_({
+  targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'formula', intent: 'x' }]),
+  assertions_json: JSON.stringify([{ check: 'equals_old', range: sheet + '!' + nb }, { check: 'equals', range: sheet + '!' + nb }]),
+  rationale: 't',
+});
+ok(/REFUSED/.test(r44) && /has no "value"/.test(r44), 'P4: equals with no value is refused (was a silent PASS)', r44.slice(0, 100));
+
+G = freshG();
+const r45 = T.tPlan_({
+  targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x' }]),
+  assertions_json: JSON.stringify([{ check: 'format', range: sheet + '!' + nb, percent: false }]),
+  rationale: 't',
+});
+ok(/REFUSED/.test(r45) && /needs "decimals"/.test(r45), 'P4: format assertion without decimals is refused (was a false-fail)', r45.slice(0, 100));
+
+// The UNVERIFIED line must always be present, so a clean report cannot read as "correct".
+G = freshG();
+T.tPlan_({
+  targets_json: JSON.stringify([{ range: sheet + '!' + bl, kind: 'formula', intent: 'x' }]),
+  assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + bl, reason: 'none available' }]),
+  rationale: 't',
+});
+T.tFill_({ sheet, range: bl, formula_r1c1: '=1+1', force: false });
+const r46 = T.verify_().text;
+ok(/UNVERIFIED: 1 of 1 output cells/.test(r46) && /Nothing here can detect a wrong value/.test(r46),
+  'P4: UNVERIFIED line reports zero harness-owned coverage', (r46.match(/UNVERIFIED[^\n]*/) || [''])[0].slice(0, 130));
 
 shim.close(null);
 console.log(`\n${pass} passed, ${fail} failed`);

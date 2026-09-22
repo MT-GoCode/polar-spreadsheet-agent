@@ -1607,9 +1607,12 @@ function tPlan_(a) {
   // exactly that: the verifier returned PASS on 40 of 40 runs while 19 genuinely failed.
   // equals/nonblank/no_error/blank all take their expected value from the model, so a
   // confidently wrong answer satisfies them. equals_old and equals_ref do not.
+  // waive counts, so this can never deadlock -- but a waived plan reports 0% coverage and
+  // the verifier says outright that nothing in it can detect a wrong value.
   var ownsOne = false;
   for (var oi = 0; oi < asserts.length; oi++)
-    if (asserts[oi].check === 'equals_old' || asserts[oi].check === 'equals_ref') { ownsOne = true; break; }
+    if (asserts[oi].check === 'equals_old' || asserts[oi].check === 'equals_ref' ||
+        asserts[oi].check === 'waive') { ownsOne = true; break; }
   var needsOwned = false;
   for (var ni = 0; ni < clean.length; ni++)
     if (clean[ni].kind === 'formula' || clean[ni].kind === 'value') { needsOwned = true; break; }
@@ -2398,6 +2401,51 @@ function verify_() {
       holes.slice(0, 12).join(', ') + (holes.length > 12 ? ' +more' : ''));
     fails++;
   } else rep.push('V2b no holes');
+  // V2c region continuity ("sandwiched hole"). A blank with filled cells on BOTH sides,
+  // in the same row or the same column of a declared formula/value target, is an omission
+  // the model licensed with its own blank assertion -- which is why V2b could not catch
+  // it. Deliberately NOT licensable by blank: only an explicit waive, with a reason.
+  // Staircase blanks (filled on one side only) are spared, so a vintage triangle is fine.
+  // Targets: task_04 s2's Monthly Cohorts row 56 (116 cells, filled above and below) and
+  // task_10 s3's D&A Schedule C11:C21, which is the only thing between 0.985 and a pass.
+  function waived_(sheet, r, cc) {
+    for (var z2 = 0; z2 < G.plan.asserts.length; z2++) {
+      var aw = G.plan.asserts[z2];
+      if (aw.check !== 'waive' || aw.sheetName !== sheet) continue;
+      if (r >= aw.bounds.r1 && r <= aw.bounds.r2 && cc >= aw.bounds.c1 && cc <= aw.bounds.c2) return true;
+    }
+    return false;
+  }
+  function filledNow_(sheet, r, cc) {
+    var c0 = cellNow_(sheet, r, cc);
+    return !!(c0.f || (c0.v !== '' && c0.v !== null));
+  }
+  var sandwich = [];
+  for (var ts = 0; ts < G.plan.targets.length; ts++) {
+    var tgs = G.plan.targets[ts];
+    if (tgs.kind !== 'formula' && tgs.kind !== 'value') continue;
+    for (var rs2 = tgs.bounds.r1; rs2 <= tgs.bounds.r2 && sandwich.length <= 12; rs2++)
+      for (var cs2 = tgs.bounds.c1; cs2 <= tgs.bounds.c2 && sandwich.length <= 12; cs2++) {
+        if (filledNow_(tgs.sheetName, rs2, cs2)) continue;
+        if (waived_(tgs.sheetName, rs2, cs2)) continue;
+        var up = false, dn = false, lf2 = false, rt = false;
+        for (var ru = tgs.bounds.r1; ru < rs2; ru++) if (filledNow_(tgs.sheetName, ru, cs2)) { up = true; break; }
+        for (var rd = rs2 + 1; rd <= tgs.bounds.r2; rd++) if (filledNow_(tgs.sheetName, rd, cs2)) { dn = true; break; }
+        for (var cl = tgs.bounds.c1; cl < cs2; cl++) if (filledNow_(tgs.sheetName, rs2, cl)) { lf2 = true; break; }
+        for (var cr = cs2 + 1; cr <= tgs.bounds.c2; cr++) if (filledNow_(tgs.sheetName, rs2, cr)) { rt = true; break; }
+        if ((up && dn) || (lf2 && rt))
+          sandwich.push(tgs.sheetName + '!' + colStr_(cs2) + rs2);
+      }
+  }
+  if (sandwich.length) {
+    rep.push(
+      'V2c SANDWICHED-HOLE FAIL: blank cells with filled cells on BOTH sides inside a declared' +
+        ' target — an omission, not an intentional gap (a blank assertion does NOT license this;' +
+        ' only waive with a reason does): ' +
+        sandwich.slice(0, 12).join(', ') + (sandwich.length > 12 ? ' +more' : ''),
+    );
+    fails++;
+  } else rep.push('V2c no sandwiched holes');
   if (newErrs.length) {
     rep.push('V5 NEW-ERROR FAIL: ' + newErrs.slice(0, 10).join('; ') + (newErrs.length > 10 ? ' +' + (newErrs.length - 10) + ' more' : ''));
     fails++;
@@ -2552,6 +2600,35 @@ function verify_() {
   var verdict = fails === 0 ? 'PASS' : 'FAIL (' + fails + ' axes)';
   if (G.plan.weak)
     rep.push('NOTE: plan is WEAK — no equals-assertion; values unverified.');
+  // 4.5 Honest reporting. PASS was unfalsifiable: 40 of 40 runs ended VERDICT: PASS while
+  // 19 genuinely failed. State how much of the output any harness-owned check actually
+  // covers, so a clean report cannot be read as "correct".
+  var ownCells = 0, tgtCells = 0;
+  for (var tu = 0; tu < G.plan.targets.length; tu++) {
+    var tgu = G.plan.targets[tu];
+    if (tgu.kind !== 'formula' && tgu.kind !== 'value') continue;
+    for (var ru2 = tgu.bounds.r1; ru2 <= tgu.bounds.r2; ru2++)
+      for (var cu = tgu.bounds.c1; cu <= tgu.bounds.c2; cu++) {
+        tgtCells++;
+        var covered = false;
+        for (var au = 0; au < G.plan.asserts.length; au++) {
+          var ao = G.plan.asserts[au];
+          if (ao.check !== 'equals_old' && ao.check !== 'equals_ref') continue;
+          if (ao.sheetName !== tgu.sheetName) continue;
+          if (ru2 >= ao.bounds.r1 && ru2 <= ao.bounds.r2 && cu >= ao.bounds.c1 && cu <= ao.bounds.c2) { covered = true; break; }
+        }
+        if (covered) ownCells++;
+      }
+  }
+  if (tgtCells)
+    rep.push(
+      'UNVERIFIED: ' + (tgtCells - ownCells) + ' of ' + tgtCells +
+        ' output cells have no harness-owned check behind them (' +
+        Math.round((ownCells / tgtCells) * 100) + '% covered by equals_old/equals_ref).' +
+        (ownCells === 0
+          ? ' Nothing here can detect a wrong value — a PASS means only that no check you wrote fired.'
+          : ' A PASS means your checks passed, not that the remaining cells are right.'),
+    );
   ev_('verdict', { verdict: verdict, fails: fails });
   if (fails > 0) G.failedOpen = true;
   return {
