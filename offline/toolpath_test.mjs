@@ -27,7 +27,7 @@ const T = new Function(...names, code)(...names.map((k) => shim.globals[k]));
 
 function freshG() {
   const ss = shim.globals.SpreadsheetApp.openById('x');
-  T.setG({ ss, id: 'x', t0: Date.now(), prompt: 'test', map: null, writes: {}, oldmap: {}, fmtBase: {}, fmtWrites: [], dvWrites: [], cfBase: {}, plan: null, failedOpen: false, failedAsserts: [], planHistory: [], droppedAck: false, attempt: 0, trace: [], turn: 0, prevId: null, cost: 0, ckptFrom: 0 });
+  T.setG({ ss, id: 'x', t0: Date.now(), prompt: 'Unit test task. Format completed outputs to one decimal place. Preserve existing formatting elsewhere.', map: null, writes: {}, oldmap: {}, fmtBase: {}, fmtWrites: [], dvWrites: [], cfBase: {}, plan: null, failedOpen: false, failedAsserts: [], planHistory: [], droppedAck: false, attempt: 0, trace: [], turn: 0, prevId: null, cost: 0, ckptFrom: 0 });
   T.snapshotAll_();
   T.getG().map = T.describe_();
   return T.getG();
@@ -89,7 +89,7 @@ G = freshG();
 T.tPlan_({
   targets_json: JSON.stringify([
     { range: sheet + '!' + nb, kind: 'formula', intent: 'write the value' },
-    { range: sheet + '!' + nb, kind: 'format', intent: 'task asked for one decimal place' },
+    { range: sheet + '!' + nb, kind: 'format', intent: 'task asked for one decimal place', prompt_quote: 'Format completed outputs to one decimal place' },
   ]),
   assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test: not exercising assertions here' }]), rationale: 't',
 });
@@ -105,7 +105,7 @@ ok(/REFUSED/.test(fmtRef) && /format target covering/.test(fmtRef), 'P1: format 
 // V3 fires when a format changes outside any format target (this is t07's failure mode:
 // outputs 25/25 on every seed, killed only by unrequested reformatting).
 G = freshG();
-T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x' }]), assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test: not exercising assertions here' }]), rationale: 't' });
+T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x', prompt_quote: 'Format completed outputs to one decimal place' }]), assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test: not exercising assertions here' }]), rationale: 't' });
 T.tNumFmt_({ sheet, range: nb, format: '0.000%' });
 G.plan.targets[0].kind = 'formula';      // revoke the licence, keep the edit
 const v3 = T.verify_().text;
@@ -113,14 +113,14 @@ ok(/V3 FORMAT FAIL/.test(v3), 'P1: V3 fails a number-format change outside a for
 
 // ...and passes when the change is licensed.
 G = freshG();
-T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x' }]), assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test: not exercising assertions here' }]), rationale: 't' });
+T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x', prompt_quote: 'Format completed outputs to one decimal place' }]), assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test: not exercising assertions here' }]), rationale: 't' });
 T.tNumFmt_({ sheet, range: nb, format: '0.000%' });
 const v3ok = T.verify_().text;
 ok(/V3 number formats ok/.test(v3ok), 'P1: V3 passes a licensed number-format change', v3ok.slice(0, 120));
 
 // The hatch must no longer be a way around the typed format tool.
 G = freshG();
-T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x' }]), assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test: not exercising assertions here' }]), rationale: 't' });
+T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x', prompt_quote: 'Format completed outputs to one decimal place' }]), assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test: not exercising assertions here' }]), rationale: 't' });
 const hatch = T.tHatch_({ code: "ss.getSheetByName('" + sheet + "').getRange('" + nb + "').setNumberFormat('0.0');", touches_json: JSON.stringify([sheet + '!' + nb]) });
 ok(/REFUSED/.test(hatch) && /banned/.test(hatch), 'P1: hatch refuses setNumberFormat', hatch.slice(0, 90));
 
@@ -159,7 +159,7 @@ ok(!/intent mentions/.test(p5), 'P5: no intent-wording lint in the response');
 // The gate forgives every offline cell_style font/fill violation as an engine artifact.
 // That is only sound while the agent genuinely cannot produce one. Enforce it here.
 G = freshG();
-T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x' }]), assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test: not exercising assertions here' }]), rationale: 't' });
+T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x', prompt_quote: 'Format completed outputs to one decimal place' }]), assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test: not exercising assertions here' }]), rationale: 't' });
 for (const call of ['setFontColor(\'#ff0000\')', 'setFontWeight(\'bold\')', 'setBackground(\'#ff0000\')', 'setFontSize(20)']) {
   const r = T.tHatch_({ code: "ss.getSheetByName('" + sheet + "').getRange('" + nb + "')." + call + ";", touches_json: JSON.stringify([sheet + '!' + nb]) });
   ok(/REFUSED/.test(r) && /banned/.test(r), 'gate premise: hatch refuses ' + call.split('(')[0], r.slice(0, 80));
@@ -218,7 +218,7 @@ ok(/REFUSED/.test(r44) && /has no "value"/.test(r44), 'P4: equals with no value 
 
 G = freshG();
 const r45 = T.tPlan_({
-  targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x' }]),
+  targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x', prompt_quote: 'Format completed outputs to one decimal place' }]),
   assertions_json: JSON.stringify([{ check: 'format', range: sheet + '!' + nb, percent: false }]),
   rationale: 't',
 });
@@ -288,7 +288,7 @@ ok(/UNVERIFIED: 1 of 1 output cells/.test(r46) && /Nothing here can detect a wro
 // premise that no tool can write font or fill, so that bypass would have turned a real
 // violation into ignored noise and reported a false pass.
 G = freshG();
-T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x' }]),
+T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x', prompt_quote: 'Format completed outputs to one decimal place' }]),
   assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test' }]), rationale: 't' });
 for (const [code, label] of [
   ["var m='setF'+'ontColor'; ss.getSheetByName('" + sheet + "').getRange('" + nb + "')[m]('#ff0000');", 'computed method call'],
@@ -315,6 +315,47 @@ T.verify_();                       // records the equals_ref failure as sticky
 const carried = T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + bl, kind: 'formula', intent: 'x' }]),
   assertions_json: JSON.stringify([{ check: 'equals_ref', range: sheet + '!' + bl, ref: sheet + '!' + numc }]), rationale: 't' });
 ok(/PLAN ACCEPTED/.test(carried), 'sticky: a revised equals_ref carries a failed equals_ref', carried.slice(0, 110));
+
+// ---- a format target must be licensed by the TASK's own words ----
+// task_07 scores 25/25 outputs on every seed and fails only because the model reformats
+// Meta Drivers!G19:K21 while its style_editable permits nothing but a border on M20:M21.
+// V3 could not stop it, because the model licensed itself with a self-declared format
+// target. The harness holds the task prompt, so a quote can be made non-forgeable.
+G = freshG();
+const q1 = T.tPlan_({
+  targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'tidy it up' }]),
+  assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test' }]),
+  rationale: 't',
+});
+ok(/REFUSED/.test(q1) && /VERBATIM/.test(q1), 'quote: format target with no prompt_quote is refused', q1.slice(0, 100));
+
+G = freshG();
+const q2 = T.tPlan_({
+  targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x', prompt_quote: 'make it look like the neighbouring rows' }]),
+  assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test' }]),
+  rationale: 't',
+});
+ok(/REFUSED/.test(q2) && /does not appear in the task text/.test(q2), 'quote: an invented justification is refused', q2.slice(0, 110));
+
+// A quote that IS in the task but tells you to leave formatting alone must not license a
+// number-format write -- several tasks contain exactly such a sentence.
+G = freshG();
+T.tPlan_({
+  targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x', prompt_quote: 'Preserve existing formatting elsewhere' }]),
+  assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test' }]),
+  rationale: 't',
+});
+const q3 = T.tNumFmt_({ sheet, range: nb, format: '0.0%' });
+ok(/REFUSED/.test(q3) && /leave formatting as it is/.test(q3), 'quote: a preservation sentence does not license a reformat', q3.slice(0, 120));
+
+// ...and the real instruction does.
+G = freshG();
+T.tPlan_({
+  targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x', prompt_quote: 'Format completed outputs to one decimal place' }]),
+  assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test' }]),
+  rationale: 't',
+});
+ok(/FORMAT SET/.test(T.tNumFmt_({ sheet, range: nb, format: '0.0' })), 'quote: the task\'s own formatting instruction licenses the write');
 
 shim.close(null);
 console.log(`\n${pass} passed, ${fail} failed`);

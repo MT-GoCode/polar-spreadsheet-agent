@@ -1357,6 +1357,25 @@ function adversaryReview_(clean, asserts, coverage) {
   (res.output || []).forEach(function (o) { (o.content || []).forEach(function (cc) { if (cc.text) out += cc.text; }); });
   return out.trim();
 }
+/** Is this prompt_quote genuinely the task's own words? Normalised to lowercase with
+ * collapsed whitespace, so punctuation and wrapping do not matter but content does.
+ * This is what makes a quote evidence rather than an assertion: the harness holds the
+ * task prompt, so the model cannot license itself with an invented justification. */
+function quoteInPrompt_(q) {
+  if (!q) return false;
+  var norm = function (x) { return String(x).toLowerCase().replace(/\s+/g, ' ').trim(); };
+  var nq = norm(q);
+  return nq.length >= 12 && norm(G.prompt || '').indexOf(nq) >= 0;
+}
+// A number-format write needs the TASK to have asked for one. Measured over the 15 task
+// texts, these three phrases select exactly the tasks whose specs permit and require a
+// number-format change and exclude the rest -- notably task_07, which scores 25/25 on
+// every seed and fails only because the model reformats Meta Drivers!G19:K21 while its
+// style_editable permits nothing but a border on M20:M21.
+var NUMFMT_ASKED = /number format|formatting|decimal place/i;
+// ...unless the sentence is telling you to LEAVE formatting alone, which is the opposite
+// instruction and appears in several tasks.
+var FORMAT_PRESERVE = /preserv|retain|keep|as-is|as is|unchanged|do not change|don't change/i;
 function tPlan_(a) {
   var targets, asserts;
   try {
@@ -1393,6 +1412,14 @@ function tPlan_(a) {
     }
     if (!G.snap[sr.sheet])
       return 'REFUSED: unknown sheet in target: ' + t.range;
+    if (t.kind === 'format' && !quoteInPrompt_(t.prompt_quote))
+      return (
+        'REFUSED: format target ' + t.range +
+        ' needs a prompt_quote copied VERBATIM from the task, because an unasked-for' +
+        ' formatting change fails preservation on its own. Quote the words that ask for it' +
+        (t.prompt_quote ? ' (yours does not appear in the task text)' : '') +
+        '. If the task does not ask for formatting anywhere, do not declare a format target.'
+      );
     t.sheetName = sr.sheet;
     t.bounds = parseA1_(sr.a1);
     clean.push(t);
@@ -1953,6 +1980,16 @@ function tNumFmt_(a) {
       '). Add a format target covering ' +
       a.sheet + '!' + a.range +
       ' with set_new_plan; it may overlap your formula targets.'
+    );
+  var q = t.prompt_quote || '';
+  if (!NUMFMT_ASKED.test(q) || FORMAT_PRESERVE.test(q))
+    return (
+      'REFUSED: the quote licensing ' + t.range + ' does not ask for a NUMBER FORMAT' +
+      (FORMAT_PRESERVE.test(q) ? ' — it tells you to leave formatting as it is' : '') +
+      '. A number-format change needs the task to have asked for one (wording about number' +
+      ' formats, formatting, or decimal places). Matching the neighbours is NOT a reason:' +
+      ' preservation is scored on every cell and an unrequested reformat fails the task on' +
+      ' its own, even when every value is correct.'
     );
   var sh = G.ss.getSheetByName(a.sheet);
   if (!G.fmtBase[a.sheet + '!' + a.range])

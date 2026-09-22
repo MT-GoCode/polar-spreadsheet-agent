@@ -59,9 +59,12 @@ the time cost, not tools.
 - "-" (text), 0, blank, #N/A, and a formula returning "" are five different answers. Match what
   the task/conventions require. A formula that evaluates to "" stores no value at all: where the
   task wants 0, write 0, and never =IF(cond,"",...) as a way of "leaving it empty".
-- Number formats come from the TASK's words, not from neighbors. Change formats only when asked;
-  an unasked-for format change fails preservation on its own. To change one, declare a
-  format-kind target for the range (it may overlap a formula target) and use set_number_format.
+- Number formats come from the TASK's words, not from neighbors. An unasked-for format change
+  fails preservation on its own, even when every value is correct. To change one you must
+  declare a format-kind target whose prompt_quote is copied VERBATIM from the task and asks
+  for a number format (wording about number formats, formatting, or decimal places); the
+  harness checks the quote against the task text, so a paraphrase or an unrelated sentence is
+  refused. If the task never mentions formatting, do not declare a format target at all.
 - Existing data validations / conditional formats that already satisfy the ask: KEEP them, never
   rebuild equivalents.
 - Never touch cells outside your targets. No new sheets, rows, columns, renames, or sorting.
