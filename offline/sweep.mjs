@@ -7,7 +7,7 @@
  * on admission and reaped on exit (freeing its budget) — no persistent worker pool.
  * The RAM cap is honored except a single run larger than the whole budget, which runs
  * alone. */
-import { spawn, execFileSync } from 'node:child_process';
+import { spawn, spawnSync, execFileSync } from 'node:child_process';
 import { writeFileSync, appendFileSync, readdirSync, readFileSync, openSync, closeSync, mkdirSync } from 'node:fs';
 import { MOGBIN } from './mogc.mjs';
 import path from 'node:path';
@@ -16,7 +16,7 @@ import { ensureBaseline } from './baseline.mjs';
 const TIMEOUT_BIN = process.platform === 'darwin' ? '/opt/homebrew/bin/gtimeout' : 'timeout';
 const root = path.resolve(new URL('..', import.meta.url).pathname);
 const args = Object.fromEntries(process.argv.slice(2).map((a, i, arr) => a.startsWith('--') ? [a.slice(2), arr[i + 1] && !arr[i + 1].startsWith('--') ? arr[i + 1] : true] : []).filter(x => x.length));
-if (!args["smart-allocate-within-ram"]) { console.error('usage: sweep.mjs --smart-allocate-within-ram <GB> [--seeds N] [--deadline S] [--exclude t,t] [--tasks t,t]'); process.exit(2); }
+if (!args["smart-allocate-within-ram"]) { console.error('usage: sweep.mjs --smart-allocate-within-ram <GB> [--seeds N] [--deadline S] [--exclude t,t] [--tasks t,t] [--skip-gates]'); process.exit(2); }
 
 const BUDGET_MB = +args["smart-allocate-within-ram"] * 1024;
 const SEEDS = +(args.seeds || 3), DEADLINE = +(args.deadline || 1200);
@@ -136,6 +136,24 @@ function finish() {
 
 const peak = Math.max(...runs.map(r => r.mb));
 if (peak > BUDGET_MB) log(`NOTE: largest run ~${peak}MB exceeds budget ${BUDGET_MB}MB — it will run alone.`);
+// Run the free deterministic gates before spending anything. A sweep is ~$8-40 of API
+// calls; conformance and the tool-path tests take seconds and have caught three real
+// defects in this branch alone (the V3 truthiness bug, the V2c waive loophole, a test
+// placed after shim.close). --skip-gates exists for deliberate iteration.
+if (!args['skip-gates']) {
+  for (const gate of ['offline/conformance.mjs', 'offline/toolpath_test.mjs']) {
+    const r = spawnSync('node', [path.join(root, gate)], { cwd: root, encoding: 'utf8' });
+    const last = (r.stdout || '').trim().split('\n').pop();
+    if (r.status !== 0) {
+      log(`GATE FAILED: ${gate} -> ${last}`);
+      log(`${(r.stdout || '').trim().split('\n').filter((l) => /FAIL/.test(l)).slice(0, 10).join('\n')}`);
+      log('refusing to start a paid sweep with a red gate; fix it or pass --skip-gates');
+      process.exit(2);
+    }
+    log(`gate ok: ${gate} -> ${last}`);
+  }
+}
+
 // Build every preservation baseline serially BEFORE any run starts: concurrent workers
 // must not race on the same file, and a broken baseline should fail before we spend money.
 let baselineFails = 0;
