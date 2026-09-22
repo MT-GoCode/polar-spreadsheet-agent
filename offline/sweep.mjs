@@ -11,6 +11,7 @@ import { spawn, execFileSync } from 'node:child_process';
 import { writeFileSync, appendFileSync, readdirSync, readFileSync, openSync, closeSync, mkdirSync } from 'node:fs';
 import { MOGBIN } from './mogc.mjs';
 import path from 'node:path';
+import { ensureBaseline } from './baseline.mjs';
 
 const TIMEOUT_BIN = process.platform === 'darwin' ? '/opt/homebrew/bin/gtimeout' : 'timeout';
 const root = path.resolve(new URL('..', import.meta.url).pathname);
@@ -88,6 +89,8 @@ function runOne(job) {
     const rec = {
       task: job.t, seed: job.s, mb: job.mb,
       score: g(/grade: score ([\d.]+)/) != null ? +g(/grade: score ([\d.]+)/) : null,
+      gate: /gate: PASS/.test(so) ? 'PASS' : /gate: FAIL/.test(so) ? 'FAIL' : null,
+      gate_detail: g(/gate: (?:PASS|FAIL) (.*)/) || null,
       status: g(/status: (\w+)/) || (killed ? 'killed_SIGKILL' : spawnErr ? 'spawn_error' : code ? 'exit_' + code : '?'),
       turns: g(/turns: (\d+)/) != null ? +g(/turns: (\d+)/) : null,
       wall, dir,
@@ -118,11 +121,13 @@ function finish() {
   let total = 0;
   for (const t of Object.keys(agg).sort()) {
     const rs = agg[t].sort((a, b) => a.seed - b.seed);
-    const marks = rs.map(r => r.score === 1 ? 'P' : r.score != null ? 'F' : 'E');
+    const marks = rs.map(r => r.gate === 'PASS' ? 'P' : r.gate === 'FAIL' ? 'F' : 'E');
     const passes = marks.filter(x => x === 'P').length; total += passes;
     lines.push(`task_${t}: ${marks.join('')} (${passes}/${SEEDS})  scores=[${rs.map(r => r.score == null ? '-' : r.score.toFixed(2)).join(',')}] walls=[${rs.map(r => r.wall + 's').join(',')}]`);
   }
-  lines.push(`TOTAL passes: ${total}/${TOTAL}`);
+  lines.push(`TOTAL passes: ${total}/${TOTAL}   (real gate: all cells + zero preservation + requirements + no new errors; offline estimate)`);
+  const perfect = results.filter(r => r.score === 1).length;
+  lines.push(`for reference, score==1.0 only: ${perfect}/${TOTAL} -- NOT the pass criterion`);
   log(lines.join('\n'));
   writeFileSync('/tmp/polar-sweep-final.txt', lines.join('\n'));
   log('SWEEP-COMPLETE');
@@ -130,5 +135,13 @@ function finish() {
 
 const peak = Math.max(...runs.map(r => r.mb));
 if (peak > BUDGET_MB) log(`NOTE: largest run ~${peak}MB exceeds budget ${BUDGET_MB}MB — it will run alone.`);
+// Build every preservation baseline serially BEFORE any run starts: concurrent workers
+// must not race on the same file, and a broken baseline should fail before we spend money.
+let baselineFails = 0;
+for (const t of Object.keys(sizes)) {
+  try { ensureBaseline('task_' + t); }
+  catch (e) { baselineFails++; log(`baseline FAILED task_${t}: ${String(e).slice(0, 160)}`); }
+}
+log(`baselines ready: ${Object.keys(sizes).length - baselineFails}/${Object.keys(sizes).length}`);
 log(`sweep start: ${TOTAL} runs, budget ${BUDGET_MB}MB, deadline ${DEADLINE}s; sizes=${JSON.stringify(sizes)}`);
 status(); pump();

@@ -1,6 +1,7 @@
 /** Offline runner: byte-identical Code.gs + Prompts.gs over the mog shim.
  * node offline/runner.mjs --task 06 [--probe] [--deadline 300] */
 import { makeShim } from './shim.mjs';
+import { ensureBaseline } from './baseline.mjs';
 import { readFileSync, writeFileSync, mkdirSync, copyFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
@@ -16,6 +17,12 @@ mkdirSync(dir, { recursive: true });
 const work = path.join(dir, 'work.xlsx');
 copyFileSync(path.join(root, 'benchmarks/tasks', tid, 'init.xlsx'), work);
 const prompt = readFileSync(path.join(root, 'benchmarks/tasks', tid, 'prompt.txt'), 'utf8');
+
+// Offline preservation baseline: grade against the engine's own round-trip of init.xlsx,
+// not init.xlsx, so whole-file re-serialization drift is not scored as agent damage.
+let baseline = null;
+try { baseline = ensureBaseline(tid); }
+catch (e) { console.log('baseline failed:', String(e).slice(0, 200)); }
 
 process.env.MOG_SESSION_DIR = path.join(dir, '.mogsess');
 mkdirSync(process.env.MOG_SESSION_DIR, { recursive: true, mode: 0o700 });
@@ -47,13 +54,20 @@ try {
 } catch (e) { console.log('render failed:', String(e).slice(0, 200)); }
 if (!args.probe) {
   try {
+    const initialForGrade = baseline || path.join(root, 'benchmarks/tasks', tid, 'init.xlsx');
     execFileSync(path.join(root, '.venv/bin/python'), ['-m', 'grader.google_grade', '--task', tid,
-      '--initial', path.join(root, 'benchmarks/tasks', tid, 'init.xlsx'),
+      '--initial', initialForGrade,
       '--golden', path.join(root, 'benchmarks/tasks', tid, 'golden.xlsx'),
       '--submission', path.join(dir, 'submission.xlsx'),
       '--out', path.join(dir, 'grade.json')], { cwd: root, encoding: 'utf8' });
     const g = JSON.parse(readFileSync(path.join(dir, 'grade.json'), 'utf8'));
     console.log('grade: score', g.score, '| provisional:', g.provisional, '| violations:', g.preservation.violations.length);
+    // The real criterion (all cells + zero preservation + requirements + no new errors),
+    // minus offline-engine artifacts. This, not score, is what sweep counts as a pass.
+    console.log(execFileSync(path.join(root, '.venv/bin/python'), [path.join(root, 'tools/offline_gate.py'),
+      '--task', tid, '--grade', path.join(dir, 'grade.json'), '--initial', initialForGrade,
+      '--submission', path.join(dir, 'submission.xlsx'), '--out', path.join(dir, 'gate.json')],
+      { cwd: root, encoding: 'utf8' }).trim());
   } catch (e) { console.log('grade failed:', String(e).slice(0, 300)); }
 }
 console.log('dir:', dir);

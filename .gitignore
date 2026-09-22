@@ -21,3 +21,6 @@ BenchmarkAuth.gs
 offline-runs/
 work.xlsx
 .mog/
+
+# offline preservation baselines (regenerable, binary)
+offline/.baseline/
