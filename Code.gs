@@ -511,6 +511,93 @@ function groupSourceSuffix_(rc, sheetName) {
   }
   return best ? '  ← ' + best.txt : '';
 }
+/** Number-format legend for a sheet: single-char codes by descending frequency.
+ * Measured across all 62 benchmark sheets: max 22 distinct formats, median 7, so the
+ * codebook is always tiny. 'g' is reserved for General. Returns null when there is
+ * nothing to say (no baseline, or one format everywhere). */
+function nfLegend_(sn, lastUsed) {
+  if (!sn.nf) return null;
+  var count = {};
+  for (var i = 0; i < sn.R; i++)
+    for (var j = 0; j <= lastUsed && j < sn.C; j++) {
+      if (sn.f[i][j] === '' && (sn.v[i][j] === '' || sn.v[i][j] === null)) continue;
+      var f = sn.nf[i][j] || 'General';
+      count[f] = (count[f] || 0) + 1;
+    }
+  var keys = Object.keys(count);
+  if (keys.length < 2) return null;
+  keys.sort(function (a, b) { return count[b] - count[a]; });
+  var ALPHA = 'abcdefhijklmnopqrstuvwxyz0123456789'; // 'g' reserved for General
+  var NAMED = 12; // the legend is protected from trimming, so bound it; rest share '?'
+  var code = {}, legend = [], next = 0, over = 0;
+  for (var k = 0; k < keys.length; k++) {
+    var c;
+    if (keys[k] === 'General') c = 'g';
+    else if (next < NAMED && next < ALPHA.length) c = ALPHA.charAt(next++);
+    else { c = '?'; over++; }
+    code[keys[k]] = c;
+    if (c !== '?') legend.push(c + '=' + short_(keys[k], 26) + ' ×' + count[keys[k]]);
+  }
+  if (over > 0) legend.push('?=' + over + ' rarer formats (peek mode=numberFormat)');
+  return { code: code, line: '  numfmt  ' + legend.join('  ') };
+}
+
+/** The sheet's structure, one line per distinct run of identical rows.
+ * Token = kind + number-format code; horizontal runs of identical tokens collapse to
+ * "C:D Fa"; a column ABSENT from a line is blank in those rows. That last property is
+ * why this replaces "blank blocks (likely output areas)": it states blankness exactly,
+ * cell by cell, without guessing which blanks are outputs. The old feature emitted 112
+ * rects of which 71% touched no output cell, and was the cell-exact cause of the
+ * preservation failures on task_10 (110/110 violations inside its rects) and task_12
+ * (368/368). It also replaces "column composition" and the old "row structure", which
+ * dropped any row lacking both a formula and a hole and then kept only 8 groups. */
+function rowsSection_(sn, lastUsed, nfc) {
+  var EDGE = 15; // head/tail row groups; elision is always reported with the true count
+  var sigs = [];
+  for (var i = 0; i < sn.R; i++) {
+    var toks = [];
+    for (var j = 0; j <= lastUsed && j < sn.C; j++) {
+      var f = sn.f[i][j], v = sn.v[i][j];
+      var blank = f === '' && (v === '' || v === null);
+      if (blank) { toks.push(null); continue; }
+      var kind;
+      if (f !== '') kind = isErr_(v) ? 'X' : 'F';
+      else if (typeof v === 'number') kind = 'V';
+      else kind = isErr_(v) ? 'E' : 'T';
+      var fc = nfc ? nfc[(sn.nf && sn.nf[i][j]) || 'General'] || '?' : '';
+      toks.push(kind + fc);
+    }
+    var any = false;
+    for (var z = 0; z < toks.length; z++) if (toks[z]) { any = true; break; }
+    if (!any) { sigs.push(null); continue; }
+    // run-length encode the row, naming column ranges; blanks are simply not mentioned
+    var parts = [], q = 0;
+    while (q < toks.length) {
+      if (!toks[q]) { q++; continue; }
+      var e = q;
+      while (e + 1 < toks.length && toks[e + 1] === toks[q]) e++;
+      parts.push((e > q ? colStr_(q + 1) + ':' + colStr_(e + 1) : colStr_(q + 1)) + ' ' + toks[q]);
+      q = e + 1;
+    }
+    sigs.push(parts.join(' '));
+  }
+  var groups = [], i2 = 0;
+  while (i2 < sigs.length) {
+    if (!sigs[i2]) { i2++; continue; }
+    var j2 = i2;
+    while (j2 + 1 < sigs.length && sigs[j2 + 1] === sigs[i2]) j2++;
+    groups.push('    r' + (i2 + 1) + (j2 > i2 ? '-r' + (j2 + 1) + ' ×' + (j2 - i2 + 1) : '') + '  ' + sigs[i2]);
+    i2 = j2 + 1;
+  }
+  if (!groups.length) return [];
+  var out = ['  rows (' + groups.length + ' groups; F=formula V=number T=text X=formula-error E=error; ' +
+    'a column not listed is BLANK in those rows' + (nfc ? '; letter = numfmt code' : '') + ')'];
+  if (groups.length <= EDGE * 2) return out.concat(groups);
+  return out
+    .concat(groups.slice(0, EDGE))
+    .concat(['    [' + (groups.length - EDGE * 2) + ' of ' + groups.length + ' row groups elided here]'])
+    .concat(groups.slice(groups.length - EDGE));
+}
 function describe_() {
   var L = [];
   var unreadDV = null, unreadCF = null;
@@ -589,7 +676,7 @@ function describe_() {
           G.baseErr[name].slice(0, 6).join(', ') +
           (G.baseErr[name].length > 6 ? '…' : ''),
       );
-    // column composition
+    // column composition (still feeds hardcodeCellLines_ and labelIndexLines_)
     var hdrRow0 = -1;
     for (var ih = 0; ih < Math.min(10, R); ih++) {
       var nh = 0;
@@ -654,92 +741,15 @@ function describe_() {
         Ls.push('    [omitted: ' + (merged.length - 14) + ' more groups]');
       if (ones) Ls.push('    [+' + ones + ' single text-formula cells omitted]');
     }
-    // row structure (holes + hardcodes), gated
-    if (cells <= BIG_SHEET_CELLS * 6) {
-      var sigs = [];
-      for (var i5 = 0; i5 < R; i5++) {
-        var kinds = '',
-          any = false,
-          hole = false,
-          hard = false,
-          dom = '';
-        for (var j5 = 0; j5 <= lastUsed; j5++) {
-          var f5 = sn.f[i5][j5],
-            v5 = sn.v[i5][j5];
-          var k = f5 ? 'F' : v5 === '' ? '.' : 'V';
-          kinds += k;
-          if (k !== '.') any = true;
-          if (k === '.' && comp[j5] !== 'blank') hole = true;
-          if (k === 'V' && comp[j5] === 'formula' && typeof v5 === 'number')
-            hard = true;
-          if (k === 'F' && !dom) dom = sn.r[i5][j5];
-        }
-        if (!any || (kinds.indexOf('F') < 0 && !hard) || (!hole && !hard)) {
-          sigs.push(null);
-          continue;
-        }
-        var compSig = kinds
-          .replace(/(.)\1*/g, function (m0, ch) {
-            return ch + m0.length + ' ';
-          })
-          .trim();
-        sigs.push(compSig + '|' + dom.slice(0, 55) + '|' + (hard ? 1 : 0));
-      }
-      var mixed = [];
-      var i6 = 0;
-      while (i6 < sigs.length) {
-        if (!sigs[i6]) {
-          i6++;
-          continue;
-        }
-        var j6 = i6;
-        while (j6 + 1 < sigs.length && sigs[j6 + 1] === sigs[i6]) j6++;
-        var pp = sigs[i6].split('|');
-        var cnt6 = j6 - i6 + 1;
-        mixed.push({
-          hard: pp[2] === '1' ? 1 : 0,
-          blanks: (pp[0].match(/\.(\d+)/g) || []).reduce(function (a, m2) {
-            return a + +m2.slice(1);
-          }, 0),
-          line:
-            '    r' +
-            (i6 + 1) +
-            (cnt6 > 1 ? '-r' + (j6 + 1) + ' ×' + cnt6 : '') +
-            '  ' +
-            pp[0] +
-            (pp[1] ? '  [' + pp[1] + ']' : '') +
-            (pp[2] === '1' ? '  HARDCODE-IN-FORMULA-COLS' : ''),
-        });
-        i6 = j6 + 1;
-      }
-      if (mixed.length) {
-        mixed.sort(function (a, b) {
-          return b.hard - a.hard || b.blanks - a.blanks;
-        });
-        Ls.push(
-          '  row structure (F=formula V=value .=blank, width ' +
-            colStr_(lastUsed + 1) +
-            '; hardcodes first):',
-        );
-        for (var m6 = 0; m6 < Math.min(mixed.length, 8); m6++)
-          Ls.push(mixed[m6].line);
-        if (mixed.length > 8)
-          Ls.push('    [omitted: ' + (mixed.length - 8) + ' more row groups]');
-      }
-    }
-    var segs = [],
-      s0 = 0;
-    for (var j7 = 1; j7 <= C; j7++)
-      if (j7 === C || comp[j7] !== comp[s0]) {
-        if (comp[s0] !== 'blank')
-          segs.push(colStr_(s0 + 1) + ':' + colStr_(j7) + ' ' + comp[s0]);
-        s0 = j7;
-      }
-    if (segs.length)
-      Ls.push('  column composition: ' + segs.slice(0, 12).join(' · '));
+    // Structure: one line per distinct run of identical rows, blanks stated by absence.
+    // Replaces the old gated "row structure" (which dropped every row lacking both a
+    // formula and a hole, then kept 8 groups), "column composition", and
+    // "blank blocks (likely output areas)".
+    var nfc = nfLegend_(sn, lastUsed);
+    if (nfc) Ls.push(nfc.line);
+    Ls = Ls.concat(rowsSection_(sn, lastUsed, nfc ? nfc.code : null));
     if (cells <= BIG_SHEET_CELLS * 6) {
       Ls = Ls.concat(headerLines_(sn));
-      Ls = Ls.concat(blankBlockLines_(sn, comp, lastUsed, name));
       Ls = Ls.concat(hardcodeCellLines_(sn, comp));
       Ls = Ls.concat(labelIndexLines_(sn, lastUsed, refSets_(), name));
     } else {
