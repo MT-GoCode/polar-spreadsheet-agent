@@ -80,8 +80,6 @@ if (txtc) {
   ok(/V7 assert ok: equals_old/.test(T.verify_().text), 'H7: equals_old passes on reproduced TEXT value (not just numeric)');
 } else console.log('  (no text cell for text equals_old — skipped)');
 
-shim.close(null);
-
 // ---- Phase 1: format gate, V3 preservation axis, hatch closure ----
 // A format-kind target must win even when a formula target also contains the range.
 // Before the fix, inTargets_ returned the first CONTAINING target of any kind, so an
@@ -126,5 +124,6 @@ T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'forma
 const hatch = T.tHatch_({ code: "ss.getSheetByName('" + sheet + "').getRange('" + nb + "').setNumberFormat('0.0');", touches_json: JSON.stringify([sheet + '!' + nb]) });
 ok(/REFUSED/.test(hatch) && /banned/.test(hatch), 'P1: hatch refuses setNumberFormat', hatch.slice(0, 90));
 
+shim.close(null);
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
