@@ -282,6 +282,40 @@ ok(/UNVERIFIED: 1 of 1 output cells/.test(r46) && /Nothing here can detect a wro
   ok(/V2c no sandwiched holes/.test(rv2), 'V2c: leading (staircase) blank is spared', (rv2.match(/V2c[^\n]*/) || [''])[0].slice(0, 120));
 })();
 
+// ---- the hatch ban must not be defeatable by building the method name at runtime ----
+// HATCH_BAN matches source text, so "var m='setF'+'ontColor'; range[m](...)" contained no
+// banned substring. offline_gate.py forgives every offline font/fill violation on the
+// premise that no tool can write font or fill, so that bypass would have turned a real
+// violation into ignored noise and reported a false pass.
+G = freshG();
+T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x' }]),
+  assertions_json: JSON.stringify([{ check: 'waive', range: sheet + '!' + nb, reason: 'unit test' }]), rationale: 't' });
+for (const [code, label] of [
+  ["var m='setF'+'ontColor'; ss.getSheetByName('" + sheet + "').getRange('" + nb + "')[m]('#ff0000');", 'computed method call'],
+  ["Reflect.get(ss.getSheetByName('" + sheet + "').getRange('" + nb + "'),'setFontColor')('#f00');", 'Reflect'],
+  ["ss.getSheetByName('" + sheet + "').getRange('" + nb + "').setValue.call(null,1);", '.call'],
+]) {
+  const r = T.tHatch_({ code, touches_json: JSON.stringify([sheet + '!' + nb]) });
+  ok(/REFUSED/.test(r) && /dynamic dispatch/.test(r), 'gate premise: hatch refuses ' + label, r.slice(0, 80));
+}
+// ...while ordinary array indexing on a read must still be allowed through the ban.
+const okRead = T.tHatch_({
+  code: "var v = ss.getSheetByName('" + sheet + "').getDataRange().getValues(); v[0][0];",
+  touches_json: '[]',
+});
+ok(!/dynamic dispatch/.test(okRead), 'hatch ban does not false-positive on array indexing', okRead.slice(0, 80));
+
+// A previously-failed equals_ref must be carryable by a revised equals_ref, which is what
+// Prompts.gs promises; it was missing from the sticky-carry whitelist.
+G = freshG();
+T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + bl, kind: 'formula', intent: 'x' }]),
+  assertions_json: JSON.stringify([{ check: 'equals_ref', range: sheet + '!' + bl, ref: sheet + '!' + numc }]), rationale: 't' });
+T.tFill_({ sheet, range: bl, formula_r1c1: '=' + (numOld + 12345), force: false });
+T.verify_();                       // records the equals_ref failure as sticky
+const carried = T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + bl, kind: 'formula', intent: 'x' }]),
+  assertions_json: JSON.stringify([{ check: 'equals_ref', range: sheet + '!' + bl, ref: sheet + '!' + numc }]), rationale: 't' });
+ok(/PLAN ACCEPTED/.test(carried), 'sticky: a revised equals_ref carries a failed equals_ref', carried.slice(0, 110));
+
 shim.close(null);
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

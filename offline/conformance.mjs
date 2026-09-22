@@ -123,7 +123,7 @@ console.log('D. map builder units');
 import { readFileSync as _rf } from 'node:fs';
 const gnames = ['SpreadsheetApp','UrlFetchApp','CacheService','PropertiesService','Utilities','ContentService'];
 const codeSrc = _rf(path.join(root,'Prompts.gs'),'utf8') + '\n' + _rf(path.join(root,'Code.gs'),'utf8') +
-  '\nreturn { T: { labelIndexLines_, blankBlockLines_, headerLines_, hardcodeCellLines_, groupSourceSuffix_, refSets_, cellRefStatus_, coverageFrac_, setG: function(g){G=g;} } };';
+  '\nreturn { T: { labelIndexLines_, headerLines_, hardcodeCellLines_, groupSourceSuffix_, refSets_, cellRefStatus_, coverageFrac_, setG: function(g){G=g;} } };';
 const T = new Function(...gnames, codeSrc)(...gnames.map(() => ({}))).T;
 
 function makeSn(rows) {
@@ -208,17 +208,6 @@ const lastUsedOf = comp => { let l = 0; for (let j = 0; j < comp.length; j++) if
   ]);
   const out = T.hardcodeCellLines_(sn, compOf(sn)).join('\n');
   ok(/constants in formula regions:.*C2=42/.test(out), 'hardcode: constant in formula-dominant row (gap 1)', out);
-}
-// blankBlockLines_: header-only blank column is flagged as output area
-{
-  const rows = [['Cust', 'Year', 'Amount']];
-  for (let i = 1; i <= 10; i++) rows.push(['C' + i, 2020 + i]);   // Amount col blank
-  const sn = makeSn(rows);
-  T.setG({ snap: { TestSheet: sn } });
-  const comp = compOf(sn);
-  const out = T.blankBlockLines_(sn, comp, lastUsedOf(comp), 'TestSheet').join('\n');
-  ok(/blank blocks .*C2:C11.*under "Amount"/.test(out), 'blankBlock: header-only blank column', out);
-  T.setG(null);
 }
 // groupSourceSuffix_: cross-sheet source shown, near ref suppressed
 {

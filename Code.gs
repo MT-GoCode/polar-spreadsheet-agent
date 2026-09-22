@@ -351,45 +351,10 @@ function labelIndexLines_(sn, lastUsed, rs, sheetName) {
       var rn2 = runs[m];
       out.push('  · ' + colStr_(best + 1) + rn2.r1 + (rn2.r2 > rn2.r1 ? ':' + rn2.r2 + ' ×' + (rn2.r2 - rn2.r1 + 1) : '') + ' "' + short_(rn2.v, 40) + '"');
     }
-    if (runs.length > 25) out.push('  · +' + (runs.length - 25) + ' more label runs');
+    if (runs.length > MAP_HEAD * 2)
+      out.push('  · [' + (runs.length - MAP_HEAD * 2) + ' of ' + runs.length + ' label runs elided]');
   }
   return out;
-}
-function blankBlockLines_(sn, comp, lastUsed, name) {
-  // header row index (first row with >=3 nonblanks) so header-only columns count as output areas
-  var hdrRow = -1;
-  for (var ih = 0; ih < Math.min(10, sn.R); ih++) {
-    var nh = 0;
-    for (var jh = 0; jh < Math.min(sn.C, 60); jh++) if (sn.v[ih][jh] !== '') nh++;
-    if (nh >= 3) { hdrRow = ih; break; }
-  }
-  // extend column extent to any column carrying a header, even if otherwise blank (t03 output col)
-  var maxCol = lastUsed;
-  if (hdrRow >= 0)
-    for (var jc = 0; jc < sn.C; jc++)
-      if (sn.v[hdrRow][jc] !== '') maxCol = Math.max(maxCol, jc);
-  var grid = [];
-  for (var i = 0; i < sn.R; i++) {
-    var row = [];
-    for (var j = 0; j <= maxCol; j++) {
-      var headed = hdrRow >= 0 && sn.v[hdrRow][j] !== '';
-      var candidate = (comp[j] !== 'blank' || headed) && i !== hdrRow;
-      row.push(sn.v[i][j] === '' && !sn.f[i][j] && candidate ? 'B' : '');
-    }
-    grid.push(row);
-  }
-  var rects = rectGroups_(grid, sn.R, maxCol + 1).filter(function (rc) {
-    return rc.rf === 'B' && (rc.c2 - rc.c1 + 1) * (rc.i2 - rc.i1 + 1) >= 8;
-  });
-  rects.sort(function (a, b) {
-    return (b.c2 - b.c1 + 1) * (b.i2 - b.i1 + 1) - (a.c2 - a.c1 + 1) * (a.i2 - a.i1 + 1);
-  });
-  if (!rects.length) return [];
-  var parts = rects.slice(0, 6).map(function (rc) {
-    var hdr = headerOf_(name, rc.c1, rc.i1);
-    return colStr_(rc.c1) + rc.i1 + ':' + colStr_(rc.c2) + rc.i2 + (hdr ? ' (under "' + short_(hdr, 20) + '")' : '');
-  });
-  return ['  blank blocks (likely output areas): ' + parts.join(' · ')];
 }
 function seriesInRow_(vals, C) {
   // longest arithmetic numeric run in a row (values grid holds computed formula values too)
@@ -654,30 +619,6 @@ function describe_() {
       L = L.concat(Ls);
       continue;
     }
-    var nform = 0;
-    for (var i = 0; i < R; i++)
-      for (var j = 0; j < C; j++) if (sn.f[i][j]) nform++;
-    if (R > 5000 && nform === 0) {
-      var hdr = null;
-      for (var i2 = 0; i2 < Math.min(R, 20) && !hdr; i2++) {
-        var cnt = 0;
-        for (var j2 = 0; j2 < C; j2++) if (sn.v[i2][j2] !== '') cnt++;
-        if (cnt >= 3) hdr = sn.v[i2];
-      }
-      Ls.push(
-        '  DATA SHEET (' +
-          R +
-          ' rows). header: ' +
-          (hdr || [])
-            .slice(0, 20)
-            .map(function (x) {
-              return short_(x, 16);
-            })
-            .join(' | '),
-      );
-      L = L.concat(Ls);
-      continue;
-    }
     if (G.baseErr[name].length)
       Ls.push(
         '  errors (' +
@@ -758,6 +699,9 @@ function describe_() {
     var nfc = nfLegend_(sn, lastUsed);
     if (nfc) Ls.push(nfc.line);
     Ls = Ls.concat(rowsSection_(sn, lastUsed, nfc ? nfc.code : null));
+    // Kept alongside rowsSection_ on purpose: the rows lines carry kinds, number formats
+    // and exact blankness but no TEXT, so they cannot say what a row is called, which
+    // constants sit inside a formula region, or what a column header means.
     Ls = Ls.concat(headerLines_(sn));
     Ls = Ls.concat(hardcodeCellLines_(sn, comp));
     Ls = Ls.concat(labelIndexLines_(sn, lastUsed, refSets_(), name));
@@ -1538,7 +1482,7 @@ function tPlan_(a) {
       var na = asserts[ai];
       if (
         na.sheetName === old.sheetName &&
-        ['equals', 'equals_old', 'blank', 'waive'].indexOf(na.check) >= 0 &&
+        ['equals', 'equals_old', 'equals_ref', 'blank', 'waive'].indexOf(na.check) >= 0 &&
         !(na.bounds.r2 < old.bounds.r1 || na.bounds.r1 > old.bounds.r2 || na.bounds.c2 < old.bounds.c1 || na.bounds.c1 > old.bounds.c2)
       ) { carried = true; break; }
     }
@@ -2098,6 +2042,14 @@ function tCF_(a) {
 }
 var HATCH_BAN =
   /(insertRow|insertColumn|deleteRow|deleteColumn|deleteSheet|insertSheet|setName|moveTo|\.sort\(|\.clear\(|clearFormat|autoFill|setBackground|setFont|setNumberFormat|setBorder|setHorizontalAlignment|setVerticalAlignment|setWrap|setTextRotation)/;
+// The ban above matches SOURCE TEXT, so it is defeated by building the method name at
+// runtime: "var m='setF'+'ontColor'; range[m]('#f00')" contains no banned substring.
+// tools/offline_gate.py forgives every offline font/fill violation on the premise that no
+// tool can write font or fill, so that bypass would turn a real violation into ignored
+// noise and report a false pass. Computed method CALLS have no legitimate use in a hatch
+// script, so reject the syntax outright rather than chase name variants.
+var HATCH_BAN_DYNAMIC =
+  /(\]\s*\(|\bReflect\b|\beval\s*\(|\bnew\s+Function\b|\bconstructor\s*\[|\.constructor\b|\bgetOwnPropertyNames\b|\bapply\s*\(|\bcall\s*\(|\bbind\s*\()/;
 function tHatch_(a) {
   if (!G.plan) return 'REFUSED: no plan on file. Call set_new_plan first.';
   var touches;
@@ -2113,6 +2065,13 @@ function tHatch_(a) {
   }
   if (!touches.length && /\.(set[A-Z]|clear[A-Z])/.test(a.code)) return 'REFUSED: script appears to mutate but touches_json is empty. Declare the ranges you modify.';
   if (/DataValidation/.test(a.code) && !G.plan.targets.some(function (t9) { return t9.kind === 'format'; })) return 'REFUSED: data-validation changes need a format-kind target.';
+  var dyn = a.code.match(HATCH_BAN_DYNAMIC);
+  if (dyn)
+    return (
+      'REFUSED: script uses dynamic dispatch (' + dyn[0].trim() +
+      '). Computed method calls, Reflect, eval and apply/call/bind are refused because they' +
+      ' defeat the API ban by building the method name at runtime. Call the method directly.'
+    );
   var banned = a.code.match(HATCH_BAN);
   if (banned)
     return (
@@ -2389,7 +2348,8 @@ function verify_() {
   // V2c region continuity ("sandwiched hole"). A blank with filled cells on BOTH sides,
   // in the same row or the same column of a declared formula/value target, is an omission
   // the model licensed with its own blank assertion -- which is why V2b could not catch
-  // it. Deliberately NOT licensable by blank: only an explicit waive, with a reason.
+  // it. No assertion of any kind licenses it -- not blank, not waive. The only way out
+  // is to narrow the target so an intentionally-blank cell is not declared as an output.
   // Staircase blanks (filled on one side only) are spared, so a vintage triangle is fine.
   // Targets: task_04 s2's Monthly Cohorts row 56 (116 cells, filled above and below) and
   // task_10 s3's D&A Schedule C11:C21, which is the only thing between 0.985 and a pass.
@@ -2401,16 +2361,34 @@ function verify_() {
   for (var ts = 0; ts < G.plan.targets.length; ts++) {
     var tgs = G.plan.targets[ts];
     if (tgs.kind !== 'formula' && tgs.kind !== 'value') continue;
-    for (var rs2 = tgs.bounds.r1; rs2 <= tgs.bounds.r2 && sandwich.length <= 12; rs2++)
-      for (var cs2 = tgs.bounds.c1; cs2 <= tgs.bounds.c2 && sandwich.length <= 12; cs2++) {
-        if (filledNow_(tgs.sheetName, rs2, cs2)) continue;
-        var up = false, dn = false, lf2 = false, rt = false;
-        for (var ru = tgs.bounds.r1; ru < rs2; ru++) if (filledNow_(tgs.sheetName, ru, cs2)) { up = true; break; }
-        for (var rd = rs2 + 1; rd <= tgs.bounds.r2; rd++) if (filledNow_(tgs.sheetName, rd, cs2)) { dn = true; break; }
-        for (var cl = tgs.bounds.c1; cl < cs2; cl++) if (filledNow_(tgs.sheetName, rs2, cl)) { lf2 = true; break; }
-        for (var cr = cs2 + 1; cr <= tgs.bounds.c2; cr++) if (filledNow_(tgs.sheetName, rs2, cr)) { rt = true; break; }
-        if ((up && dn) || (lf2 && rt))
-          sandwich.push(tgs.sheetName + '!' + colStr_(cs2) + rs2);
+    var b = tgs.bounds;
+    // One pass to record, per row and per column of this target, the first and last
+    // filled offset. The sandwich test is then O(1) per cell, so the whole axis costs
+    // O(target cells) -- the same order as the V1 footprint scan it runs beside.
+    var rowFirst = [], rowLast = [], colFirst = [], colLast = [], filled = [];
+    for (var r = b.r1; r <= b.r2; r++) {
+      var ri = r - b.r1;
+      filled[ri] = [];
+      rowFirst[ri] = -1; rowLast[ri] = -1;
+      for (var c = b.c1; c <= b.c2; c++) {
+        var ci = c - b.c1;
+        var isF = filledNow_(tgs.sheetName, r, c);
+        filled[ri][ci] = isF;
+        if (!isF) continue;
+        if (rowFirst[ri] < 0) rowFirst[ri] = ci;
+        rowLast[ri] = ci;
+        if (colFirst[ci] === undefined || colFirst[ci] < 0) colFirst[ci] = ri;
+        colLast[ci] = ri;
+      }
+    }
+    for (var r2 = b.r1; r2 <= b.r2 && sandwich.length <= 12; r2++)
+      for (var c2 = b.c1; c2 <= b.c2 && sandwich.length <= 12; c2++) {
+        var ri2 = r2 - b.r1, ci2 = c2 - b.c1;
+        if (filled[ri2][ci2]) continue;
+        var vertical = colFirst[ci2] !== undefined && colFirst[ci2] >= 0 &&
+          colFirst[ci2] < ri2 && colLast[ci2] > ri2;
+        var horizontal = rowFirst[ri2] >= 0 && rowFirst[ri2] < ci2 && rowLast[ri2] > ci2;
+        if (vertical || horizontal) sandwich.push(tgs.sheetName + '!' + colStr_(c2) + r2);
       }
   }
   if (sandwich.length) {

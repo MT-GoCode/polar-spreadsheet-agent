@@ -20,13 +20,13 @@ export function ensureBaseline(tid, force) {
   if (!existsSync(init)) throw new Error('no init.xlsx for ' + tid);
   mkdirSync(baselineDir, { recursive: true });
   const tmp = path.join(baselineDir, `.tmp-${tid}-${process.pid}`);
-  mkdirSync(tmp, { recursive: true });
-  const work = path.join(tmp, 'work.xlsx');
-  copyFileSync(init, work);
   const prevSess = process.env.MOG_SESSION_DIR;
-  process.env.MOG_SESSION_DIR = path.join(tmp, '.mogsess');
-  mkdirSync(process.env.MOG_SESSION_DIR, { recursive: true, mode: 0o700 });
   try {
+    mkdirSync(tmp, { recursive: true });
+    const work = path.join(tmp, 'work.xlsx');
+    copyFileSync(init, work);
+    process.env.MOG_SESSION_DIR = path.join(tmp, '.mogsess');
+    mkdirSync(process.env.MOG_SESSION_DIR, { recursive: true, mode: 0o700 });
     const shim = makeShim(work);
     shim.close(path.join(tmp, 'out.xlsx'));      // no edits between open and close
     renameSync(path.join(tmp, 'out.xlsx'), out); // atomic within the same filesystem
