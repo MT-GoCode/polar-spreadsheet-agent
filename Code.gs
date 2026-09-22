@@ -169,6 +169,15 @@ function snapshotAll_() {
       f: rng.getFormulas(),
       r: rng.getFormulasR1C1(),
     };
+    // Number-format baseline for V3. Style-strict preservation is a pass gate and
+    // nothing used to check it: 3103 style violations shipped with a green report.
+    // Degrade per sheet rather than blinding the axis workbook-wide.
+    try {
+      G.snap[name].nf = rng.getNumberFormats();
+    } catch (e) {
+      G.snap[name].nf = null;
+      G.snap[name].nfErr = String(e).slice(0, 80);
+    }
     var errs = [];
     var v = G.snap[name].v;
     for (var i = 0; i < R; i++)
@@ -1852,7 +1861,10 @@ function tClear_(a) {
   return 'CLEARED ' + cleared + ' non-empty cells in ' + ranges.join(', ') + '.' + census + ' ' + writtenKofN_();
 }
 function tNumFmt_(a) {
-  var t = guardWrite_(a.sheet, a.range);
+  // wantKinds matters: without it inTargets_ returns the first CONTAINING target of any
+  // kind, so an overlapping formula target shadowed every format target and this tool
+  // refused unconditionally. That is why the model learned to go around it via the hatch.
+  var t = guardWrite_(a.sheet, a.range, ['format']);
   if (typeof t === 'string') return t;
   if (t.kind !== 'format')
     return (
@@ -1860,7 +1872,9 @@ function tNumFmt_(a) {
       t.range +
       ' is ' +
       t.kind +
-      ').'
+      '). Add a format target covering ' +
+      a.sheet + '!' + a.range +
+      ' with set_new_plan; it may overlap your formula targets.'
     );
   var sh = G.ss.getSheetByName(a.sheet);
   if (!G.fmtBase[a.sheet + '!' + a.range])
@@ -1949,7 +1963,7 @@ function tCF_(a) {
   return 'CF RULE ADDED. Sheet rules now: ' + echo.join(' | ');
 }
 var HATCH_BAN =
-  /(insertRow|insertColumn|deleteRow|deleteColumn|deleteSheet|insertSheet|setName|moveTo|\.sort\(|\.clear\(|clearFormat|autoFill|setBackground|setFont)/;
+  /(insertRow|insertColumn|deleteRow|deleteColumn|deleteSheet|insertSheet|setName|moveTo|\.sort\(|\.clear\(|clearFormat|autoFill|setBackground|setFont|setNumberFormat|setBorder|setHorizontalAlignment|setVerticalAlignment|setWrap|setTextRotation)/;
 function tHatch_(a) {
   if (!G.plan) return 'REFUSED: no plan on file. Call set_new_plan first.';
   var touches;
@@ -2074,6 +2088,7 @@ function verify_() {
   hb_('verify');
   SpreadsheetApp.flush();
   // V1 footprint + V5 errors + V6 structure: live read all sheets
+  var fmtOff = [], fmtUnread = [];
   var offenders = [],
     newErrs = [],
     refTexts = [];
@@ -2118,6 +2133,9 @@ function verify_() {
     var rng = sh.getRange(1, 1, R, C);
     var lf = rng.getFormulas(),
       lv = rng.getValues();
+    var lnf = null;
+    if (sn.nf) { try { lnf = rng.getNumberFormats(); } catch (e) { fmtUnread.push(name + ' (' + String(e).slice(0, 40) + ')'); } }
+    else fmtUnread.push(name + (sn.nfErr ? ' (' + sn.nfErr + ')' : ' (no baseline)'));
     var base = {};
     (G.baseErr[name] || []).forEach(function (a) {
       base[a] = 1;
@@ -2150,6 +2168,11 @@ function verify_() {
           (!of_ || of_.replace(/"(?:[^"]|"")*"/g, '').indexOf('#REF!') < 0)
         )
           refTexts.push(name + '!' + a1);
+        // V3: number-format preservation. A format change outside a format-kind target
+        // is a preservation violation the grader will score, so fail it here.
+        if (lnf && i < sn.R && j < sn.C && lnf[i][j] !== sn.nf[i][j] &&
+            !inTargets_(name, parseA1_(a1), ['format']))
+          fmtOff.push(name + '!' + a1 + ' (' + (sn.nf[i][j] || 'General') + ' \u2192 ' + (lnf[i][j] || 'General') + ')');
       }
   }
   if (offenders.length) {
@@ -2161,6 +2184,15 @@ function verify_() {
     );
     fails++;
   } else rep.push('V1 footprint ok');
+  // V3 number-format preservation
+  if (fmtOff.length) {
+    rep.push(
+      'V3 FORMAT FAIL: ' + fmtOff.length +
+        ' cells reformatted outside format targets (preservation is strict; revert them or declare a format target only if the task asked for formatting): ' +
+        fmtOff.slice(0, 10).join('; ') + (fmtOff.length > 10 ? ' +' + (fmtOff.length - 10) + ' more' : ''),
+    );
+    fails++;
+  } else rep.push('V3 number formats ok' + (fmtUnread.length ? ' (unread: ' + fmtUnread.slice(0, 3).join(', ') + ')' : ''));
   // V2 kinds
   var kindFails = [];
   for (var t = 0; t < G.plan.targets.length; t++) {

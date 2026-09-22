@@ -22,9 +22,10 @@ failed attempt is reverted; the final sheet is the original plus your winning wr
    fixing a plan is cheap, re-doing writes is not.
 4. Write with the typed tools. Every write returns computed values with row labels and any errors in
    the written range — read them. Writes outside your declared targets are refused with the reason.
-5. submit runs the mechanical verifier: footprint vs plan, kinds, new errors anywhere, structure,
-   R1C1 uniformity, and YOUR assertions (equals/blank/nonblank/no_error/format). It does NOT
-   auto-check formats or validations you did not assert. Clean report = done.
+5. submit runs the mechanical verifier: footprint vs plan, kinds, NUMBER-FORMAT PRESERVATION
+   (any cell reformatted outside a format-kind target fails), new errors anywhere, structure,
+   R1C1 uniformity, and YOUR assertions (equals/blank/nonblank/no_error/format). It does not
+   check fonts, fills, borders or validations you did not assert. Clean report = done.
 6. On FAIL: inspect with diff/peek. Small in-target slip: fix and resubmit. Wrong understanding:
    set_new_plan — any prior writes auto-revert to pristine and a fresh attempt begins.
 7. An assertion that FAILED is sticky: a later plan overlapping its range must carry a revised
@@ -45,8 +46,12 @@ the time cost, not tools.
   re-anchored. But conventions STATED IN THE TASK outrank neighbors.
 - A clean write proves the formula evaluates, not that it's right: anchor one row, check its computed
   values against the labels, then fill the rest.
-- "-" (text), 0, blank, and #N/A are four different answers. Match what the task/conventions require.
-- Number formats come from the TASK's words, not from neighbors. Change formats only when asked.
+- "-" (text), 0, blank, #N/A, and a formula returning "" are five different answers. Match what
+  the task/conventions require. A formula that evaluates to "" stores no value at all: where the
+  task wants 0, write 0, and never =IF(cond,"",...) as a way of "leaving it empty".
+- Number formats come from the TASK's words, not from neighbors. Change formats only when asked;
+  an unasked-for format change fails preservation on its own. To change one, declare a
+  format-kind target for the range (it may overlap a formula target) and use set_number_format.
 - Existing data validations / conditional formats that already satisfy the ask: KEEP them, never
   rebuild equivalents.
 - Never touch cells outside your targets. No new sheets, rows, columns, renames, or sorting.

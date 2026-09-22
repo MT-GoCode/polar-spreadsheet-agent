@@ -21,7 +21,7 @@ shim.globals.UrlFetchApp = { fetch: () => ({ getResponseCode: () => 200, getCont
 shim.globals.PropertiesService = { getScriptProperties: () => ({ getProperty: () => 'k', setProperty: () => {}, deleteProperty: () => {} }) };
 
 const code = readFileSync(path.join(root, 'Prompts.gs'), 'utf8') + '\n' + readFileSync(path.join(root, 'Code.gs'), 'utf8') +
-  '\nreturn { tPlan_, tFill_, verify_, snapshotAll_, describe_, setG: function (g) { G = g; }, getG: function () { return G; } };';
+  '\nreturn { tPlan_, tFill_, tNumFmt_, tHatch_, verify_, snapshotAll_, describe_, setG: function (g) { G = g; }, getG: function () { return G; } };';
 const names = Object.keys(shim.globals);
 const T = new Function(...names, code)(...names.map((k) => shim.globals[k]));
 
@@ -81,5 +81,50 @@ if (txtc) {
 } else console.log('  (no text cell for text equals_old — skipped)');
 
 shim.close(null);
+
+// ---- Phase 1: format gate, V3 preservation axis, hatch closure ----
+// A format-kind target must win even when a formula target also contains the range.
+// Before the fix, inTargets_ returned the first CONTAINING target of any kind, so an
+// overlapping formula target shadowed every format target and set_number_format
+// refused unconditionally -- which is why the model routed around it via the hatch.
+G = freshG();
+T.tPlan_({
+  targets_json: JSON.stringify([
+    { range: sheet + '!' + nb, kind: 'formula', intent: 'write the value' },
+    { range: sheet + '!' + nb, kind: 'format', intent: 'task asked for one decimal place' },
+  ]),
+  assertions_json: '[]', rationale: 't',
+});
+const fmtRes = T.tNumFmt_({ sheet, range: nb, format: '0.0' });
+ok(/FORMAT SET/.test(fmtRes), 'P1: set_number_format works with a format target overlapping a formula target', fmtRes.slice(0, 90));
+
+// ...and is still refused when only a non-format target covers the range.
+G = freshG();
+T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'formula', intent: 'x' }]), assertions_json: '[]', rationale: 't' });
+const fmtRef = T.tNumFmt_({ sheet, range: nb, format: '0.0' });
+ok(/REFUSED/.test(fmtRef) && /format target covering/.test(fmtRef), 'P1: format write without a format target refused, with the fix named', fmtRef.slice(0, 90));
+
+// V3 fires when a format changes outside any format target (this is t07's failure mode:
+// outputs 25/25 on every seed, killed only by unrequested reformatting).
+G = freshG();
+T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x' }]), assertions_json: '[]', rationale: 't' });
+T.tNumFmt_({ sheet, range: nb, format: '0.000%' });
+G.plan.targets[0].kind = 'formula';      // revoke the licence, keep the edit
+const v3 = T.verify_();
+ok(/V3 FORMAT FAIL/.test(v3), 'P1: V3 fails a number-format change outside a format target', v3.split('\n').find((l) => /^V[0-9]/.test(l)) || v3.slice(0, 90));
+
+// ...and passes when the change is licensed.
+G = freshG();
+T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x' }]), assertions_json: '[]', rationale: 't' });
+T.tNumFmt_({ sheet, range: nb, format: '0.000%' });
+const v3ok = T.verify_();
+ok(/V3 number formats ok/.test(v3ok), 'P1: V3 passes a licensed number-format change', v3ok.slice(0, 120));
+
+// The hatch must no longer be a way around the typed format tool.
+G = freshG();
+T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x' }]), assertions_json: '[]', rationale: 't' });
+const hatch = T.tHatch_({ code: "ss.getSheetByName('" + sheet + "').getRange('" + nb + "').setNumberFormat('0.0');", touches_json: JSON.stringify([sheet + '!' + nb]) });
+ok(/REFUSED/.test(hatch) && /banned/.test(hatch), 'P1: hatch refuses setNumberFormat', hatch.slice(0, 90));
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
