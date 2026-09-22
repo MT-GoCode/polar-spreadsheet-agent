@@ -2170,8 +2170,12 @@ function verify_() {
           refTexts.push(name + '!' + a1);
         // V3: number-format preservation. A format change outside a format-kind target
         // is a preservation violation the grader will score, so fail it here.
+        var ft3 =
+          lnf && i < sn.R && j < sn.C && lnf[i][j] !== sn.nf[i][j]
+            ? inTargets_(name, parseA1_(a1), ['format'])
+            : null;
         if (lnf && i < sn.R && j < sn.C && lnf[i][j] !== sn.nf[i][j] &&
-            !inTargets_(name, parseA1_(a1), ['format']))
+            !(ft3 && ft3.kind === 'format'))
           fmtOff.push(name + '!' + a1 + ' (' + (sn.nf[i][j] || 'General') + ' \u2192 ' + (lnf[i][j] || 'General') + ')');
       }
   }
