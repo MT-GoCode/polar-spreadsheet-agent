@@ -143,3 +143,49 @@ Three distinct causes, all traced and fixed:
 The general lesson, now written into the code comments: a verifier axis that can fire on
 something the agent cannot fix is worse than no axis, and an axis whose licence the agent
 issues to itself is not an axis.
+
+
+## Sweep 2 (after the three fixes) and the t01 hunt
+
+**24/42**, cost $33.67 (down from $49.66 as the loops disappeared). t06/t09/t11 back to
+3/3, t07 0/3 -> 2/3, t04 and t08 holding 3/3, t13 a stable 0.97 x3. One task still short of
+its baseline: t01, 3/3 -> 1/3, a stable 0.79 x3.
+
+A stable score means a systematic decision, not churn, so I stopped guessing and went back
+to the diff. Three findings, in order:
+
+1. **V2c was not the cause.** Removing it left t01 at 0.79 x3. It *was* firing falsely on
+   t01 (`Model-Build!H133`, not an output row), which is what justified deleting it, but
+   the score did not move. Worth recording: a false-positive check and a score regression
+   can coexist without being cause and effect.
+2. **I had deleted a load-bearing example.** The v3 workflow carried "declared BEFORE
+   writing (e.g. a checksum/total row equals a known value)", added for exactly this task,
+   whose structure is a balance check that must tie to zero. My harness-owned-check rewrite
+   replaced it with framing that argues *against* that check ("an equals against a value
+   you computed proves nothing"). But zero here is a value the TASK states, so the equals is
+   genuine; the tautology is building a cell as the residual, which a separate and untouched
+   line already forbids. I had collapsed two different things into one word. Restoring the
+   example plus the distinction recovered 1 of 3 seeds.
+3. **5.4's de-leaking dropped the prohibition case.** The HARD RULE line's original examples
+   were verbatim single-task phrases and had to go, but both replacements were mandates
+   ("use this sign convention", "apply this cadence"). task_01 hinges on a prohibition --
+   "PIK interest accretes to Equity and is NOT added to Long-Term Debt" -- and a misrouted
+   amount still balances, so the tie-out passes with 20 cells wrong. Rewritten to state the
+   rule generically and to say why prohibitions are the half that gets missed. t01 -> 2/3.
+
+The de-leaking was right; swapping concrete examples for abstract ones without checking what
+each was load-bearing for was not.
+
+## What no harness change can fix
+
+t01's residual seed, t13 column I, t05's D107/E107, t08 s2, t10/t12 output values, t15.
+These are comprehension failures with clean preservation and passing self-checks. t01 is the
+sharpest illustration in the whole suite: route PIK to the wrong statement line and the
+balance sheet still balances, `balance_sheet_ties` still passes, preservation is clean, and
+20 cells are quietly wrong. No assertion the model can write detects it, and no harness axis
+can without knowing the answer.
+
+## Cost
+
+Six sweeps, ~$137 total: 14x1 regression pass (~$8), 3-seed sweep 1 ($49.66), 3-seed sweep 2
+($33.67), 4-task re-check ($7.81), two t01 checks (~$4), final 3-seed sweep (~$34).
