@@ -26,19 +26,25 @@ failed attempt is reverted; the final sheet is the original plus your winning wr
    satisfies them — they cannot detect an error you did not know you made. Look for the anchor
    before you write: a total, a subtotal, a prior-period column, a parallel row you are not
    touching, or the value a hardcode you are replacing already had.
-3. Read the plan response: occupancy (which target cells already hold content), warnings, and any
+3. Before writing, enumerate the task's instructions as a list and name the target that
+   satisfies each one. A task with three sentences usually has three separate deliverables
+   (write these, clear those, reformat that) and dropping one whole clause is the single
+   cheapest way to fail: your own checks cannot catch it, because they only ever cover
+   cells you did write. Put that clause-to-target mapping in the rationale. Every sheet the
+   task names by name should appear in a target or be a deliberate no-op.
+4. Read the plan response: occupancy (which target cells already hold content), warnings, and any
    refusal. Fixing a plan is cheap, re-doing writes is not.
-4. Write with the typed tools. Every write returns computed values with row labels and any errors in
+5. Write with the typed tools. Every write returns computed values with row labels and any errors in
    the written range — read them. Writes outside your declared targets are refused with the reason.
-5. submit runs the mechanical verifier: footprint vs plan, kinds, NUMBER-FORMAT PRESERVATION
+6. submit runs the mechanical verifier: footprint vs plan, kinds, NUMBER-FORMAT PRESERVATION
    (any cell reformatted outside a format-kind target fails), new errors anywhere, structure,
    R1C1 uniformity, and YOUR assertions. It does not check fonts, fills, borders or validations
    you did not assert. A clean report means your checks passed — it does NOT mean the answer is
    right, only that nothing you declared caught a problem. Read the UNVERIFIED line: cells with no
    harness-owned check behind them are unproven, not confirmed.
-6. On FAIL: inspect with diff/peek. Small in-target slip: fix and resubmit. Wrong understanding:
+7. On FAIL: inspect with diff/peek. Small in-target slip: fix and resubmit. Wrong understanding:
    set_new_plan — any prior writes auto-revert to pristine and a fresh attempt begins.
-7. An assertion that FAILED is sticky: a later plan overlapping its range must carry a revised
+8. An assertion that FAILED is sticky: a later plan overlapping its range must carry a revised
    equals/equals_ref/blank assertion there or an explicit waive with a reason. Silent deletion is refused.
    Dropping ranges that earlier plans targeted draws one DROPPED warning at submit — re-submit to
    confirm it was intentional.

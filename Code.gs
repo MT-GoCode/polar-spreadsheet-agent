@@ -2678,6 +2678,43 @@ function tSubmit_() {
       };
     }
   }
+  // Clause coverage, deterministically. The 3-seed sweep caught task_11 submitting in 8
+  // turns with 4 targets, all on the assumption cells, and NO target on Trading Comps --
+  // the sheet its task names in the sentence "Clear all numeric data from Trading Comps
+  // sheet". Every check it wrote passed, because they all sat on cells it did write, so
+  // the verifier was clean and it stopped. Score 0.027 on a task that is 3/3 otherwise.
+  //
+  // This is the one thing the deleted LLM reviewer nominally did (its checklist item 2,
+  // "is every instruction addressed by a target?"), and it needs no model: the harness has
+  // the task prompt and the sheet names, so it can simply ask whether a sheet the task
+  // names by name was touched at all. Confront once, like the dropped-target gate.
+  if (!G.unnamedAck) {
+    var pl = String(G.prompt || '').toLowerCase();
+    var untouched = [];
+    var names = G.ss.getSheets();
+    for (var sx = 0; sx < names.length; sx++) {
+      var nm = names[sx].getName();
+      if (pl.indexOf(nm.toLowerCase()) < 0) continue;      // task never names this sheet
+      var touched = false;
+      for (var tx = 0; tx < G.plan.targets.length; tx++)
+        if (G.plan.targets[tx].sheetName === nm) { touched = true; break; }
+      if (!touched && G.writes[nm]) touched = true;
+      if (!touched) untouched.push(nm);
+    }
+    if (untouched.length) {
+      G.unnamedAck = true;
+      return {
+        pass: false,
+        text:
+          'UNADDRESSED SHEET' + (untouched.length > 1 ? 'S' : '') + ': the task names ' +
+          untouched.join(', ') + ' but your plan has no target there and you have written' +
+          ' nothing there. Re-read the task for the clause about ' + untouched[0] +
+          ' — a whole instruction is easy to drop, and your own checks cannot notice,' +
+          ' because they only cover cells you did write. If the sheet genuinely needs no' +
+          ' change, submit again to proceed.',
+      };
+    }
+  }
   return verify_();
 }
 
@@ -2775,6 +2812,7 @@ function runAgentInner_(req, t0) {
     failedAsserts: [],
     planHistory: [],
     droppedAck: false,
+    unnamedAck: false,
     attempt: 0,
     trace: [],
     turn: 0,
