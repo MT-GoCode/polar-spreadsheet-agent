@@ -108,3 +108,38 @@ added; anything more specific would be encoding benchmark answers, which 5.4 exi
 
 t14 still cannot run offline (the shim throws on DV and CF, read and write) and has never
 been run. t04 needs ~425s for one full recalc against a 6-minute online limit.
+
+
+## Sweep 1 (3 seeds, 42 runs, $49.66) and what it exposed
+
+**20/42 against the 21/40 baseline** — flat overall, with real movement both ways.
+
+| | task | before | after |
+|---|---|---|---|
+| won | t04 | 1/3 | **3/3** |
+| won | t08 | 1/3 | **3/3** |
+| regressed | t01 t06 t09 t11 | 3/3 each | 2/3 each |
+| alarm | t07 | scores 1.00 ×3 | **0.48 ×3**, walls 126s → 387-653s |
+| alarm | t10 / t12 | — | walls doubled, scores down |
+
+Three distinct causes, all traced and fixed:
+
+1. **V3 turned an engine quirk into an unwinnable state.** The engine rewrites a cell's
+   number format to `@` when the formula contains a `%` literal (verified: same formula
+   with decimals leaves the format alone; Sheets does not do this at all). V3 correctly
+   reported the change, and `set_number_format` — the only tool that could undo it — is
+   refused without a task-licensed quote. task_07 spent 44 turns and $1.22 thrashing and
+   destroyed its own correct work. V3 now fires only where the *content* did not change;
+   deliberate reformatting is prevented at the tool instead.
+2. **The harness-owned-check refusal manufactured false anchors.** `equals_ref` expresses
+   only strict equality with another cell, which is rarely the real relationship. task_10
+   asserted equalities that are not true, they failed, it replanned: 74 turns, $4.08,
+   1036s, score 0.62. Downgraded to a WARN that says a false anchor costs more than none.
+3. **task_11 dropped a whole task clause** (no target on the sheet its own task names) and
+   no self-authored check could notice, because they only cover cells it did write. 0.027
+   on a task that is otherwise 3/3. Replaced the deleted reviewer's clause-coverage check
+   with a deterministic submit-time gate plus an explicit clause-to-target planning step.
+
+The general lesson, now written into the code comments: a verifier axis that can fire on
+something the agent cannot fix is worse than no axis, and an axis whose licence the agent
+issues to itself is not an axis.
