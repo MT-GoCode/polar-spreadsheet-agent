@@ -108,14 +108,14 @@ G = freshG();
 T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x' }]), assertions_json: '[]', rationale: 't' });
 T.tNumFmt_({ sheet, range: nb, format: '0.000%' });
 G.plan.targets[0].kind = 'formula';      // revoke the licence, keep the edit
-const v3 = T.verify_();
+const v3 = T.verify_().text;
 ok(/V3 FORMAT FAIL/.test(v3), 'P1: V3 fails a number-format change outside a format target', v3.split('\n').find((l) => /^V[0-9]/.test(l)) || v3.slice(0, 90));
 
 // ...and passes when the change is licensed.
 G = freshG();
 T.tPlan_({ targets_json: JSON.stringify([{ range: sheet + '!' + nb, kind: 'format', intent: 'x' }]), assertions_json: '[]', rationale: 't' });
 T.tNumFmt_({ sheet, range: nb, format: '0.000%' });
-const v3ok = T.verify_();
+const v3ok = T.verify_().text;
 ok(/V3 number formats ok/.test(v3ok), 'P1: V3 passes a licensed number-format change', v3ok.slice(0, 120));
 
 // The hatch must no longer be a way around the typed format tool.
