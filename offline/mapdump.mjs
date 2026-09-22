@@ -18,7 +18,7 @@ if (!tasks.length) { console.error('usage: node offline/mapdump.mjs <NN|--all> [
 
 const src = readFileSync(path.join(root, 'Prompts.gs'), 'utf8') + '\n' +
   readFileSync(path.join(root, 'Code.gs'), 'utf8') +
-  '\nreturn { describe_, describeBudgeted_, snapshotAll_, setG: function (g) { G = g; } };';
+  '\nreturn { describe_, snapshotAll_, setG: function (g) { G = g; } };';
 
 for (const t of tasks) {
   const tid = 'task_' + t;
@@ -41,7 +41,7 @@ for (const t of tasks) {
   T.snapshotAll_();
   const snapMs = Date.now() - t0;
   const t1 = Date.now();
-  const map = T.describeBudgeted_();
+  const map = T.describe_();
   const descMs = Date.now() - t1;
   try { shim.close(null); } catch (e) {}
   if (statOnly) {

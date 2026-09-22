@@ -20,9 +20,13 @@ const prompt = readFileSync(path.join(root, 'benchmarks/tasks', tid, 'prompt.txt
 
 // Offline preservation baseline: grade against the engine's own round-trip of init.xlsx,
 // not init.xlsx, so whole-file re-serialization drift is not scored as agent damage.
-let baseline = null;
+let baseline;
 try { baseline = ensureBaseline(tid); }
-catch (e) { console.log('baseline failed:', String(e).slice(0, 200)); }
+catch (e) {
+  console.log('baseline failed:', String(e).slice(0, 300));
+  console.log('gate: UNAVAILABLE — refusing to grade against raw init.xlsx, which would count the engine\'s own re-serialization drift as agent damage.');
+  process.exit(3);
+}
 
 process.env.MOG_SESSION_DIR = path.join(dir, '.mogsess');
 mkdirSync(process.env.MOG_SESSION_DIR, { recursive: true, mode: 0o700 });
@@ -54,7 +58,7 @@ try {
 } catch (e) { console.log('render failed:', String(e).slice(0, 200)); }
 if (!args.probe) {
   try {
-    const initialForGrade = baseline || path.join(root, 'benchmarks/tasks', tid, 'init.xlsx');
+    const initialForGrade = baseline;
     execFileSync(path.join(root, '.venv/bin/python'), ['-m', 'grader.google_grade', '--task', tid,
       '--initial', initialForGrade,
       '--golden', path.join(root, 'benchmarks/tasks', tid, 'golden.xlsx'),

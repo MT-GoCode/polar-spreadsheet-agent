@@ -15,17 +15,14 @@ const PRICE = { inp: 2.5, cached: 0.25, out: 15 }; // $/M
 // +1 real pass against -2 seeds on task_13 and -1 on task_12. Flag kept so the A/B is
 // re-runnable; occupancyNotice_ covers most of what it got right, deterministically.
 const ADVERSARY = false;
-// One map budget, one knob. Replaces the per-sheet 1800-byte cap and trimClass_, which
-// ranked line SHAPES: row structure died first, formula groups second, while the
-// font-colour histogram and the DV/CF notices were unreachable at class 9. 30 of 53 sheet
-// sections ended up shipping a "formula groups:" header with nothing beneath it.
-// describe_ now renders at a detail depth k and describeBudgeted_ binary-searches the
-// largest k that fits, so every section of every sheet is elided to the SAME depth and a
-// section is shortened only if it personally has more items than 2k. Measured full-detail
-// maps are 2.5-16KB, so this saturates (k = MAP_DEPTH_MAX, nothing elided) on every
-// benchmark workbook; it only bites if a much larger workbook arrives.
-const MAP_BUDGET = 24000;
-const MAP_DEPTH_MAX = 40;
+// The map is re-sent as the prompt prefix every turn, and four of its lists are
+// unbounded in principle -- measured over the 62 benchmark sheets: up to 120586 distinct
+// formulas, 22385 distinct labels, 44775 numeric constants and 1356 distinct row groups
+// on a single sheet. Those four get head/tail elision with the true count always stated.
+// Nothing else is limited: there is no byte budget (full-detail maps measure 2.5-16KB),
+// no trim-by-line-class, and no per-sheet cap. The number-format legend is uncapped too
+// (max 22 distinct formats on any sheet).
+const MAP_HEAD = 15; // head and tail items shown when a list is elided
 const ERRS = [
   '#REF!',
   '#VALUE!',
@@ -36,7 +33,9 @@ const ERRS = [
   '#NUM!',
   '#ERROR!',
 ];
-const BIG_SHEET_CELLS = 20000;
+// Runtime guard for getFontColors/getDataValidations only (30-70s at 350k cells
+// against a 6-minute execution limit). Not a detail cap.
+const EXPENSIVE_READ_CELLS = 20000;
 
 // ---------- state (per execution) ----------
 var G = null; // {ss,id,t0,snap,orig dims,baseErr,plan,writes,oldmap,fmtBase,dvBase,cfBase,written,attempt,failedOpen,trace,turn,prevId,cost}
@@ -348,8 +347,7 @@ function labelIndexLines_(sn, lastUsed, rs, sheetName) {
     var ks = Object.keys(byLabel).sort();
     out.push('  labels col ' + colStr_(best + 1) + ': ' + distinct + ' distinct ("' + short_(ks[0], 24) + '" … "' + short_(ks[ks.length - 1], 24) + '")');
   } else {
-    var rCap = Math.max(1, Math.round(mapDepth_() * 0.625)); // 25 at full depth
-    for (var m = 0; m < Math.min(runs.length, rCap); m++) {
+    for (var m = 0; m < Math.min(runs.length, MAP_HEAD * 2); m++) {
       var rn2 = runs[m];
       out.push('  · ' + colStr_(best + 1) + rn2.r1 + (rn2.r2 > rn2.r1 ? ':' + rn2.r2 + ' ×' + (rn2.r2 - rn2.r1 + 1) : '') + ' "' + short_(rn2.v, 40) + '"');
     }
@@ -415,10 +413,9 @@ function seriesInRow_(vals, C) {
   return best;
 }
 function headerCells_(vals, C) {
-  var K_ = mapDepth_();
   var idx = [];
   for (var j = 0; j < C; j++) if (vals[j] !== '' && vals[j] !== null) idx.push(j);
-  var EDGE = K_; // head/tail; at full depth this shows every label header in this corpus (max 30)
+  var EDGE = MAP_HEAD; // 2*15 covers every label header row in this corpus (max 30 cells)
   var parts = [], elided = 0;
   if (idx.length <= EDGE * 2) {
     for (var k = 0; k < idx.length; k++)
@@ -501,8 +498,8 @@ function hardcodeCellLines_(sn, comp) {
       for (var k = 0; k < consts.length; k++) add(i2, consts[k]);
   }
   if (!hits.length) return [];
-  var hCap = Math.max(1, Math.round(mapDepth_() * 0.2)); // 8 at full depth
-  return ['  constants in formula regions: ' + hits.slice(0, hCap).join(', ') + (hits.length > hCap ? ' +' + (hits.length - hCap) + ' more' : '')];
+  return ['  constants in formula regions: ' + hits.slice(0, MAP_HEAD * 2).join(', ') +
+    (hits.length > MAP_HEAD * 2 ? ' [' + (hits.length - MAP_HEAD * 2) + ' of ' + hits.length + ' elided]' : '')];
 }
 function groupSourceSuffix_(rc, sheetName) {
   // dominant far/cross-sheet source bbox for a formula rect-group
@@ -542,13 +539,12 @@ function nfLegend_(sn, lastUsed) {
   if (keys.length < 2) return null;
   keys.sort(function (a, b) { return count[b] - count[a]; });
   var ALPHA = 'abcdefhijklmnopqrstuvwxyz0123456789'; // 'g' reserved for General
-  var NAMED = 12; // the legend is protected from trimming, so bound it; rest share '?'
   var code = {}, legend = [], next = 0, over = 0;
   for (var k = 0; k < keys.length; k++) {
     var c;
     if (keys[k] === 'General') c = 'g';
-    else if (next < NAMED && next < ALPHA.length) c = ALPHA.charAt(next++);
-    else { c = '?'; over++; }
+    else if (next < ALPHA.length) c = ALPHA.charAt(next++);
+    else { c = '?'; over++; } // unreachable in this corpus: max 22 distinct formats
     code[keys[k]] = c;
     if (c !== '?') legend.push(c + '=' + short_(keys[k], 26) + ' ×' + count[keys[k]]);
   }
@@ -566,7 +562,7 @@ function nfLegend_(sn, lastUsed) {
  * (368/368). It also replaces "column composition" and the old "row structure", which
  * dropped any row lacking both a formula and a hole and then kept only 8 groups. */
 function rowsSection_(sn, lastUsed, nfc) {
-  var EDGE = Math.max(1, Math.round(mapDepth_() * 0.375)); // head/tail row groups (15 at full depth)
+  var EDGE = MAP_HEAD;
   var sigs = [];
   for (var i = 0; i < sn.R; i++) {
     var toks = [];
@@ -611,31 +607,6 @@ function rowsSection_(sn, lastUsed, nfc) {
     .concat(groups.slice(0, EDGE))
     .concat(['    [' + (groups.length - EDGE * 2) + ' of ' + groups.length + ' row groups elided here]'])
     .concat(groups.slice(groups.length - EDGE));
-}
-var MAP_DEPTH_ = MAP_DEPTH_MAX;
-function mapDepth_() { return MAP_DEPTH_; }
-/** Largest detail depth whose rendered map fits MAP_BUDGET. Bytes are non-decreasing in
- * depth, so a binary search is well posed; k never drops below 1, so no section can lose
- * its first and last item, and every elision states its own true count. */
-function describeBudgeted_() {
-  var lo = 1, hi = MAP_DEPTH_MAX, bestTxt = null, bestK = 1;
-  MAP_DEPTH_ = hi;
-  var full = describe_();
-  if (full.length <= MAP_BUDGET) {
-    MAP_DEPTH_ = MAP_DEPTH_MAX;
-    return full + '\nMAP depth ' + hi + '/' + MAP_DEPTH_MAX + ' (complete), ' + full.length + 'B of ' + MAP_BUDGET + 'B budget.';
-  }
-  while (lo <= hi) {
-    var mid = Math.floor((lo + hi) / 2);
-    MAP_DEPTH_ = mid;
-    var txt = describe_();
-    if (txt.length <= MAP_BUDGET) { bestTxt = txt; bestK = mid; lo = mid + 1; }
-    else hi = mid - 1;
-  }
-  if (!bestTxt) { MAP_DEPTH_ = 1; bestTxt = describe_(); bestK = 1; }
-  MAP_DEPTH_ = MAP_DEPTH_MAX;
-  return bestTxt + '\nMAP depth ' + bestK + '/' + MAP_DEPTH_MAX + ' — sections with more than ' +
-    (2 * bestK) + ' items are elided, each stating its own count. ' + bestTxt.length + 'B of ' + MAP_BUDGET + 'B budget.';
 }
 function describe_() {
   var L = [];
@@ -768,8 +739,7 @@ function describe_() {
     });
     if (merged.length) {
       Ls.push('  formula groups:');
-      var gCap = Math.max(1, Math.round(mapDepth_() * 0.35)); // 14 at full depth
-      for (var g = 0; g < Math.min(merged.length, gCap); g++) {
+      for (var g = 0; g < Math.min(merged.length, MAP_HEAD * 2); g++) {
         var rc = merged[g];
         Ls.push(
           '    ' + colStr_(rc.c1) + rc.i1 + ':' + colStr_(rc.c2) + rc.i2 +
@@ -777,8 +747,8 @@ function describe_() {
             '  ' + rc.rf.slice(0, 105) + groupSourceSuffix_(rc, name),
         );
       }
-      if (merged.length > gCap)
-        Ls.push('    [omitted: ' + (merged.length - gCap) + ' more groups]');
+      if (merged.length > MAP_HEAD * 2)
+        Ls.push('    [omitted: ' + (merged.length - MAP_HEAD * 2) + ' of ' + merged.length + ' formula groups]');
       if (ones) Ls.push('    [+' + ones + ' single text-formula cells omitted]');
     }
     // Structure: one line per distinct run of identical rows, blanks stated by absence.
@@ -788,17 +758,16 @@ function describe_() {
     var nfc = nfLegend_(sn, lastUsed);
     if (nfc) Ls.push(nfc.line);
     Ls = Ls.concat(rowsSection_(sn, lastUsed, nfc ? nfc.code : null));
-    if (cells <= BIG_SHEET_CELLS * 6) {
-      Ls = Ls.concat(headerLines_(sn));
-      Ls = Ls.concat(hardcodeCellLines_(sn, comp));
-      Ls = Ls.concat(labelIndexLines_(sn, lastUsed, refSets_(), name));
-    } else {
-      Ls = Ls.concat(headerLines_(sn));
-    }
-    // colors/DV gated
-    if (cells > BIG_SHEET_CELLS)
-      Ls.push('  [font colors & data-validation not scanned: sheet >' + BIG_SHEET_CELLS + ' cells — use peek modes]');
-    if (cells <= BIG_SHEET_CELLS) {
+    Ls = Ls.concat(headerLines_(sn));
+    Ls = Ls.concat(hardcodeCellLines_(sn, comp));
+    Ls = Ls.concat(labelIndexLines_(sn, lastUsed, refSets_(), name));
+    // The only remaining size gate, and it is a RUNTIME guard on two expensive API reads,
+    // not a detail policy: getFontColors and getDataValidations cost 30-70s on a
+    // 350k-cell sheet against a 6-minute total execution limit. It states what it skipped
+    // and how to get it, and it no longer suppresses any other section.
+    if (cells > EXPENSIVE_READ_CELLS)
+      Ls.push('  [font colors & data-validation not read: ' + cells + ' cells, too slow — peek mode=fontColor for a specific range]');
+    if (cells <= EXPENSIVE_READ_CELLS) {
       try {
         var fc = sh.getRange(1, 1, R, C).getFontColors();
         var hist = {};
@@ -900,40 +869,6 @@ function describe_() {
             hotRefs[hkey] = (hotRefs[hkey] || 0) + 1;
           }
       }
-    // budget
-    // trim priority: row-structure detail first, then formula groups, then label runs.
-    // Never trim: errors, blank blocks, hardcodes, duplicate labels, sections, hdr,
-    // font/DV/CF lines, distinct-count.
-    // Trim order was inverted: row structure went first (class 0) and formula groups
-    // second, while the font-colour histogram and the DV/CF unavailability notices fell
-    // through to class 9 = never trimmed. 30 of 53 sheet sections ended up shipping a
-    // "formula groups:" header with nothing under it while boilerplate survived. Drop the
-    // lines no transcript ever cited first, and the sheet's own structure last.
-    function trimClass_(ln) {
-      if (/^  font colors:/.test(ln)) return 0;
-      if (/^  (data-validation|conditional-format):/.test(ln)) return 0;
-      if (/^  labels col /.test(ln)) return 1;
-      if (/^  duplicate labels/.test(ln)) return 1;
-      if (/^  · /.test(ln)) return 2;
-      if (/^    [A-Z]/.test(ln) || /^    \[/.test(ln)) return 3;
-      if (/^    r\d/.test(ln)) return 4;
-      return 9;
-    }
-    var bytes = Ls.join('\n').length;
-    var pass = 0;
-    while (bytes > 1800 && pass <= 4) {
-      var worst = -1, wl = 0;
-      for (var z = 2; z < Ls.length; z++)
-        if (trimClass_(Ls[z]) === pass && Ls[z].length > wl) {
-          wl = Ls[z].length;
-          worst = z;
-        }
-      if (worst < 0) { pass++; continue; }
-      Ls.splice(worst, 1);
-      if (Ls.indexOf('  [trimmed to budget]') < 0)
-        Ls.push('  [trimmed to budget]');
-      bytes = Ls.join('\n').length;
-    }
     L = L.concat(Ls);
   }
   if (unreadDV || unreadCF) {

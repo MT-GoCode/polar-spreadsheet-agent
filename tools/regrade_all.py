@@ -30,9 +30,10 @@ def baseline_for(tid):
         r = subprocess.run(['node', os.path.join(root, 'offline/baseline.mjs'), tid],
                            cwd=root, capture_output=True, text=True)
         if r.returncode or not os.path.exists(p):
-            print(f'  WARNING {tid}: baseline build failed, falling back to init.xlsx '
-                  f'(phantom violations will be counted): {r.stderr.strip()[-160:]}')
-            p = None
+            # No fallback: init.xlsx would count the engine's own re-serialization drift
+            # as agent damage and silently report a wrong pass/fail.
+            sys.exit(f'{tid}: baseline build failed, refusing to grade against raw '
+                     f'init.xlsx: {r.stderr.strip()[-200:]}')
     baselines[tid] = p
     return p
 
@@ -45,7 +46,7 @@ for sub in runs:
         continue
     tid = 'task_' + m.group(1)
     tag = name[:m.start()].rstrip('-') or 'untagged'
-    initial = baseline_for(tid) or os.path.join(root, 'benchmarks/tasks', tid, 'init.xlsx')
+    initial = baseline_for(tid)
     gp, tp = os.path.join(d, 'grade.json'), os.path.join(d, 'gate.json')
     r = subprocess.run([py, '-m', 'grader.google_grade', '--task', tid,
                         '--initial', initial,
