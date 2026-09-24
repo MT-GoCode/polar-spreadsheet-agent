@@ -1,0 +1,563 @@
+
+HOW TO READ THIS MAP
+  Rn[a-b]   = REGION id n, spanning rows a-b on that sheet. NOT R1C1 notation.
+  R[-2]C[1] = R1C1 formula notation: row/col offsets from the cell itself.
+  @         = a reference blanked out, leaving the formula's SHAPE (its skeleton).
+  Blocks group by skeleton: one line can stand for thousands of cells.
+  Difficulty tracks SKELETON COUNT in what you must write, not cell count.
+  Every layer partitions the same grid independently; they may disagree.
+  This map OBSERVES, it never concludes. Read cells directly before relying on them.
+  Absent by construction: cell borders (no getBorder in Apps Script), merged ranges.
+
+SHEET ORDER
+  ordered by formula density, not tab order: Model-Build > Returns-Summary
+
+WORKBOOK SHEETS
+  Model-Build | used A1:L164 | 409 formula cells
+  Returns-Summary | used A1:L46 | 134 formula cells
+
+NAMED RANGES
+  Company_Name -> 'Returns-Summary'!D7
+  Hist_Yr -> 'Returns-Summary'!D8
+
+REGIONS  Model-Build
+  R1[2-4] 'Operating & Financing Drivers:'
+  R2[6-7] 'Selling Staff:'
+  R3[9-10] 'Productivity per Sales Rep:'
+  R4[12-13] 'Non-Selling Staff:'
+  R5[15-15] 'NFI Margin (%):'
+  R6[17-18] 'Payroll Cost per Head:'
+  R7[20-21] 'Sundry SG&A:'
+  R8[23-23] 'UK Corporation Tax Rate:'
+  R9[25-29] 'Debt & Interest Schedule:'
+  R10[31-35] 'Benchmark Rate (LIBOR):'
+  R11[37-39] 'Bank Facility A — Opening'
+  R12[41-41] 'Bank Facility A — Interest'
+  R13[43-45] 'Bank Facility B — Opening'
+  R14[47-47] 'Bank Facility B — Interest'
+  R15[49-52] 'Shareholder Loan — Opening'
+  R16[54-54] 'Cash — Interest Income'
+  R17[56-58] 'Balance-Sheet Assumptions:'
+  R18[60-62] 'Payables as % of OpEx:'
+  R19[64-66] 'Cash-Flow Assumptions:'
+  R20[68-70] 'Intangible Asset Additions:'
+  R21[72-78] 'Amortisation — Existing Intangibles'
+  R22[80-81] 'Consolidated Income Statement:'
+  R23[83-84] 'Revenue (Turnover):'
+  R24[86-86] 'NFI (Net Fee Income):'
+  R25[88-91] 'Operating Costs:'
+  R26[93-98] 'EBITDA —'
+  R27[100-107] 'Balance Sheet:'
+  R28[109-112] 'Assets, Non-Current:'
+  R29[114-114] 'Assets — Total'
+  R30[116-121] 'Liabilities & Equity —'
+  R31[123-126] 'Liabilities, Non-Current:'
+  R32[128-128] 'Liabilities — Total'
+  R33[130-130] 'Shareholders' Equity:'
+  R34[132-132] 'Liabilities & Equity — Total'
+  R35[134-134] 'Balance Tie-Out:'
+  R36[136-138] 'Statement of Cash Flows:'
+  R37[140-151] 'Net Profit for the Period:'
+  R38[153-156] 'Investing Cash Flows —'
+  R39[158-160] 'Financing Cash Flows —'
+  R40[162-164] 'Net Movement in Cash:'
+
+BLOCKS  Model-Build   (partition by R1C1 skeleton)
+  [409 formula cells -> 60 skeletons]
+  E39:L164  n=63  sparse  spans R11[37-39],R13[43-45],R15[49-52],R21[72-78]  '£ M'@D39
+      skeleton =SUM(@:@)
+      H39 = =SUM(H37:H38)
+      R1C1     =SUM(R[-2]C:R[-1]C)
+  D20:L163  n=53  sparse  spans R7[20-21],R9[25-29],R11[37-39],R13[43-45]  'Sundry SG&A:'@C20
+      skeleton =@
+      E20 = =E90
+      R1C1     =R[70]C
+  H12:L142  n=40  sparse  spans R4[12-13],R12[41-41],R14[47-47],R15[49-52]  'Headcount (#)'@D12
+      skeleton =@*@
+      H12 = =H13*H6
+      R1C1     =R[1]C*R[-6]C
+  E93:L149  n=31  sparse  spans R26[93-98],R35[134-134],R37[140-151]  '£ M'@D93
+      skeleton =@-@
+      E93 = =E86-E91
+      R1C1     =R[-7]C-R[-2]C
+  H6:L20  n=20  sparse  spans R2[6-7],R3[9-10],R6[17-18],R7[20-21]  'Headcount (#)'@D6
+      skeleton =@*(1+@)
+      H6 = =G6*(1+H7)
+      R1C1     =RC[-1]*(1+R[1]C)
+  E9:G58  n=15  sparse  spans R3[9-10],R4[12-13],R5[15-15],R17[56-58]  '£ M'@D9
+      skeleton =@/@
+      E9 = =E83/E6
+      R1C1     =R[74]C/R[-3]C
+  H159:L162  n=10  sparse  spans R39[158-160],R40[162-164]  '£ M'@D159
+      skeleton =@+@+@
+      H159 = =H38+H44+H50
+      R1C1     =R[-121]C+R[-115]C+R[-109]C
+  E60:G62  n=9  rect  R18[60-62]  '%'@D60
+      skeleton =@/R91C
+      E60 = =E118/E$91
+      R1C1     =R[58]C/R91C
+  E114:G132  n=9  sparse  spans R29[114-114],R32[128-128],R34[132-132]  '£ M'@D114
+      skeleton =@+@
+      E114 = =E107+E112
+      R1C1     =R[-7]C+R[-2]C
+  F7:G21  n=8  sparse  spans R2[6-7],R3[9-10],R6[17-18],R7[20-21]  '%'@D7
+      skeleton =@/@-1
+      F7 = =F6/E6-1
+      R1C1     =R[-1]C/R[-1]C[-1]-1
+  E84:L84  n=8  row  R23[83-84]  '%'@D84
+      skeleton =IFERROR(+@/@-1,"N/A")
+      E84 = =IFERROR(+E83/D83-1,"N/A")
+      R1C1     =IFERROR(+R[-1]C/R[-1]C[-1]-1,"N/A")
+  H32:L32  n=5  row  R10[31-35]  '%'@D32
+      skeleton =@+R26C5/10000
+      H32 = =H31+$E$26/10000
+      R1C1     =R[-1]C+R26C5/10000
+  H33:L33  n=5  row  R10[31-35]  '%'@D33
+      skeleton =@+R27C5/10000
+      H33 = =H31+$E$27/10000
+      R1C1     =R[-2]C+R27C5/10000
+  H34:L34  n=5  row  R10[31-35]  '%'@D34
+      skeleton =R28C5
+      H34 = =$E$28
+      R1C1     =R28C5
+  H35:L35  n=5  row  R10[31-35]  '%'@D35
+      skeleton =@+R29C5/10000
+      H35 = =H31+$E$29/10000
+      R1C1     =R[-4]C+R29C5/10000
+  H38:L38  n=5  row  R11[37-39]  '£ M'@D38
+      skeleton =-R26C4*R26C6
+      H38 = =-$D$26*$F$26
+      R1C1     =-R26C4*R26C6
+  H44:L44  n=5  row  R13[43-45]  '£ M'@D44
+      skeleton =-R27C4*R27C6
+      H44 = =-$D$27*$F$27
+      R1C1     =-R27C4*R27C6
+  H50:L50  n=5  row  R15[49-52]  '£ M'@D50
+      skeleton =-R28C4*R28C6
+      H50 = =-$D$28*$F$28
+      R1C1     =-R28C4*R28C6
+  H72:L72  n=5  row  R21[72-78]  '£ M'@D72
+      skeleton =R111C7*R69C8
+      H72 = =$G$111*$H$69
+      R1C1     =R111C7*R69C8
+  H89:L89  n=5  row  R25[88-91]  '£ M'@D89
+      skeleton =@*(@+@)
+      H89 = =H17*(H12+H6)
+      R1C1     =R[-72]C*(R[-77]C+R[-83]C)
+  H94:L94  n=5  row  R26[93-98]  '£ M'@D94
+      skeleton =-@*@-@
+      H94 = =-H66*H83-H78
+      R1C1     =-R[-28]C*R[-11]C-R[-16]C
+  H95:L95  n=5  row  R26[93-98]  '£ M'@D95
+      skeleton =-@-@-@
+      H95 = =-H51-H47-H41
+      R1C1     =-R[-44]C-R[-48]C-R[-54]C
+  H97:L97  n=5  row  R26[93-98]  '£ M'@D97
+      skeleton =-SUM(@:@)*@
+      H97 = =-SUM(H93:H96)*H23
+      R1C1     =-SUM(R[-4]C:R[-1]C)*R[-74]C
+  H150:L150  n=5  row  R37[140-151]  '£ M'@D150
+      skeleton =@-@+@-@
+      H150 = =H120-G120+H125-G125
+      R1C1     =R[-30]C-R[-30]C[-1]+R[-25]C-R[-25]C[-1]
+  H154:L154  n=5  row  R38[153-156]  '£ M'@D154
+      skeleton =-@*@
+      H154 = =-H65*H83
+      R1C1     =-R[-89]C*R[-71]C
+  H155:L155  n=5  row  R38[153-156]  '£ M'@D155
+      skeleton =-@
+      H155 = =-H68
+      R1C1     =-R[-87]C
+  H160:L160  n=5  row  R39[158-160]  '£ M'@D160
+      skeleton =SUM(@)
+      H160 = =SUM(H159)
+      R1C1     =SUM(R[-1]C)
+  I73:L73  n=4  row  R21[72-78]  '£ M'@D73
+      skeleton =R[-5]@*R70C8
+      I73 = =$H68*$H$70
+      R1C1     =R[-5]C8*R70C8
+  E17:G17  n=3  row  R6[17-18]  '£ M'@D17
+      skeleton =@/(@+@)
+      E17 = =E89/(E6+E12)
+      R1C1     =R[72]C/(R[-11]C+R[-5]C)
+  J74:L74  n=3  row  R21[72-78]  '£ M'@D74
+      skeleton =R[-6]@*R70C8
+      J74 = =$I68*$H$70
+      R1C1     =R[-6]C9*R70C8
+  E80:E136  n=3  sparse  spans R22[80-81],R27[100-107],R36[136-138]  (no row label left of block)
+      skeleton =R2C5
+      E80 = =$E$2
+      R1C1     =R2C5
+  H80:H136  n=3  sparse  spans R22[80-81],R27[100-107],R36[136-138]  (no row label left of block)
+      skeleton =R2C8
+      H80 = =$H$2
+      R1C1     =R2C8
+  D81:D137  n=3  sparse  spans R22[80-81],R27[100-107],R36[136-138]  'Consolidated Income Statement:'@B81
+      skeleton =R3C4
+      D81 = =$D$3
+      R1C1     =R3C4
+  E81:E137  n=3  sparse  spans R22[80-81],R27[100-107],R36[136-138]  'Consolidated Income Statement:'@B81
+      skeleton =R3C5
+      E81 = =$E$3
+      R1C1     =R3C5
+  F81:F137  n=3  sparse  spans R22[80-81],R27[100-107],R36[136-138]  'Consolidated Income Statement:'@B81
+      skeleton =R3C6
+      F81 = =$F$3
+      R1C1     =R3C6
+  G81:G137  n=3  sparse  spans R22[80-81],R27[100-107],R36[136-138]  'Consolidated Income Statement:'@B81
+      skeleton =R3C7
+      G81 = =$G$3
+      R1C1     =R3C7
+  H81:H137  n=3  sparse  spans R22[80-81],R27[100-107],R36[136-138]  'Consolidated Income Statement:'@B81
+      skeleton =R3C8
+      H81 = =$H$3
+      R1C1     =R3C8
+  I81:I137  n=3  sparse  spans R22[80-81],R27[100-107],R36[136-138]  'Consolidated Income Statement:'@B81
+      skeleton =R3C9
+      I81 = =$I$3
+      R1C1     =R3C9
+  J81:J137  n=3  sparse  spans R22[80-81],R27[100-107],R36[136-138]  'Consolidated Income Statement:'@B81
+      skeleton =R3C10
+      J81 = =$J$3
+      R1C1     =R3C10
+  K81:K137  n=3  sparse  spans R22[80-81],R27[100-107],R36[136-138]  'Consolidated Income Statement:'@B81
+      skeleton =R3C11
+      K81 = =$K$3
+      R1C1     =R3C11
+  L81:L137  n=3  sparse  spans R22[80-81],R27[100-107],R36[136-138]  'Consolidated Income Statement:'@B81
+      skeleton =R3C12
+      L81 = =$L$3
+      R1C1     =R3C12
+  K75:L75  n=2  row  R21[72-78]  '£ M'@D75
+      skeleton =R[-7]@*R70C8
+      K75 = =$J68*$H$70
+      R1C1     =R[-7]C10*R70C8
+  E2:E2  n=1  cell  R1[2-4]  (no row label left of block)
+      skeleton ='Returns-Summary'!R14C5
+      E2 = ='Returns-Summary'!$E$14
+      R1C1     ='Returns-Summary'!R14C5
+  H2:H2  n=1  cell  R1[2-4]  (no row label left of block)
+      skeleton ='Returns-Summary'!R14C8
+      H2 = ='Returns-Summary'!$H$14
+      R1C1     ='Returns-Summary'!R14C8
+  D3:D3  n=1  cell  R1[2-4]  'Operating & Financing Drivers:'@B3
+      skeleton ='Returns-Summary'!R15C4
+      D3 = ='Returns-Summary'!$D$15
+      R1C1     ='Returns-Summary'!R15C4
+  E3:E3  n=1  cell  R1[2-4]  'Operating & Financing Drivers:'@B3
+      skeleton ='Returns-Summary'!R15C5
+      E3 = ='Returns-Summary'!$E$15
+      R1C1     ='Returns-Summary'!R15C5
+  F3:F3  n=1  cell  R1[2-4]  'Operating & Financing Drivers:'@B3
+      skeleton ='Returns-Summary'!R15C6
+      F3 = ='Returns-Summary'!$F$15
+      R1C1     ='Returns-Summary'!R15C6
+  G3:G3  n=1  cell  R1[2-4]  'Operating & Financing Drivers:'@B3
+      skeleton ='Returns-Summary'!R15C7
+      G3 = ='Returns-Summary'!$G$15
+      R1C1     ='Returns-Summary'!R15C7
+  H3:H3  n=1  cell  R1[2-4]  'Operating & Financing Drivers:'@B3
+      skeleton ='Returns-Summary'!R15C8
+      H3 = ='Returns-Summary'!$H$15
+      R1C1     ='Returns-Summary'!R15C8
+  I3:I3  n=1  cell  R1[2-4]  'Operating & Financing Drivers:'@B3
+      skeleton ='Returns-Summary'!R15C9
+      I3 = ='Returns-Summary'!$I$15
+      R1C1     ='Returns-Summary'!R15C9
+  J3:J3  n=1  cell  R1[2-4]  'Operating & Financing Drivers:'@B3
+      skeleton ='Returns-Summary'!R15C10
+      J3 = ='Returns-Summary'!$J$15
+      R1C1     ='Returns-Summary'!R15C10
+  K3:K3  n=1  cell  R1[2-4]  'Operating & Financing Drivers:'@B3
+      skeleton ='Returns-Summary'!R15C11
+      K3 = ='Returns-Summary'!$K$15
+      R1C1     ='Returns-Summary'!R15C11
+  L3:L3  n=1  cell  R1[2-4]  'Operating & Financing Drivers:'@B3
+      skeleton ='Returns-Summary'!R15C12
+      L3 = ='Returns-Summary'!$L$15
+      R1C1     ='Returns-Summary'!R15C12
+  H60:H60  n=1  cell  R18[60-62]  '%'@D60
+      skeleton =AVERAGE(@:@)
+      H60 = =AVERAGE(E60:G60)
+      R1C1     =AVERAGE(RC[-3]:RC[-1])
+  H73:H73  n=1  cell  R21[72-78]  '£ M'@D73
+      skeleton =R[-5]@*R70C8/2
+      H73 = =$H68*$H$70/2
+      R1C1     =R[-5]C8*R70C8/2
+  I74:I74  n=1  cell  R21[72-78]  '£ M'@D74
+      skeleton =R[-6]@*R70C8/2
+      I74 = =$I68*$H$70/2
+      R1C1     =R[-6]C9*R70C8/2
+  J75:J75  n=1  cell  R21[72-78]  '£ M'@D75
+      skeleton =R[-7]@*R70C8/2
+      J75 = =$J68*$H$70/2
+      R1C1     =R[-7]C10*R70C8/2
+  K76:K76  n=1  cell  R21[72-78]  '£ M'@D76
+      skeleton =R[-8]@*R70C8/2
+      K76 = =$K68*$H$70/2
+      R1C1     =R[-8]C11*R70C8/2
+  L76:L76  n=1  cell  R21[72-78]  '£ M'@D76
+      skeleton =R[-8]@*R70C8
+      L76 = =$K68*$H$70
+      R1C1     =R[-8]C11*R70C8
+  L77:L77  n=1  cell  R21[72-78]  '£ M'@D77
+      skeleton =R[-9]@*R70C8/2
+      L77 = =$L68*$H$70/2
+      R1C1     =R[-9]C12*R70C8/2
+
+NUMERICS  Model-Build   (partition by numfmt string)
+  D20:L163  n=294  R7[20-21]  numfmt '_(* #,##0.0_);_(* \(#,##0.0\);_(* "-"?_);_(@_)'
+  B2:H164  n=222  R1[2-4]  numfmt '0.###############'
+  H7:L70  n=72  R2[6-7]  numfmt '0.0%;\(0.0%\)'  [percent format; stored as fraction e.g. 0.504372]
+  E13:L66  n=52  R4[12-13]  numfmt '_(#,##0.0%_);\(#,##0.0%\);_("–"_)_%;_(@_)_%'  [percent format; stored as fraction e.g. 0.2760416666666667]
+  E83:L164  n=44  R23[83-84]  numfmt '_-[$£-809]* #,##0.0_-;\-[$£-809]* #,##0.0_-;_-[$£-809]* "-"?_-;_-@'
+  E3:L137  n=32  R1[2-4]  numfmt '"FY"yy'
+  E6:L12  n=16  R2[6-7]  numfmt '#,##0.0_);\(#,##0.0\)'
+  E7:L84  n=16  R2[6-7]  numfmt '0.0%;\(0.0%\);\-_)_%;@_)_%'  [percent format; stored as fraction e.g. 0.41145833333333326]
+  E9:L17  n=16  R3[9-10]  numfmt '_(* #,##0.000_);_(* \(#,##0.000\);_(* "-"???_);_(@_)'
+  B90:C159  n=9  R25[88-91]  numfmt '@'
+  E26:F28  n=4  R9[25-29]  numfmt '0.0%;\(0.0%\);"–"'  [percent format; stored as fraction e.g. 0.096761]
+  E26:E29  n=3  R9[25-29]  numfmt '"L + "\ ##'
+  G26:G28  n=3  R9[25-29]  numfmt '"Yes";"ERROR";"No";"ERROR"'
+  E134:G134  n=3  R35[134-134]  numfmt '"$"#,##0.000\);\("$"#,##0.000\);"OK!";"ERROR"'
+
+INPUTS  Model-Build   (partition by font colour)
+  blue literals  D6:L130  n=158  R2[6-7]
+  NON-blue literals  B3:G164  n=219  R1[2-4]  [differ from this sheet's blue-literal convention]
+
+FORMAT  Model-Build   (partition by visual style)
+  bold  B4:L164  n=111  R1[2-4]
+
+BLANKS  Model-Build   (empty cells inside occupied row-bands)
+  A2:L164  n=702  sparse
+
+OBJECTS  Model-Build   [ALREADY PRESENT in the starting workbook -- do not rebuild]
+  conditional formats: NONE READABLE HERE. This engine does not surface conditional formatting, so absence is NOT evidence of absence -- read or test directly before creating one, or you may duplicate a rule that exists.
+
+PERIOD AXIS  Model-Build   R1[2-4]
+  row 3  E3:L3  n=8  [dates]
+  labels 2013-11-30 2014-11-30 2015-11-30 2016-11-30 2017-11-30 2018-11-30 2019-11-30 2020-11-30
+
+PERIOD AXIS  Model-Build   R22[80-81]
+  row 81  E81:L81  n=8  [dates]
+  labels 2013-11-30 2014-11-30 2015-11-30 2016-11-30 2017-11-30 2018-11-30 2019-11-30 2020-11-30
+
+PERIOD AXIS  Model-Build   R27[100-107]
+  row 101  E101:L101  n=8  [dates]
+  labels 2013-11-30 2014-11-30 2015-11-30 2016-11-30 2017-11-30 2018-11-30 2019-11-30 2020-11-30
+
+PERIOD AXIS  Model-Build   R36[136-138]
+  row 137  E137:L137  n=8  [dates]
+  labels 2013-11-30 2014-11-30 2015-11-30 2016-11-30 2017-11-30 2018-11-30 2019-11-30 2020-11-30
+
+CHECKS  Model-Build   [these consume cells you may edit -- they can break AFTER your write]
+  D29  R9[25-29]  =G104  now=12.149
+  E62  R18[60-62]  =E120/E$91  now=0.15758583892617448
+  D101  R27[100-107]  =$D$3  now=Reporting Units:
+  E121  R30[116-121]  =SUM(E118:E120)  now=4.975408999999999
+  E126  R31[123-126]  =SUM(E124:E125)  now=32.881959
+  E128  R32[128-128]  =E121+E126  now=37.857368
+  E132  R34[132-132]  =E128+E130  now=36.783863000000004
+  E134  R35[134-134]  =E114-E132  now=0
+  H150  R37[140-151]  =H120-G120+H125-G125  now=-2.658
+
+LABELS  Model-Build   (non-data text, region-scoped)
+  [cols C hold >50 distinct strings each = DATA columns; not indexed]
+  '£ M' -> D9 R3[9-10]  D17 R6[17-18]  D20 R7[20-21]  D37 R11[37-39]  D38 R11[37-39]  D39 R11[37-39]  D41 R12[41-41]  D43 R13[43-45]  D44 R13[43-45]  D45 R13[43-45]  D47 R14[47-47]  D49 R15[49-52]  (+60 more)  [COLLISION]
+  '%' -> D7 R2[6-7]  D10 R3[9-10]  D13 R4[12-13]  D15 R5[15-15]  D18 R6[17-18]  D21 R7[20-21]  D23 R8[23-23]  D31 R10[31-35]  D32 R10[31-35]  D33 R10[31-35]  D34 R10[31-35]  D35 R10[31-35]  (+8 more)  [COLLISION]
+  'Headcount (#)' -> D6 R2[6-7]  D12 R4[12-13]  [COLLISION]
+  '-' -> G96 R26[93-98]
+  'Amortisation (% of Balance):' -> F25 R9[25-29]
+  'Assets —' -> B102 R27[100-107]
+  'Balance Sheet:' -> B101 R27[100-107]
+  'Balance-Sheet Assumptions:' -> B56 R17[56-58]
+  'Cash-Flow Assumptions:' -> B64 R19[64-66]
+  'Consolidated Income Statement:' -> B81 R22[80-81]
+  'Debt & Interest Schedule:' -> B25 R9[25-29]
+  'Financing Cash Flows —' -> B158 R39[158-160]
+  'Investing Cash Flows —' -> B153 R38[153-156]
+  'Liabilities & Equity —' -> B116 R30[116-121]
+  'Opening Balance:' -> D25 R9[25-29]
+  'Operating & Financing Drivers:' -> B3 R1[2-4]
+  'Operating Cash Flows —' -> B138 R36[136-138]
+  'PIK Flag?' -> G25 R9[25-29]
+  'Revenue & Cost Drivers:' -> B4 R1[2-4]
+  'Spread (bps) / PIK %:' -> E25 R9[25-29]
+  'Statement of Cash Flows:' -> B137 R36[136-138]
+
+REGIONS  Returns-Summary
+  R1[2-3] '(all figures £m unless noted)'
+  R2[5-5] 'BRIEF & INPUTS:'
+  R3[7-8] 'Entity Name:'
+  R4[10-12] 'Prepare a fully integrated three-statement projection spanning five forecast years for Beacon Staffing Group, a specialist IT recruitment'
+  R5[14-16] 'Actuals'
+  R6[18-19] 'Revenue (Turnover):'
+  R7[21-23] 'EBITDA —'
+  R8[25-26] 'Interest Cost:'
+  R9[28-29] 'Debt — Total'
+  R10[31-34] 'EBITDA-to-Interest:'
+  R11[36-36] 'Returns — Money Multiple & IRR:'
+  R12[38-42] 'EBITDA in Exit Year:'
+  R13[44-46] 'Investor Exit Proceeds:'
+
+BLOCKS  Returns-Summary   (partition by R1C1 skeleton)
+  [134 formula cells -> 16 skeletons]
+  E23:L34  n=40  sparse  spans R7[21-23],R10[31-34]  '%'@D23
+      skeleton =@/@
+      E23 = =E21/E18
+      R1C1     =R[-2]C/R[-5]C
+  E18:L38  n=38  sparse  spans R6[18-19],R7[21-23],R8[25-26],R9[28-29]  '£ M'@D18
+      skeleton =@
+      E18 = ='Model-Build'!E83
+      R1C1     ='Model-Build'!R[65]C
+  E25:L41  n=11  staircase(step 5 col/row, right-aligned)  spans R8[25-26],R12[38-42]  '£ M'@D25
+      skeleton =-@
+      E25 = =-'Model-Build'!E95
+      R1C1     =-'Model-Build'!R[70]C
+  E22:L22  n=8  row  R7[21-23]  '%'@D22
+      skeleton =IFERROR(@/@-1,"N/A")
+      E22 = =IFERROR(E21/D21-1,"N/A")
+      R1C1     =IFERROR(R[-1]C/R[-1]C[-1]-1,"N/A")
+  H26:L42  n=8  staircase(step 2 col/row, right-aligned)  spans R8[25-26],R12[38-42]  '£ M'@D26
+      skeleton =@+@
+      H26 = ='Model-Build'!H41+'Model-Build'!H47
+      R1C1     ='Model-Build'!R[15]C+'Model-Build'!R[21]C
+  E29:L29  n=8  row  R9[28-29]  '£ M'@D29
+      skeleton =@-@
+      E29 = ='Model-Build'!E124-'Model-Build'!E104
+      R1C1     ='Model-Build'!R[95]C-'Model-Build'!R[75]C
+  H15:L15  n=5  row  R5[14-16]  'Reporting Units:'@D15
+      skeleton =EOMONTH(@,12)
+      H15 = =EOMONTH(G15,12)
+      R1C1     =EOMONTH(RC[-1],12)
+  J40:L40  n=3  row  R12[38-42]  '£ M'@D40
+      skeleton =@*@
+      J40 = =J38*J39
+      R1C1     =R[-2]C*R[-1]C
+  J44:L44  n=3  row  R13[44-46]  'x'@D44
+      skeleton =@*R8C11
+      J44 = =J42*$K$8
+      R1C1     =R[-2]C*R8C11
+  J45:L45  n=3  row  R13[44-46]  'x'@D45
+      skeleton =@/R7C11
+      J45 = =J44/$K$7
+      R1C1     =R[-1]C/R7C11
+  E15:F15  n=2  row  R5[14-16]  'Reporting Units:'@D15
+      skeleton =EOMONTH(@,-12)
+      E15 = =EOMONTH(F15,-12)
+      R1C1     =EOMONTH(RC[1],-12)
+  B2:B2  n=1  cell  R1[2-3]  (no row label left of block)
+      skeleton =Company_Name&" - Operating Model"
+      B2 = =Company_Name&" - Operating Model"
+      R1C1     =Company_Name&" - Operating Model"
+  G15:G15  n=1  cell  R5[14-16]  'Reporting Units:'@D15
+      skeleton =Hist_Yr
+      G15 = =Hist_Yr
+      R1C1     =Hist_Yr
+  J46:J46  n=1  cell  R13[44-46]  '%'@D46
+      skeleton =POWER(@/R7C11,1/3)-1
+      J46 = =POWER(J44/$K$7,1/3)-1
+      R1C1     =POWER(R[-2]C/R7C11,1/3)-1
+  K46:K46  n=1  cell  R13[44-46]  '%'@D46
+      skeleton =POWER(@/R7C11,1/4)-1
+      K46 = =POWER(K44/$K$7,1/4)-1
+      R1C1     =POWER(R[-2]C/R7C11,1/4)-1
+  L46:L46  n=1  cell  R13[44-46]  '%'@D46
+      skeleton =POWER(@/R7C11,1/5)-1
+      L46 = =POWER(L44/$K$7,1/5)-1
+      R1C1     =POWER(R[-2]C/R7C11,1/5)-1
+
+NUMERICS  Returns-Summary   (partition by numfmt string)
+  B2:H46  n=58  R1[2-3]  numfmt '0.###############'
+  E21:L44  n=55  R7[21-23]  numfmt '_(* #,##0.0_);_(* \(#,##0.0\);_(* "-"?_);_(@_)'
+  E31:L45  n=35  R10[31-34]  numfmt '0.0\ \x;\ \(0.0\ \x\)'
+  E19:L46  n=27  R6[18-19]  numfmt '0.0%;\(0.0%\);\-_)_%;@_)_%'  [percent format; stored as fraction e.g. 0.5855837563451778]
+  E7:L18  n=9  R3[7-8]  numfmt '_-[$£-809]* #,##0.0_-;\-[$£-809]* #,##0.0_-;_-[$£-809]* "-"?_-;_-@'
+  E15:L15  n=8  R5[14-16]  numfmt '"FY"yy'
+  J39:L39  n=3  R12[38-42]  numfmt '0.0\ \x;\(0.0\ \x\)'
+  D7:D7  n=1  R3[7-8]  numfmt '#,##0.00_);(#,##0.00)'
+  D8:D8  n=1  R3[7-8]  numfmt 'yyyy\-mm\-dd'
+  K8:K8  n=1  R3[7-8]  numfmt '0.0%;\(0.0%\)'  [percent format; stored as fraction e.g. 0.239925]
+
+INPUTS  Returns-Summary   (partition by font colour)
+  blue literals  J7:L39  n=5  R3[7-8]
+  NON-blue literals  B3:H46  n=59  R1[2-3]  [differ from this sheet's blue-literal convention]
+
+FORMAT  Returns-Summary   (partition by visual style)
+  bold  B2:L42  n=11  R1[2-3]
+
+BLANKS  Returns-Summary   (empty cells inside occupied row-bands)
+  A2:L46  n=198  sparse
+
+PERIOD AXIS BANNER  Returns-Summary   R5[14-16]   [EXPLICIT -- authoritative]
+  row 14  E14 'Actuals'   H14 'Forecast'
+  row 15 derived seam: literals cols 2-4, formulas cols 5-12
+    [the BANNER is authoritative where the two disagree -- one workbook in this
+     corpus holds formulas on its Actuals side and literals on its Forecast side]
+
+PERIOD AXIS  Returns-Summary   R5[14-16]
+  row 15  E15:L15  n=8  [dates]
+  labels 2013-11-30 2014-11-30 2015-11-30 2016-11-30 2017-11-30 2018-11-30 2019-11-30 2020-11-30
+
+LABELS  Returns-Summary   (non-data text, region-scoped)
+  '£ M' -> D18 R6[18-19]  D21 R7[21-23]  D25 R8[25-26]  D26 R8[25-26]  D28 R9[28-29]  D29 R9[28-29]  D38 R12[38-42]  D40 R12[38-42]  D41 R12[38-42]  D42 R12[38-42]  [COLLISION]
+  'x' -> D31 R10[31-34]  D32 R10[31-34]  D33 R10[31-34]  D34 R10[31-34]  D39 R12[38-42]  D44 R13[44-46]  D45 R13[44-46]  [COLLISION]
+  '%' -> D19 R6[18-19]  D22 R7[21-23]  D23 R7[21-23]  D46 R13[44-46]  [COLLISION]
+  'Rate of Growth:' -> C19 R6[18-19]  C22 R7[21-23]  [COLLISION]
+  '(all figures £m unless noted)' -> B3 R1[2-3]
+  'Actuals' -> E14 R5[14-16]
+  'BRIEF & INPUTS:' -> B5 R2[5-5]
+  'Beacon Staffing Group Limited' -> D7 R3[7-8]
+  'Debt — Total' -> C28 R9[28-29]
+  'Debt, Net:' -> C29 R9[28-29]
+  'EBITDA in Exit Year:' -> C38 R12[38-42]
+  'EBITDA —' -> C21 R7[21-23]
+  'EBITDA-to-Cash-Interest:' -> C32 R10[31-34]
+  'EBITDA-to-Interest:' -> C31 R10[31-34]
+  'Enterprise Value at Exit:' -> C40 R12[38-42]
+  'Entity Name:' -> C7 R3[7-8]
+  'Equity Invested at Entry:' -> H7 R3[7-8]
+  'Equity Value at Exit:' -> C42 R12[38-42]
+  'Final Actual Year:' -> C8 R3[7-8]
+  'Forecast' -> H14 R5[14-16]
+  'IRR (Internal Rate of Return):' -> C46 R13[44-46]
+  'Interest Cost:' -> C25 R8[25-26]
+  'Interest Paid in Cash:' -> C26 R8[25-26]
+  'Investment Summary & Returns:' -> B15 R5[14-16]
+  'Investor Exit Proceeds:' -> C44 R13[44-46]
+  'Less: Net Debt' -> C41 R12[38-42]
+  'Leverage & Coverage Metrics:' -> B16 R5[14-16]
+  'Margin (%):' -> C23 R7[21-23]
+  'Money-on-Money Multiple:' -> C45 R13[44-46]
+  'Net-Debt-to-EBITDA:' -> C34 R10[31-34]
+  'Ownership Acquired (%):' -> H8 R3[7-8]
+  'Prepare a fully integrated three-statement projection spanning five forecast years for Beacon Staffing Group, a specialist IT recruitment' -> C10 R4[10-12]
+  'Reporting Units:' -> D15 R5[14-16]
+  'Returns — Money Multiple & IRR:' -> B36 R11[36-36]
+  'Revenue (Turnover):' -> C18 R6[18-19]
+  'Times: Assumed Exit Multiple' -> C39 R12[38-42]
+  'Total-Debt-to-EBITDA:' -> C33 R10[31-34]
+  'business based in the United Kingdom. Its purpose is to help a private-equity or growth-equity sponsor gauge the internal rate of return and cash-on-cash returns achievable' -> C11 R4[10-12]
+  'on a minority growth-equity position.' -> C12 R4[10-12]
+
+AXIS ALIGN  cross-sheet period axes
+  'Model-Build' row 3 || 'Model-Build' row 81  SAME anchor 2013-11-30  SAME step 365d  col offset 0
+  'Model-Build' row 3 || 'Model-Build' row 101  SAME anchor 2013-11-30  SAME step 365d  col offset 0
+  'Model-Build' row 3 || 'Model-Build' row 137  SAME anchor 2013-11-30  SAME step 365d  col offset 0
+  'Model-Build' row 3 || 'Returns-Summary' row 15  SAME anchor 2013-11-30  SAME step 365d  col offset 0
+  'Model-Build' row 81 || 'Model-Build' row 101  SAME anchor 2013-11-30  SAME step 365d  col offset 0
+  'Model-Build' row 81 || 'Model-Build' row 137  SAME anchor 2013-11-30  SAME step 365d  col offset 0
+  'Model-Build' row 81 || 'Returns-Summary' row 15  SAME anchor 2013-11-30  SAME step 365d  col offset 0
+  'Model-Build' row 101 || 'Model-Build' row 137  SAME anchor 2013-11-30  SAME step 365d  col offset 0
+  'Model-Build' row 101 || 'Returns-Summary' row 15  SAME anchor 2013-11-30  SAME step 365d  col offset 0
+  'Model-Build' row 137 || 'Returns-Summary' row 15  SAME anchor 2013-11-30  SAME step 365d  col offset 0
+  'Model-Build' row 3  E3:L3  anchor 2013-11-30  step 365d
+  'Model-Build' row 81  E81:L81  anchor 2013-11-30  step 365d
+  'Model-Build' row 101  E101:L101  anchor 2013-11-30  step 365d
+  'Model-Build' row 137  E137:L137  anchor 2013-11-30  step 365d
+  'Returns-Summary' row 15  E15:L15  anchor 2013-11-30  step 365d
+
+GRAPH  cross-sheet pulls
+  Returns-Summary -> Model-Build   66 refs
+  Model-Build -> Returns-Summary   11 refs
+

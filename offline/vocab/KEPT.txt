@@ -1,0 +1,560 @@
+
+## AutoFillSeries  (2)
+  ALTERNATE_SERIES
+  DEFAULT_SERIES
+
+## BooleanCondition  (10)
+  getBackground
+  getBackgroundObject
+  getBold
+  getCriteriaType
+  getCriteriaValues
+  getFontColor
+  getFontColorObject
+  getItalic
+  getStrikethrough
+  getUnderline
+
+## BooleanCriteria  (24)
+  CELL_EMPTY
+  CELL_NOT_EMPTY
+  CUSTOM_FORMULA
+  DATE_AFTER
+  DATE_AFTER_RELATIVE
+  DATE_BEFORE
+  DATE_BEFORE_RELATIVE
+  DATE_EQUAL_TO
+  DATE_EQUAL_TO_RELATIVE
+  DATE_NOT_EQUAL_TO
+  NUMBER_BETWEEN
+  NUMBER_EQUAL_TO
+  NUMBER_GREATER_THAN
+  NUMBER_GREATER_THAN_OR_EQUAL_TO
+  NUMBER_LESS_THAN
+  NUMBER_LESS_THAN_OR_EQUAL_TO
+  NUMBER_NOT_BETWEEN
+  NUMBER_NOT_EQUAL_TO
+  TEXT_CONTAINS
+  TEXT_DOES_NOT_CONTAIN
+  TEXT_ENDS_WITH
+  TEXT_EQUAL_TO
+  TEXT_NOT_EQUAL_TO
+  TEXT_STARTS_WITH
+
+## BorderStyle  (6)
+  DASHED
+  DOTTED
+  DOUBLE
+  SOLID
+  SOLID_MEDIUM
+  SOLID_THICK
+
+## Color  (3)
+  asRgbColor
+  asThemeColor
+  getColorType
+
+## ColorBuilder  (6)
+  asRgbColor
+  asThemeColor
+  build
+  getColorType
+  setRgbColor
+  setThemeColor
+
+## ColorType  (3)
+  RGB
+  THEME
+  UNSUPPORTED
+
+## ConditionalFormatRule  (4)
+  copy
+  getBooleanCondition
+  getGradientCondition
+  getRanges
+
+## ConditionalFormatRuleBuilder  (44)
+  build
+  copy
+  getBooleanCondition
+  getGradientCondition
+  getRanges
+  setBackground
+  setBackgroundObject
+  setBold
+  setFontColor
+  setFontColorObject
+  setGradientMaxpoint
+  setGradientMaxpointObject
+  setGradientMaxpointObjectWithValue
+  setGradientMaxpointWithValue
+  setGradientMidpointObjectWithValue
+  setGradientMidpointWithValue
+  setGradientMinpoint
+  setGradientMinpointObject
+  setGradientMinpointObjectWithValue
+  setGradientMinpointWithValue
+  setItalic
+  setRanges
+  setStrikethrough
+  setUnderline
+  whenCellEmpty
+  whenCellNotEmpty
+  whenDateAfter
+  whenDateBefore
+  whenDateEqualTo
+  whenFormulaSatisfied
+  whenNumberBetween
+  whenNumberEqualTo
+  whenNumberGreaterThan
+  whenNumberGreaterThanOrEqualTo
+  whenNumberLessThan
+  whenNumberLessThanOrEqualTo
+  whenNumberNotBetween
+  whenNumberNotEqualTo
+  whenTextContains
+  whenTextDoesNotContain
+  whenTextEndsWith
+  whenTextEqualTo
+  whenTextStartsWith
+  withCriteria
+
+## CopyPasteType  (7)
+  PASTE_CONDITIONAL_FORMATTING
+  PASTE_DATA_VALIDATION
+  PASTE_FORMAT
+  PASTE_FORMULA
+  PASTE_NORMAL
+  PASTE_NO_BORDERS
+  PASTE_VALUES
+
+## DataValidation  (5)
+  copy
+  getAllowInvalid
+  getCriteriaType
+  getCriteriaValues
+  getHelpText
+
+## DataValidationBuilder  (33)
+  build
+  copy
+  getAllowInvalid
+  getCriteriaType
+  getCriteriaValues
+  getHelpText
+  requireDate
+  requireDateAfter
+  requireDateBefore
+  requireDateBetween
+  requireDateEqualTo
+  requireDateNotBetween
+  requireDateOnOrAfter
+  requireDateOnOrBefore
+  requireFormulaSatisfied
+  requireNumberBetween
+  requireNumberEqualTo
+  requireNumberGreaterThan
+  requireNumberGreaterThanOrEqualTo
+  requireNumberLessThan
+  requireNumberLessThanOrEqualTo
+  requireNumberNotBetween
+  requireNumberNotEqualTo
+  requireTextContains
+  requireTextDoesNotContain
+  requireTextEqualTo
+  requireTextIsEmail
+  requireTextIsUrl
+  requireValueInList
+  requireValueInRange
+  setAllowInvalid
+  setHelpText
+  withCriteria
+
+## DataValidationCriteria  (27)
+  CUSTOM_FORMULA
+  DATE_AFTER
+  DATE_AFTER_RELATIVE
+  DATE_BEFORE
+  DATE_BEFORE_RELATIVE
+  DATE_BETWEEN
+  DATE_EQUAL_TO
+  DATE_EQUAL_TO_RELATIVE
+  DATE_IS_VALID_DATE
+  DATE_NOT_BETWEEN
+  DATE_ON_OR_AFTER
+  DATE_ON_OR_BEFORE
+  NUMBER_BETWEEN
+  NUMBER_EQUAL_TO
+  NUMBER_GREATER_THAN
+  NUMBER_GREATER_THAN_OR_EQUAL_TO
+  NUMBER_LESS_THAN
+  NUMBER_LESS_THAN_OR_EQUAL_TO
+  NUMBER_NOT_BETWEEN
+  NUMBER_NOT_EQUAL_TO
+  TEXT_CONTAINS
+  TEXT_DOES_NOT_CONTAIN
+  TEXT_EQUAL_TO
+  TEXT_IS_VALID_EMAIL
+  TEXT_IS_VALID_URL
+  VALUE_IN_LIST
+  VALUE_IN_RANGE
+
+## Dimension  (2)
+  COLUMNS
+  ROWS
+
+## Direction  (4)
+  DOWN
+  NEXT
+  PREVIOUS
+  UP
+
+## GradientCondition  (12)
+  getMaxColor
+  getMaxColorObject
+  getMaxType
+  getMaxValue
+  getMidColor
+  getMidColorObject
+  getMidType
+  getMidValue
+  getMinColor
+  getMinColorObject
+  getMinType
+  getMinValue
+
+## InterpolationType  (5)
+  MAX
+  MIN
+  NUMBER
+  PERCENT
+  PERCENTILE
+
+## NamedRange  (5)
+  getName
+  getRange
+  remove
+  setName
+  setRange
+
+## Range  (113)
+  autoFill
+  autoFillToNeighbor
+  breakApart
+  canEdit
+  clear
+  clearContent
+  clearDataValidations
+  clearFormat
+  copyFormatToRange
+  copyTo
+  copyValuesToRange
+  createTextFinder
+  deleteCells
+  getA1Notation
+  getBackground
+  getBackgroundObject
+  getBackgroundObjects
+  getBackgrounds
+  getCell
+  getColumn
+  getDataRegion
+  getDataValidation
+  getDataValidations
+  getDisplayValue
+  getDisplayValues
+  getFontColor
+  getFontColorObject
+  getFontColorObjects
+  getFontColors
+  getFontFamilies
+  getFontFamily
+  getFontLine
+  getFontLines
+  getFontSize
+  getFontSizes
+  getFontStyle
+  getFontStyles
+  getFontWeight
+  getFontWeights
+  getFormula
+  getFormulaR1C1
+  getFormulas
+  getFormulasR1C1
+  getHeight
+  getHorizontalAlignment
+  getHorizontalAlignments
+  getLastColumn
+  getLastRow
+  getNextDataCell
+  getNumColumns
+  getNumRows
+  getNumberFormat
+  getNumberFormats
+  getRow
+  getRowIndex
+  getSheet
+  getTextStyle
+  getTextStyles
+  getValue
+  getValues
+  getVerticalAlignment
+  getVerticalAlignments
+  getWidth
+  getWrap
+  getWraps
+  insertCells
+  isBlank
+  isDataValid
+  isDataValidForAll
+  isEndColumnBounded
+  isEndRowBounded
+  isStartColumnBounded
+  isStartRowBounded
+  merge
+  mergeAcross
+  mergeVertically
+  moveTo
+  offset
+  removeDuplicates
+  setBackground
+  setBackgroundObject
+  setBackgroundObjects
+  setBackgroundRGB
+  setBackgrounds
+  setBorder
+  setDataValidation
+  setDataValidations
+  setFontColor
+  setFontColorObject
+  setFontColorObjects
+  setFontColors
+  setFontFamilies
+  setFontFamily
+  setFontLine
+  setFontLines
+  setFontSize
+  setFontSizes
+  setFontStyle
+  setFontStyles
+  setFontWeight
+  setFontWeights
+  setFormula
+  setFormulaR1C1
+  setFormulas
+  setFormulasR1C1
+  setNumberFormat
+  setNumberFormats
+  setTextStyle
+  setTextStyles
+  setValue
+  setValues
+  sort
+  trimWhitespace
+
+## RangeList  (20)
+  breakApart
+  clear
+  clearContent
+  clearDataValidations
+  clearFormat
+  getRanges
+  setBackground
+  setBackgroundRGB
+  setBorder
+  setFontColor
+  setFontFamily
+  setFontLine
+  setFontSize
+  setFontStyle
+  setFontWeight
+  setFormula
+  setFormulaR1C1
+  setNumberFormat
+  setValue
+  trimWhitespace
+
+## RelativeDate  (6)
+  PAST_MONTH
+  PAST_WEEK
+  PAST_YEAR
+  TODAY
+  TOMORROW
+  YESTERDAY
+
+## RgbColor  (5)
+  asHexString
+  getBlue
+  getColorType
+  getGreen
+  getRed
+
+## Sheet  (50)
+  appendRow
+  clear
+  clearConditionalFormatRules
+  clearContents
+  clearFormats
+  copyTo
+  createTextFinder
+  deleteColumn
+  deleteColumns
+  deleteRow
+  deleteRows
+  getColumnWidth
+  getConditionalFormatRules
+  getDataRange
+  getFrozenColumns
+  getFrozenRows
+  getIndex
+  getLastColumn
+  getLastRow
+  getName
+  getNamedRanges
+  getParent
+  getRange
+  getRangeList
+  getRowHeight
+  getSheetId
+  getSheetName
+  getSheetValues
+  getType
+  insertColumnAfter
+  insertColumnBefore
+  insertColumns
+  insertColumnsAfter
+  insertColumnsBefore
+  insertRowAfter
+  insertRowBefore
+  insertRows
+  insertRowsAfter
+  insertRowsBefore
+  isColumnHiddenByUser
+  isRowHiddenByFilter
+  isRowHiddenByUser
+  isSheetHidden
+  moveColumns
+  moveRows
+  setConditionalFormatRules
+  setFrozenColumns
+  setFrozenRows
+  setName
+  sort
+
+## SheetType  (3)
+  DATASOURCE
+  GRID
+  OBJECT
+
+## SortOrder  (2)
+  ASCENDING
+  DESCENDING
+
+## Spreadsheet  (45)
+  appendRow
+  createTextFinder
+  deleteColumn
+  deleteColumns
+  deleteRow
+  deleteRows
+  getActiveSheet
+  getColumnWidth
+  getDataRange
+  getFrozenColumns
+  getFrozenRows
+  getLastColumn
+  getLastRow
+  getName
+  getNamedRanges
+  getNumSheets
+  getRange
+  getRangeByName
+  getRangeList
+  getRowHeight
+  getSheetById
+  getSheetByName
+  getSheetId
+  getSheetName
+  getSheetValues
+  getSheets
+  getSpreadsheetLocale
+  getSpreadsheetTimeZone
+  insertColumnAfter
+  insertColumnBefore
+  insertColumnsAfter
+  insertColumnsBefore
+  insertRowAfter
+  insertRowBefore
+  insertRowsAfter
+  insertRowsBefore
+  isColumnHiddenByUser
+  isRowHiddenByFilter
+  isRowHiddenByUser
+  removeNamedRange
+  setFrozenColumns
+  setFrozenRows
+  setNamedRange
+  sort
+  toast
+
+## SpreadsheetApp  (8)
+  flush
+  getActive
+  getActiveSheet
+  getActiveSpreadsheet
+  newColor
+  newConditionalFormatRule
+  newDataValidation
+  newTextStyle
+
+## TextFinder  (12)
+  findAll
+  findNext
+  findPrevious
+  getCurrentMatch
+  ignoreDiacritics
+  matchCase
+  matchEntireCell
+  matchFormulaText
+  replaceAllWith
+  replaceWith
+  startFrom
+  useRegularExpression
+
+## TextStyle  (9)
+  copy
+  getFontFamily
+  getFontSize
+  getForegroundColor
+  getForegroundColorObject
+  isBold
+  isItalic
+  isStrikethrough
+  isUnderline
+
+## TextStyleBuilder  (9)
+  build
+  setBold
+  setFontFamily
+  setFontSize
+  setForegroundColor
+  setForegroundColorObject
+  setItalic
+  setStrikethrough
+  setUnderline
+
+## ThemeColorType  (10)
+  ACCENT1
+  ACCENT2
+  ACCENT3
+  ACCENT4
+  ACCENT5
+  ACCENT6
+  BACKGROUND
+  HYPERLINK
+  TEXT
+  UNSUPPORTED
+
+## ThemeColor  (2)
+  getColorType
+  getThemeColorType

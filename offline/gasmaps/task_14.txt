@@ -1,0 +1,1482 @@
+
+HOW TO READ THIS MAP
+  Rn[a-b]   = REGION id n, spanning rows a-b on that sheet. NOT R1C1 notation.
+  R[-2]C[1] = R1C1 formula notation: row/col offsets from the cell itself.
+  @         = a reference blanked out, leaving the formula's SHAPE (its skeleton).
+  Blocks group by skeleton: one line can stand for thousands of cells.
+  Difficulty tracks SKELETON COUNT in what you must write, not cell count.
+  Every layer partitions the same grid independently; they may disagree.
+  This map OBSERVES, it never concludes. Read cells directly before relying on them.
+  Absent by construction: cell borders (no getBorder in Apps Script), merged ranges.
+
+SHEET ORDER
+  ordered by formula density, not tab order: Google Model > Meta Model > Pro Forma > Synergy Case > Valuation > Meta Drivers > Deal Inputs > Google Drivers > Board Summary
+
+WORKBOOK SHEETS
+  Google Model | used A1:J133 | 446 formula cells
+  Meta Model | used A1:J118 | 429 formula cells
+  Pro Forma | used A1:H51 | 130 formula cells
+  Synergy Case | used A1:H64 | 108 formula cells
+  Valuation | used A1:H88 | 87 formula cells
+  Meta Drivers | used A1:M125 | 43 formula cells
+  Deal Inputs | used A1:I95 | 40 formula cells
+  Google Drivers | used A1:K110 | 29 formula cells
+  Board Summary | used A1:H25 | 2 formula cells
+
+REGIONS  Google Model
+  R1[2-3] 'Google (Alphabet) — Income Statement'
+  R2[5-5] 'Chosen case:'
+  R3[7-8] 'Actuals'
+  R4[10-10] 'P&L statement'
+  R5[12-17] 'Google Search'
+  R6[19-30] 'Quarterly Seasonality'
+  R7[32-34] 'Cost of sales'
+  R8[36-40] 'R&D'
+  R9[42-43] 'EBIT / Operating Income'
+  R10[45-45] 'Interest (Expense) / Income'
+  R11[47-48] 'Pre-tax Income'
+  R12[50-51] 'Net income'
+  R13[53-53] 'EPS calculation'
+  R14[55-56] 'Basic Shares — Outstanding'
+  R15[59-59] 'Balance sheet schedule'
+  R16[61-61] 'Assets section'
+  R17[63-67] 'Assets — Current'
+  R18[69-72] 'Assets — Non-current'
+  R19[74-75] 'Other Long-term Assets'
+  R20[77-77] 'Total Assets'
+  R21[79-79] 'Liabilities and equity'
+  R22[81-84] 'Liabilities — Current'
+  R23[86-87] 'Long-term Debt'
+  R24[89-93] 'Shareholders' Equity'
+  R25[95-95] 'Total Liabilities & Equity'
+  R26[97-97] 'Balance Check (Assets — L&E)'
+  R27[99-107] 'Cash-flow statement'
+  R28[109-112] 'Cash Flow from Investing Activities'
+  R29[114-117] 'Cash Flow from Financing Activities'
+  R30[119-121] 'Net Change in Cash'
+  R31[123-123] 'Cash Balance Check'
+  R32[125-129] 'Valuation Multiples'
+  R33[131-133] 'Revenue Multiple (EV / Sales)'
+
+BLOCKS  Google Model   (partition by R1C1 skeleton)
+  [446 formula cells -> 40 skeletons]
+  C47:J129  n=83  sparse  spans R11[47-48],R18[69-72],R19[74-75],R20[77-77]  'Pre-tax Income'@B47
+      skeleton =@+@
+      C47 = =C42+C45
+      R1C1     =R[-5]C+R[-2]C
+  C33:J123  n=55  sparse  spans R7[32-34],R9[42-43],R12[50-51],R18[69-72]  'Profit — Gross'@B33
+      skeleton =@-@
+      C33 = =C16-C32
+      R1C1     =R[-17]C-R[-1]C
+  C16:J107  n=40  sparse  spans R5[12-17],R6[19-30],R8[36-40],R17[63-67]  'Revenue — Total'@B16
+      skeleton =SUM(@:@)
+      C16 = =SUM(C12:C15)
+      R1C1     =SUM(R[-4]C:R[-1]C)
+  C43:J56  n=24  sparse  spans R9[42-43],R12[50-51],R14[55-56]  'Operating Margin (%)'@B43
+      skeleton =@/@
+      C43 = =C42/C16
+      R1C1     =R[-1]C/R[-27]C
+  C101:J121  n=15  sparse  spans R27[99-107],R30[119-121]  'Net Income'@B101
+      skeleton =@
+      D101 = =D50
+      R1C1     =R[-51]C
+  D112:J117  n=14  sparse  spans R28[109-112],R29[114-117]  'Net Cash from Investing Activities'@B112
+      skeleton =-@-@
+      D112 = =-D110-D111
+      R1C1     =-R[-2]C-R[-1]C
+  C32:J32  n=8  row  R7[32-34]  'Cost of sales'@B32
+      skeleton =@*(1-@)
+      C32 = =C16*(1-C34)
+      R1C1     =R[-16]C*(1-R[2]C)
+  C36:J36  n=8  row  R8[36-40]  'R&D'@B36
+      skeleton =@*INDEX('Google Drivers'!R35C[1]:R37C[1],MATCH(R5C4,'Google Drivers'!R35C3:R37C3,0))
+      C36 = =C16*INDEX('Google Drivers'!D$35:D$37,MATCH($D$5,'Google Drivers'!$C$35:$C$37,0))
+      R1C1     =R[-20]C*INDEX('Google Drivers'!R35C[1]:R37C[1],MATCH(R5C4,'Google Drivers'!R35C3:R37C3,0))
+  C37:J37  n=8  row  R8[36-40]  'S&M'@B37
+      skeleton =@*INDEX('Google Drivers'!R39C[1]:R41C[1],MATCH(R5C4,'Google Drivers'!R39C3:R41C3,0))
+      C37 = =C16*INDEX('Google Drivers'!D$39:D$41,MATCH($D$5,'Google Drivers'!$C$39:$C$41,0))
+      R1C1     =R[-21]C*INDEX('Google Drivers'!R39C[1]:R41C[1],MATCH(R5C4,'Google Drivers'!R39C3:R41C3,0))
+  C38:J38  n=8  row  R8[36-40]  'G&A'@B38
+      skeleton =@*INDEX('Google Drivers'!R43C[1]:R45C[1],MATCH(R5C4,'Google Drivers'!R43C3:R45C3,0))
+      C38 = =C16*INDEX('Google Drivers'!D$43:D$45,MATCH($D$5,'Google Drivers'!$C$43:$C$45,0))
+      R1C1     =R[-22]C*INDEX('Google Drivers'!R43C[1]:R45C[1],MATCH(R5C4,'Google Drivers'!R43C3:R45C3,0))
+  C39:J39  n=8  row  R8[36-40]  'SBC'@B39
+      skeleton =@*INDEX('Google Drivers'!R47C[1]:R49C[1],MATCH(R5C4,'Google Drivers'!R47C3:R49C3,0))
+      C39 = =C16*INDEX('Google Drivers'!D$47:D$49,MATCH($D$5,'Google Drivers'!$C$47:$C$49,0))
+      R1C1     =R[-23]C*INDEX('Google Drivers'!R47C[1]:R49C[1],MATCH(R5C4,'Google Drivers'!R47C3:R49C3,0))
+  C45:J45  n=8  row  R10[45-45]  'Interest (Expense) / Income'@B45
+      skeleton =(R64C*INDEX('Google Drivers'!R88C[1]:R90C[1],MATCH(R5C4,'Google Drivers'!R88C3:R90C3,0)))-(@*INDEX('Google Drivers'!R92C[1]:R94C[1],MATCH(R5C4,'Google Drivers'!R92C3:R94C3,0)))
+      C45 = =(C$64*INDEX('Google Drivers'!D$88:D$90,MATCH($D$5,'Google Drivers'!$C$88:$C$90,0)))-(C86*INDEX('Google Drivers'!D$92:D$94,MATCH($D$5,'Google Drivers'!$C$92:$C$94,0)))
+      R1C1     =(R64C*INDEX('Google Drivers'!R88C[1]:R90C[1],MATCH(R5C4,'Google Drivers'!R88C3:R90C3,0)))-(R[41]C*INDEX('Google Drivers'!R92C[1]:R94C[1],MATCH(R5C4,'Google Drivers'!R92C3:R94C3,0)))
+  C48:J48  n=8  row  R11[47-48]  'Tax Expense / Provision'@B48
+      skeleton =@*INDEX('Google Drivers'!R81C[1]:R83C[1],MATCH(R5C4,'Google Drivers'!R81C3:R83C3,0))
+      C48 = =C47*INDEX('Google Drivers'!D$81:D$83,MATCH($D$5,'Google Drivers'!$C$81:$C$83,0))
+      R1C1     =R[-1]C*INDEX('Google Drivers'!R81C[1]:R83C[1],MATCH(R5C4,'Google Drivers'!R81C3:R83C3,0))
+  C65:J65  n=8  row  R17[63-67]  'Receivables'@B65
+      skeleton =R16C*INDEX('Google Drivers'!R55C[1]:R57C[1],MATCH(R5C4,'Google Drivers'!R55C3:R57C3,0))/365
+      C65 = =C$16*INDEX('Google Drivers'!D$55:D$57,MATCH($D$5,'Google Drivers'!$C$55:$C$57,0))/365
+      R1C1     =R16C*INDEX('Google Drivers'!R55C[1]:R57C[1],MATCH(R5C4,'Google Drivers'!R55C3:R57C3,0))/365
+  C82:J82  n=8  row  R22[81-84]  'Payables'@B82
+      skeleton =(@+@+@+@)*INDEX('Google Drivers'!R59C[1]:R61C[1],MATCH(R5C4,'Google Drivers'!R59C3:R61C3,0))/365
+      C82 = =(C32+C36+C37+C38)*INDEX('Google Drivers'!D$59:D$61,MATCH($D$5,'Google Drivers'!$C$59:$C$61,0))/365
+      R1C1     =(R[-50]C+R[-46]C+R[-45]C+R[-44]C)*INDEX('Google Drivers'!R59C[1]:R61C[1],MATCH(R5C4,'Google Drivers'!R59C3:R61C3,0))/365
+  C93:J93  n=8  row  R24[89-93]  'Total Shareholders' Equity'@B93
+      skeleton =@-@+@
+      C93 = =C90-C91+C92
+      R1C1     =R[-3]C-R[-2]C+R[-1]C
+  C110:J110  n=8  row  R28[109-112]  'CapEx'@B110
+      skeleton =R16C*INDEX('Google Drivers'!R69C[1]:R71C[1],MATCH(R5C4,'Google Drivers'!R69C3:R71C3,0))
+      C110 = =C$16*INDEX('Google Drivers'!D$69:D$71,MATCH($D$5,'Google Drivers'!$C$69:$C$71,0))
+      R1C1     =R16C*INDEX('Google Drivers'!R69C[1]:R71C[1],MATCH(R5C4,'Google Drivers'!R69C3:R71C3,0))
+  D17:J17  n=7  row  R5[12-17]  'YoY Growth %'@B17
+      skeleton =@/@-1
+      D17 = =D16/C16-1
+      R1C1     =R[-1]C/R[-1]C[-1]-1
+  D64:J64  n=7  row  R17[63-67]  'Cash and equivalents'@B64
+      skeleton =R121C
+      D64 = =D$121
+      R1C1     =R121C
+  D66:J66  n=7  row  R17[63-67]  'Other current assets'@B66
+      skeleton =@*(1+'Google Drivers'!R63C[1])
+      D66 = =C66*(1+'Google Drivers'!E$63)
+      R1C1     =RC[-1]*(1+'Google Drivers'!R63C[1])
+  D74:J74  n=7  row  R19[74-75]  'Other Long-term Assets'@B74
+      skeleton =@*(1+'Google Drivers'!R64C[1])
+      D74 = =C74*(1+'Google Drivers'!E$64)
+      R1C1     =RC[-1]*(1+'Google Drivers'!R64C[1])
+  D83:J83  n=7  row  R22[81-84]  'Accrued Expenses'@B83
+      skeleton =@*(1+'Google Drivers'!R65C[1])
+      D83 = =C83*(1+'Google Drivers'!E$65)
+      R1C1     =RC[-1]*(1+'Google Drivers'!R65C[1])
+  D102:J102  n=7  row  R27[99-107]  'Add — Depreciation & Amortization'@B102
+      skeleton =R110C[-1]*INDEX('Google Drivers'!R73C[1]:R75C[1],MATCH(R5C4,'Google Drivers'!R73C3:R75C3,0))
+      D102 = =C$110*INDEX('Google Drivers'!E$73:E$75,MATCH($D$5,'Google Drivers'!$C$73:$C$75,0))
+      R1C1     =R110C[-1]*INDEX('Google Drivers'!R73C[1]:R75C[1],MATCH(R5C4,'Google Drivers'!R73C3:R75C3,0))
+  D105:J105  n=7  row  R27[99-107]  '(Increase)/Decrease in Current Assets'@B105
+      skeleton =-(SUM(@:@)-SUM(@:@))
+      D105 = =-(SUM(D65:D66)-SUM(C65:C66))
+      R1C1     =-(SUM(R[-40]C:R[-39]C)-SUM(R[-40]C[-1]:R[-39]C[-1]))
+  D106:J106  n=7  row  R27[99-107]  'Increase/(Decrease) in Current Liabilities'@B106
+      skeleton =SUM(@:@)-SUM(@:@)
+      D106 = =SUM(D82:D83)-SUM(C82:C83)
+      R1C1     =SUM(R[-24]C:R[-23]C)-SUM(R[-24]C[-1]:R[-23]C[-1])
+  D115:J115  n=7  row  R29[114-117]  'Share Repurchases'@B115
+      skeleton =MAX(@+@,0)*INDEX('Google Drivers'!R98C[1]:R100C[1],MATCH(R5C4,'Google Drivers'!R98C3:R100C3,0))
+      D115 = =MAX(D107+D112,0)*INDEX('Google Drivers'!E$98:E$100,MATCH($D$5,'Google Drivers'!$C$98:$C$100,0))
+      R1C1     =MAX(R[-8]C+R[-3]C,0)*INDEX('Google Drivers'!R98C[1]:R100C[1],MATCH(R5C4,'Google Drivers'!R98C3:R100C3,0))
+  D116:J116  n=7  row  R29[114-117]  'Debt Repayments'@B116
+      skeleton =-R86C+R86C[-1]
+      D116 = =-D$86+C$86
+      R1C1     =-R86C+R86C[-1]
+  D119:J119  n=7  row  R30[119-121]  'Net Change in Cash'@B119
+      skeleton =@+@+@
+      D119 = =D107+D112+D117
+      R1C1     =R[-12]C+R[-7]C+R[-2]C
+  D120:J120  n=7  row  R30[119-121]  'Beginning Cash'@B120
+      skeleton =R121C[-1]
+      D120 = =C$121
+      R1C1     =R121C[-1]
+  F12:J12  n=5  row  R5[12-17]  'Google Search'@B12
+      skeleton =@*(1+INDEX('Google Drivers'!R15C[1]:R17C[1],MATCH(R5C4,'Google Drivers'!R15C3:R17C3,0)))
+      F12 = =E12*(1+INDEX('Google Drivers'!G$15:G$17,MATCH($D$5,'Google Drivers'!$C$15:$C$17,0)))
+      R1C1     =RC[-1]*(1+INDEX('Google Drivers'!R15C[1]:R17C[1],MATCH(R5C4,'Google Drivers'!R15C3:R17C3,0)))
+  F13:J13  n=5  row  R5[12-17]  'YouTube Ads'@B13
+      skeleton =@*(1+INDEX('Google Drivers'!R19C[1]:R21C[1],MATCH(R5C4,'Google Drivers'!R19C3:R21C3,0)))
+      F13 = =E13*(1+INDEX('Google Drivers'!G$19:G$21,MATCH($D$5,'Google Drivers'!$C$19:$C$21,0)))
+      R1C1     =RC[-1]*(1+INDEX('Google Drivers'!R19C[1]:R21C[1],MATCH(R5C4,'Google Drivers'!R19C3:R21C3,0)))
+  F14:J14  n=5  row  R5[12-17]  'Google Cloud'@B14
+      skeleton =@*(1+INDEX('Google Drivers'!R23C[1]:R25C[1],MATCH(R5C4,'Google Drivers'!R23C3:R25C3,0)))
+      F14 = =E14*(1+INDEX('Google Drivers'!G$23:G$25,MATCH($D$5,'Google Drivers'!$C$23:$C$25,0)))
+      R1C1     =RC[-1]*(1+INDEX('Google Drivers'!R23C[1]:R25C[1],MATCH(R5C4,'Google Drivers'!R23C3:R25C3,0)))
+  F15:J15  n=5  row  R5[12-17]  'Other Revenues'@B15
+      skeleton =@*(1+INDEX('Google Drivers'!R27C[1]:R29C[1],MATCH(R5C4,'Google Drivers'!R27C3:R29C3,0)))
+      F15 = =E15*(1+INDEX('Google Drivers'!G$27:G$29,MATCH($D$5,'Google Drivers'!$C$27:$C$29,0)))
+      R1C1     =RC[-1]*(1+INDEX('Google Drivers'!R27C[1]:R29C[1],MATCH(R5C4,'Google Drivers'!R27C3:R29C3,0)))
+  F131:J131  n=5  row  R33[131-133]  'Revenue Multiple (EV / Sales)'@B131
+      skeleton =R129C6*1000/R16C
+      F131 = =$F$129*1000/F$16
+      R1C1     =R129C6*1000/R16C
+  F132:J132  n=5  row  R33[131-133]  'EBITDA Multiple (EV / EBITDA)'@B132
+      skeleton =R129C6*1000/(R42C+R102C)
+      F132 = =$F$129*1000/(F$42+F$102)
+      R1C1     =R129C6*1000/(R42C+R102C)
+  F133:J133  n=5  row  R33[131-133]  'P / E'@B133
+      skeleton =R127C6*1000/R50C
+      F133 = =$F$127*1000/F$50
+      R1C1     =R127C6*1000/R50C
+  F26:F29  n=4  col  R6[19-30]  'Q1 2024'@B26
+      skeleton =R16C6*@
+      F26 = =$F$16*F21
+      R1C1     =R16C6*R[-5]C
+  F22:F23  n=2  col  R6[19-30]  'Q2 Factor'@B22
+      skeleton =@+((R24C6-R21C6)/3)
+      F22 = =F21+(($F$24-$F$21)/3)
+      R1C1     =R[-1]C+((R24C6-R21C6)/3)
+  D5:D5  n=1  cell  R2[5-5]  'Chosen case:'@B5
+      skeleton ='Google Drivers'!R6C4
+      D5 = ='Google Drivers'!$D$6
+      R1C1     ='Google Drivers'!R6C4
+  F128:F128  n=1  cell  R32[125-129]  'Net Debt Position ($B)'@B128
+      skeleton =(R86C6-R64C6)/1000
+      F128 = =($F$86-$F$64)/1000
+      R1C1     =(R86C6-R64C6)/1000
+
+NUMERICS  Google Model   (partition by numfmt string)
+  C12:J129  n=427  R5[12-17]  numfmt '_([$$-409]* #,##0_);_([$$-409]* \(#,##0\);_([$$-409]* "-"_);_(@_)'
+  B2:J133  n=104  R1[2-3]  numfmt '0.###############'
+  C17:J51  n=35  R5[12-17]  numfmt '0.0%;\(0.0%\)'  [percent format; stored as fraction e.g. 0.09631910529177157]
+  F131:J133  n=15  R33[131-133]  numfmt '#,##0.0\x;\(#,##0.0\x\)'
+  C55:J55  n=8  R14[55-56]  numfmt '_(* #,##0_);_(* \(#,##0\);_(* "-"_);_(@_)'
+  C56:J56  n=8  R14[55-56]  numfmt '"$"#,##0.00;\("$"#,##0.00\)'
+  F8:J8  n=5  R3[7-8]  numfmt '0"P"'
+  C8:E8  n=3  R3[7-8]  numfmt '0"A"'
+
+INPUTS  Google Model   (partition by font colour)
+  blue literals  C12:J127  n=48  R5[12-17]
+  NON-blue literals  B2:J133  n=111  R1[2-3]  [differ from this sheet's blue-literal convention]
+
+FORMAT  Google Model   (partition by visual style)
+  bold  B2:J132  n=235  R1[2-3]
+
+BLANKS  Google Model   (empty cells inside occupied row-bands)
+  A2:J133  n=385  sparse
+
+OBJECTS  Google Model   [ALREADY PRESENT in the starting workbook -- do not rebuild]
+  conditional formats: NONE READABLE HERE. This engine does not surface conditional formatting, so absence is NOT evidence of absence -- read or test directly before creating one, or you may duplicate a rule that exists.
+
+PERIOD AXIS BANNER  Google Model   R3[7-8]   [EXPLICIT -- authoritative]
+  row 7  B7 'Actuals'   F7 'Forecast'
+
+PERIOD AXIS  Google Model   R32[125-129]
+  row 126  F126:J126  n=5  [TEXT labels, not dates]
+  labels 2024P 2025P 2026P 2027P 2028P
+
+CHECKS  Google Model   [these consume cells you may edit -- they can break AFTER your write]
+  F30  R6[19-30]  =SUM(F26:F29)  now=292008.9550000001
+  C84  R22[81-84]  =SUM(C82:C83)  now=27140.98349589041
+  C87  R23[86-87]  =C84+C86  now=42140.98349589041
+  C95  R25[95-95]  =C87+C93  now=217285.13972602738
+  C97  R26[97-97]  =C77-C95  now=0
+  D106  R27[99-107]  =SUM(D82:D83)-SUM(C82:C83)  now=2716.744641095891
+  D107  R27[99-107]  =SUM(D101:D106)  now=68669.85520969136
+  D112  R28[109-112]  =-D110-D111  now=-34676.04
+  D117  R29[114-117]  =-D115-D116  now=-26495.361407268523
+  C123  R31[123-123]  =C121-C64  now=0
+
+LABELS  Google Model   (non-data text, region-scoped)
+  [cols B hold >50 distinct strings each = DATA columns; not indexed]
+  '2024P' -> F126 R32[125-129]
+  '2025P' -> G126 R32[125-129]
+  '2026P' -> H126 R32[125-129]
+  '2027P' -> I126 R32[125-129]
+  '2028P' -> J126 R32[125-129]
+  'Forecast' -> F7 R3[7-8]
+
+REGIONS  Meta Model
+  R1[2-3] 'Meta Platforms — Income Statement'
+  R2[5-5] 'Chosen case:'
+  R3[7-8] 'Actuals'
+  R4[10-10] 'P&L statement'
+  R5[12-15] 'Family of Apps'
+  R6[17-19] 'Cost of sales'
+  R7[21-25] 'R&D'
+  R8[27-28] 'EBIT / Operating Income'
+  R9[30-30] 'Interest (Expense) / Income'
+  R10[32-33] 'Pre-tax Income'
+  R11[35-36] 'Net income'
+  R12[38-38] 'EPS calculation'
+  R13[40-41] 'Basic Shares — Outstanding'
+  R14[44-44] 'Balance sheet schedule'
+  R15[46-46] 'Assets section'
+  R16[48-52] 'Assets — Current'
+  R17[54-57] 'Assets — Non-current'
+  R18[59-60] 'Other Long-term Assets'
+  R19[62-62] 'Total Assets'
+  R20[64-64] 'Liabilities and equity'
+  R21[66-69] 'Liabilities — Current'
+  R22[71-72] 'Long-term Debt'
+  R23[74-78] 'Shareholders' Equity'
+  R24[80-80] 'Total Liabilities & Equity'
+  R25[82-82] 'Balance Check (Assets — L&E)'
+  R26[84-92] 'Cash-flow statement'
+  R27[94-97] 'Cash Flow from Investing Activities'
+  R28[99-102] 'Cash Flow from Financing Activities'
+  R29[104-106] 'Net Change in Cash'
+  R30[108-108] 'Cash Balance Check'
+  R31[110-114] 'Valuation Multiples'
+  R32[116-118] 'Revenue Multiple (EV / Sales)'
+
+BLOCKS  Meta Model   (partition by R1C1 skeleton)
+  [429 formula cells -> 37 skeletons]
+  C32:J114  n=76  sparse  spans R10[32-33],R17[54-57],R18[59-60],R19[62-62]  'Pre-tax Income'@B32
+      skeleton =@+@
+      C32 = =C27+C30
+      R1C1     =R[-5]C+R[-2]C
+  C13:J108  n=67  sparse  spans R5[12-15],R6[17-19],R8[27-28],R11[35-36]  'Reality Labs'@B13
+      skeleton =@-@
+      F13 = =F14-F12
+      R1C1     =R[1]C-R[-1]C
+  C14:J102  n=41  sparse  spans R5[12-15],R7[21-25],R16[48-52],R21[66-69]  'Revenue — Total'@B14
+      skeleton =SUM(@:@)
+      C14 = =SUM(C12:C13)
+      R1C1     =SUM(R[-2]C:R[-1]C)
+  C28:J41  n=24  sparse  spans R8[27-28],R11[35-36],R13[40-41]  'Operating Margin (%)'@B28
+      skeleton =@/@
+      C28 = =C27/C14
+      R1C1     =R[-1]C/R[-14]C
+  D86:J88  n=14  sparse  R26[84-92]  'Net Income'@B86
+      skeleton =@
+      D86 = =D35
+      R1C1     =R[-51]C
+  C17:J17  n=8  row  R6[17-19]  'Cost of sales'@B17
+      skeleton =@*(1-@)
+      C17 = =C14*(1-C19)
+      R1C1     =R[-3]C*(1-R[2]C)
+  C21:J21  n=8  row  R7[21-25]  'R&D'@B21
+      skeleton =@*INDEX('Meta Drivers'!R38C[1]:R40C[1],MATCH(R5C4,'Meta Drivers'!R38C3:R40C3,0))
+      C21 = =C14*INDEX('Meta Drivers'!D$38:D$40,MATCH($D$5,'Meta Drivers'!$C$38:$C$40,0))
+      R1C1     =R[-7]C*INDEX('Meta Drivers'!R38C[1]:R40C[1],MATCH(R5C4,'Meta Drivers'!R38C3:R40C3,0))
+  C22:J22  n=8  row  R7[21-25]  'S&M'@B22
+      skeleton =@*INDEX('Meta Drivers'!R42C[1]:R44C[1],MATCH(R5C4,'Meta Drivers'!R42C3:R44C3,0))
+      C22 = =C14*INDEX('Meta Drivers'!D$42:D$44,MATCH($D$5,'Meta Drivers'!$C$42:$C$44,0))
+      R1C1     =R[-8]C*INDEX('Meta Drivers'!R42C[1]:R44C[1],MATCH(R5C4,'Meta Drivers'!R42C3:R44C3,0))
+  C23:J23  n=8  row  R7[21-25]  'G&A'@B23
+      skeleton =@*INDEX('Meta Drivers'!R46C[1]:R48C[1],MATCH(R5C4,'Meta Drivers'!R46C3:R48C3,0))
+      C23 = =C14*INDEX('Meta Drivers'!D$46:D$48,MATCH($D$5,'Meta Drivers'!$C$46:$C$48,0))
+      R1C1     =R[-9]C*INDEX('Meta Drivers'!R46C[1]:R48C[1],MATCH(R5C4,'Meta Drivers'!R46C3:R48C3,0))
+  C24:J24  n=8  row  R7[21-25]  'SBC'@B24
+      skeleton =@*INDEX('Meta Drivers'!R50C[1]:R52C[1],MATCH(R5C4,'Meta Drivers'!R50C3:R52C3,0))
+      C24 = =C14*INDEX('Meta Drivers'!D$50:D$52,MATCH($D$5,'Meta Drivers'!$C$50:$C$52,0))
+      R1C1     =R[-10]C*INDEX('Meta Drivers'!R50C[1]:R52C[1],MATCH(R5C4,'Meta Drivers'!R50C3:R52C3,0))
+  C30:J30  n=8  row  R9[30-30]  'Interest (Expense) / Income'@B30
+      skeleton =(R49C*INDEX('Meta Drivers'!R99C[1]:R101C[1],MATCH(R5C4,'Meta Drivers'!R99C3:R101C3,0)))-(@*INDEX('Meta Drivers'!R103C[1]:R105C[1],MATCH(R5C4,'Meta Drivers'!R103C3:R105C3,0)))
+      C30 = =(C$49*INDEX('Meta Drivers'!D$99:D$101,MATCH($D$5,'Meta Drivers'!$C$99:$C$101,0)))-(C71*INDEX('Meta Drivers'!D$103:D$105,MATCH($D$5,'Meta Drivers'!$C$103:$C$105,0)))
+      R1C1     =(R49C*INDEX('Meta Drivers'!R99C[1]:R101C[1],MATCH(R5C4,'Meta Drivers'!R99C3:R101C3,0)))-(R[41]C*INDEX('Meta Drivers'!R103C[1]:R105C[1],MATCH(R5C4,'Meta Drivers'!R103C3:R105C3,0)))
+  C33:J33  n=8  row  R10[32-33]  'Tax Expense / Provision'@B33
+      skeleton =@*INDEX('Meta Drivers'!R92C[1]:R94C[1],MATCH(R5C4,'Meta Drivers'!R92C3:R94C3,0))
+      C33 = =C32*INDEX('Meta Drivers'!D$92:D$94,MATCH($D$5,'Meta Drivers'!$C$92:$C$94,0))
+      R1C1     =R[-1]C*INDEX('Meta Drivers'!R92C[1]:R94C[1],MATCH(R5C4,'Meta Drivers'!R92C3:R94C3,0))
+  C50:J50  n=8  row  R16[48-52]  'Receivables'@B50
+      skeleton =R14C*INDEX('Meta Drivers'!R64C[1]:R66C[1],MATCH(R5C4,'Meta Drivers'!R64C3:R66C3,0))/365
+      C50 = =C$14*INDEX('Meta Drivers'!D$64:D$66,MATCH($D$5,'Meta Drivers'!$C$64:$C$66,0))/365
+      R1C1     =R14C*INDEX('Meta Drivers'!R64C[1]:R66C[1],MATCH(R5C4,'Meta Drivers'!R64C3:R66C3,0))/365
+  C67:J67  n=8  row  R21[66-69]  'Payables'@B67
+      skeleton =(@+@+@+@)*INDEX('Meta Drivers'!R68C[1]:R70C[1],MATCH(R5C4,'Meta Drivers'!R68C3:R70C3,0))/365
+      C67 = =(C17+C21+C22+C23)*INDEX('Meta Drivers'!D$68:D$70,MATCH($D$5,'Meta Drivers'!$C$68:$C$70,0))/365
+      R1C1     =(R[-50]C+R[-46]C+R[-45]C+R[-44]C)*INDEX('Meta Drivers'!R68C[1]:R70C[1],MATCH(R5C4,'Meta Drivers'!R68C3:R70C3,0))/365
+  C78:J78  n=8  row  R23[74-78]  'Total Shareholders' Equity'@B78
+      skeleton =@-@+@
+      C78 = =C75-C76+C77
+      R1C1     =R[-3]C-R[-2]C+R[-1]C
+  C95:J95  n=8  row  R27[94-97]  'CapEx'@B95
+      skeleton =R14C*INDEX('Meta Drivers'!R78C[1]:R80C[1],MATCH(R5C4,'Meta Drivers'!R78C3:R80C3,0))
+      C95 = =C$14*INDEX('Meta Drivers'!D$78:D$80,MATCH($D$5,'Meta Drivers'!$C$78:$C$80,0))
+      R1C1     =R14C*INDEX('Meta Drivers'!R78C[1]:R80C[1],MATCH(R5C4,'Meta Drivers'!R78C3:R80C3,0))
+  D15:J15  n=7  row  R5[12-15]  'YoY Growth %'@B15
+      skeleton =@/@-1
+      D15 = =D14/C14-1
+      R1C1     =R[-1]C/R[-1]C[-1]-1
+  D49:J49  n=7  row  R16[48-52]  'Cash and equivalents'@B49
+      skeleton =R106C
+      D49 = =D$106
+      R1C1     =R106C
+  D51:J51  n=7  row  R16[48-52]  'Other current assets'@B51
+      skeleton =@*(1+'Meta Drivers'!R72C[1])
+      D51 = =C51*(1+'Meta Drivers'!E$72)
+      R1C1     =RC[-1]*(1+'Meta Drivers'!R72C[1])
+  D59:J59  n=7  row  R18[59-60]  'Other Long-term Assets'@B59
+      skeleton =@*(1+'Meta Drivers'!R73C[1])
+      D59 = =C59*(1+'Meta Drivers'!E$73)
+      R1C1     =RC[-1]*(1+'Meta Drivers'!R73C[1])
+  D68:J68  n=7  row  R21[66-69]  'Accrued Expenses'@B68
+      skeleton =@*(1+'Meta Drivers'!R74C[1])
+      D68 = =C68*(1+'Meta Drivers'!E$74)
+      R1C1     =RC[-1]*(1+'Meta Drivers'!R74C[1])
+  D87:J87  n=7  row  R26[84-92]  'Add — Depreciation & Amortization'@B87
+      skeleton =R95C[-1]*INDEX('Meta Drivers'!R82C[1]:R84C[1],MATCH(R5C4,'Meta Drivers'!R82C3:R84C3,0))
+      D87 = =C$95*INDEX('Meta Drivers'!E$82:E$84,MATCH($D$5,'Meta Drivers'!$C$82:$C$84,0))
+      R1C1     =R95C[-1]*INDEX('Meta Drivers'!R82C[1]:R84C[1],MATCH(R5C4,'Meta Drivers'!R82C3:R84C3,0))
+  D90:J90  n=7  row  R26[84-92]  '(Increase)/Decrease in Current Assets'@B90
+      skeleton =-(SUM(@:@)-SUM(@:@))
+      D90 = =-(SUM(D50:D51)-SUM(C50:C51))
+      R1C1     =-(SUM(R[-40]C:R[-39]C)-SUM(R[-40]C[-1]:R[-39]C[-1]))
+  D91:J91  n=7  row  R26[84-92]  'Increase/(Decrease) in Current Liabilities'@B91
+      skeleton =SUM(@:@)-SUM(@:@)
+      D91 = =SUM(D67:D68)-SUM(C67:C68)
+      R1C1     =SUM(R[-24]C:R[-23]C)-SUM(R[-24]C[-1]:R[-23]C[-1])
+  D97:J97  n=7  row  R27[94-97]  'Net Cash from Investing Activities'@B97
+      skeleton =-SUM(@:@)
+      D97 = =-SUM(D95:D96)
+      R1C1     =-SUM(R[-2]C:R[-1]C)
+  D100:J100  n=7  row  R28[99-102]  'Share Repurchases'@B100
+      skeleton =-MAX(@+@,0)*INDEX('Meta Drivers'!R109C[1]:R111C[1],MATCH(R5C4,'Meta Drivers'!R109C3:R111C3,0))
+      D100 = =-MAX(D92+D97,0)*INDEX('Meta Drivers'!E$109:E$111,MATCH($D$5,'Meta Drivers'!$C$109:$C$111,0))
+      R1C1     =-MAX(R[-8]C+R[-3]C,0)*INDEX('Meta Drivers'!R109C[1]:R111C[1],MATCH(R5C4,'Meta Drivers'!R109C3:R111C3,0))
+  D101:J101  n=7  row  R28[99-102]  'Debt Repayments'@B101
+      skeleton =R71C-R71C[-1]
+      D101 = =D$71-C$71
+      R1C1     =R71C-R71C[-1]
+  D104:J104  n=7  row  R29[104-106]  'Net Change in Cash'@B104
+      skeleton =@+@+@
+      D104 = =D92+D97+D102
+      R1C1     =R[-12]C+R[-7]C+R[-2]C
+  D105:J105  n=7  row  R29[104-106]  'Beginning Cash'@B105
+      skeleton =R106C[-1]
+      D105 = =C$106
+      R1C1     =R106C[-1]
+  F12:J12  n=5  row  R5[12-15]  'Family of Apps'@B12
+      skeleton =@*(1+INDEX('Meta Drivers'!R15C[1]:R17C[1],MATCH(R5C4,'Meta Drivers'!R15C3:R17C3,0)))
+      F12 = =E12*(1+INDEX('Meta Drivers'!G$15:G$17,MATCH($D$5,'Meta Drivers'!$C$15:$C$17,0)))
+      R1C1     =RC[-1]*(1+INDEX('Meta Drivers'!R15C[1]:R17C[1],MATCH(R5C4,'Meta Drivers'!R15C3:R17C3,0)))
+  F14:J14  n=5  row  R5[12-15]  'Revenue — Total'@B14
+      skeleton =@/(1-(INDEX('Meta Drivers'!R19C[1]:R21C[1],MATCH('Meta Model'!R5C4,'Meta Drivers'!R6C4,0))))
+      F14 = =F12/(1-(INDEX('Meta Drivers'!G$19:G$21,MATCH('Meta Model'!$D$5,'Meta Drivers'!$D$6,0))))
+      R1C1     =R[-2]C/(1-(INDEX('Meta Drivers'!R19C[1]:R21C[1],MATCH('Meta Model'!R5C4,'Meta Drivers'!R6C4,0))))
+  F116:J116  n=5  row  R32[116-118]  'Revenue Multiple (EV / Sales)'@B116
+      skeleton =R114C6*1000/R14C
+      F116 = =$F$114*1000/F$14
+      R1C1     =R114C6*1000/R14C
+  F117:J117  n=5  row  R32[116-118]  'EBITDA Multiple (EV / EBITDA)'@B117
+      skeleton =R114C6*1000/(R27C+R87C)
+      F117 = =$F$114*1000/(F$27+F$87)
+      R1C1     =R114C6*1000/(R27C+R87C)
+  F118:J118  n=5  row  R32[116-118]  'P / E'@B118
+      skeleton =R112C6*1000/R35C
+      F118 = =$F$112*1000/F$35
+      R1C1     =R112C6*1000/R35C
+  D5:D5  n=1  cell  R2[5-5]  'Chosen case:'@B5
+      skeleton ='Google Drivers'!R6C4
+      D5 = ='Google Drivers'!$D$6
+      R1C1     ='Google Drivers'!R6C4
+  C106:C106  n=1  cell  R29[104-106]  'Cash — Ending'@B106
+      skeleton =R49C
+      C106 = =C$49
+      R1C1     =R49C
+  F113:F113  n=1  cell  R31[110-114]  'Net Debt Position ($B)'@B113
+      skeleton =(R71C6-R49C6)/1000
+      F113 = =($F$71-$F$49)/1000
+      R1C1     =(R71C6-R49C6)/1000
+
+NUMERICS  Meta Model   (partition by numfmt string)
+  C12:J114  n=406  R5[12-15]  numfmt '_([$$-409]* #,##0_);_([$$-409]* \(#,##0\);_([$$-409]* "-"_);_(@_)'
+  B2:J118  n=90  R1[2-3]  numfmt '0.###############'
+  C15:J36  n=31  R5[12-15]  numfmt '0.0%;\(0.0%\)'  [percent format; stored as fraction e.g. -0.011193175554782941]
+  F116:J118  n=15  R32[116-118]  numfmt '#,##0.0\x;\(#,##0.0\x\)'
+  C40:J40  n=8  R13[40-41]  numfmt '_(* #,##0_);_(* \(#,##0\);_(* "-"_);_(@_)'
+  C41:J41  n=8  R13[40-41]  numfmt '"$"#,##0.00;\("$"#,##0.00\)'
+  F8:J8  n=5  R3[7-8]  numfmt '0"P"'
+  C8:E8  n=3  R3[7-8]  numfmt '0"A"'
+
+INPUTS  Meta Model   (partition by font colour)
+  blue literals  C12:J112  n=40  R5[12-15]
+  NON-blue literals  B2:J118  n=97  R1[2-3]  [differ from this sheet's blue-literal convention]
+
+FORMAT  Meta Model   (partition by visual style)
+  bold  B2:J117  n=230  R1[2-3]
+
+BLANKS  Meta Model   (empty cells inside occupied row-bands)
+  A2:J118  n=284  sparse
+
+PERIOD AXIS BANNER  Meta Model   R3[7-8]   [EXPLICIT -- authoritative]
+  row 7  B7 'Actuals'   F7 'Forecast'
+
+PERIOD AXIS  Meta Model   R31[110-114]
+  row 111  F111:J111  n=5  [TEXT labels, not dates]
+  labels 2024P 2025P 2026P 2027P 2028P
+
+CHECKS  Meta Model   [these consume cells you may edit -- they can break AFTER your write]
+  C69  R21[66-69]  =SUM(C67:C68)  now=14088.36733150685
+  C72  R22[71-72]  =C69+C71  now=24088.36733150685
+  C80  R24[80-80]  =C72+C78  now=127770.12328767125
+  C82  R25[82-82]  =C62-C80  now=0
+  D91  R26[84-92]  =SUM(D67:D68)-SUM(C67:C68)  now=1168.5651342465753
+  D92  R26[84-92]  =SUM(D86:D91)  now=46336.0308095608
+  D97  R27[94-97]  =-SUM(D95:D96)  now=-28653.980000000003
+  D102  R28[99-102]  =SUM(D99:D101)  now=-11993.333026214517
+  C108  R30[108-108]  =C106-C49  now=0
+
+LABELS  Meta Model   (non-data text, region-scoped)
+  [cols B hold >50 distinct strings each = DATA columns; not indexed]
+  '2024P' -> F111 R31[110-114]
+  '2025P' -> G111 R31[110-114]
+  '2026P' -> H111 R31[110-114]
+  '2027P' -> I111 R31[110-114]
+  '2028P' -> J111 R31[110-114]
+  'Forecast' -> F7 R3[7-8]
+
+REGIONS  Pro Forma
+  R1[2-3] 'Pro forma company — Google / Meta'
+  R2[5-5] 'Transaction snapshot'
+  R3[7-11] 'Purchase price ($mm):'
+  R4[13-13] 'Pro Forma Income Statement'
+  R5[15-15] 'For the Year Ending'
+  R6[17-21] 'Revenue — Combined'
+  R7[23-26] 'Operating expense build'
+  R8[28-36] 'R&D — Combined'
+  R9[38-38] 'EBIT'
+  R10[40-43] 'Existing interest expense / — income'
+  R11[45-45] 'Net income'
+  R12[47-47] 'Accretion / dilution workup'
+  R13[49-51] 'Shares — Pro forma (mm)'
+
+BLOCKS  Pro Forma   (partition by R1C1 skeleton)
+  [130 formula cells -> 29 skeletons]
+  D26:H42  n=10  sparse  spans R7[23-26],R10[40-43]  'Profit — Gross'@B26
+      skeleton =@-@-@
+      D26 = =D21-D24-D25
+      R1C1     =R[-5]C-R[-2]C-R[-1]C
+  D18:H18  n=5  row  R6[17-21]  'Google Revenue'@B18
+      skeleton ='Google Model'!R16C[2]
+      D18 = ='Google Model'!F$16
+      R1C1     ='Google Model'!R16C[2]
+  D19:H19  n=5  row  R6[17-21]  'Meta Revenue'@B19
+      skeleton ='Meta Model'!R14C[2]
+      D19 = ='Meta Model'!F$14
+      R1C1     ='Meta Model'!R14C[2]
+  D20:H20  n=5  row  R6[17-21]  'Revenue synergy contribution'@B20
+      skeleton ='Deal Inputs'!R47C
+      D20 = ='Deal Inputs'!D$47
+      R1C1     ='Deal Inputs'!R47C
+  D21:H21  n=5  row  R6[17-21]  'Combined Revenue — Total'@B21
+      skeleton =SUM(@:@)
+      D21 = =SUM(D18:D20)
+      R1C1     =SUM(R[-3]C:R[-1]C)
+  D24:H24  n=5  row  R7[23-26]  'Cost of sales (Combined)'@B24
+      skeleton ='Google Model'!R32C[2]+'Meta Model'!R17C[2]
+      D24 = ='Google Model'!F$32+'Meta Model'!F$17
+      R1C1     ='Google Model'!R32C[2]+'Meta Model'!R17C[2]
+  D25:H25  n=5  row  R7[23-26]  'Infrastructure synergy value'@B25
+      skeleton =-'Deal Inputs'!R50C
+      D25 = =-'Deal Inputs'!D$50
+      R1C1     =-'Deal Inputs'!R50C
+  D28:H28  n=5  row  R8[28-36]  'R&D — Combined'@B28
+      skeleton ='Google Model'!R36C[2]+'Meta Model'!R21C[2]
+      D28 = ='Google Model'!F$36+'Meta Model'!F$21
+      R1C1     ='Google Model'!R36C[2]+'Meta Model'!R21C[2]
+  D29:H29  n=5  row  R8[28-36]  'R&D synergy value'@B29
+      skeleton =-'Deal Inputs'!R51C
+      D29 = =-'Deal Inputs'!D$51
+      R1C1     =-'Deal Inputs'!R51C
+  D30:H30  n=5  row  R8[28-36]  'S&M — Combined'@B30
+      skeleton ='Google Model'!R37C[2]+'Meta Model'!R22C[2]
+      D30 = ='Google Model'!F$37+'Meta Model'!F$22
+      R1C1     ='Google Model'!R37C[2]+'Meta Model'!R22C[2]
+  D31:H31  n=5  row  R8[28-36]  'S&M synergy value'@B31
+      skeleton =-'Deal Inputs'!R53C
+      D31 = =-'Deal Inputs'!D$53
+      R1C1     =-'Deal Inputs'!R53C
+  D32:H32  n=5  row  R8[28-36]  'G&A — Combined'@B32
+      skeleton ='Google Model'!R38C[2]+'Meta Model'!R23C[2]
+      D32 = ='Google Model'!F$38+'Meta Model'!F$23
+      R1C1     ='Google Model'!R38C[2]+'Meta Model'!R23C[2]
+  D33:H33  n=5  row  R8[28-36]  'G&A synergy value'@B33
+      skeleton =-'Deal Inputs'!R52C
+      D33 = =-'Deal Inputs'!D$52
+      R1C1     =-'Deal Inputs'!R52C
+  D34:H34  n=5  row  R8[28-36]  'SBC (Combined)'@B34
+      skeleton ='Google Model'!R39C[2]+'Meta Model'!R24C[2]
+      D34 = ='Google Model'!F$39+'Meta Model'!F$24
+      R1C1     ='Google Model'!R39C[2]+'Meta Model'!R24C[2]
+  D35:H35  n=5  row  R8[28-36]  'Dis-synergies & Integration'@B35
+      skeleton =-'Deal Inputs'!R60C
+      D35 = =-'Deal Inputs'!D$60
+      R1C1     =-'Deal Inputs'!R60C
+  D36:H36  n=5  row  R8[28-36]  'Amortization of new intangibles'@B36
+      skeleton ='Deal Inputs'!R91C4
+      D36 = ='Deal Inputs'!$D$91
+      R1C1     ='Deal Inputs'!R91C4
+  D38:H38  n=5  row  R9[38-38]  'EBIT'@B38
+      skeleton =@-SUM(@:@)
+      D38 = =D26-SUM(D28:D36)
+      R1C1     =R[-12]C-SUM(R[-10]C:R[-2]C)
+  D40:H40  n=5  row  R10[40-43]  'Existing interest expense / — income'@B40
+      skeleton =-('Google Model'!R45C[2]+'Meta Model'!R30C[2])
+      D40 = =-('Google Model'!F$45+'Meta Model'!F$30)
+      R1C1     =-('Google Model'!R45C[2]+'Meta Model'!R30C[2])
+  D41:H41  n=5  row  R10[40-43]  'New interest expense'@B41
+      skeleton =(('Deal Inputs'!R80C4*((1-'Deal Inputs'!R84C4)^(R15C-R15C4)))*'Deal Inputs'!R81C4)+(('Deal Inputs'!R82C4*((1-'Deal Inputs'!R84C4)^(R15C-R15C4)))*'Deal Inputs'!R83C4)
+      D41 = =(('Deal Inputs'!$D$80*((1-'Deal Inputs'!$D$84)^(D$15-$D$15)))*'Deal Inputs'!$D$81)+(('Deal Inputs'!$D$82*((1-'Deal Inputs'!$D$84)^(D$15-$D$15)))*'Deal Inputs'!$D$83)
+      R1C1     =(('Deal Inputs'!R80C4*((1-'Deal Inputs'!R84C4)^(R15C-R15C4)))*'Deal Inputs'!R81C4)+(('Deal Inputs'!R82C4*((1-'Deal Inputs'!R84C4)^(R15C-R15C4)))*'Deal Inputs'!R83C4)
+  D43:H43  n=5  row  R10[40-43]  'Taxes'@B43
+      skeleton =@*'Deal Inputs'!R95C4
+      D43 = =D42*'Deal Inputs'!$D$95
+      R1C1     =R[-1]C*'Deal Inputs'!R95C4
+  D45:H45  n=5  row  R11[45-45]  'Net income'@B45
+      skeleton =@-@
+      D45 = =D42-D43
+      R1C1     =R[-3]C-R[-2]C
+  D49:H49  n=5  row  R13[49-51]  'Shares — Pro forma (mm)'@B49
+      skeleton ='Google Model'!R55C[2]+'Deal Inputs'!R29C4
+      D49 = ='Google Model'!F$55+'Deal Inputs'!$D$29
+      R1C1     ='Google Model'!R55C[2]+'Deal Inputs'!R29C4
+  D50:H50  n=5  row  R13[49-51]  'EPS — Pro forma'@B50
+      skeleton =@/@
+      D50 = =D45/D49
+      R1C1     =R[-5]C/R[-1]C
+  D51:H51  n=5  row  R13[49-51]  '% Accretion — Dilution'@B51
+      skeleton =@/'Google Model'!R56C[2]-1
+      D51 = =D50/'Google Model'!F$56-1
+      R1C1     =R[-1]C/'Google Model'!R56C[2]-1
+  D7:D7  n=1  cell  R3[7-11]  'Purchase price ($mm):'@B7
+      skeleton ='Deal Inputs'!R21C4
+      D7 = ='Deal Inputs'!$D$21
+      R1C1     ='Deal Inputs'!R21C4
+  D8:D8  n=1  cell  R3[7-11]  'Cash Consideration —'@B8
+      skeleton ='Deal Inputs'!R26C4
+      D8 = ='Deal Inputs'!$D$26
+      R1C1     ='Deal Inputs'!R26C4
+  D9:D9  n=1  cell  R3[7-11]  'Stock Consideration —'@B9
+      skeleton ='Deal Inputs'!R27C4
+      D9 = ='Deal Inputs'!$D$27
+      R1C1     ='Deal Inputs'!R27C4
+  D10:D10  n=1  cell  R3[7-11]  'Total Debt Raised —'@B10
+      skeleton ='Deal Inputs'!R35C4+'Deal Inputs'!R36C4
+      D10 = ='Deal Inputs'!$D$35+'Deal Inputs'!$D$36
+      R1C1     ='Deal Inputs'!R35C4+'Deal Inputs'!R36C4
+  D11:D11  n=1  cell  R3[7-11]  'Goodwill Created —'@B11
+      skeleton ='Deal Inputs'!R75C4
+      D11 = ='Deal Inputs'!$D$75
+      R1C1     ='Deal Inputs'!R75C4
+
+NUMERICS  Pro Forma   (partition by numfmt string)
+  D7:H45  n=115  R3[7-11]  numfmt '_([$$-409]* #,##0_);_([$$-409]* \(#,##0\);_([$$-409]* "-"_);_(@_)'
+  B2:B51  n=38  R1[2-3]  numfmt '0.###############'
+  D15:H15  n=5  R5[15-15]  numfmt '@'
+  D49:H49  n=5  R13[49-51]  numfmt '_(* #,##0_);_(* \(#,##0\);_(* "-"_);_(@_)'
+  D50:H50  n=5  R13[49-51]  numfmt '_([$$-409]* #,##0.00_);_([$$-409]* \(#,##0.00\);_([$$-409]* "-"??_);_(@_)'
+  D51:H51  n=5  R13[49-51]  numfmt '0.00%;\(0.00%\)'  [percent format; stored as fraction e.g. -0.32504672331289997]
+
+FORMAT  Pro Forma   (partition by visual style)
+  bold  B2:H50  n=45  R1[2-3]
+
+BLANKS  Pro Forma   (empty cells inside occupied row-bands)
+  A2:H51  n=131  sparse
+
+LABELS  Pro Forma   (non-data text, region-scoped)
+  '% Accretion — Dilution' -> B51 R13[49-51]
+  'Accretion / dilution workup' -> B47 R12[47-47]
+  'Amortization of new intangibles' -> B36 R8[28-36]
+  'Cash Consideration —' -> B8 R3[7-11]
+  'Combined Revenue — Total' -> B21 R6[17-21]
+  'Cost of sales (Combined)' -> B24 R7[23-26]
+  'Dis-synergies & Integration' -> B35 R8[28-36]
+  'EBIT' -> B38 R9[38-38]
+  'EBT' -> B42 R10[40-43]
+  'EPS — Pro forma' -> B50 R13[49-51]
+  'Existing interest expense / — income' -> B40 R10[40-43]
+  'Figures in $mm' -> B3 R1[2-3]
+  'For the Year Ending' -> B15 R5[15-15]
+  'G&A synergy value' -> B33 R8[28-36]
+  'G&A — Combined' -> B32 R8[28-36]
+  'Goodwill Created —' -> B11 R3[7-11]
+  'Google Revenue' -> B18 R6[17-21]
+  'Infrastructure synergy value' -> B25 R7[23-26]
+  'Meta Revenue' -> B19 R6[17-21]
+  'Net income' -> B45 R11[45-45]
+  'New interest expense' -> B41 R10[40-43]
+  'Operating expense build' -> B23 R7[23-26]
+  'Pro Forma Income Statement' -> B13 R4[13-13]
+  'Pro forma company — Google / Meta' -> B2 R1[2-3]
+  'Profit — Gross' -> B26 R7[23-26]
+  'Purchase price ($mm):' -> B7 R3[7-11]
+  'R&D synergy value' -> B29 R8[28-36]
+  'R&D — Combined' -> B28 R8[28-36]
+  'Revenue synergy contribution' -> B20 R6[17-21]
+  'Revenue — Combined' -> B17 R6[17-21]
+  'S&M synergy value' -> B31 R8[28-36]
+  'S&M — Combined' -> B30 R8[28-36]
+  'SBC (Combined)' -> B34 R8[28-36]
+  'Shares — Pro forma (mm)' -> B49 R13[49-51]
+  'Stock Consideration —' -> B9 R3[7-11]
+  'Taxes' -> B43 R10[40-43]
+  'Total Debt Raised —' -> B10 R3[7-11]
+  'Transaction snapshot' -> B5 R2[5-5]
+
+REGIONS  Synergy Case
+  R1[2-5] 'Synergy case — Google / Meta combination'
+  R2[7-10] 'Infrastructure Cost Savings — 1'
+  R3[12-15] 'R&D Efficiency Gains — 2'
+  R4[17-20] 'Revenue Synergies — Cross-Platform Advertising — 3'
+  R5[22-22] 'Synergy calculations'
+  R6[24-24] 'Figures in $mm'
+  R7[26-31] 'Infrastructure Cost Savings'
+  R8[33-38] 'R&D Efficiency Gains'
+  R9[40-45] 'Revenue synergy contribution'
+  R10[47-48] 'Phase-in Schedule'
+  R11[50-50] 'Total Synergies Summary'
+  R12[52-56] 'Gross Synergies'
+  R13[58-59] 'After Phase-in'
+  R14[61-62] 'Implementation Costs'
+  R15[64-64] 'Net Synergies'
+
+BLOCKS  Synergy Case   (partition by R1C1 skeleton)
+  [108 formula cells -> 15 skeletons]
+  D31:H59  n=20  sparse  spans R7[26-31],R8[33-38],R9[40-45],R13[58-59]  'Infrastructure synergy value'@B31
+      skeleton =@*@
+      D31 = =D29*D30
+      R1C1     =R[-2]C*R[-1]C
+  D29:H43  n=15  sparse  spans R7[26-31],R8[33-38],R9[40-45]  'Combined CapEx'@B29
+      skeleton =@+@
+      D29 = =D27+D28
+      R1C1     =R[-2]C+R[-1]C
+  D53:H55  n=15  rect  R12[52-56]  'Infrastructure Savings'@B53
+      skeleton =@
+      D53 = =D31
+      R1C1     =R[-22]C
+  D27:H27  n=5  row  R7[26-31]  'Google CapEx'@B27
+      skeleton ='Google Model'!R110C[2]
+      D27 = ='Google Model'!F$110
+      R1C1     ='Google Model'!R110C[2]
+  D28:H28  n=5  row  R7[26-31]  'Meta CapEx'@B28
+      skeleton ='Meta Model'!R95C[2]
+      D28 = ='Meta Model'!F$95
+      R1C1     ='Meta Model'!R95C[2]
+  D30:H30  n=5  row  R7[26-31]  'Savings %'@B30
+      skeleton =INDEX(R9C4:R9C6,MATCH(R10C4,R8C4:R8C6,0))
+      D30 = =INDEX($D$9:$F$9,MATCH($D$10,$D$8:$F$8,0))
+      R1C1     =INDEX(R9C4:R9C6,MATCH(R10C4,R8C4:R8C6,0))
+  D34:H34  n=5  row  R8[33-38]  'Google R&D Expense'@B34
+      skeleton ='Google Model'!R38C[2]
+      D34 = ='Google Model'!F$38
+      R1C1     ='Google Model'!R38C[2]
+  D35:H35  n=5  row  R8[33-38]  'Meta R&D Expense'@B35
+      skeleton ='Meta Model'!R23C[2]
+      D35 = ='Meta Model'!F$23
+      R1C1     ='Meta Model'!R23C[2]
+  D37:H37  n=5  row  R8[33-38]  'Efficiency %'@B37
+      skeleton =INDEX(R14C4:R14C6,MATCH(R15C4,R13C4:R13C6,0))
+      D37 = =INDEX($D$14:$F$14,MATCH($D$15,$D$13:$F$13,0))
+      R1C1     =INDEX(R14C4:R14C6,MATCH(R15C4,R13C4:R13C6,0))
+  D41:H41  n=5  row  R9[40-45]  'Google Revenue'@B41
+      skeleton ='Google Model'!R16C[2]
+      D41 = ='Google Model'!F$16
+      R1C1     ='Google Model'!R16C[2]
+  D42:H42  n=5  row  R9[40-45]  'Meta Revenue'@B42
+      skeleton ='Meta Model'!R14C[2]
+      D42 = ='Meta Model'!F$14
+      R1C1     ='Meta Model'!R14C[2]
+  D44:H44  n=5  row  R9[40-45]  'Revenue Uplift %'@B44
+      skeleton =INDEX(R19C4:R19C6,MATCH(R20C4,R18C4:R18C6,0))
+      D44 = =INDEX($D$19:$F$19,MATCH($D$20,$D$18:$F$18,0))
+      R1C1     =INDEX(R19C4:R19C6,MATCH(R20C4,R18C4:R18C6,0))
+  D56:H56  n=5  row  R12[52-56]  'Total Gross Synergies'@B56
+      skeleton =SUM(@:@)
+      D56 = =SUM(D53:D55)
+      R1C1     =SUM(R[-3]C:R[-1]C)
+  D64:H64  n=5  row  R15[64-64]  'Net Synergies'@B64
+      skeleton =@-@
+      D64 = =D59-D62
+      R1C1     =R[-5]C-R[-2]C
+  D10:D20  n=3  sparse  spans R2[7-10],R3[12-15],R4[17-20]  'Chosen case:'@B10
+      skeleton ='Google Drivers'!R6C4
+      D10 = ='Google Drivers'!$D$6
+      R1C1     ='Google Drivers'!R6C4
+
+NUMERICS  Synergy Case   (partition by numfmt string)
+  D27:H64  n=95  R7[26-31]  numfmt '_([$$-409]* #,##0_);_([$$-409]* \(#,##0\);_([$$-409]* "-"_);_(@_)'
+  B2:D64  n=49  R1[2-5]  numfmt '0.###############'
+  D9:H48  n=29  R2[7-10]  numfmt '0.0%;\(0.0%\)'  [percent format; stored as fraction e.g. 0.15]
+  D8:H24  n=14  R2[7-10]  numfmt '@'
+
+INPUTS  Synergy Case   (partition by font colour)
+  blue literals  D9:H62  n=19  R2[7-10]
+  NON-blue literals  B2:H64  n=60  R1[2-5]  [differ from this sheet's blue-literal convention]
+
+FORMAT  Synergy Case   (partition by visual style)
+  bold  B2:H64  n=58  R1[2-5]
+
+BLANKS  Synergy Case   (empty cells inside occupied row-bands)
+  A2:H64  n=205  sparse
+
+LABELS  Synergy Case   (non-data text, region-scoped)
+  'Aggressive' -> F8 R2[7-10]  F13 R3[12-15]  F18 R4[17-20]  [COLLISION]
+  'Base' -> E8 R2[7-10]  E13 R3[12-15]  E18 R4[17-20]  [COLLISION]
+  'Chosen case:' -> B10 R2[7-10]  B15 R3[12-15]  B20 R4[17-20]  [COLLISION]
+  'Conservative' -> D8 R2[7-10]  D13 R3[12-15]  D18 R4[17-20]  [COLLISION]
+  'Figures in $mm' -> B4 R1[2-5]  B24 R6[24-24]  [COLLISION]
+  '% Reduction in Combined R&D' -> B13 R3[12-15]
+  '% Revenue Uplift' -> B18 R4[17-20]
+  '% of Combined CapEx Savings' -> B8 R2[7-10]
+  'After Phase-in' -> B58 R13[58-59]
+  'Combined CapEx' -> B29 R7[26-31]
+  'Combined R&D' -> B36 R8[33-38]
+  'Combined Revenue' -> B43 R9[40-45]
+  'Efficiency %' -> B37 R8[33-38]
+  'Google CapEx' -> B27 R7[26-31]
+  'Google R&D Expense' -> B34 R8[33-38]
+  'Google Revenue' -> B41 R9[40-45]
+  'Gross Synergies' -> B52 R12[52-56]
+  'Implementation Costs' -> B61 R14[61-62]
+  'Infrastructure Cost Savings' -> B26 R7[26-31]
+  'Infrastructure Cost Savings — 1' -> B7 R2[7-10]
+  'Infrastructure Savings' -> B53 R12[52-56]
+  'Infrastructure synergy value' -> B31 R7[26-31]
+  'Meta CapEx' -> B28 R7[26-31]
+  'Meta R&D Expense' -> B35 R8[33-38]
+  'Meta Revenue' -> B42 R9[40-45]
+  'Net Synergies' -> B64 R15[64-64]
+  'One-time Costs' -> B62 R14[61-62]
+  'Phase-in Schedule' -> B47 R10[47-48]
+  'R&D Efficiency' -> B54 R12[52-56]
+  'R&D Efficiency Gains' -> B33 R8[33-38]
+  'R&D Efficiency Gains — 2' -> B12 R3[12-15]
+  'R&D synergy value' -> B38 R8[33-38]
+  'Realized Synergies' -> B59 R13[58-59]
+  'Revenue Synergies — Cross-Platform Advertising — 3' -> B17 R4[17-20]
+  'Revenue Synergy' -> B45 R9[40-45]
+  'Revenue Uplift' -> B55 R12[52-56]
+  'Revenue Uplift %' -> B44 R9[40-45]
+  'Revenue and cost synergy workup' -> B3 R1[2-5]
+  'Revenue synergy contribution' -> B40 R9[40-45]
+  'Savings %' -> B30 R7[26-31]
+
+REGIONS  Valuation
+  R1[2-5] 'Combined valuation — DCF'
+  R2[7-8] 'Free cash flow build'
+  R3[10-13] 'Google FCF'
+  R4[15-18] 'Meta FCF'
+  R5[20-21] 'Benefits from synergies'
+  R6[23-23] 'Free cash flow — Combined'
+  R7[26-26] 'DCF case inputs'
+  R8[28-31] 'WACC'
+  R9[33-36] 'Perpetual growth rate'
+  R10[38-40] 'Selected case outputs'
+  R11[43-43] 'DCF value output'
+  R12[45-46] 'Period discount index'
+  R13[48-48] 'Present value of FCF'
+  R14[50-54] 'Terminal value workup'
+  R15[57-57] 'Valuation Summary'
+  R16[59-62] 'Enterprise value Calculation'
+  R17[64-68] 'Equity Value Calculation'
+  R18[70-72] 'Implied Valuation — $B'
+  R19[74-77] 'Current Market capitalization ($B)'
+  R20[79-79] 'Implied Premium/ — Discount'
+  R21[82-82] 'Sensitivity Analysis'
+  R22[84-88] 'Implied Valuation Sensitivity'
+
+BLOCKS  Valuation   (partition by R1C1 skeleton)
+  [87 formula cells -> 25 skeletons]
+  C13:H18  n=12  sparse  spans R3[10-13],R4[15-18]  'Google FCF'@B13
+      skeleton =@-@
+      C13 = =C11-C12
+      R1C1     =R[-2]C-R[-1]C
+  D86:F88  n=9  rect  R22[84-88]  'Wacc ↓'@B86
+      skeleton =TABLE(R39C4,R40C4)
+      D86 = =TABLE($D$39,$D$40)
+      R1C1     =TABLE(R39C4,R40C4)
+  C23:H68  n=7  sparse  spans R6[23-23],R17[64-68]  'Free cash flow — Combined'@B23
+      skeleton =@+@+@
+      C23 = =C13+C18+C21
+      R1C1     =R[-10]C+R[-5]C+R[-2]C
+  C11:H11  n=6  row  R3[10-13]  'Cash flow from operations'@B11
+      skeleton ='Google Model'!R107C[2]
+      C11 = ='Google Model'!E$107
+      R1C1     ='Google Model'!R107C[2]
+  C12:H12  n=6  row  R3[10-13]  'Less — CapEx'@B12
+      skeleton ='Google Model'!R110C[2]
+      C12 = ='Google Model'!E$110
+      R1C1     ='Google Model'!R110C[2]
+  C16:H16  n=6  row  R4[15-18]  'Cash flow from operations'@B16
+      skeleton ='Meta Model'!R92C[2]
+      C16 = ='Meta Model'!E$92
+      R1C1     ='Meta Model'!R92C[2]
+  C17:H17  n=6  row  R4[15-18]  'Less — CapEx'@B17
+      skeleton ='Meta Model'!R95C[2]
+      C17 = ='Meta Model'!E$95
+      R1C1     ='Meta Model'!R95C[2]
+  D21:H21  n=5  row  R5[20-21]  'Synergies — Annual'@B21
+      skeleton ='Deal Inputs'!R62C
+      D21 = ='Deal Inputs'!D$62
+      R1C1     ='Deal Inputs'!R62C
+  D46:H46  n=5  row  R12[45-46]  'Discount factor'@B46
+      skeleton =1/(1+R39C4)^@
+      D46 = =1/(1+$D$39)^D45
+      R1C1     =1/(1+R39C4)^R[-1]C
+  D48:H48  n=5  row  R13[48-48]  'Present value of FCF'@B48
+      skeleton =R23C*R46C
+      D48 = =D$23*D$46
+      R1C1     =R23C*R46C
+  D5:D76  n=4  sparse  spans R1[2-5],R16[59-62],R17[64-68],R19[74-77]  'Chosen case:'@B5
+      skeleton =@
+      D5 = ='Meta Drivers'!D6
+      R1C1     ='Meta Drivers'!R[1]C
+  D62:D77  n=2  sparse  spans R16[59-62],R19[74-77]  'Combined Enterprise value'@B62
+      skeleton =@+@
+      D62 = =D60+D61
+      R1C1     =R[-2]C+R[-1]C
+  D71:D72  n=2  col  R18[70-72]  'Enterprise value'@B71
+      skeleton =@/1000
+      D71 = =D62/1000
+      R1C1     =R[-9]C/1000
+  D39:D39  n=1  cell  R10[38-40]  'WACC'@B39
+      skeleton =INDEX(R29C4:R31C4,MATCH(R5C4,R29C2:R31C2))
+      D39 = =INDEX($D$29:$D$31,MATCH($D$5,$B$29:$B$31))
+      R1C1     =INDEX(R29C4:R31C4,MATCH(R5C4,R29C2:R31C2))
+  D40:D40  n=1  cell  R10[38-40]  'Terminal growth selected'@B40
+      skeleton =INDEX(R34C4:R36C4,MATCH(R5C4,R34C2:R36C2))
+      D40 = =INDEX($D$34:$D$36,MATCH($D$5,$B$34:$B$36))
+      R1C1     =INDEX(R34C4:R36C4,MATCH(R5C4,R34C2:R36C2))
+  D51:D51  n=1  cell  R14[50-54]  '2028 Fcf'@B51
+      skeleton =R23C8
+      D51 = =$H$23
+      R1C1     =R23C8
+  D52:D52  n=1  cell  R14[50-54]  'Terminal FCF — 2029P'@B52
+      skeleton =@*(1+@)
+      D52 = =D51*(1+D40)
+      R1C1     =R[-1]C*(1+R[-12]C)
+  D53:D53  n=1  cell  R14[50-54]  'Terminal Value — 2028P'@B53
+      skeleton =@/(@-@)
+      D53 = =D52/(D39-D40)
+      R1C1     =R[-1]C/(R[-14]C-R[-13]C)
+  D54:D54  n=1  cell  R14[50-54]  'PV of Terminal Value'@B54
+      skeleton =@*@
+      D54 = =D53*H46
+      R1C1     =R[-1]C*R[-8]C[4]
+  D60:D60  n=1  cell  R16[59-62]  'Sum of PV of FCF — 2025-2028'@B60
+      skeleton =SUM(@:@)
+      D60 = =SUM(D48:H48)
+      R1C1     =SUM(R[-12]C:R[-12]C[4])
+  D66:D66  n=1  cell  R17[64-68]  'Less: Google Net debt'@B66
+      skeleton =-'Google Model'!R128C6*1000
+      D66 = =-'Google Model'!$F$128*1000
+      R1C1     =-'Google Model'!R128C6*1000
+  D67:D67  n=1  cell  R17[64-68]  'Less: Meta Net debt'@B67
+      skeleton =-'Meta Model'!R113C6*1000
+      D67 = =-'Meta Model'!$F$113*1000
+      R1C1     =-'Meta Model'!R113C6*1000
+  D75:D75  n=1  cell  R19[74-77]  'Google'@B75
+      skeleton ='Google Model'!R127C6
+      D75 = ='Google Model'!$F$127
+      R1C1     ='Google Model'!R127C6
+  D79:D79  n=1  cell  R20[79-79]  'Implied Premium/ — Discount'@B79
+      skeleton =(@-@)/@
+      D79 = =(D72-D77)/D77
+      R1C1     =(R[-7]C-R[-2]C)/R[-2]C
+  C85:C85  n=1  cell  R22[84-88]  (no row label left of block)
+      skeleton =R79C4
+      C85 = =$D$79
+      R1C1     =R79C4
+
+NUMERICS  Valuation   (partition by numfmt string)
+  C11:H77  n=69  R3[10-13]  numfmt '_([$$-409]* #,##0_);_([$$-409]* \(#,##0\);_([$$-409]* "-"_);_(@_)'
+  B2:H86  n=66  R1[2-5]  numfmt '0.###############'
+  C29:F88  n=24  R8[28-31]  numfmt '0.0%;\(0.0%\)'  [percent format; stored as fraction e.g. 0.07]
+  C45:H45  n=6  R12[45-46]  numfmt '_(#,##0_);(#,##0)'
+  C46:H46  n=6  R12[45-46]  numfmt '#,##0.0_);\(#,##0.0\)'
+  C85:C85  n=1  R22[84-88]  numfmt ';;;'
+
+INPUTS  Valuation   (partition by font colour)
+  blue literals  C21:H88  n=20  R5[20-21]
+  NON-blue literals  B2:H86  n=65  R1[2-5]  [differ from this sheet's blue-literal convention]
+
+FORMAT  Valuation   (partition by visual style)
+  bold  B2:H84  n=74  R1[2-5]
+
+BLANKS  Valuation   (empty cells inside occupied row-bands)
+  A2:H88  n=324  sparse
+
+PERIOD AXIS  Valuation   R2[7-8]
+  row 8  C8:H8  n=6  [TEXT labels, not dates]
+  labels 2023A 2024P 2025P 2026P 2027P 2028P
+
+LABELS  Valuation   (non-data text, region-scoped)
+  'Base' -> B30 R8[28-31]  B35 R9[33-36]  [COLLISION]
+  'Bear' -> B29 R8[28-31]  B34 R9[33-36]  [COLLISION]
+  'Bull' -> B31 R8[28-31]  B36 R9[33-36]  [COLLISION]
+  'Cash flow from operations' -> B11 R3[10-13]  B16 R4[15-18]  [COLLISION]
+  'Combined Enterprise value' -> B62 R16[59-62]  B65 R17[64-68]  [COLLISION]
+  'Google FCF' -> B10 R3[10-13]  B13 R3[10-13]  [COLLISION]
+  'Less — CapEx' -> B12 R3[10-13]  B17 R4[15-18]  [COLLISION]
+  'Meta FCF' -> B15 R4[15-18]  B18 R4[15-18]  [COLLISION]
+  'PV of Terminal Value' -> B54 R14[50-54]  B61 R16[59-62]  [COLLISION]
+  'WACC' -> B28 R8[28-31]  B39 R10[38-40]  [COLLISION]
+  '2023A' -> C8 R2[7-8]
+  '2024P' -> D8 R2[7-8]
+  '2025P' -> E8 R2[7-8]
+  '2026P' -> F8 R2[7-8]
+  '2027P' -> G8 R2[7-8]
+  '2028 Fcf' -> B51 R14[50-54]
+  '2028P' -> H8 R2[7-8]
+  'Benefits from synergies' -> B20 R5[20-21]
+  'Case selection' -> B4 R1[2-5]
+  'Chosen case:' -> B5 R1[2-5]
+  'Combined' -> B77 R19[74-77]
+  'Combined Equity Value' -> B68 R17[64-68]
+  'Combined valuation — DCF' -> B2 R1[2-5]
+  'Current Market capitalization ($B)' -> B74 R19[74-77]
+  'DCF case inputs' -> B26 R7[26-26]
+  'DCF value output' -> B43 R11[43-43]
+  'Discount factor' -> B46 R12[45-46]
+  'Enterprise value' -> B71 R18[70-72]
+  'Enterprise value Calculation' -> B59 R16[59-62]
+  'Equity Value' -> B72 R18[70-72]
+  'Equity Value Calculation' -> B64 R17[64-68]
+  'Figures in $mm' -> B3 R1[2-5]
+  'Free cash flow build' -> B7 R2[7-8]
+  'Free cash flow — Combined' -> B23 R6[23-23]
+  'Google' -> B75 R19[74-77]
+  'Implied Premium/ — Discount' -> B79 R20[79-79]
+  'Implied Valuation Sensitivity' -> B84 R22[84-88]
+  'Implied Valuation — $B' -> B70 R18[70-72]
+  'Less: Google Net debt' -> B66 R17[64-68]
+  'Less: Meta Net debt' -> B67 R17[64-68]
+
+REGIONS  Meta Drivers
+  R1[2-6] 'Meta Platforms — Operating Model Assumptions'
+  R2[8-9] 'Actuals'
+  R3[11-11] 'Revenue Assumptions — 1'
+  R4[13-17] 'Growth rates — Revenue (%)'
+  R5[19-21] 'Reality Labs'
+  R6[24-24] 'User Growth Metrics'
+  R7[26-28] 'DAU Growth — %'
+  R8[30-32] 'ARPU Growth — %'
+  R9[34-34] 'Operating Expense Assumptions — 2'
+  R10[36-36] 'Expenses — Operating (% of Revenue)'
+  R11[38-40] 'R&D'
+  R12[42-44] 'S&M'
+  R13[46-48] 'G&A'
+  R14[50-52] 'SBC'
+  R15[54-54] 'Reality Labs Operating Margin'
+  R16[56-58] 'Operating Margin — %'
+  R17[60-60] 'Balance Sheet & Cash Flow Assumptions — 3'
+  R18[62-62] 'Working Capital Metrics'
+  R19[64-66] 'Days Sales Outstanding — DSO'
+  R20[68-70] 'Days Payable Outstanding — DPO'
+  R21[72-74] '% Increase'
+  R22[76-76] 'Capital Expenditure'
+  R23[78-80] 'CapEx — % of Revenue'
+  R24[82-84] 'D&A — % of Prior Year CapEx'
+  R25[88-88] 'Other Financial Assumptions — 4'
+  R26[90-90] 'Tax Rate'
+  R27[92-94] 'Effective Tax Rate'
+  R28[97-97] 'Interest Rates'
+  R29[99-101] 'Interest Income Rate — on cash'
+  R30[103-105] 'Interest Expense Rate — on LT debt'
+  R31[107-107] 'Share Buyback & Dividends'
+  R32[109-111] 'Buyback — % of FCF'
+  R33[113-115] 'Dividend Payout Ratio'
+  R34[117-117] 'International Revenue Mix'
+  R35[119-120] 'US Revenue %'
+  R36[122-125] 'FX Impact on Int'l Revenue'
+
+BLOCKS  Meta Drivers   (partition by R1C1 skeleton)
+  [43 formula cells -> 11 skeletons]
+  D120:K120  n=8  row  R35[119-120]  'International Revenue %'@B120
+      skeleton =1-@
+      D120 = =1-D119
+      R1C1     =1-R[-1]C
+  E123:J123  n=6  row  R36[122-125]  'Base Case'@B123
+      skeleton =@+((R123C11-R123C4)/(COUNTA(R123C5:R123C10)+1))
+      E123 = =D123+(($K$123-$D$123)/(COUNTA($E$123:$J$123)+1))
+      R1C1     =RC[-1]+((R123C11-R123C4)/(COUNTA(R123C5:R123C10)+1))
+  E124:J124  n=6  row  R36[122-125]  'Bull Case'@B124
+      skeleton =@+((R124C11-R124C4)/(COUNTA(R124C5:R124C10)+1))
+      E124 = =D124+(($K$124-$D$124)/(COUNTA($E$124:$J$124)+1))
+      R1C1     =RC[-1]+((R124C11-R124C4)/(COUNTA(R124C5:R124C10)+1))
+  E125:J125  n=6  row  R36[122-125]  'Bear Case'@B125
+      skeleton =@+((R125C11-R125C4)/(COUNTA(R125C5:R125C10)+1))
+      E125 = =D125+(($K$125-$D$125)/(COUNTA($E$125:$J$125)+1))
+      R1C1     =RC[-1]+((R125C11-R125C4)/(COUNTA(R125C5:R125C10)+1))
+  G20:K20  n=5  row  R5[19-21]  'Bull'@C20
+      skeleton =@+R20C13
+      G20 = =G19+$M$20
+      R1C1     =R[-1]C+R20C13
+  G21:K21  n=5  row  R5[19-21]  'Bear'@C21
+      skeleton =@-R21C13
+      G21 = =G19-$M$21
+      R1C1     =R[-2]C-R21C13
+  H19:J19  n=3  row  R5[19-21]  'Base'@C19
+      skeleton =R19C[-1]+((R19C11-R19C7)/COUNT(R14C8:R14C11))
+      H19 = =G$19+(($K$19-$G$19)/COUNT($H$14:$K$14))
+      R1C1     =R19C[-1]+((R19C11-R19C7)/COUNT(R14C8:R14C11))
+  D6:D6  n=1  cell  R1[2-6]  'Chosen case:'@B6
+      skeleton ='Google Drivers'!R6C4
+      D6 = ='Google Drivers'!$D$6
+      R1C1     ='Google Drivers'!R6C4
+  B72:B72  n=1  cell  R21[72-74]  (no row label left of block)
+      skeleton ='Meta Model'!R51C2
+      B72 = ='Meta Model'!$B$51
+      R1C1     ='Meta Model'!R51C2
+  B73:B73  n=1  cell  R21[72-74]  (no row label left of block)
+      skeleton ='Meta Model'!R59C2
+      B73 = ='Meta Model'!$B$59
+      R1C1     ='Meta Model'!R59C2
+  B74:B74  n=1  cell  R21[72-74]  (no row label left of block)
+      skeleton ='Meta Model'!R68C2
+      B74 = ='Meta Model'!$B$68
+      R1C1     ='Meta Model'!R68C2
+
+NUMERICS  Meta Drivers   (partition by numfmt string)
+  D15:M120  n=387  R4[13-17]  numfmt '0.0%;\(0.0%\)'  [percent format; stored as fraction e.g. 0.12]
+  B2:G125  n=108  R1[2-6]  numfmt '0.###############'
+  D64:K70  n=48  R19[64-66]  numfmt '_(#,##0_);(#,##0)'
+  D123:K125  n=24  R36[122-125]  numfmt '0.00%;\(0.00%\)'  [percent format; stored as fraction e.g. 0]
+  D14:K14  n=8  R4[13-17]  numfmt '@'
+  G9:K9  n=5  R2[8-9]  numfmt '0"P"'
+  D9:F9  n=3  R2[8-9]  numfmt '0"A"'
+
+INPUTS  Meta Drivers   (partition by font colour)
+  blue literals  D15:M125  n=420  R4[13-17]
+  NON-blue literals  B2:K125  n=120  R1[2-6]  [differ from this sheet's blue-literal convention]
+
+FORMAT  Meta Drivers   (partition by visual style)
+  bold  B2:K122  n=28  R1[2-6]
+
+BLANKS  Meta Drivers   (empty cells inside occupied row-bands)
+  A2:M125  n=522  sparse
+
+PERIOD AXIS BANNER  Meta Drivers   R2[8-9]   [EXPLICIT -- authoritative]
+  row 8  B8 'Actuals'   G8 'Forecast'
+
+LABELS  Meta Drivers   (non-data text, region-scoped)
+  'Base' -> C15 R4[13-17]  C19 R5[19-21]  C26 R7[26-28]  C30 R8[30-32]  C38 R11[38-40]  C42 R12[42-44]  C46 R13[46-48]  C50 R14[50-52]  C56 R16[56-58]  C64 R19[64-66]  C68 R20[68-70]  C78 R23[78-80]  (+6 more)  [COLLISION]
+  'Bear' -> C17 R4[13-17]  C21 R5[19-21]  C28 R7[26-28]  C32 R8[30-32]  C40 R11[38-40]  C44 R12[42-44]  C48 R13[46-48]  C52 R14[50-52]  C58 R16[56-58]  C66 R19[64-66]  C70 R20[68-70]  C80 R23[78-80]  (+6 more)  [COLLISION]
+  'Bull' -> C16 R4[13-17]  C20 R5[19-21]  C27 R7[26-28]  C31 R8[30-32]  C39 R11[38-40]  C43 R12[42-44]  C47 R13[46-48]  C51 R14[50-52]  C57 R16[56-58]  C65 R19[64-66]  C69 R20[68-70]  C79 R23[78-80]  (+6 more)  [COLLISION]
+  '% Increase' -> C72 R21[72-74]  C73 R21[72-74]  C74 R21[72-74]  [COLLISION]
+  '% of total revenue' -> B20 R5[19-21]
+  '3-Year Historical (2021-2023) | 5-Year Projections (2024-2028)' -> B3 R1[2-6]
+  'ARPU Growth — %' -> B30 R8[30-32]
+  'Actuals' -> B8 R2[8-9]
+  'Balance Sheet & Cash Flow Assumptions — 3' -> B60 R17[60-60]
+  'Base Case' -> B123 R36[122-125]
+  'Bear Case' -> B125 R36[122-125]
+  'Bull Case' -> B124 R36[122-125]
+  'Buyback — % of FCF' -> B109 R32[109-111]
+  'CapEx — % of Revenue' -> B78 R23[78-80]
+  'Capital Expenditure' -> B76 R22[76-76]
+  'Case' -> C14 R4[13-17]
+  'Case selector' -> B5 R1[2-6]
+  'Chosen case:' -> B6 R1[2-6]
+  'D&A — % of Prior Year CapEx' -> B82 R24[82-84]
+  'DAU Growth — %' -> B26 R7[26-28]
+  'Days Payable Outstanding — DPO' -> B68 R20[68-70]
+  'Days Sales Outstanding — DSO' -> B64 R19[64-66]
+  'Dividend Payout Ratio' -> B113 R33[113-115]
+  'Effective Tax Rate' -> B92 R27[92-94]
+  'Expenses — Operating (% of Revenue)' -> B36 R10[36-36]
+  'FX Impact on Int'l Revenue' -> B122 R36[122-125]
+  'Family of Apps — FoA' -> B15 R4[13-17]
+  'Figures in $mm' -> B4 R1[2-6]
+  'Forecast' -> G8 R2[8-9]
+  'G&A' -> B46 R13[46-48]
+  'Growth rates — Revenue (%)' -> B13 R4[13-17]
+  'Interest Expense Rate — on LT debt' -> B103 R30[103-105]
+  'Interest Income Rate — on cash' -> B99 R29[99-101]
+  'Interest Rates' -> B97 R28[97-97]
+  'International Revenue %' -> B120 R35[119-120]
+  'International Revenue Mix' -> B117 R34[117-117]
+  'Meta Platforms — Operating Model Assumptions' -> B2 R1[2-6]
+  'Operating Expense Assumptions — 2' -> B34 R9[34-34]
+  'Operating Margin — %' -> B56 R16[56-58]
+  'Other Financial Assumptions — 4' -> B88 R25[88-88]
+
+REGIONS  Deal Inputs
+  R1[2-5] 'Deal input deck — Google / Meta combination'
+  R2[7-12] 'Deal structure'
+  R3[14-14] 'Purchase price Calculation — 2'
+  R4[16-21] 'Stock Prices & Premium'
+  R5[23-29] 'Consideration split'
+  R6[31-31] 'Sources & Uses Of Funds — 3'
+  R7[33-38] 'Funding Sources ($mm)'
+  R8[40-40] 'Synergy Assumptions — 4'
+  R9[42-47] 'Revenue Synergies — $mm'
+  R10[49-54] 'Cost Synergies — $mm'
+  R11[56-60] 'Dis-Synergies & Implementation'
+  R12[62-62] 'Net Synergies'
+  R13[64-64] 'Purchase Accounting — 5'
+  R14[66-69] 'Purchase price Allocation ($mm)'
+  R15[71-75] 'Allocation —'
+  R16[77-77] 'Financing Assumptions — 6'
+  R17[79-84] 'Debt Financing'
+  R18[86-86] 'Pro Forma Adjustments — 7'
+  R19[88-91] 'Amortization of Intangibles'
+  R20[93-95] 'Other Adjustments'
+
+BLOCKS  Deal Inputs   (partition by R1C1 skeleton)
+  [40 formula cells -> 13 skeletons]
+  D38:H60  n=17  sparse  spans R7[33-38],R9[42-47],R10[49-54],R11[56-60]  'Sources — Total'@B38
+      skeleton =SUM(@:@)
+      D38 = =SUM(D34:D37)
+      R1C1     =SUM(R[-4]C:R[-1]C)
+  D34:H89  n=5  sparse  spans R7[33-38],R14[66-69],R17[79-84],R19[88-91]  'Stock Issued'@B34
+      skeleton =@
+      H34 = =D21
+      R1C1     =R[-13]C[-4]
+  D62:H62  n=5  row  R12[62-62]  'Net Synergies'@B62
+      skeleton =@+@+@
+      D62 = =D47+D54+D60
+      R1C1     =R[-15]C+R[-8]C+R[-2]C
+  D26:D27  n=2  col  R5[23-29]  'Cash Required — $mm'@B26
+      skeleton =R21C4*@
+      D26 = =$D$21*D24
+      R1C1     =R21C4*R[-2]C
+  D29:D91  n=2  sparse  spans R5[23-29],R19[88-91]  'New Google Shares Issued (mm)'@B29
+      skeleton =@/@
+      D29 = =D27/D28
+      R1C1     =R[-2]C/R[-1]C
+  D37:D75  n=2  sparse  spans R7[33-38],R15[71-75]  'Cash on Hand'@B37
+      skeleton =@-@-@-@
+      D37 = =H38-D26-D35-D36
+      R1C1     =R[1]C[4]-R[-11]C-R[-2]C-R[-1]C
+  D19:D19  n=1  cell  R4[16-21]  'Offer Price per Share'@B19
+      skeleton =@*(1+@)
+      D19 = =D17*(1+D18)
+      R1C1     =R[-2]C*(1+R[-1]C)
+  D21:D21  n=1  cell  R4[16-21]  'Total Purchase price ($mm)'@B21
+      skeleton =@*@
+      D21 = =D19*D20
+      R1C1     =R[-2]C*R[-1]C
+  D34:D34  n=1  cell  R7[33-38]  'Stock Issued'@B34
+      skeleton =R27C4
+      D34 = =$D$27
+      R1C1     =R27C4
+  H35:H35  n=1  cell  R7[33-38]  'Transaction Fees'@F35
+      skeleton =R21C4*R35C9
+      H35 = =$D$21*$I$35
+      R1C1     =R21C4*R35C9
+  H36:H36  n=1  cell  R7[33-38]  'Financing Fees'@F36
+      skeleton =(@+@)*R36C9
+      H36 = =(D35+D36)*$I$36
+      R1C1     =(R[-1]C[-4]+RC[-4])*R36C9
+  D69:D69  n=1  cell  R14[66-69]  'Premium Over Book'@B69
+      skeleton =@+@
+      D69 = =D67+D68
+      R1C1     =R[-2]C+R[-1]C
+  D74:D74  n=1  cell  R15[71-75]  'Deferred Tax Liability'@B74
+      skeleton =-(@+@)*0.21
+      D74 = =-(D72+D73)*0.21
+      R1C1     =-(R[-2]C+R[-1]C)*0.21
+
+NUMERICS  Deal Inputs   (partition by numfmt string)
+  D21:H91  n=94  R4[16-21]  numfmt '_([$$-409]* #,##0_);_([$$-409]* \(#,##0\);_([$$-409]* "-"_);_(@_)'
+  B2:F95  n=80  R1[2-5]  numfmt '0.###############'
+  D8:H43  n=10  R2[7-12]  numfmt '@'
+  D18:I95  n=9  R4[16-21]  numfmt '0.0%;\(0.0%\)'  [percent format; stored as fraction e.g. 0.3]
+  D17:D28  n=3  R4[16-21]  numfmt '"$"#,##0.00;\("$"#,##0.00\)'
+  D20:D90  n=2  R4[16-21]  numfmt '_(#,##0_);(#,##0)'
+  D29:D29  n=1  R5[23-29]  numfmt '#,##0.0;\(#,##0.0\)'
+  D94:D94  n=1  R20[93-95]  numfmt '0.00%;\(0.00%\)'  [percent format; stored as fraction e.g. 0]
+
+INPUTS  Deal Inputs   (partition by font colour)
+  blue literals  D18:I95  n=68  R4[16-21]
+  NON-blue literals  B2:H95  n=92  R1[2-5]  [differ from this sheet's blue-literal convention]
+
+FORMAT  Deal Inputs   (partition by visual style)
+  bold  B2:H93  n=65  R1[2-5]
+
+BLANKS  Deal Inputs   (empty cells inside occupied row-bands)
+  A2:I95  n=475  sparse
+
+LABELS  Deal Inputs   (non-data text, region-scoped)
+  [cols B hold >50 distinct strings each = DATA columns; not indexed]
+  'Integration Costs' -> F37 R7[33-38]  B58 R11[56-60]  [COLLISION]
+  'Purchase price' -> F34 R7[33-38]  B67 R14[66-69]  [COLLISION]
+  'Financing Fees' -> F36 R7[33-38]
+  'Funding Uses ($mm)' -> F33 R7[33-38]
+  'Google (Alphabet)' -> D8 R2[7-12]
+  'Meta Platforms' -> D9 R2[7-12]
+  'Q1 2024' -> D12 R2[7-12]
+  'Q4 2023' -> D11 R2[7-12]
+  'Stock & Cash Combination' -> D10 R2[7-12]
+  'Transaction Fees' -> F35 R7[33-38]
+  'Uses — Total' -> F38 R7[33-38]
+  'Year 1' -> D43 R9[42-47]
+  'Year 2' -> E43 R9[42-47]
+  'Year 3' -> F43 R9[42-47]
+  'Year 4' -> G43 R9[42-47]
+  'Year 5' -> H43 R9[42-47]
+
+REGIONS  Google Drivers
+  R1[2-6] 'Google (Alphabet) — Operating Model Assumptions'
+  R2[8-9] 'Actuals'
+  R3[11-11] 'Revenue Assumptions — 1'
+  R4[13-17] 'Growth rates — Revenue (%)'
+  R5[19-21] 'YouTube Ads'
+  R6[23-25] 'Google Cloud'
+  R7[27-29] 'Other Revenues'
+  R8[31-31] 'Operating Expense Assumptions — 2'
+  R9[33-33] 'Expenses — Operating (% of Revenue)'
+  R10[35-37] 'R&D'
+  R11[39-41] 'S&M'
+  R12[43-45] 'G&A'
+  R13[47-49] 'SBC'
+  R14[51-51] 'Balance Sheet & Cash Flow Assumptions — 3'
+  R15[53-53] 'Working Capital Metrics'
+  R16[55-57] 'Days Sales Outstanding — DSO'
+  R17[59-61] 'Days Payable Outstanding — DPO'
+  R18[63-65] '% Increase'
+  R19[67-67] 'Capital Expenditure'
+  R20[69-71] 'CapEx — % of Revenue'
+  R21[73-75] 'D&A — % of Prior Year CapEx'
+  R22[77-77] 'Other Financial Assumptions — 4'
+  R23[79-79] 'Tax Rate'
+  R24[81-83] 'Effective Tax Rate'
+  R25[86-86] 'Interest Rates'
+  R26[88-90] 'Interest Income Rate — on cash'
+  R27[92-94] 'Interest Expense Rate — on LT debt'
+  R28[96-96] 'Share Buyback'
+  R29[98-100] 'Buyback — % of FCF'
+  R30[102-102] 'International Revenue Mix'
+  R31[104-105] 'US Revenue %'
+  R32[107-110] 'FX Impact on Int'l Revenue'
+
+BLOCKS  Google Drivers   (partition by R1C1 skeleton)
+  [29 formula cells -> 5 skeletons]
+  E108:J110  n=18  rect  R32[107-110]  'Base Case'@B108
+      skeleton =@
+      E108 = =D108
+      R1C1     =RC[-1]
+  D105:K105  n=8  row  R31[104-105]  'International Revenue %'@B105
+      skeleton =1-@
+      D105 = =1-D104
+      R1C1     =1-R[-1]C
+  B63:B63  n=1  cell  R18[63-65]  (no row label left of block)
+      skeleton ='Google Model'!R66C2
+      B63 = ='Google Model'!$B$66
+      R1C1     ='Google Model'!R66C2
+  B64:B64  n=1  cell  R18[63-65]  (no row label left of block)
+      skeleton ='Google Model'!R74C2
+      B64 = ='Google Model'!$B$74
+      R1C1     ='Google Model'!R74C2
+  B65:B65  n=1  cell  R18[63-65]  (no row label left of block)
+      skeleton ='Google Model'!R83C2
+      B65 = ='Google Model'!$B$83
+      R1C1     ='Google Model'!R83C2
+
+NUMERICS  Google Drivers   (partition by numfmt string)
+  D15:K105  n=337  R4[13-17]  numfmt '0.0%;\(0.0%\)'  [percent format; stored as fraction e.g. 0.085]
+  B2:K110  n=105  R1[2-6]  numfmt '0.###############'
+  D55:K61  n=48  R16[55-57]  numfmt '_(#,##0_);(#,##0)'
+  D108:K110  n=24  R32[107-110]  numfmt '0.00%;\(0.00%\)'  [percent format; stored as fraction e.g. 0]
+  G9:K9  n=5  R2[8-9]  numfmt '0"P"'
+  D9:F9  n=3  R2[8-9]  numfmt '0"A"'
+
+INPUTS  Google Drivers   (partition by font colour)
+  blue literals  D15:K110  n=383  R4[13-17]
+  NON-blue literals  B2:K110  n=110  R1[2-6]  [differ from this sheet's blue-literal convention]
+
+FORMAT  Google Drivers   (partition by visual style)
+  bold  B2:G107  n=21  R1[2-6]
+
+BLANKS  Google Drivers   (empty cells inside occupied row-bands)
+  A2:K110  n=325  sparse
+
+OBJECTS  Google Drivers   [ALREADY PRESENT in the starting workbook -- do not rebuild]
+  data validation  D6  VALUE_IN_RANGE ["=C15:C17",true]
+  conditional formats: NONE READABLE HERE. This engine does not surface conditional formatting, so absence is NOT evidence of absence -- read or test directly before creating one, or you may duplicate a rule that exists.
+
+PERIOD AXIS BANNER  Google Drivers   R2[8-9]   [EXPLICIT -- authoritative]
+  row 8  B8 'Actuals'   G8 'Forecast'
+
+LABELS  Google Drivers   (non-data text, region-scoped)
+  'Base' -> D6 R1[2-6]  C15 R4[13-17]  C19 R5[19-21]  C23 R6[23-25]  C27 R7[27-29]  C35 R10[35-37]  C39 R11[39-41]  C43 R12[43-45]  C47 R13[47-49]  C55 R16[55-57]  C59 R17[59-61]  C69 R20[69-71]  (+5 more)  [COLLISION]
+  'Bear' -> C17 R4[13-17]  C21 R5[19-21]  C25 R6[23-25]  C29 R7[27-29]  C37 R10[35-37]  C41 R11[39-41]  C45 R12[43-45]  C49 R13[47-49]  C57 R16[55-57]  C61 R17[59-61]  C71 R20[69-71]  C75 R21[73-75]  (+4 more)  [COLLISION]
+  'Bull' -> C16 R4[13-17]  C20 R5[19-21]  C24 R6[23-25]  C28 R7[27-29]  C36 R10[35-37]  C40 R11[39-41]  C44 R12[43-45]  C48 R13[47-49]  C56 R16[55-57]  C60 R17[59-61]  C70 R20[69-71]  C74 R21[73-75]  (+4 more)  [COLLISION]
+  '% Increase' -> C63 R18[63-65]  C64 R18[63-65]  C65 R18[63-65]  [COLLISION]
+  '3-Year Historical (2021-2023) | 5-Year Projections (2024-2028)' -> B3 R1[2-6]
+  'Actuals' -> B8 R2[8-9]
+  'Balance Sheet & Cash Flow Assumptions — 3' -> B51 R14[51-51]
+  'Base Case' -> B108 R32[107-110]
+  'Bear Case' -> B110 R32[107-110]
+  'Bull Case' -> B109 R32[107-110]
+  'Buyback — % of FCF' -> B98 R29[98-100]
+  'CapEx — % of Revenue' -> B69 R20[69-71]
+  'Capital Expenditure' -> B67 R19[67-67]
+  'Case' -> C14 R4[13-17]
+  'Case selector' -> B5 R1[2-6]
+  'Chosen case:' -> B6 R1[2-6]
+  'D&A — % of Prior Year CapEx' -> B73 R21[73-75]
+  'Days Payable Outstanding — DPO' -> B59 R17[59-61]
+  'Days Sales Outstanding — DSO' -> B55 R16[55-57]
+  'Effective Tax Rate' -> B81 R24[81-83]
+  'Expenses — Operating (% of Revenue)' -> B33 R9[33-33]
+  'FX Impact on Int'l Revenue' -> B107 R32[107-110]
+  'Figures in $mm' -> B4 R1[2-6]
+  'Forecast' -> G8 R2[8-9]
+  'G&A' -> B43 R12[43-45]
+  'Google (Alphabet) — Operating Model Assumptions' -> B2 R1[2-6]
+  'Google Cloud' -> B23 R6[23-25]
+  'Google Search' -> B15 R4[13-17]
+  'Growth rates — Revenue (%)' -> B13 R4[13-17]
+  'Interest Expense Rate — on LT debt' -> B92 R27[92-94]
+  'Interest Income Rate — on cash' -> B88 R26[88-90]
+  'Interest Rates' -> B86 R25[86-86]
+  'International Revenue %' -> B105 R31[104-105]
+  'International Revenue Mix' -> B102 R30[102-102]
+  'Operating Expense Assumptions — 2' -> B31 R8[31-31]
+  'Other Financial Assumptions — 4' -> B77 R22[77-77]
+  'Other Revenues' -> B27 R7[27-29]
+  'R&D' -> B35 R10[35-37]
+  'Revenue Assumptions — 1' -> B11 R3[11-11]
+  'S&M' -> B39 R11[39-41]
+
+REGIONS  Board Summary
+  R1[1-3] 'Board Summary: Google-Meta Combination Analysis'
+  R2[5-5] 'Summary Metrics'
+  R3[7-9] 'Deal Size —'
+  R4[11-14] 'Combined 2028P —'
+  R5[16-19] 'Accretion / (Dilution) —'
+  R6[21-25] 'Valuation Multiples —'
+
+BLOCKS  Board Summary   (partition by R1C1 skeleton)
+  [2 formula cells -> 1 skeletons]  [UNIFORM -- one shape covers the whole sheet]
+  B18:B19  n=2  col  R5[16-19]  (no row label left of block)
+      skeleton =@+1
+      B18 = =B17+1
+      R1C1     =R[-1]C+1
+
+NUMERICS  Board Summary   (partition by numfmt string)
+  B2:B25  n=16  R1[1-3]  numfmt '0.###############'
+  B17:B19  n=3  R5[16-19]  numfmt '"Year"\ #'
+  G1:H1  n=2  R1[1-3]  numfmt '"yes";;"no"'
+
+INPUTS  Board Summary   (partition by font colour)
+  blue literals  B1:H17  n=3  R1[1-3]
+  NON-blue literals  B2:B25  n=16  R1[1-3]  [differ from this sheet's blue-literal convention]
+
+FORMAT  Board Summary   (partition by visual style)
+  bold  B2:B23  n=8  R1[1-3]
+
+BLANKS  Board Summary   (empty cells inside occupied row-bands)
+  A1:H25  n=139  sparse
+
+OBJECTS  Board Summary   [ALREADY PRESENT in the starting workbook -- do not rebuild]
+  data validation  G5  VALUE_IN_RANGE ["=G1:H1",true]
+  conditional formats: NONE READABLE HERE. This engine does not surface conditional formatting, so absence is NOT evidence of absence -- read or test directly before creating one, or you may duplicate a rule that exists.
+
+LABELS  Board Summary   (non-data text, region-scoped)
+  '$ in millions unless otherwise noted' -> B3 R1[1-3]
+  '2025 P/E —' -> B24 R6[21-25]
+  'Accretion / (Dilution) —' -> B16 R5[16-19]
+  'Board Summary: Google-Meta Combination Analysis' -> B2 R1[1-3]
+  'Combined 2028P —' -> B11 R4[11-14]
+  'Deal Size —' -> B7 R3[7-9]
+  'EBITDA —' -> B13 R4[11-14]
+  'EV/Revenue —' -> B22 R6[21-25]
+  'Ev/EBITDA:' -> B23 R6[21-25]
+  'Fcf:' -> B14 R4[11-14]
+  'Premium —' -> B8 R3[7-9]
+  'Revenue —' -> B12 R4[11-14]
+  'Structure —' -> B9 R3[7-9]
+  'Summary Metrics' -> B5 R2[5-5]
+  'Valuation Multiples —' -> B21 R6[21-25]
+  'Valuation Premium/Discount — base case' -> B25 R6[21-25]
+
+GRAPH  cross-sheet pulls
+  Google Model -> Google Drivers   250 refs
+  Meta Model -> Meta Drivers   229 refs
+  Pro Forma -> Deal Inputs   81 refs
+  Pro Forma -> Google Model   45 refs
+  Pro Forma -> Meta Model   35 refs
+  Synergy Case -> Google Model   15 refs
+  Synergy Case -> Meta Model   15 refs
+  Valuation -> Google Model   14 refs
+  Valuation -> Meta Model   14 refs
+  Valuation -> Deal Inputs   5 refs
+  Synergy Case -> Google Drivers   3 refs
+  Meta Drivers -> Meta Model   3 refs
+  Google Drivers -> Google Model   3 refs
+  Meta Model -> Google Drivers   1 refs
+  Valuation -> Meta Drivers   1 refs
+  Meta Drivers -> Google Drivers   1 refs
+

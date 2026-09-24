@@ -90,7 +90,7 @@ OBJECT_API_KEYWORDS = {"charts": "chart", "pivots": "pivot", "tables": "table",
 
 
 def unreachable_objects():
-    kept = (ROOT.parent / "vocab/KEPT.txt")
+    kept = (ROOT / "vocab/KEPT.txt")
     if not kept.exists():
         return set()          # cannot prove it, so discount nothing
     surface = kept.read_text().lower()

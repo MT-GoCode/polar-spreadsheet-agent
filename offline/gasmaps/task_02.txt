@@ -1,0 +1,474 @@
+
+HOW TO READ THIS MAP
+  Rn[a-b]   = REGION id n, spanning rows a-b on that sheet. NOT R1C1 notation.
+  R[-2]C[1] = R1C1 formula notation: row/col offsets from the cell itself.
+  @         = a reference blanked out, leaving the formula's SHAPE (its skeleton).
+  Blocks group by skeleton: one line can stand for thousands of cells.
+  Difficulty tracks SKELETON COUNT in what you must write, not cell count.
+  Every layer partitions the same grid independently; they may disagree.
+  This map OBSERVES, it never concludes. Read cells directly before relying on them.
+  Absent by construction: cell borders (no getBorder in Apps Script), merged ranges.
+
+SHEET ORDER
+  ordered by formula density, not tab order: Statements & Checks > Drivers > Income Statement
+
+WORKBOOK SHEETS
+  Statements & Checks | used A1:L79 | 270 formula cells
+  Drivers | used A1:L66 | 128 formula cells
+  Income Statement | used A1:L31 | 11 formula cells
+
+NAMED RANGES
+  Cash_Interest_Rate -> 'Drivers'!D16
+  Company_Name -> 'Drivers'!D8
+  Debt_Interest_Rate -> 'Drivers'!D15
+  GM_Improv -> 'Drivers'!D13
+  Hist_Yr -> 'Drivers'!D11
+  Tax_Rate -> 'Drivers'!D14
+
+REGIONS  Statements & Checks
+  R1[2-10] 'Statement of Financial Position:'
+  R2[12-17] 'Long-Term Assets:'
+  R3[19-19] 'Total Asset Base:'
+  R4[21-26] 'Liabilities & Shareholders' Equity:'
+  R5[28-32] 'Long-Term Liabilities:'
+  R6[34-34] 'Total Obligations:'
+  R7[36-36] 'Shareholders' Equity:'
+  R8[38-38] 'Total Funding:'
+  R9[40-40] 'BS Check:'
+  R10[42-44] 'Statement of Cash Flows:'
+  R11[46-61] 'Net Profit:'
+  R12[63-66] 'Investing Activities:'
+  R13[68-73] 'Financing Activities:'
+  R14[75-75] 'FX Translation Effects:'
+  R15[77-79] 'Net Change in Cash:'
+
+BLOCKS  Statements & Checks   (partition by R1C1 skeleton)
+  [270 formula cells -> 24 skeletons]
+  H6:L78  n=50  sparse  spans R1[2-10],R11[46-61],R12[63-66],R13[68-73]  '$ M'@D6
+      skeleton =+@
+      H6 = =+H79
+      R1C1     =+R[73]C
+  H9:L75  n=40  sparse  spans R1[2-10],R2[12-17],R4[21-26],R5[28-32]  '$ M'@D9
+      skeleton =+@*@
+      H9 = =+Drivers!H44*'Income Statement'!H12
+      R1C1     =+Drivers!R[35]C*'Income Statement'!R[3]C
+  H10:L79  n=40  sparse  spans R1[2-10],R2[12-17],R4[21-26],R5[28-32]  '$ M'@D10
+      skeleton =SUM(@:@)
+      H10 = =SUM(H6:H9)
+      R1C1     =SUM(R[-4]C:R[-1]C)
+  H14:L59  n=30  sparse  spans R2[12-17],R11[46-61]  '$ M'@D14
+      skeleton =+@-@
+      H14 = =+G14-H49
+      R1C1     =+RC[-1]-R[35]C
+  H19:L38  n=25  sparse  spans R3[19-19],R5[28-32],R6[34-34],R8[38-38]  '$ M'@D19
+      skeleton =+@+@
+      H19 = =+H10+H17
+      R1C1     =+R[-9]C+R[-2]C
+  H7:L23  n=15  sparse  spans R1[2-10],R4[21-26]  '$ M'@D7
+      skeleton =+@/365*@
+      H7 = =+Drivers!H40/365*'Income Statement'!H5
+      R1C1     =+Drivers!R[33]C/365*'Income Statement'!R[-2]C
+  H51:L69  n=10  sparse  spans R11[46-61],R13[68-73]  '$ M'@D51
+      skeleton =-@*@
+      H51 = =-'Income Statement'!H26*Drivers!H57
+      R1C1     =-'Income Statement'!R[-25]C*Drivers!R[6]C
+  H57:L60  n=10  sparse  R11[46-61]  '$ M'@D57
+      skeleton =+@-@+@-@
+      H57 = =+G9-H9+G16-H16
+      R1C1     =+R[-48]C[-1]-R[-48]C+R[-41]C[-1]-R[-41]C
+  E40:L40  n=8  row  R9[40-40]  'BS Check:'@C40
+      skeleton =@-@
+      E40 = =E19-E38
+      R1C1     =R[-21]C-R[-2]C
+  H13:L13  n=5  row  R2[12-17]  '$ M'@D13
+      skeleton =+@-@-@-@
+      H13 = =+G13-H48-H64-H65
+      R1C1     =+RC[-1]-R[35]C-R[51]C-R[52]C
+  H36:L36  n=5  row  R7[36-36]  '$ M'@D36
+      skeleton =+@+@+@+@+@+@+@+@
+      H36 = =+G36+H46+H52+H53+H69+H70+H72+H75
+      R1C1     =+RC[-1]+R[10]C+R[16]C+R[17]C+R[33]C+R[34]C+R[36]C+R[39]C
+  H70:L70  n=5  row  R13[68-73]  '$ M'@D70
+      skeleton =-@
+      H70 = =-Drivers!H60
+      R1C1     =-Drivers!R[-10]C
+  H77:L77  n=5  row  R15[77-79]  '$ M'@D77
+      skeleton =+@+@+@+@
+      H77 = =+H61+H66+H73+H75
+      R1C1     =+R[-16]C+R[-11]C+R[-4]C+R[-2]C
+  E2:E42  n=2  sparse  spans R1[2-10],R10[42-44]  (no row label left of block)
+      skeleton =Drivers!R18C5
+      E2 = =Drivers!$E$18
+      R1C1     =Drivers!R18C5
+  H2:H42  n=2  sparse  spans R1[2-10],R10[42-44]  (no row label left of block)
+      skeleton =Drivers!R18C8
+      H2 = =Drivers!$H$18
+      R1C1     =Drivers!R18C8
+  D3:D43  n=2  sparse  spans R1[2-10],R10[42-44]  'Statement of Financial Position:'@B3
+      skeleton =Drivers!R19C4
+      D3 = =Drivers!$D$19
+      R1C1     =Drivers!R19C4
+  E3:E43  n=2  sparse  spans R1[2-10],R10[42-44]  'Statement of Financial Position:'@B3
+      skeleton =Drivers!R19C5
+      E3 = =Drivers!$E$19
+      R1C1     =Drivers!R19C5
+  F3:F43  n=2  sparse  spans R1[2-10],R10[42-44]  'Statement of Financial Position:'@B3
+      skeleton =Drivers!R19C6
+      F3 = =Drivers!$F$19
+      R1C1     =Drivers!R19C6
+  G3:G43  n=2  sparse  spans R1[2-10],R10[42-44]  'Statement of Financial Position:'@B3
+      skeleton =Drivers!R19C7
+      G3 = =Drivers!$G$19
+      R1C1     =Drivers!R19C7
+  H3:H43  n=2  sparse  spans R1[2-10],R10[42-44]  'Statement of Financial Position:'@B3
+      skeleton =Drivers!R19C8
+      H3 = =Drivers!$H$19
+      R1C1     =Drivers!R19C8
+  I3:I43  n=2  sparse  spans R1[2-10],R10[42-44]  'Statement of Financial Position:'@B3
+      skeleton =Drivers!R19C9
+      I3 = =Drivers!$I$19
+      R1C1     =Drivers!R19C9
+  J3:J43  n=2  sparse  spans R1[2-10],R10[42-44]  'Statement of Financial Position:'@B3
+      skeleton =Drivers!R19C10
+      J3 = =Drivers!$J$19
+      R1C1     =Drivers!R19C10
+  K3:K43  n=2  sparse  spans R1[2-10],R10[42-44]  'Statement of Financial Position:'@B3
+      skeleton =Drivers!R19C11
+      K3 = =Drivers!$K$19
+      R1C1     =Drivers!R19C11
+  L3:L43  n=2  sparse  spans R1[2-10],R10[42-44]  'Statement of Financial Position:'@B3
+      skeleton =Drivers!R19C12
+      L3 = =Drivers!$L$19
+      R1C1     =Drivers!R19C12
+
+NUMERICS  Statements & Checks   (partition by numfmt string)
+  E7:L78  n=320  R1[2-10]  numfmt '_(* #,##0.0_);_(* \(#,##0.0\);_(* "-"?_);_(@_)'
+  B2:H79  n=107  R1[2-10]  numfmt '0.###############'
+  E6:L79  n=64  R1[2-10]  numfmt '_("$"* #,##0.0_);_("$"* \(#,##0.0\);_("$"* "-"?_);_(@_)'
+  E3:L43  n=16  R1[2-10]  numfmt '"FY"yy'
+  B4:C75  n=9  R1[2-10]  numfmt '@'
+  E40:L40  n=8  R9[40-40]  numfmt '"$"#,##0.000\);\("$"#,##0.000\);"OK!";"ERROR"'
+
+FORMAT  Statements & Checks   (partition by visual style)
+  bold  B2:L68  n=29  R1[2-10]
+
+BLANKS  Statements & Checks   (empty cells inside occupied row-bands)
+  A2:L79  n=244  sparse
+
+OBJECTS  Statements & Checks   [ALREADY PRESENT in the starting workbook -- do not rebuild]
+  conditional formats: NONE READABLE HERE. This engine does not surface conditional formatting, so absence is NOT evidence of absence -- read or test directly before creating one, or you may duplicate a rule that exists.
+
+PERIOD AXIS  Statements & Checks   R1[2-10]
+  row 3  E3:L3  n=8  [dates]
+  labels 2013-12-31 2014-12-31 2015-12-31 2016-12-31 2017-12-31 2018-12-31 2019-12-31 2020-12-31
+
+PERIOD AXIS  Statements & Checks   R10[42-44]
+  row 43  E43:L43  n=8  [dates]
+  labels 2013-12-31 2014-12-31 2015-12-31 2016-12-31 2017-12-31 2018-12-31 2019-12-31 2020-12-31
+
+CHECKS  Statements & Checks   [these consume cells you may edit -- they can break AFTER your write]
+  H24  R4[21-26]  =+Drivers!H46*'Income Statement'!H12  now=0
+  H25  R4[21-26]  =+Drivers!H48*'Income Statement'!H12  now=0
+  H26  R4[21-26]  =SUM(H23:H25)  now=0
+  H30  R5[28-32]  =+G30+H51  now=256
+  H31  R5[28-32]  =+Drivers!H49*'Income Statement'!H12  now=0
+  H32  R5[28-32]  =SUM(H29:H31)  now=7049.638636
+  E40  R9[40-40]  =E19-E38  now=0
+  H59  R11[46-61]  =+H24-G24  now=-1136
+  H60  R11[46-61]  =+H25-G25+H31-G31  now=-1238
+
+LABELS  Statements & Checks   (non-data text, region-scoped)
+  [cols C hold >50 distinct strings each = DATA columns; not indexed]
+  '$ M' -> D6 R1[2-10]  D7 R1[2-10]  D8 R1[2-10]  D9 R1[2-10]  D10 R1[2-10]  D13 R2[12-17]  D14 R2[12-17]  D15 R2[12-17]  D16 R2[12-17]  D17 R2[12-17]  D19 R3[19-19]  D23 R4[21-26]  (+36 more)  [COLLISION]
+  'Asset Base:' -> B4 R1[2-10]
+  'Financing Activities:' -> B68 R13[68-73]
+  'Investing Activities:' -> B63 R12[63-66]
+  'Liabilities & Shareholders' Equity:' -> B21 R4[21-26]
+  'Operating Activities:' -> B44 R10[42-44]
+  'Statement of Cash Flows:' -> B43 R10[42-44]
+  'Statement of Financial Position:' -> B3 R1[2-10]
+
+REGIONS  Drivers
+  R1[2-3] '(USD in millions, per-share/per-unit as noted)'
+  R2[6-6] 'Key Assumptions:'
+  R3[8-11] 'Entity Name:'
+  R4[13-16] 'Annual GM Expansion:'
+  R5[18-23] 'Actual'
+  R6[25-26] 'Intangible Amortization:'
+  R7[28-28] 'Debt Paydown Rate:'
+  R8[30-32] 'Opening Debt Balance:'
+  R9[34-35] 'Gross Interest Expense:'
+  R10[37-37] 'Discontinued Ops Income:'
+  R11[39-42] 'Balance Sheet Inputs:'
+  R12[44-46] 'Prepaids & Other % of SG&A:'
+  R13[48-49] 'Other Current Liab. % of SG&A:'
+  R14[51-53] 'Cash Flow Drivers:'
+  R15[55-55] 'SBC % of Sales:'
+  R16[57-58] 'Deferred Tax % of Tax:'
+  R17[60-60] 'Share Buybacks:'
+  R18[62-64] 'Misc. Non-Cash Items:'
+  R19[66-66] 'FX Impact % of Sales:'
+
+BLOCKS  Drivers   (partition by R1C1 skeleton)
+  [128 formula cells -> 15 skeletons]
+  H30:L66  n=41  sparse  spans R8[30-32],R11[39-42],R12[44-46],R13[48-49]  '$ M'@D30
+      skeleton =+@
+      H30 = =+'Statements & Checks'!G29
+      R1C1     =+'Statements & Checks'!R[-1]C[-1]
+  E22:G66  n=27  sparse  spans R5[18-23],R12[44-46],R13[48-49],R14[51-53]  '%'@D22
+      skeleton =+@/@
+      E22 = =+'Income Statement'!E9/'Income Statement'!E5
+      R1C1     =+'Income Statement'!R[-13]C/'Income Statement'!R[-17]C
+  E40:G42  n=9  rect  R11[39-42]  'Receivable Days (DSO):'@C40
+      skeleton =+@/@*365
+      E40 = =+'Statements & Checks'!E7/'Income Statement'!E5*365
+      R1C1     =+'Statements & Checks'!R[-33]C/'Income Statement'!R[-35]C*365
+  H40:H66  n=8  sparse  spans R11[39-42],R12[44-46],R13[48-49],R15[55-55]  'Receivable Days (DSO):'@C40
+      skeleton =AVERAGE(@:@)
+      H40 = =AVERAGE(E40:G40)
+      R1C1     =AVERAGE(RC[-3]:RC[-1])
+  E57:G58  n=6  rect  R16[57-58]  '%'@D57
+      skeleton =-@/@
+      E57 = =-'Statements & Checks'!E51/'Income Statement'!E26
+      R1C1     =-'Statements & Checks'!R[-6]C/'Income Statement'!R[-31]C
+  H19:L19  n=5  row  R5[18-23]  'Basis:'@D19
+      skeleton =EOMONTH(@,12)
+      H19 = =EOMONTH(G19,12)
+      R1C1     =EOMONTH(RC[-1],12)
+  H22:L22  n=5  row  R5[18-23]  '%'@D22
+      skeleton =+@+GM_Improv
+      H22 = =+G22+GM_Improv
+      R1C1     =+RC[-1]+GM_Improv
+  H31:L31  n=5  row  R8[30-32]  '$ M'@D31
+      skeleton =-@*R30C8
+      H31 = =-H28*$H$30
+      R1C1     =-R[-3]C*R30C8
+  H32:L32  n=5  row  R8[30-32]  '$ M'@D32
+      skeleton =SUM(@:@)
+      H32 = =SUM(H30:H31)
+      R1C1     =SUM(R[-2]C:R[-1]C)
+  H34:L34  n=5  row  R9[34-35]  '$ M'@D34
+      skeleton =+@*Debt_Interest_Rate
+      H34 = =+H30*Debt_Interest_Rate
+      R1C1     =+R[-4]C*Debt_Interest_Rate
+  H35:L35  n=5  row  R9[34-35]  '$ M'@D35
+      skeleton =+@*Cash_Interest_Rate
+      H35 = =+'Statements & Checks'!G6*Cash_Interest_Rate
+      R1C1     =+'Statements & Checks'!R[-29]C[-1]*Cash_Interest_Rate
+  E60:G60  n=3  row  R17[60-60]  '$ M'@D60
+      skeleton =-@
+      E60 = =-'Statements & Checks'!E70
+      R1C1     =-'Statements & Checks'!R[10]C
+  E19:F19  n=2  row  R5[18-23]  'Basis:'@D19
+      skeleton =EOMONTH(@,-12)
+      E19 = =EOMONTH(F19,-12)
+      R1C1     =EOMONTH(RC[1],-12)
+  B2:B2  n=1  cell  R1[2-3]  (no row label left of block)
+      skeleton =Company_Name&" Financial Model"
+      B2 = =Company_Name&" Financial Model"
+      R1C1     =Company_Name&" Financial Model"
+  G19:G19  n=1  cell  R5[18-23]  'Basis:'@D19
+      skeleton =Hist_Yr
+      G19 = =Hist_Yr
+      R1C1     =Hist_Yr
+
+NUMERICS  Drivers   (partition by numfmt string)
+  B2:H66  n=78  R1[2-3]  numfmt '0.###############'
+  D14:L66  n=76  R4[13-16]  numfmt '0.0%;\(0.0%\)'  [percent format; stored as fraction e.g. 0.329431]
+  E25:L64  n=68  R6[25-26]  numfmt '_(* #,##0.0_);_(* \(#,##0.0\);_(* "-"?_);_(@_)'
+  E44:G66  n=30  R12[44-46]  numfmt '_(#,##0.0%_);\(#,##0.0%\);_("–"_)_%;_(@_)_%'  [percent format; stored as fraction e.g. 0.9186500888099467]
+  E40:L42  n=24  R11[39-42]  numfmt '#,##0.0_);\(#,##0.0\)'
+  E19:L19  n=8  R5[18-23]  numfmt '"FY"yy'
+  D8:D8  n=1  R3[8-11]  numfmt '#,##0.00_);(#,##0.00)'
+  D10:D10  n=1  R3[8-11]  numfmt '_("$"* #,##0.00_);_("$"* \(#,##0.00\);_("$"* "-"??_);_(@_)'
+  D11:D11  n=1  R3[8-11]  numfmt 'yyyy\-mm\-dd'
+  D13:D13  n=1  R4[13-16]  numfmt '_(#,##0.00%_);\(#,##0.00%\);_("–"_)_%;_(@_)_%'  [percent format; stored as fraction e.g. 0.002748]
+  C26:C26  n=1  R6[25-26]  numfmt '@'
+
+FORMAT  Drivers   (partition by visual style)
+  bold  B2:L51  n=17  R1[2-3]
+
+BLANKS  Drivers   (empty cells inside occupied row-bands)
+  A2:L66  n=263  sparse
+
+ERRORS  Drivers
+  D40  # Days  R11[39-42]  
+  D41  # Days  R11[39-42]  
+  D42  # Days  R11[39-42]  
+
+PERIOD AXIS BANNER  Drivers   R5[18-23]   [EXPLICIT -- authoritative]
+  row 18  E18 'Actual'   H18 'Forecast'
+  row 19 derived seam: literals cols 2-4, formulas cols 5-12
+    [the BANNER is authoritative where the two disagree -- one workbook in this
+     corpus holds formulas on its Actuals side and literals on its Forecast side]
+
+PERIOD AXIS  Drivers   R5[18-23]
+  row 19  E19:L19  n=8  [dates]
+  labels 2013-12-31 2014-12-31 2015-12-31 2016-12-31 2017-12-31 2018-12-31 2019-12-31 2020-12-31
+
+CHECKS  Drivers   [these consume cells you may edit -- they can break AFTER your write]
+  H30  R8[30-32]  =+'Statements & Checks'!G29  now=7422
+  H32  R8[30-32]  =SUM(H30:H31)  now=6793.638636
+
+LABELS  Drivers   (non-data text, region-scoped)
+  '%' -> D21 R5[18-23]  D22 R5[18-23]  D23 R5[18-23]  D28 R7[28-28]  D44 R12[44-46]  D45 R12[44-46]  D46 R12[44-46]  D48 R13[48-49]  D49 R13[48-49]  D53 R14[51-53]  D55 R15[55-55]  D57 R16[57-58]  (+2 more)  [COLLISION]
+  '$ M' -> D25 R6[25-26]  D26 R6[25-26]  D30 R8[30-32]  D31 R8[30-32]  D32 R8[30-32]  D34 R9[34-35]  D35 R9[34-35]  D37 R10[37-37]  D52 R14[51-53]  D60 R17[60-60]  D62 R18[62-64]  D63 R18[62-64]  (+1 more)  [COLLISION]
+  '(-) Debt Repayment:' -> C31 R8[30-32]
+  '(USD in millions, per-share/per-unit as noted)' -> B3 R1[2-3]
+  'Accruals % of SG&A:' -> C46 R12[44-46]
+  'Actual' -> E18 R5[18-23]
+  'Annual GM Expansion:' -> C13 R4[13-16]
+  'Balance Sheet Inputs:' -> B39 R11[39-42]
+  'Basis:' -> D19 R5[18-23]
+  'Blended Tax Rate:' -> C14 R4[13-16]
+  'Capex Spend:' -> C52 R14[51-53]
+  'Cash Flow Drivers:' -> B51 R14[51-53]
+  'Cash Yield:' -> C16 R4[13-16]
+  'Closing Debt Balance:' -> C32 R8[30-32]
+  'Debt Interest Rate:' -> C15 R4[13-16]
+  'Debt Paydown Rate:' -> C28 R7[28-28]
+  'Deferred Tax % of Tax:' -> C57 R16[57-58]
+  'Depreciation % of Sales:' -> C53 R14[51-53]
+  'Discontinued Ops Income:' -> C37 R10[37-37]
+  'Dividend Payout % of NI:' -> C58 R16[57-58]
+  'Entity Name:' -> C8 R3[8-11]
+  'FX Impact % of Sales:' -> C66 R19[66-66]
+  'Final Historical Year:' -> C11 R3[8-11]
+  'Forecast' -> H18 R5[18-23]
+  'Goodwill Impairment:' -> C26 R6[25-26]
+  'Gross Interest Expense:' -> C34 R9[34-35]
+  'Gross Profit Margin:' -> C22 R5[18-23]
+  'ITW' -> D9 R3[8-11]
+  'Illinois Tool Works Inc.' -> D8 R3[8-11]
+  'Intangible Amortization:' -> C25 R6[25-26]
+  'Interest Earned:' -> C35 R9[34-35]
+  'Inventory Days (DSI):' -> C41 R11[39-42]
+  'Key Assumptions:' -> B6 R2[6-6]
+  'Misc. Financing Items:' -> C64 R18[62-64]
+  'Misc. Investing Items:' -> C63 R18[62-64]
+  'Misc. Non-Cash Items:' -> C62 R18[62-64]
+  'Opening Debt Balance:' -> C30 R8[30-32]
+  'Operating Drivers:' -> B19 R5[18-23]
+  'Other Current Liab. % of SG&A:' -> C48 R13[48-49]
+  'Other LT Assets % of Sales:' -> C45 R12[44-46]
+
+REGIONS  Income Statement
+  R1[2-3] 'Profit & Loss Statement:'
+  R2[5-5] 'Total Sales:'
+  R3[7-7] 'Cost of Sales (COGS):'
+  R4[9-9] 'Gross Income:'
+  R5[11-15] 'Operating Costs:'
+  R6[17-18] 'Operating Profit (EBIT):'
+  R7[20-23] 'Non-Operating Items:'
+  R8[25-27] 'Pre-Tax Profit:'
+  R9[29-29] '(+) Discontinued Ops Income:'
+  R10[31-31] 'Net Profit:'
+
+BLOCKS  Income Statement   (partition by R1C1 skeleton)
+  [11 formula cells -> 11 skeletons]
+  E2:E2  n=1  cell  R1[2-3]  (no row label left of block)
+      skeleton =Drivers!R18C5
+      E2 = =Drivers!$E$18
+      R1C1     =Drivers!R18C5
+  H2:H2  n=1  cell  R1[2-3]  (no row label left of block)
+      skeleton =Drivers!R18C8
+      H2 = =Drivers!$H$18
+      R1C1     =Drivers!R18C8
+  D3:D3  n=1  cell  R1[2-3]  'Profit & Loss Statement:'@B3
+      skeleton =Drivers!R19C4
+      D3 = =Drivers!$D$19
+      R1C1     =Drivers!R19C4
+  E3:E3  n=1  cell  R1[2-3]  'Profit & Loss Statement:'@B3
+      skeleton =Drivers!R19C5
+      E3 = =Drivers!$E$19
+      R1C1     =Drivers!R19C5
+  F3:F3  n=1  cell  R1[2-3]  'Profit & Loss Statement:'@B3
+      skeleton =Drivers!R19C6
+      F3 = =Drivers!$F$19
+      R1C1     =Drivers!R19C6
+  G3:G3  n=1  cell  R1[2-3]  'Profit & Loss Statement:'@B3
+      skeleton =Drivers!R19C7
+      G3 = =Drivers!$G$19
+      R1C1     =Drivers!R19C7
+  H3:H3  n=1  cell  R1[2-3]  'Profit & Loss Statement:'@B3
+      skeleton =Drivers!R19C8
+      H3 = =Drivers!$H$19
+      R1C1     =Drivers!R19C8
+  I3:I3  n=1  cell  R1[2-3]  'Profit & Loss Statement:'@B3
+      skeleton =Drivers!R19C9
+      I3 = =Drivers!$I$19
+      R1C1     =Drivers!R19C9
+  J3:J3  n=1  cell  R1[2-3]  'Profit & Loss Statement:'@B3
+      skeleton =Drivers!R19C10
+      J3 = =Drivers!$J$19
+      R1C1     =Drivers!R19C10
+  K3:K3  n=1  cell  R1[2-3]  'Profit & Loss Statement:'@B3
+      skeleton =Drivers!R19C11
+      K3 = =Drivers!$K$19
+      R1C1     =Drivers!R19C11
+  L3:L3  n=1  cell  R1[2-3]  'Profit & Loss Statement:'@B3
+      skeleton =Drivers!R19C12
+      L3 = =Drivers!$L$19
+      R1C1     =Drivers!R19C12
+
+NUMERICS  Income Statement   (partition by numfmt string)
+  E7:G29  n=42  R3[7-7]  numfmt '_(* #,##0.0_);_(* \(#,##0.0\);_(* "-"?_);_(@_)'
+  B2:H31  n=34  R1[2-3]  numfmt '0.###############'
+  E3:L3  n=8  R1[2-3]  numfmt '"FY"yy'
+  E5:G31  n=6  R2[5-5]  numfmt '_("$"* #,##0.0_);_("$"* \(#,##0.0\);_("$"* "-"?_);_(@_)'
+  C13:C23  n=6  R5[11-15]  numfmt '@'
+  E18:G18  n=3  R6[17-18]  numfmt '0.0%;\(0.0%\)'  [percent format; stored as fraction e.g. 0.1778563848602759]
+
+FORMAT  Income Statement   (partition by visual style)
+  bold  B2:L3  n=12  R1[2-3]
+
+BLANKS  Income Statement   (empty cells inside occupied row-bands)
+  A2:L31  n=153  sparse
+
+PERIOD AXIS  Income Statement   R1[2-3]
+  row 3  E3:L3  n=8  [dates]
+  labels 2013-12-31 2014-12-31 2015-12-31 2016-12-31 2017-12-31 2018-12-31 2019-12-31 2020-12-31
+
+LABELS  Income Statement   (non-data text, region-scoped)
+  '$ M' -> D5 R2[5-5]  D7 R3[7-7]  D9 R4[9-9]  D12 R5[11-15]  D13 R5[11-15]  D14 R5[11-15]  D15 R5[11-15]  D17 R6[17-18]  D21 R7[20-23]  D22 R7[20-23]  D23 R7[20-23]  D25 R8[25-27]  (+4 more)  [COLLISION]
+  '%' -> D18 R6[17-18]
+  '(+) Discontinued Ops Income:' -> C29 R9[29-29]
+  '(+) Goodwill Impairment:' -> C14 R5[11-15]
+  '(+) Intangible Amortization:' -> C13 R5[11-15]
+  '(+) Interest & Other Income:' -> C22 R7[20-23]
+  '(+) SG&A Expense:' -> C12 R5[11-15]
+  '(-) Income Tax Provision:' -> C26 R8[25-27]
+  '(-) Interest Cost:' -> C21 R7[20-23]
+  'Continuing Ops Income:' -> C27 R8[25-27]
+  'Cost of Sales (COGS):' -> C7 R3[7-7]
+  'EBIT Margin:' -> C18 R6[17-18]
+  'Gross Income:' -> C9 R4[9-9]
+  'Net Profit:' -> C31 R10[31-31]
+  'Non-Operating Items:' -> C20 R7[20-23]
+  'Operating Costs:' -> C11 R5[11-15]
+  'Operating Profit (EBIT):' -> C17 R6[17-18]
+  'Pre-Tax Profit:' -> C25 R8[25-27]
+  'Profit & Loss Statement:' -> B3 R1[2-3]
+  'Total Non-Operating:' -> C23 R7[20-23]
+  'Total Operating Costs:' -> C15 R5[11-15]
+  'Total Sales:' -> C5 R2[5-5]
+
+AXIS ALIGN  cross-sheet period axes
+  'Statements & Checks' row 3 || 'Statements & Checks' row 43  SAME anchor 2013-12-31  SAME step 365d  col offset 0
+  'Statements & Checks' row 3 || 'Drivers' row 19  SAME anchor 2013-12-31  SAME step 365d  col offset 0
+  'Statements & Checks' row 3 || 'Income Statement' row 3  SAME anchor 2013-12-31  SAME step 365d  col offset 0
+  'Statements & Checks' row 43 || 'Drivers' row 19  SAME anchor 2013-12-31  SAME step 365d  col offset 0
+  'Statements & Checks' row 43 || 'Income Statement' row 3  SAME anchor 2013-12-31  SAME step 365d  col offset 0
+  'Drivers' row 19 || 'Income Statement' row 3  SAME anchor 2013-12-31  SAME step 365d  col offset 0
+  'Statements & Checks' row 3  E3:L3  anchor 2013-12-31  step 365d
+  'Statements & Checks' row 43  E43:L43  anchor 2013-12-31  step 365d
+  'Drivers' row 19  E19:L19  anchor 2013-12-31  step 365d
+  'Income Statement' row 3  E3:L3  anchor 2013-12-31  step 365d
+
+GRAPH  cross-sheet pulls
+  Statements & Checks -> Drivers   117 refs
+  Statements & Checks -> Income Statement   80 refs
+  Drivers -> Statements & Checks   48 refs
+  Drivers -> Income Statement   45 refs
+  Income Statement -> Drivers   11 refs
+

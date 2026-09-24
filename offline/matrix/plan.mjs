@@ -1,7 +1,7 @@
 /* The PLAN: [class, member, stateSensitive] for all 395 members, derived from
    vocab/KEPT.txt so it cannot drift from the agreed surface. */
 import { readFileSync, writeFileSync } from "node:fs";
-const KEPT = readFileSync("../vocab/KEPT.txt", "utf8");
+const KEPT = readFileSync("vocab/KEPT.txt", "utf8");
 const cls = {}; let cur = null;
 for (const l of KEPT.split("\n")) {
   const h = /^##\s+(\S+)\s+\((\d+)\)/.exec(l);

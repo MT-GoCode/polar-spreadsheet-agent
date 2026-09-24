@@ -3,7 +3,7 @@
    real frozen objects; every other KEPT member is asserted to exist at build time
    and, if unimplemented, installed as a loud thrower. */
 import { readFileSync, writeFileSync } from "node:fs";
-const KEPT = readFileSync("../vocab/KEPT.txt", "utf8");
+const KEPT = readFileSync("vocab/KEPT.txt", "utf8");
 
 const classes = {};
 let cur = null;
