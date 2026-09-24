@@ -65,4 +65,16 @@ if (existsSync(control)) {
   else console.log("controls.json matches this binary; grading will not re-measure");
 }
 
+/* The grader and the verdict tooling are Python; bench.mjs calls offline/.venv/bin/python
+   directly. Without this a run completes, writes a correct workbook, and then reports
+   "grader could not grade submission" -- a harness failure wearing a task failure's clothes. */
+const VENV = join(ROOT, ".venv");
+if (!existsSync(join(VENV, "bin/python"))) {
+  console.log("creating .venv and installing openpyxl ...");
+  execFileSync("python3", ["-m", "venv", VENV], { stdio: "inherit", timeout: 300000 });
+  execFileSync(join(VENV, "bin/pip"), ["install", "-q", "openpyxl"], { stdio: "inherit", timeout: 600000 });
+}
+execFileSync(join(VENV, "bin/python"), ["-c", "import openpyxl"], { timeout: 60000 });
+console.log("python env ready (openpyxl)");
+
 console.log("\nready:\n  npm test           unit + verdict suites\n  npm run bench:offline task_03   one task offline\n  npm run bench      the 15 tasks on real Apps Script");
