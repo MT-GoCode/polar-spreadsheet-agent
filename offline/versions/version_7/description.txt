@@ -1,0 +1,22 @@
+v7 -- first full run on real Google Apps Script. 8/15.
+
+Same agent as v6 plus the changes that let it run online at all:
+
+describe_spreadsheet takes a time budget and stops between sheets when it is gone, shipping
+what it built and saying so. Entry.gs passes 90s. The adapter cannot abort a running script
+from outside, so the check has to live inside the map.
+
+The preservation review is DISABLED online. Capture plus the map left task_03 with zero turns
+against a 300s signature window; switching it off is what bought the turns back. This is a
+deliberate trade, not a fix: task_14 committed 973 protected edits in this run and task_07
+fifteen, which the review would have caught.
+
+read() probes blank runs by merged rectangle rather than per row. A blank rectangle proves
+every cell in it blank, so the result is identical -- verified exhaustively over all 8,848
+patterns on grids to 4x3 under real Sheets isBlank semantics, and against both task workbooks.
+68,277 round-trips became 1,360 on task_03.
+
+Capture chunks went from 4,000 to 50,000 cells.
+
+Offline only, not shipped online: the shim's _formatSnapshot reads formats by recursive
+subdivision instead of cell by cell.

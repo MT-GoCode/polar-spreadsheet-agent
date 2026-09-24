@@ -1,0 +1,12 @@
+var ss = SpreadsheetApp.getActiveSpreadsheet();
+var sh = ss.getSheetByName('Meta Drivers');
+sh.getRange('G19').setValue(0.014);
+sh.getRange('H19').setFormula('=G$19+(($K$19-$G$19)/COUNT($H$14:$K$14))');
+sh.getRange('I19').setFormula('=H$19+(($K$19-$G$19)/COUNT($H$14:$K$14))');
+sh.getRange('J19').setFormula('=I$19+(($K$19-$G$19)/COUNT($H$14:$K$14))');
+sh.getRange('K19').setValue(0.05);
+sh.getRange('G20:K20').setFormulas([["=G19+$M$20", "=H19+$M$20", "=I19+$M$20", "=J19+$M$20", "=K19+$M$20"]]);
+sh.getRange('G21:K21').setFormulas([["=G19-$M$21", "=H19-$M$21", "=I19-$M$21", "=J19-$M$21", "=K19-$M$21"]]);
+var sh = ss.getSheetByName('Meta Model');
+sh.getRange('F13:J14').setFormulas([["=F14-F12", "=G14-G12", "=H14-H12", "=I14-I12", "=J14-J12"], ["=F12/(1-(INDEX('Meta Drivers'!G$19:G$21,MATCH('Meta Model'!$D$5,'Meta Drivers'!$C$19:$C$21,0))))", "=G12/(1-(INDEX('Meta Drivers'!H$19:H$21,MATCH('Meta Model'!$D$5,'Meta Drivers'!$C$19:$C$21,0))))", "=H12/(1-(INDEX('Meta Drivers'!I$19:I$21,MATCH('Meta Model'!$D$5,'Meta Drivers'!$C$19:$C$21,0))))", "=I12/(1-(INDEX('Meta Drivers'!J$19:J$21,MATCH('Meta Model'!$D$5,'Meta Drivers'!$C$19:$C$21,0))))", "=J12/(1-(INDEX('Meta Drivers'!K$19:K$21,MATCH('Meta Model'!$D$5,'Meta Drivers'!$C$19:$C$21,0))))"]]);
+__LOG__("wrote " + 25 + " cells");

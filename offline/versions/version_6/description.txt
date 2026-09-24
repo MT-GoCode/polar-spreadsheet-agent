@@ -1,0 +1,22 @@
+v6 -- preservation, fixed.
+
+Three changes on top of the submit review gate, each aimed at a failure the v5 census
+named:
+
+POINTLESS REWRITE alarm. A formula replaced with different text that computes the same
+value is flagged mid-run with the old text, the new text and the shared value. The
+grader compares formula text, so this is pure loss. task_09 had failed every version on
+exactly this -- Cash Flow Valuation L24, =L23/SQRT(Market_Correlation)*(1-Buyer_Diversification)
+retyped as =L23/SQRT($F$10)*(1-$F$11).
+
+Blank cells are not preservation damage. A cell with nothing in it cannot be preserved
+wrongly, and counting blank -> formula made task_09's alert read "68 pre-existing
+properties changed" whose first examples were the agent's own fills, burying the one
+real overwrite under 19 false positives.
+
+Formatting is not presumptively wrong. task_07 grades borders as the answer, via the
+requirement offset_borders on Meta Drivers M20:M21, so an alarm asserting formatting is
+rarely required was costing runs outright.
+
+Unchanged from v5: the submit gate, the default-restore disposition, the map, the
+binary. The prompt is byte-identical to v5's.

@@ -1,0 +1,4124 @@
+{
+ "run_id": "2026-09-24T17-28-46-543Z-952b5790",
+ "engine": "google-apps-script",
+ "transport": "signed-http",
+ "deployment": {
+  "scriptId": "1TOrGyjWOKj31ZlPuyf3JKHR-MWyivJxdbVtvG-s6CRM97r99WRr-0Wb9",
+  "version": 39
+ },
+ "selected_tasks": [
+  "task_01",
+  "task_02",
+  "task_03",
+  "task_04",
+  "task_05",
+  "task_06",
+  "task_07",
+  "task_08",
+  "task_09",
+  "task_10",
+  "task_11",
+  "task_12",
+  "task_13",
+  "task_14",
+  "task_15"
+ ],
+ "source_identity": {
+  "task_01": {
+   "init": {
+    "hash": "37805ef7f4f32da10ad1f699568193fa79a59329acaa03b65d898fbb9eb16378",
+    "id": "1q0d242sljYJNpcOIFWC9Tt4yKhOz1M8Q8w_P3RuPaKA"
+   },
+   "golden": {
+    "hash": "ea0618d5b26afb65c926e0fd51b27e19ae89c1eccb291a7da85efa5556d76c55",
+    "id": "1nu0AGdD-CBx5B4sQfuv-BagvvTo9bUD25NzdCcdw4yU"
+   },
+   "settings": "21fc025fa0388403bf43c79eed72fd215431e654c31e0aa52eeef08653de5ee2",
+   "prompt": "e0e007fb3a04c7fe38beca50162d7955604f5905e0125d13421561d6831e384c",
+   "spec": "af6afb23c55c14e84a22798fa8059ac8b942e55c7e4844edbec67a8b8d6eb869"
+  },
+  "task_02": {
+   "init": {
+    "hash": "a36443847fea3fd79dc6f7edcef74b84698e1395bbb27b12f9cddf1e0b8db479",
+    "id": "1XyeAYGrMKJoItNwn_-g2cbuKYHbiWWh9wcRKEYMsDDo"
+   },
+   "golden": {
+    "hash": "70e04849f1da547154b3f966899b4ed34c2f50d153c404efaa4e43e5cf9c1514",
+    "id": "1Mxi6KzzmJWj_Vpv3Qp5fS9YkoGYbrBAfOmlhaSYYYV4"
+   },
+   "settings": "21fc025fa0388403bf43c79eed72fd215431e654c31e0aa52eeef08653de5ee2",
+   "prompt": "848987e5f7ad0e81847f1804c7b7f375547293976564c4268c428a53f234a409",
+   "spec": "cf1f353b6f5906c4c235c0d568c7a572c782b1fc7988b4f1d70c92f14eb77f66"
+  },
+  "task_03": {
+   "init": {
+    "hash": "a5f7c4aea300cee570f2682cd6501001d494e38380cbafd79e2f0bcd461e5ae3",
+    "id": "1iOJQlDRriqDjJNaeAl94Ro6ZHO6_renaHESOpDW49aM"
+   },
+   "golden": {
+    "hash": "6f8b65a3010480bfcfaf03c710f0c621ef810e5113c9690eb63be5dc276ee2f0",
+    "id": "1G3LiIdoXgavXX6uFeLLNCkW0LyUNZxXdwBerWmyRLIQ"
+   },
+   "settings": "21fc025fa0388403bf43c79eed72fd215431e654c31e0aa52eeef08653de5ee2",
+   "prompt": "33b89f9fd417fcfc0c45187987c6affcd6c17fabeab3ae3d71e503b150317507",
+   "spec": "8b5a4e0ad4f59dbc14f4e7d9c359ef2d62ece67b21662ff6e3abc3a3be9533c9"
+  },
+  "task_04": {
+   "init": {
+    "hash": "13fe57bde9bbf0d0ee5fe26b076d00da1f7f119615ae2f5e3d8af5f581d71574",
+    "id": "1LruO-SWujtXnA1tDKs_W3Ar0HIVrjFPY6oEfvvFZWJc"
+   },
+   "golden": {
+    "hash": "fee9e256a2107e510c14f99122586081e3154edef34d0c9d8277220f3b8abdc1",
+    "id": "1hcCFMNkM8CqK1HjDct_QNxfKKcMm76ZXKJOwmx5pM1w"
+   },
+   "settings": "21fc025fa0388403bf43c79eed72fd215431e654c31e0aa52eeef08653de5ee2",
+   "prompt": "3e8a0c27bc099dc5052c8886c75277f7cc003e7abc09b767944ad66c35afc4ec",
+   "spec": "68f20b4cd6bbc8dbaee460a6f4fd448ebb97a99b734231fba3158330a11b7f6d"
+  },
+  "task_05": {
+   "init": {
+    "hash": "cf8aada99b49f59082eb73bfb4cf40c28137085e6d07867f47a2e1c8d219cbce",
+    "id": "1R-1rCnfI5Frs9lOTpOyz3H0_WVO62dqYgH8kNLY7I_U"
+   },
+   "golden": {
+    "hash": "4540a7ecd9bfd3e5b568bce57d2997d13cba3ce955db38125692aa2e0d64e1ae",
+    "id": "1PLYu2-qPNQL83Wiv9Zh9J6LoHR02XoGv_tODMAzzquM"
+   },
+   "settings": "21fc025fa0388403bf43c79eed72fd215431e654c31e0aa52eeef08653de5ee2",
+   "prompt": "58e2118cf38e56dd9a9b7bad06902c03909442bb7a6d180473bc1edf5efc2436",
+   "spec": "0a090ecc490ec8b99d86637cce71961561e2f7e786a7cc4341f2157e461cfc08"
+  },
+  "task_06": {
+   "init": {
+    "hash": "bcefba7b44515c2253ee2c1a17283fcf0c24da08705435ad8fa7e587fd9ec420",
+    "id": "1uFNkxAoRVZay2DRmQW-IQrEfM3jnikhNEl3UKJHLvKY"
+   },
+   "golden": {
+    "hash": "185bc83967e169500c979bbf6e5c161d07b9c2f8958caf73c5da191b520d16dd",
+    "id": "1o__rGp0IvP5X38EPu9MlF1_PxlTjewVT3cSO9-Cye6U"
+   },
+   "settings": "21fc025fa0388403bf43c79eed72fd215431e654c31e0aa52eeef08653de5ee2",
+   "prompt": "8a7842ba77adfe837fd5fa637ca96f32aa79ce7a82bfa81b8108536fa4aee23e",
+   "spec": "2b9a8eceb00361af104162757047eb83e92812d9764af155bd54306b29e9ff08"
+  },
+  "task_07": {
+   "init": {
+    "hash": "be8a7d29ade08b5b1e4534bbe88e4cfb550b0df638eead3175a09c64d93cbc5c",
+    "id": "1I7Ihjrr2JMhmcJVRR8Dje8nJxQfH7f0uFbOHe5nRhMI"
+   },
+   "golden": {
+    "hash": "ec2f4cd2fed23c44610fbf9af15bd6da63348969250a79575058c81e7296d72f",
+    "id": "125BTZbjpo7dZh44HztGW9SsTiPPMxsHHPSEYgOaWPok"
+   },
+   "settings": "21fc025fa0388403bf43c79eed72fd215431e654c31e0aa52eeef08653de5ee2",
+   "prompt": "11b190491ea75ea078120a9b97cc1b92974c6ae355be6bbb7aa8b114627454fd",
+   "spec": "fa476e8cdafede7f3e77d55c9a408807f664dc7f8f31ca6f367a037fe01d5ae7"
+  },
+  "task_08": {
+   "init": {
+    "hash": "ac48572a7cddacf2129bcabdfa492e33a594d7699ca357e17d4bed5555b7dc2b",
+    "id": "1wmtwi03mI9yu9rHGK9Zgo2swc1-58SAeSe02WSzJrpw"
+   },
+   "golden": {
+    "hash": "b94cbc03831812e35ac288cb69f68b3bbadfa1d5a4571433b0b4b1fee06a7334",
+    "id": "11ccXHzUE-ZJhtQNop3l7mH3dCRO92lQixMbD_e-ZA5o"
+   },
+   "settings": "21fc025fa0388403bf43c79eed72fd215431e654c31e0aa52eeef08653de5ee2",
+   "prompt": "1289f4bf1aeba5e7a6d9815b1cd7c0f2e76b0727be6853d1ca0f095e67f705a1",
+   "spec": "8fe684b8e13add070bf9e3e4c5890208b0d083fa5a29924571a53e1e1c6a3576"
+  },
+  "task_09": {
+   "init": {
+    "hash": "80e1797ff0d638c875ef267a9c5f8e9095b5a04fa5386ab4d29193f25309dd0f",
+    "id": "1rc95PpSe9g9KH27gC7GJc6OGnl97tZ0BmbZSkWlT04c"
+   },
+   "golden": {
+    "hash": "34c825880a486ba43cee5651c811e35bab19943ff1dc3f53ebc5e1bb856a97c3",
+    "id": "1OOWhSU6aNfTydg-yUg94HaELNpwwdzUR1Zqzwgc3yDI"
+   },
+   "settings": "21fc025fa0388403bf43c79eed72fd215431e654c31e0aa52eeef08653de5ee2",
+   "prompt": "f5e0ec84f497d152a7b310e51b6f0f45f29e132247f4918b12e51b119b5e8a24",
+   "spec": "73faec75610796acc672c1ace0da7f2ae357f3bc86901d1da8d35a7ba861965a"
+  },
+  "task_10": {
+   "init": {
+    "hash": "fabc05c3296137a367c2665a52f2c3550813a8ff41792fcd7e2b8ba04df61ea5",
+    "id": "1PYL1QntGKHjw74C5bzd4NbQUSUc6Emc8YMrUVbhlw_Y"
+   },
+   "golden": {
+    "hash": "474ee57a6d28a9f82bec911453b0230153d4fd27378a8e156aedbadafc26193f",
+    "id": "1BMe4QbqbX3fBEOIjenJ_EWkz0ovE7ZnO-3OEvR9eIkM"
+   },
+   "settings": "21fc025fa0388403bf43c79eed72fd215431e654c31e0aa52eeef08653de5ee2",
+   "prompt": "6f325d5874d97faecb5596425d37e3e31b567acf7e5b1cf1dac4eaeb6a923e55",
+   "spec": "f71708bf4f3763440c7e5018ed0daec4a88e2568eb580d8d2dd103858ec4c6b7"
+  },
+  "task_11": {
+   "init": {
+    "hash": "4b8e79ae56a98735767efff66ba6676189b4882485a2d364a3db38d291eafca4",
+    "id": "1OooUoj2Gm-0OsSkXm2qOMNv_Ksk2qFxZviy1g4p7Ecc"
+   },
+   "golden": {
+    "hash": "4759fd8d6431741c5df30ccb58ba16972e0579b58e0ce34fd94aea447f9677a7",
+    "id": "1IyqRym116b20eB0cPMAfCEdDR8bLhYlF9uy4R7tERN0"
+   },
+   "settings": "21fc025fa0388403bf43c79eed72fd215431e654c31e0aa52eeef08653de5ee2",
+   "prompt": "614f23cebd608da1d3c9b9c2933f9c079066cd688cbdde4aa75b4c418587d08e",
+   "spec": "0dcae3b6c4ddf96fb334bfc4696463b5cf75ca4f0a5382412b82159e9f07ce7d"
+  },
+  "task_12": {
+   "init": {
+    "hash": "c38a9943eac6df7df4922cce1267d3b85b260605c691b10c9cca511f47e38fe8",
+    "id": "1kIxv9hd8S_1Ku5LSLPc-KAGQYjrRMFhM1--kb3km26s"
+   },
+   "golden": {
+    "hash": "d7a2509b75f7b92817a8cc03742374ebab5a206fc18fff5a69772897f9b367b9",
+    "id": "1TMs069a7r56DlRBd-O-r5WV_QaPoslpRG7MQ5mF5IvQ"
+   },
+   "settings": "21fc025fa0388403bf43c79eed72fd215431e654c31e0aa52eeef08653de5ee2",
+   "prompt": "b02dd40b253ce326a25a35ec0ac831c5026ef6da22782fa9f490bc22343763ca",
+   "spec": "78ae06cb044bb65ef7bac49c10664c10793b2883afd73fc50104b3e77d1ddcfc"
+  },
+  "task_13": {
+   "init": {
+    "hash": "a4d546ea1b0fa4e36c757a505efdc3dc9ac19a35a9fb97f21e48652d0cc3bc48",
+    "id": "1NlNwNsz2OSiblhvfCpOiEympZQIjAF9f4kbR-tT_QQA"
+   },
+   "golden": {
+    "hash": "a000a8a31e237deab31a163e0950cfc3165090d7c42fe83b757ea16cd7d81617",
+    "id": "1yfjlnLvLyp6mK7-vy5Ev0aJDBFbhBhxUDG5vmKEf7UI"
+   },
+   "settings": "21fc025fa0388403bf43c79eed72fd215431e654c31e0aa52eeef08653de5ee2",
+   "prompt": "5f5d419dc283f72311ab74b0233e842046b699cd937cca274ce60bd79310d764",
+   "spec": "f91e3847bc5c58165b63d2ec400c134f3cf0746fa44ee791f7b63b8f4f961fe0"
+  },
+  "task_14": {
+   "init": {
+    "hash": "35cca2552b4d7fca0a4434e2181143004240d3c12980f6be94a0994ff9b6d78c",
+    "id": "1bAGzXdybNeEdb0P5JVfF55dwzaWCwOgNBkUnhrkTJXM"
+   },
+   "golden": {
+    "hash": "67eb6e452df37859c24e739020b16431cc8e1c00f0ed22091b5eb14512e79fb1",
+    "id": "1M8UJ_1tP0ZewNC5j4Pobhend53DSgJd4KW4hfFmui2Q"
+   },
+   "settings": "21fc025fa0388403bf43c79eed72fd215431e654c31e0aa52eeef08653de5ee2",
+   "prompt": "f9b1882a9ebdd0727717560da33d2a95e8e3987e9a670f2fda52ec7855c15d26",
+   "spec": "8bdc0cf43644dbb0013c9eef33f56665d252b58bd34e5597373306783b66808b"
+  },
+  "task_15": {
+   "init": {
+    "hash": "83118731b53300742409fd06580bc61a978601665fbc7f7cd4f4e8d3c84faf51",
+    "id": "1o6CR_gOKL2XTotUcWsKR72ROxfv-bPoBm6IPerakqYw"
+   },
+   "golden": {
+    "hash": "7a9e9d735f887b21ab9b602f940bb48f3f692d986ac076e128ddd9a25d0433c5",
+    "id": "19E5dMrNcV2NyZsTvOwDGPAB486IgBJZD5u5Q2TH_j7s"
+   },
+   "settings": "21fc025fa0388403bf43c79eed72fd215431e654c31e0aa52eeef08653de5ee2",
+   "prompt": "fa3fe204a57d31aa72ba09fa7b62f826f2d9b892df4622f478e188bdb8d6607d",
+   "spec": "acb7d77cda8ed08cc74f4eb90b4187a867e9a26428c8998e1aacb7a3ff629cdb"
+  }
+ },
+ "timing": {
+  "started_at": "2026-09-24T17:28:46.542Z",
+  "elapsed_ms": 3355564,
+  "setup_ms": 9008,
+  "preparation_ms": 811909,
+  "execution_ms": 3331864,
+  "grading_ms": 3125857,
+  "phases_overlap": true,
+  "concurrency": 1,
+  "observed_peak_concurrency": 1
+ },
+ "reference_cache": {
+  "hit": 15,
+  "miss": 0
+ },
+ "summary": {
+  "score": 76.70428868069521,
+  "tasks_passed": 8,
+  "tasks_total": 15,
+  "tasks_completed": 15,
+  "execution_failures": 0,
+  "compatibility_failures": 0,
+  "cleanup_failures": 0,
+  "preservation_failures": 2
+ },
+ "tasks": [
+  {
+   "task_id": "task_01",
+   "score": 0.7894736842105263,
+   "correct": 75,
+   "total": 95,
+   "output_failures": [
+    {
+     "sheet": "Model-Build",
+     "cell": "H124",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 32.8403742893,
+     "actual": 30.325674289299997
+    },
+    {
+     "sheet": "Model-Build",
+     "cell": "H126",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 32.8773742893,
+     "actual": 30.362674289299996
+    },
+    {
+     "sheet": "Model-Build",
+     "cell": "H128",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 48.36476357315463,
+     "actual": 45.85006357315463
+    },
+    {
+     "sheet": "Model-Build",
+     "cell": "H130",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 24.37235532140419,
+     "actual": 26.88705532140419
+    },
+    {
+     "sheet": "Model-Build",
+     "cell": "I124",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 31.7277485786,
+     "actual": 29.2130485786
+    },
+    {
+     "sheet": "Model-Build",
+     "cell": "I126",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 31.7647485786,
+     "actual": 29.250048578599998
+    },
+    {
+     "sheet": "Model-Build",
+     "cell": "I128",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 49.58964211054359,
+     "actual": 47.07494211054359
+    },
+    {
+     "sheet": "Model-Build",
+     "cell": "I130",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 61.965052741575235,
+     "actual": 64.47975274157524
+    },
+    {
+     "sheet": "Model-Build",
+     "cell": "J124",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 30.6151228679,
+     "actual": 28.1004228679
+    },
+    {
+     "sheet": "Model-Build",
+     "cell": "J126",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 30.652122867899998,
+     "actual": 28.1374228679
+    },
+    {
+     "sheet": "Model-Build",
+     "cell": "J128",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 51.67600032860645,
+     "actual": 49.16130032860645
+    },
+    {
+     "sheet": "Model-Build",
+     "cell": "J130",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 78.16753185628984,
+     "actual": 80.68223185628986
+    },
+    {
+     "sheet": "Model-Build",
+     "cell": "K124",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 29.502497157199997,
+     "actual": 26.9877971572
+    },
+    {
+     "sheet": "Model-Build",
+     "cell": "K126",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 29.539497157199996,
+     "actual": 27.0247971572
+    },
+    {
+     "sheet": "Model-Build",
+     "cell": "K128",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 61.267715612515474,
+     "actual": 58.75301561251547
+    },
+    {
+     "sheet": "Model-Build",
+     "cell": "K130",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 125.31653376401214,
+     "actual": 127.83123376401213
+    },
+    {
+     "sheet": "Model-Build",
+     "cell": "L124",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 28.389871446499995,
+     "actual": 25.875171446499998
+    },
+    {
+     "sheet": "Model-Build",
+     "cell": "L126",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 28.426871446499995,
+     "actual": 25.912171446499997
+    },
+    {
+     "sheet": "Model-Build",
+     "cell": "L128",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 63.27207327343155,
+     "actual": 60.757373273431554
+    },
+    {
+     "sheet": "Model-Build",
+     "cell": "L130",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 180.2401619388259,
+     "actual": 182.75486193882597
+    }
+   ],
+   "preservation": {
+    "passed": true,
+    "violations": [],
+    "basis": "native_entered_state_and_export_structure",
+    "ignored_export_differences": []
+   },
+   "requirements": [
+    {
+     "id": "balance_sheet_ties",
+     "passed": true,
+     "failures": []
+    }
+   ],
+   "execution": {
+    "status": "completed",
+    "calculation_verified": true,
+    "source_warnings": [],
+    "new_errors": [],
+    "circular_reference_check": "not_implemented",
+    "engine": "google-apps-script",
+    "calculation_basis": "google_flush_and_stable_values"
+   },
+   "passed": false,
+   "provisional": false,
+   "compatibility": {
+    "golden_output_mismatches": 0,
+    "details": [],
+    "passed": true
+   },
+   "remote_execution": {
+    "jobId": "2026-09-24T17-28-46-543Z-952b5790-task_01",
+    "taskId": "task_01",
+    "spreadsheetId": "1Qf9rhiknsELvs7sc8uhkAs7eFwSiKYXscOnIDXhDVkY",
+    "engine": "google-apps-script",
+    "transport": "signed-http",
+    "scriptId": "1TOrGyjWOKj31ZlPuyf3JKHR-MWyivJxdbVtvG-s6CRM97r99WRr-0Wb9",
+    "startedAt": "2026-09-24T18:10:09.031Z",
+    "timing": {
+     "open_ms": 538,
+     "initial_read_ms": 96,
+     "agent_ms": 242340,
+     "calculation_ms": 2355,
+     "final_read_ms": 579
+    },
+    "status": "completed",
+    "completedAt": "2026-09-24T18:14:14.939Z"
+   },
+   "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1Qf9rhiknsELvs7sc8uhkAs7eFwSiKYXscOnIDXhDVkY/edit",
+   "snapshots": {
+    "initial": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_01/native-initial.json",
+     "bytes": 113087,
+     "requests": 2,
+     "response_chars": 829353,
+     "max_response_chars": 829267,
+     "quota_wait_ms": 0,
+     "read_ms": 663,
+     "elapsed_ms": 2425
+    },
+    "final": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_01/native-final.json",
+     "bytes": 115502,
+     "requests": 2,
+     "response_chars": 834048,
+     "max_response_chars": 833962,
+     "quota_wait_ms": 0,
+     "read_ms": 759,
+     "elapsed_ms": 2467
+    }
+   },
+   "timing": {
+    "preparation_ms": 6317,
+    "request_ms": 259075,
+    "export_and_grade_ms": 1718,
+    "remote_ms": 245908
+   },
+   "workbook_trashed": true
+  },
+  {
+   "task_id": "task_02",
+   "score": 1,
+   "correct": 85,
+   "total": 85,
+   "output_failures": [],
+   "preservation": {
+    "passed": true,
+    "violations": [],
+    "basis": "native_entered_state_and_export_structure",
+    "ignored_export_differences": []
+   },
+   "requirements": [],
+   "execution": {
+    "status": "completed",
+    "calculation_verified": true,
+    "source_warnings": [],
+    "new_errors": [],
+    "circular_reference_check": "not_implemented",
+    "engine": "google-apps-script",
+    "calculation_basis": "google_flush_and_stable_values"
+   },
+   "passed": true,
+   "provisional": false,
+   "compatibility": {
+    "golden_output_mismatches": 0,
+    "details": [],
+    "passed": true
+   },
+   "remote_execution": {
+    "jobId": "2026-09-24T17-28-46-543Z-952b5790-task_02",
+    "taskId": "task_02",
+    "spreadsheetId": "1Vfmqm2-1LkMy9SL7KoDHGWxVs12aF7EI2BwjkTGx4i8",
+    "engine": "google-apps-script",
+    "transport": "signed-http",
+    "scriptId": "1TOrGyjWOKj31ZlPuyf3JKHR-MWyivJxdbVtvG-s6CRM97r99WRr-0Wb9",
+    "startedAt": "2026-09-24T18:18:35.316Z",
+    "timing": {
+     "open_ms": 561,
+     "initial_read_ms": 470,
+     "agent_ms": 128335,
+     "calculation_ms": 2364,
+     "final_read_ms": 941
+    },
+    "status": "completed",
+    "completedAt": "2026-09-24T18:20:47.987Z"
+   },
+   "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1Vfmqm2-1LkMy9SL7KoDHGWxVs12aF7EI2BwjkTGx4i8/edit",
+   "snapshots": {
+    "initial": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_02/native-initial.json",
+     "bytes": 55849,
+     "requests": 2,
+     "response_chars": 332920,
+     "max_response_chars": 332796,
+     "quota_wait_ms": 0,
+     "read_ms": 531,
+     "elapsed_ms": 2044
+    },
+    "final": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_02/native-final.json",
+     "bytes": 58119,
+     "requests": 2,
+     "response_chars": 337230,
+     "max_response_chars": 337106,
+     "quota_wait_ms": 0,
+     "read_ms": 460,
+     "elapsed_ms": 1285
+    }
+   },
+   "timing": {
+    "preparation_ms": 10946,
+    "request_ms": 143664,
+    "export_and_grade_ms": 1077,
+    "remote_ms": 132671
+   },
+   "workbook_trashed": true
+  },
+  {
+   "task_id": "task_03",
+   "score": 1,
+   "correct": 1080,
+   "total": 1080,
+   "output_failures": [],
+   "preservation": {
+    "passed": true,
+    "violations": [],
+    "basis": "native_entered_state_and_export_structure",
+    "ignored_export_differences": []
+   },
+   "requirements": [],
+   "execution": {
+    "status": "completed",
+    "calculation_verified": true,
+    "source_warnings": [],
+    "new_errors": [],
+    "circular_reference_check": "not_implemented",
+    "engine": "google-apps-script",
+    "calculation_basis": "google_flush_and_stable_values"
+   },
+   "passed": true,
+   "provisional": false,
+   "compatibility": {
+    "golden_output_mismatches": 0,
+    "details": [],
+    "passed": true
+   },
+   "remote_execution": {
+    "jobId": "2026-09-24T17-28-46-543Z-952b5790-task_03",
+    "taskId": "task_03",
+    "spreadsheetId": "1LWGcIFgISxpBiQQ9smU5asaHChFUl9oBBdDHqkt_gp4",
+    "engine": "google-apps-script",
+    "transport": "signed-http",
+    "scriptId": "1TOrGyjWOKj31ZlPuyf3JKHR-MWyivJxdbVtvG-s6CRM97r99WRr-0Wb9",
+    "startedAt": "2026-09-24T17:29:36.934Z",
+    "timing": {
+     "open_ms": 592,
+     "initial_read_ms": 92,
+     "agent_ms": 153939,
+     "calculation_ms": 2382,
+     "final_read_ms": 738
+    },
+    "status": "completed",
+    "completedAt": "2026-09-24T17:32:14.677Z"
+   },
+   "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1LWGcIFgISxpBiQQ9smU5asaHChFUl9oBBdDHqkt_gp4/edit",
+   "snapshots": {
+    "initial": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_03/native-initial.json",
+     "bytes": 16680218,
+     "requests": 6,
+     "response_chars": 76889650,
+     "max_response_chars": 17213009,
+     "quota_wait_ms": 0,
+     "read_ms": 10853,
+     "elapsed_ms": 19156
+    },
+    "final": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_03/native-final.json",
+     "bytes": 16843225,
+     "requests": 6,
+     "response_chars": 77078578,
+     "max_response_chars": 17213009,
+     "quota_wait_ms": 0,
+     "read_ms": 7957,
+     "elapsed_ms": 13103
+    }
+   },
+   "timing": {
+    "preparation_ms": 13190,
+    "request_ms": 207505,
+    "export_and_grade_ms": 29430,
+    "remote_ms": 157743
+   },
+   "workbook_trashed": true
+  },
+  {
+   "task_id": "task_04",
+   "score": 1,
+   "correct": 19024,
+   "total": 19024,
+   "output_failures": [],
+   "preservation": {
+    "passed": true,
+    "violations": [],
+    "basis": "native_entered_state_and_export_structure",
+    "ignored_export_differences": []
+   },
+   "requirements": [],
+   "execution": {
+    "status": "completed",
+    "calculation_verified": true,
+    "source_warnings": [],
+    "new_errors": [],
+    "circular_reference_check": "not_implemented",
+    "engine": "google-apps-script",
+    "calculation_basis": "google_flush_and_stable_values"
+   },
+   "passed": true,
+   "provisional": false,
+   "compatibility": {
+    "golden_output_mismatches": 0,
+    "details": [],
+    "passed": true
+   },
+   "remote_execution": {
+    "jobId": "2026-09-24T17-28-46-543Z-952b5790-task_04",
+    "taskId": "task_04",
+    "spreadsheetId": "13cbskmBH9RoFCeG20WW0qC4Ceh4JzgYMexA1GlMKabM",
+    "engine": "google-apps-script",
+    "transport": "signed-http",
+    "scriptId": "1TOrGyjWOKj31ZlPuyf3JKHR-MWyivJxdbVtvG-s6CRM97r99WRr-0Wb9",
+    "startedAt": "2026-09-24T17:38:27.805Z",
+    "timing": {
+     "open_ms": 635,
+     "initial_read_ms": 610,
+     "agent_ms": 212957,
+     "calculation_ms": 3977,
+     "final_read_ms": 2948
+    },
+    "status": "completed",
+    "completedAt": "2026-09-24T17:42:08.932Z"
+   },
+   "spreadsheet_url": "https://docs.google.com/spreadsheets/d/13cbskmBH9RoFCeG20WW0qC4Ceh4JzgYMexA1GlMKabM/edit",
+   "snapshots": {
+    "initial": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_04/native-initial.json",
+     "bytes": 5334176,
+     "requests": 3,
+     "response_chars": 39537503,
+     "max_response_chars": 25563584,
+     "quota_wait_ms": 0,
+     "read_ms": 3470,
+     "elapsed_ms": 7026
+    },
+    "final": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_04/native-final.json",
+     "bytes": 6761552,
+     "requests": 3,
+     "response_chars": 41421455,
+     "max_response_chars": 27447536,
+     "quota_wait_ms": 0,
+     "read_ms": 3954,
+     "elapsed_ms": 7383
+    }
+   },
+   "timing": {
+    "preparation_ms": 161668,
+    "request_ms": 249045,
+    "export_and_grade_ms": 14582,
+    "remote_ms": 221127
+   },
+   "workbook_trashed": true
+  },
+  {
+   "task_id": "task_05",
+   "score": 1,
+   "correct": 97,
+   "total": 97,
+   "output_failures": [],
+   "preservation": {
+    "passed": true,
+    "violations": [],
+    "basis": "native_entered_state_and_export_structure",
+    "ignored_export_differences": []
+   },
+   "requirements": [],
+   "execution": {
+    "status": "completed",
+    "calculation_verified": true,
+    "source_warnings": [],
+    "new_errors": [],
+    "circular_reference_check": "not_implemented",
+    "engine": "google-apps-script",
+    "calculation_basis": "google_flush_and_stable_values"
+   },
+   "passed": true,
+   "provisional": false,
+   "compatibility": {
+    "golden_output_mismatches": 0,
+    "details": [],
+    "passed": true
+   },
+   "remote_execution": {
+    "jobId": "2026-09-24T17-28-46-543Z-952b5790-task_05",
+    "taskId": "task_05",
+    "spreadsheetId": "1ZvK3c1UwvkHmmEFrfrWuFWIID0xnKoa1NiQQ-OfTszg",
+    "engine": "google-apps-script",
+    "transport": "signed-http",
+    "scriptId": "1TOrGyjWOKj31ZlPuyf3JKHR-MWyivJxdbVtvG-s6CRM97r99WRr-0Wb9",
+    "startedAt": "2026-09-24T17:47:30.527Z",
+    "timing": {
+     "open_ms": 607,
+     "initial_read_ms": 122,
+     "agent_ms": 161544,
+     "calculation_ms": 2270,
+     "final_read_ms": 612
+    },
+    "status": "completed",
+    "completedAt": "2026-09-24T17:50:15.682Z"
+   },
+   "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1ZvK3c1UwvkHmmEFrfrWuFWIID0xnKoa1NiQQ-OfTszg/edit",
+   "snapshots": {
+    "initial": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_05/native-initial.json",
+     "bytes": 448256,
+     "requests": 2,
+     "response_chars": 2956817,
+     "max_response_chars": 2956582,
+     "quota_wait_ms": 0,
+     "read_ms": 855,
+     "elapsed_ms": 3228
+    },
+    "final": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_05/native-final.json",
+     "bytes": 450550,
+     "requests": 2,
+     "response_chars": 2961439,
+     "max_response_chars": 2961204,
+     "quota_wait_ms": 0,
+     "read_ms": 884,
+     "elapsed_ms": 4253
+    }
+   },
+   "timing": {
+    "preparation_ms": 8810,
+    "request_ms": 180359,
+    "export_and_grade_ms": 4454,
+    "remote_ms": 165155
+   },
+   "workbook_trashed": true
+  },
+  {
+   "task_id": "task_06",
+   "score": 1,
+   "correct": 392,
+   "total": 392,
+   "output_failures": [],
+   "preservation": {
+    "passed": true,
+    "violations": [],
+    "basis": "native_entered_state_and_export_structure",
+    "ignored_export_differences": []
+   },
+   "requirements": [],
+   "execution": {
+    "status": "completed",
+    "calculation_verified": true,
+    "source_warnings": [],
+    "new_errors": [],
+    "circular_reference_check": "not_implemented",
+    "engine": "google-apps-script",
+    "calculation_basis": "google_flush_and_stable_values"
+   },
+   "passed": true,
+   "provisional": false,
+   "compatibility": {
+    "golden_output_mismatches": 0,
+    "details": [],
+    "passed": true
+   },
+   "remote_execution": {
+    "jobId": "2026-09-24T17-28-46-543Z-952b5790-task_06",
+    "taskId": "task_06",
+    "spreadsheetId": "1Q0b-n4o5Z-a5PIaORqjOPBvbncwz0qltdVV8qFXZX7o",
+    "engine": "google-apps-script",
+    "transport": "signed-http",
+    "scriptId": "1TOrGyjWOKj31ZlPuyf3JKHR-MWyivJxdbVtvG-s6CRM97r99WRr-0Wb9",
+    "startedAt": "2026-09-24T17:33:24.260Z",
+    "timing": {
+     "open_ms": 485,
+     "initial_read_ms": 184,
+     "agent_ms": 245960,
+     "calculation_ms": 2541,
+     "final_read_ms": 1434
+    },
+    "status": "completed",
+    "completedAt": "2026-09-24T17:37:34.864Z"
+   },
+   "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1Q0b-n4o5Z-a5PIaORqjOPBvbncwz0qltdVV8qFXZX7o/edit",
+   "snapshots": {
+    "initial": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_06/native-initial.json",
+     "bytes": 6724902,
+     "requests": 3,
+     "response_chars": 41375399,
+     "max_response_chars": 27401466,
+     "quota_wait_ms": 0,
+     "read_ms": 4565,
+     "elapsed_ms": 9141
+    },
+    "final": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_06/native-final.json",
+     "bytes": 6739211,
+     "requests": 3,
+     "response_chars": 41399115,
+     "max_response_chars": 27425182,
+     "quota_wait_ms": 0,
+     "read_ms": 5228,
+     "elapsed_ms": 12321
+    }
+   },
+   "timing": {
+    "preparation_ms": 30064,
+    "request_ms": 289788,
+    "export_and_grade_ms": 15323,
+    "remote_ms": 250604
+   },
+   "workbook_trashed": true
+  },
+  {
+   "task_id": "task_07",
+   "score": 0.2,
+   "correct": 5,
+   "total": 25,
+   "output_failures": [
+    {
+     "sheet": "Meta Drivers",
+     "cell": "G19",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 0.014,
+     "actual": 0.02124355096957837
+    },
+    {
+     "sheet": "Meta Drivers",
+     "cell": "G20",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 0.019,
+     "actual": 0.02624355096957837
+    },
+    {
+     "sheet": "Meta Drivers",
+     "cell": "G21",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 0.009000000000000001,
+     "actual": 0.016243550969578368
+    },
+    {
+     "sheet": "Meta Drivers",
+     "cell": "H19",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 0.023,
+     "actual": 0.02843266322718378
+    },
+    {
+     "sheet": "Meta Drivers",
+     "cell": "H20",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 0.028,
+     "actual": 0.03343266322718378
+    },
+    {
+     "sheet": "Meta Drivers",
+     "cell": "H21",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 0.018,
+     "actual": 0.023432663227183778
+    },
+    {
+     "sheet": "Meta Drivers",
+     "cell": "I19",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 0.032,
+     "actual": 0.03562177548478919
+    },
+    {
+     "sheet": "Meta Drivers",
+     "cell": "I20",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 0.037,
+     "actual": 0.04062177548478919
+    },
+    {
+     "sheet": "Meta Drivers",
+     "cell": "I21",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 0.027,
+     "actual": 0.03062177548478919
+    },
+    {
+     "sheet": "Meta Drivers",
+     "cell": "J19",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 0.041,
+     "actual": 0.042810887742394596
+    },
+    {
+     "sheet": "Meta Drivers",
+     "cell": "J20",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 0.046,
+     "actual": 0.047810887742394594
+    },
+    {
+     "sheet": "Meta Drivers",
+     "cell": "J21",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 0.036000000000000004,
+     "actual": 0.0378108877423946
+    },
+    {
+     "sheet": "Meta Model",
+     "cell": "F13",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 2115.177931034472,
+     "actual": 3233.316825426832
+    },
+    {
+     "sheet": "Meta Model",
+     "cell": "F14",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 151084.1379310345,
+     "actual": 152202.27682542684
+    },
+    {
+     "sheet": "Meta Model",
+     "cell": "G13",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 3857.640417604911,
+     "actual": 4795.491286850096
+    },
+    {
+     "sheet": "Meta Model",
+     "cell": "G14",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 167723.49641760494,
+     "actual": 168661.34728685013
+    },
+    {
+     "sheet": "Meta Model",
+     "cell": "H13",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 5877.502603636356,
+     "actual": 6567.2927418733525
+    },
+    {
+     "sheet": "Meta Model",
+     "cell": "H14",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 183671.9563636364,
+     "actual": 184361.7465018734
+    },
+    {
+     "sheet": "Meta Model",
+     "cell": "I13",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 8171.314441576658,
+     "actual": 8548.366959509567
+    },
+    {
+     "sheet": "Meta Model",
+     "cell": "I14",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 199300.35223357668,
+     "actual": 199677.40475150957
+    }
+   ],
+   "preservation": {
+    "passed": false,
+    "violations": [
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Drivers",
+      "cell": "G19"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Drivers",
+      "cell": "G20"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Drivers",
+      "cell": "G21"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Drivers",
+      "cell": "H19"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Drivers",
+      "cell": "H20"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Drivers",
+      "cell": "H21"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Drivers",
+      "cell": "I19"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Drivers",
+      "cell": "I20"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Drivers",
+      "cell": "I21"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Drivers",
+      "cell": "J19"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Drivers",
+      "cell": "J20"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Drivers",
+      "cell": "J21"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Drivers",
+      "cell": "K19"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Drivers",
+      "cell": "K20"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Drivers",
+      "cell": "K21"
+     }
+    ],
+    "basis": "native_entered_state_and_export_structure",
+    "ignored_export_differences": [
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "F102"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "F104"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "F32"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "F35"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "F52"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "F78"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "F86"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "F92"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "G102"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "G104"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "G32"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "G35"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "G52"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "G78"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "G86"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "G92"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "H102"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "H104"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "H32"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "H35"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "H52"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "H78"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "H86"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "H92"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "I102"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "I104"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "I32"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "I35"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "I52"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "I78"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "I86"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "I92"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "J102"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "J104"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "J32"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "J35"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "J52"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "J78"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "J86"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Meta Model",
+      "cell": "J92"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Pro Forma",
+      "cell": "D39"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Pro Forma",
+      "cell": "D41"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Pro Forma",
+      "cell": "E39"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Pro Forma",
+      "cell": "E41"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Pro Forma",
+      "cell": "F39"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Pro Forma",
+      "cell": "F41"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Pro Forma",
+      "cell": "G39"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Pro Forma",
+      "cell": "G41"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Pro Forma",
+      "cell": "H39"
+     },
+     {
+      "kind": "cell_style",
+      "field": "number_format",
+      "sheet": "Pro Forma",
+      "cell": "H41"
+     }
+    ]
+   },
+   "requirements": [
+    {
+     "id": "bull_bear_offsets",
+     "passed": true,
+     "failures": []
+    },
+    {
+     "id": "offset_borders",
+     "passed": true,
+     "failures": []
+    }
+   ],
+   "execution": {
+    "status": "completed",
+    "calculation_verified": true,
+    "source_warnings": [],
+    "new_errors": [],
+    "circular_reference_check": "not_implemented",
+    "engine": "google-apps-script",
+    "calculation_basis": "google_flush_and_stable_values"
+   },
+   "passed": false,
+   "provisional": false,
+   "compatibility": {
+    "golden_output_mismatches": 0,
+    "details": [],
+    "passed": true
+   },
+   "remote_execution": {
+    "jobId": "2026-09-24T17-28-46-543Z-952b5790-task_07",
+    "taskId": "task_07",
+    "spreadsheetId": "1TWyDzxISEEvCINprDGyGFJu_RUCVQIBrGytwTpRR8uY",
+    "engine": "google-apps-script",
+    "transport": "signed-http",
+    "scriptId": "1TOrGyjWOKj31ZlPuyf3JKHR-MWyivJxdbVtvG-s6CRM97r99WRr-0Wb9",
+    "startedAt": "2026-09-24T18:02:28.939Z",
+    "timing": {
+     "open_ms": 543,
+     "initial_read_ms": 246,
+     "agent_ms": 138528,
+     "calculation_ms": 2396,
+     "final_read_ms": 1605
+    },
+    "status": "completed",
+    "completedAt": "2026-09-24T18:04:52.257Z"
+   },
+   "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1TWyDzxISEEvCINprDGyGFJu_RUCVQIBrGytwTpRR8uY/edit",
+   "snapshots": {
+    "initial": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_07/native-initial.json",
+     "bytes": 253134,
+     "requests": 2,
+     "response_chars": 2157410,
+     "max_response_chars": 2157173,
+     "quota_wait_ms": 0,
+     "read_ms": 705,
+     "elapsed_ms": 2580
+    },
+    "final": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_07/native-final.json",
+     "bytes": 254918,
+     "requests": 2,
+     "response_chars": 2158800,
+     "max_response_chars": 2158563,
+     "quota_wait_ms": 0,
+     "read_ms": 419,
+     "elapsed_ms": 2453
+    }
+   },
+   "timing": {
+    "preparation_ms": 255383,
+    "request_ms": 157573,
+    "export_and_grade_ms": 3557,
+    "remote_ms": 143318
+   },
+   "workbook_trashed": true
+  },
+  {
+   "task_id": "task_08",
+   "score": 1,
+   "correct": 168,
+   "total": 168,
+   "output_failures": [],
+   "preservation": {
+    "passed": true,
+    "violations": [],
+    "basis": "native_entered_state_and_export_structure",
+    "ignored_export_differences": []
+   },
+   "requirements": [
+    {
+     "id": "output_number_formats",
+     "passed": true,
+     "failures": []
+    }
+   ],
+   "execution": {
+    "status": "completed",
+    "calculation_verified": true,
+    "source_warnings": [],
+    "new_errors": [],
+    "circular_reference_check": "not_implemented",
+    "engine": "google-apps-script",
+    "calculation_basis": "google_flush_and_stable_values"
+   },
+   "passed": true,
+   "provisional": false,
+   "compatibility": {
+    "golden_output_mismatches": 0,
+    "details": [],
+    "passed": true
+   },
+   "remote_execution": {
+    "jobId": "2026-09-24T17-28-46-543Z-952b5790-task_08",
+    "taskId": "task_08",
+    "spreadsheetId": "1vDprMeVKuHg7GnSv6qRzTm5QbrzyhWcqwXTBjrV_CI8",
+    "engine": "google-apps-script",
+    "transport": "signed-http",
+    "scriptId": "1TOrGyjWOKj31ZlPuyf3JKHR-MWyivJxdbVtvG-s6CRM97r99WRr-0Wb9",
+    "startedAt": "2026-09-24T18:23:20.956Z",
+    "timing": {
+     "open_ms": 454,
+     "initial_read_ms": 108,
+     "agent_ms": 69008,
+     "calculation_ms": 2358,
+     "final_read_ms": 1470
+    },
+    "status": "completed",
+    "completedAt": "2026-09-24T18:24:34.354Z"
+   },
+   "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1vDprMeVKuHg7GnSv6qRzTm5QbrzyhWcqwXTBjrV_CI8/edit",
+   "snapshots": {
+    "initial": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_08/native-initial.json",
+     "bytes": 21605,
+     "requests": 2,
+     "response_chars": 272555,
+     "max_response_chars": 272468,
+     "quota_wait_ms": 0,
+     "read_ms": 1496,
+     "elapsed_ms": 3607
+    },
+    "final": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_08/native-final.json",
+     "bytes": 41865,
+     "requests": 2,
+     "response_chars": 305031,
+     "max_response_chars": 304944,
+     "quota_wait_ms": 0,
+     "read_ms": 657,
+     "elapsed_ms": 1818
+    }
+   },
+   "timing": {
+    "preparation_ms": 13722,
+    "request_ms": 88102,
+    "export_and_grade_ms": 822,
+    "remote_ms": 73398
+   },
+   "workbook_trashed": true
+  },
+  {
+   "task_id": "task_09",
+   "score": 1,
+   "correct": 21,
+   "total": 21,
+   "output_failures": [],
+   "preservation": {
+    "passed": true,
+    "violations": [],
+    "basis": "native_entered_state_and_export_structure",
+    "ignored_export_differences": []
+   },
+   "requirements": [
+    {
+     "id": "amount_formats",
+     "passed": true,
+     "failures": []
+    },
+    {
+     "id": "percentage_formats",
+     "passed": true,
+     "failures": []
+    }
+   ],
+   "execution": {
+    "status": "completed",
+    "calculation_verified": true,
+    "source_warnings": [],
+    "new_errors": [],
+    "circular_reference_check": "not_implemented",
+    "engine": "google-apps-script",
+    "calculation_basis": "google_flush_and_stable_values"
+   },
+   "passed": true,
+   "provisional": false,
+   "compatibility": {
+    "golden_output_mismatches": 0,
+    "details": [],
+    "passed": true
+   },
+   "remote_execution": {
+    "jobId": "2026-09-24T17-28-46-543Z-952b5790-task_09",
+    "taskId": "task_09",
+    "spreadsheetId": "16hAvjXuIQrH8XPh_3DbWgQBKm-scNnPfI1-S5burNqc",
+    "engine": "google-apps-script",
+    "transport": "signed-http",
+    "scriptId": "1TOrGyjWOKj31ZlPuyf3JKHR-MWyivJxdbVtvG-s6CRM97r99WRr-0Wb9",
+    "startedAt": "2026-09-24T17:54:28.156Z",
+    "timing": {
+     "open_ms": 740,
+     "initial_read_ms": 127,
+     "agent_ms": 184061,
+     "calculation_ms": 3711,
+     "final_read_ms": 852
+    },
+    "status": "completed",
+    "completedAt": "2026-09-24T17:57:37.647Z"
+   },
+   "spreadsheet_url": "https://docs.google.com/spreadsheets/d/16hAvjXuIQrH8XPh_3DbWgQBKm-scNnPfI1-S5burNqc/edit",
+   "snapshots": {
+    "initial": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_09/native-initial.json",
+     "bytes": 360494,
+     "requests": 2,
+     "response_chars": 2624148,
+     "max_response_chars": 2623988,
+     "quota_wait_ms": 0,
+     "read_ms": 854,
+     "elapsed_ms": 2593
+    },
+    "final": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_09/native-final.json",
+     "bytes": 360297,
+     "requests": 2,
+     "response_chars": 2622552,
+     "max_response_chars": 2622392,
+     "quota_wait_ms": 0,
+     "read_ms": 1787,
+     "elapsed_ms": 3357
+    }
+   },
+   "timing": {
+    "preparation_ms": 8657,
+    "request_ms": 204212,
+    "export_and_grade_ms": 4241,
+    "remote_ms": 189491
+   },
+   "workbook_trashed": true
+  },
+  {
+   "task_id": "task_10",
+   "score": 0.9851351351351352,
+   "correct": 729,
+   "total": 740,
+   "output_failures": [
+    {
+     "sheet": "D&A Schedule",
+     "cell": "C11",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -378.407129408494,
+     "actual": null
+    },
+    {
+     "sheet": "D&A Schedule",
+     "cell": "C12",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": -435.1169351153456,
+     "actual": null
+    },
+    {
+     "sheet": "D&A Schedule",
+     "cell": "C13",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": -496.3332033198119,
+     "actual": null
+    },
+    {
+     "sheet": "D&A Schedule",
+     "cell": "C14",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": -561.5547179484718,
+     "actual": null
+    },
+    {
+     "sheet": "D&A Schedule",
+     "cell": "C15",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": -630.0885840457896,
+     "actual": null
+    },
+    {
+     "sheet": "D&A Schedule",
+     "cell": "C16",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": -701.0488195722858,
+     "actual": null
+    },
+    {
+     "sheet": "D&A Schedule",
+     "cell": "C17",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": -773.364163431832,
+     "actual": null
+    },
+    {
+     "sheet": "D&A Schedule",
+     "cell": "C18",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": -845.7959765681637,
+     "actual": null
+    },
+    {
+     "sheet": "D&A Schedule",
+     "cell": "C19",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": -916.9665448734296,
+     "actual": null
+    },
+    {
+     "sheet": "D&A Schedule",
+     "cell": "C20",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": -985.3974196717137,
+     "actual": null
+    },
+    {
+     "sheet": "D&A Schedule",
+     "cell": "C21",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": -1049.556698847435,
+     "actual": null
+    }
+   ],
+   "preservation": {
+    "passed": true,
+    "violations": [],
+    "basis": "native_entered_state_and_export_structure",
+    "ignored_export_differences": []
+   },
+   "requirements": [],
+   "execution": {
+    "status": "completed",
+    "calculation_verified": true,
+    "source_warnings": [],
+    "new_errors": [],
+    "circular_reference_check": "not_implemented",
+    "engine": "google-apps-script",
+    "calculation_basis": "google_flush_and_stable_values"
+   },
+   "passed": false,
+   "provisional": false,
+   "compatibility": {
+    "golden_output_mismatches": 0,
+    "details": [],
+    "passed": true
+   },
+   "remote_execution": {
+    "jobId": "2026-09-24T17-28-46-543Z-952b5790-task_10",
+    "taskId": "task_10",
+    "spreadsheetId": "1puNY6_CwWzKz5C0PYEitA3AMSkpCKRL7k_wI2T4qxvw",
+    "engine": "google-apps-script",
+    "transport": "signed-http",
+    "scriptId": "1TOrGyjWOKj31ZlPuyf3JKHR-MWyivJxdbVtvG-s6CRM97r99WRr-0Wb9",
+    "startedAt": "2026-09-24T18:14:30.837Z",
+    "timing": {
+     "open_ms": 439,
+     "initial_read_ms": 305,
+     "agent_ms": 221283,
+     "calculation_ms": 2464,
+     "final_read_ms": 1047
+    },
+    "status": "completed",
+    "completedAt": "2026-09-24T18:18:16.375Z"
+   },
+   "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1puNY6_CwWzKz5C0PYEitA3AMSkpCKRL7k_wI2T4qxvw/edit",
+   "snapshots": {
+    "initial": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_10/native-initial.json",
+     "bytes": 111264,
+     "requests": 2,
+     "response_chars": 688345,
+     "max_response_chars": 688221,
+     "quota_wait_ms": 0,
+     "read_ms": 636,
+     "elapsed_ms": 2037
+    },
+    "final": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_10/native-final.json",
+     "bytes": 134783,
+     "requests": 2,
+     "response_chars": 726672,
+     "max_response_chars": 726548,
+     "quota_wait_ms": 0,
+     "read_ms": 603,
+     "elapsed_ms": 1632
+    }
+   },
+   "timing": {
+    "preparation_ms": 8734,
+    "request_ms": 237802,
+    "export_and_grade_ms": 5547,
+    "remote_ms": 225538
+   },
+   "workbook_trashed": true
+  },
+  {
+   "task_id": "task_11",
+   "score": 1,
+   "correct": 263,
+   "total": 263,
+   "output_failures": [],
+   "preservation": {
+    "passed": true,
+    "violations": [],
+    "basis": "native_entered_state_and_export_structure",
+    "ignored_export_differences": []
+   },
+   "requirements": [],
+   "execution": {
+    "status": "completed",
+    "calculation_verified": true,
+    "source_warnings": [],
+    "new_errors": [],
+    "circular_reference_check": "not_implemented",
+    "engine": "google-apps-script",
+    "calculation_basis": "google_flush_and_stable_values"
+   },
+   "passed": true,
+   "provisional": false,
+   "compatibility": {
+    "golden_output_mismatches": 0,
+    "details": [],
+    "passed": true
+   },
+   "remote_execution": {
+    "jobId": "2026-09-24T17-28-46-543Z-952b5790-task_11",
+    "taskId": "task_11",
+    "spreadsheetId": "1uvao1NXC2HqJLlZfRXYmFUkX2tznSZPzXlhnbyv5UCE",
+    "engine": "google-apps-script",
+    "transport": "signed-http",
+    "scriptId": "1TOrGyjWOKj31ZlPuyf3JKHR-MWyivJxdbVtvG-s6CRM97r99WRr-0Wb9",
+    "startedAt": "2026-09-24T17:50:37.402Z",
+    "timing": {
+     "open_ms": 596,
+     "initial_read_ms": 398,
+     "agent_ms": 207031,
+     "calculation_ms": 2957,
+     "final_read_ms": 1302
+    },
+    "status": "completed",
+    "completedAt": "2026-09-24T17:54:09.687Z"
+   },
+   "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1uvao1NXC2HqJLlZfRXYmFUkX2tznSZPzXlhnbyv5UCE/edit",
+   "snapshots": {
+    "initial": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_11/native-initial.json",
+     "bytes": 361115,
+     "requests": 2,
+     "response_chars": 2620809,
+     "max_response_chars": 2620647,
+     "quota_wait_ms": 0,
+     "read_ms": 1273,
+     "elapsed_ms": 3493
+    },
+    "final": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_11/native-final.json",
+     "bytes": 350925,
+     "requests": 2,
+     "response_chars": 2603996,
+     "max_response_chars": 2603834,
+     "quota_wait_ms": 0,
+     "read_ms": 837,
+     "elapsed_ms": 3472
+    }
+   },
+   "timing": {
+    "preparation_ms": 7588,
+    "request_ms": 227499,
+    "export_and_grade_ms": 4170,
+    "remote_ms": 212285
+   },
+   "workbook_trashed": true
+  },
+  {
+   "task_id": "task_12",
+   "score": 0,
+   "correct": 0,
+   "total": 2279,
+   "output_failures": [
+    {
+     "sheet": "Annual Forecast",
+     "cell": "C11",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -564336.3434341702,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "C12",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -195347.1958041359,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "C13",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -293020.79370620387,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "C14",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -97673.59790206795,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "C15",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -164959.85423460364,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "C16",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -108526.21989118663,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "C17",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -67286.2563325357,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "C18",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -132401.98826724768,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "C19",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -235901.51707637153,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "C20",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -176926.1378072786,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "C21",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -2036379.904455802,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "C22",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 3646246.72407941,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "C24",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 0.3583518745064395,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "C25",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 17038.536093829018,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "C27",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 62989042.860735744,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "C28",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 294341.321779139,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "C4",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 5892581.380376643,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "C5",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -294629.0690188321,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "C6",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -353554.88282259856,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "C7",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 5244397.428535212,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "C8",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 438229.1999999999,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "C9",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 5682626.628535212,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "D11",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -581997.2493019426,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "D12",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -201460.58629682616,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "D13",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -302190.87944523944,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "D14",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -100730.29314841308,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "D15",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -170122.27287287553,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "D16",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -111922.54794268127,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "D17",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -69391.97972446239,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "D18",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -136545.5084900712,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "D19",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -243284.05505327656,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "D20",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -182463.04128995736,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "D21",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -2100108.413565745,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "D22",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 3736782.1653298284,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "D24",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 0.35979917477965073,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "D25",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 17461.598903410413,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "D27",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 64553045.85364293,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "D28",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 301649.74697963987,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "D4",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 6065911.661680419,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "D5",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -303295.583084021,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "D6",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -363954.69970082515,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "D7",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 5398661.378895573,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "D8",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 438229.1999999999,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "D9",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 5836890.5788955735,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "E11",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -600210.8532188468,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "E12",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -207765.2953449853,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "E13",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -311647.94301747816,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "E14",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -103882.64767249265,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "E15",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -175446.24940243212,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "E16",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -115425.16408054746,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "E17",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -71563.60172993943,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "E18",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -140818.70017826793,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "E19",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -250897.6295561688,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "E20",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -188173.2221671266,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "E21",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -2165831.306368285,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "E22",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 3829860.8969874997,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "E24",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 0.36123123617921393,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "E25",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 17896.54624760514,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "E27",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 66160984.27950144,
+     "actual": null
+    },
+    {
+     "sheet": "Annual Forecast",
+     "cell": "E28",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 309163.4779415955,
+     "actual": null
+    },
+    "...truncated"
+   ],
+   "preservation": {
+    "passed": true,
+    "violations": [],
+    "basis": "native_entered_state_and_export_structure",
+    "ignored_export_differences": []
+   },
+   "requirements": [],
+   "execution": {
+    "status": "completed",
+    "calculation_verified": true,
+    "source_warnings": [],
+    "new_errors": [],
+    "circular_reference_check": "not_implemented",
+    "engine": "google-apps-script",
+    "calculation_basis": "google_flush_and_stable_values"
+   },
+   "passed": false,
+   "provisional": false,
+   "compatibility": {
+    "golden_output_mismatches": 0,
+    "details": [],
+    "passed": true
+   },
+   "remote_execution": {
+    "jobId": "2026-09-24T17-28-46-543Z-952b5790-task_12",
+    "taskId": "task_12",
+    "spreadsheetId": "1bZ8psApi-3QmjVQ3p4153f7woDhO3B2nJh-Bx-faFlU",
+    "engine": "google-apps-script",
+    "transport": "signed-http",
+    "scriptId": "1TOrGyjWOKj31ZlPuyf3JKHR-MWyivJxdbVtvG-s6CRM97r99WRr-0Wb9",
+    "startedAt": "2026-09-24T18:05:16.862Z",
+    "timing": {
+     "open_ms": 623,
+     "initial_read_ms": 550,
+     "agent_ms": 269538,
+     "calculation_ms": 3209,
+     "final_read_ms": 1431
+    },
+    "status": "completed",
+    "completedAt": "2026-09-24T18:09:52.213Z"
+   },
+   "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1bZ8psApi-3QmjVQ3p4153f7woDhO3B2nJh-Bx-faFlU/edit",
+   "snapshots": {
+    "initial": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_12/native-initial.json",
+     "bytes": 306953,
+     "requests": 2,
+     "response_chars": 1746481,
+     "max_response_chars": 1746282,
+     "quota_wait_ms": 0,
+     "read_ms": 1138,
+     "elapsed_ms": 5058
+    },
+    "final": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_12/native-final.json",
+     "bytes": 306952,
+     "requests": 2,
+     "response_chars": 1746481,
+     "max_response_chars": 1746282,
+     "quota_wait_ms": 0,
+     "read_ms": 715,
+     "elapsed_ms": 2515
+    }
+   },
+   "timing": {
+    "preparation_ms": 19528,
+    "request_ms": 292111,
+    "export_and_grade_ms": 1939,
+    "remote_ms": 275351
+   },
+   "workbook_trashed": true
+  },
+  {
+   "task_id": "task_13",
+   "score": 0.9310344827586207,
+   "correct": 162,
+   "total": 174,
+   "output_failures": [
+    {
+     "sheet": "Valuation Output",
+     "cell": "I10",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 0.13219100000000014,
+     "actual": -0.1321910000000001
+    },
+    {
+     "sheet": "Valuation Output",
+     "cell": "I11",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 0.08219100000000008,
+     "actual": -0.08219100000000006
+    },
+    {
+     "sheet": "Valuation Output",
+     "cell": "I12",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 0.032191000000000164,
+     "actual": -0.03219100000000005
+    },
+    {
+     "sheet": "Valuation Output",
+     "cell": "I7",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 0.28219100000000014,
+     "actual": -0.282191
+    },
+    {
+     "sheet": "Valuation Output",
+     "cell": "I8",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 0.23219099999999998,
+     "actual": -0.232191
+    },
+    {
+     "sheet": "Valuation Output",
+     "cell": "I9",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 0.18219100000000005,
+     "actual": -0.182191
+    },
+    {
+     "sheet": "Valuation Output",
+     "cell": "S10",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": -1505.5421113039095,
+     "actual": 1505.5421113039095
+    },
+    {
+     "sheet": "Valuation Output",
+     "cell": "S11",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": -1505.5421113039095,
+     "actual": 1505.5421113039095
+    },
+    {
+     "sheet": "Valuation Output",
+     "cell": "S12",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": -1505.5421113039095,
+     "actual": 1505.5421113039095
+    },
+    {
+     "sheet": "Valuation Output",
+     "cell": "S7",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": -1505.5421113039092,
+     "actual": 1505.5421113039092
+    },
+    {
+     "sheet": "Valuation Output",
+     "cell": "S8",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": -1505.54211130391,
+     "actual": 1505.54211130391
+    },
+    {
+     "sheet": "Valuation Output",
+     "cell": "S9",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": -1505.5421113039095,
+     "actual": 1505.5421113039095
+    }
+   ],
+   "preservation": {
+    "passed": true,
+    "violations": [],
+    "basis": "native_entered_state_and_export_structure",
+    "ignored_export_differences": []
+   },
+   "requirements": [],
+   "execution": {
+    "status": "completed",
+    "calculation_verified": true,
+    "source_warnings": [],
+    "new_errors": [],
+    "circular_reference_check": "not_implemented",
+    "engine": "google-apps-script",
+    "calculation_basis": "google_flush_and_stable_values"
+   },
+   "passed": false,
+   "provisional": false,
+   "compatibility": {
+    "golden_output_mismatches": 0,
+    "details": [],
+    "passed": true
+   },
+   "remote_execution": {
+    "jobId": "2026-09-24T17-28-46-543Z-952b5790-task_13",
+    "taskId": "task_13",
+    "spreadsheetId": "1LYTS9C109dIV1pTJMt_u9qTd5tmKFg0cTrQjieYUkP4",
+    "engine": "google-apps-script",
+    "transport": "signed-http",
+    "scriptId": "1TOrGyjWOKj31ZlPuyf3JKHR-MWyivJxdbVtvG-s6CRM97r99WRr-0Wb9",
+    "startedAt": "2026-09-24T18:21:02.131Z",
+    "timing": {
+     "open_ms": 593,
+     "initial_read_ms": 105,
+     "agent_ms": 117127,
+     "calculation_ms": 2419,
+     "final_read_ms": 1231
+    },
+    "status": "completed",
+    "completedAt": "2026-09-24T18:23:03.606Z"
+   },
+   "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1LYTS9C109dIV1pTJMt_u9qTd5tmKFg0cTrQjieYUkP4/edit",
+   "snapshots": {
+    "initial": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_13/native-initial.json",
+     "bytes": 33321,
+     "requests": 2,
+     "response_chars": 266550,
+     "max_response_chars": 266425,
+     "quota_wait_ms": 0,
+     "read_ms": 694,
+     "elapsed_ms": 2469
+    },
+    "final": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_13/native-final.json",
+     "bytes": 36612,
+     "requests": 2,
+     "response_chars": 270986,
+     "max_response_chars": 270861,
+     "quota_wait_ms": 0,
+     "read_ms": 1053,
+     "elapsed_ms": 2517
+    }
+   },
+   "timing": {
+    "preparation_ms": 226345,
+    "request_ms": 135799,
+    "export_and_grade_ms": 1225,
+    "remote_ms": 121475
+   },
+   "workbook_trashed": true
+  },
+  {
+   "task_id": "task_14",
+   "score": 0.6,
+   "correct": 9,
+   "total": 15,
+   "output_failures": [
+    {
+     "sheet": "Board Summary",
+     "cell": "D12",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 638232.568242806,
+     "actual": 638.232568242806
+    },
+    {
+     "sheet": "Board Summary",
+     "cell": "D13",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 226748.4951301412,
+     "actual": 226.7484951301412
+    },
+    {
+     "sheet": "Board Summary",
+     "cell": "D14",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 172757.18705539254,
+     "actual": 172.75718703828701
+    },
+    {
+     "sheet": "Board Summary",
+     "cell": "D22",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 4.665088910759015,
+     "actual": 9.384094654731367
+    },
+    {
+     "sheet": "Board Summary",
+     "cell": "D23",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 13.13089939091278,
+     "actual": 31.216850133007362
+    },
+    {
+     "sheet": "Board Summary",
+     "cell": "D24",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 53.053462420030414,
+     "actual": 81.59591982200934
+    }
+   ],
+   "preservation": {
+    "passed": false,
+    "violations": [
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D100"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D1000"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D101"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D102"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D103"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D104"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D105"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D106"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D107"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D108"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D109"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D110"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D111"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D112"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D113"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D114"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D115"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D116"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D117"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D118"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D119"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D120"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D121"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D122"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D123"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D124"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D125"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D126"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D127"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D128"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D129"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D130"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D131"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D132"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D133"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D134"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D135"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D136"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D137"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D138"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D139"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D140"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D141"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D142"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D143"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D144"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D145"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D146"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D147"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D148"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D149"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D150"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D151"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D152"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D153"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D154"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D155"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D156"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D157"
+     },
+     {
+      "kind": "cell_style",
+      "field": "font",
+      "sheet": "Board Summary",
+      "cell": "D158"
+     },
+     "...truncated"
+    ],
+    "basis": "native_entered_state_and_export_structure",
+    "ignored_export_differences": []
+   },
+   "requirements": [
+    {
+     "id": "deal_size_precision",
+     "passed": true,
+     "failures": []
+    },
+    {
+     "id": "print_toggle",
+     "passed": false,
+     "failures": [
+      {
+       "kind": "toggle_conditional_format",
+       "cell": "D7"
+      },
+      {
+       "kind": "toggle_conditional_format",
+       "cell": "D8"
+      },
+      {
+       "kind": "toggle_conditional_format",
+       "cell": "D9"
+      },
+      {
+       "kind": "toggle_conditional_format",
+       "cell": "D10"
+      },
+      {
+       "kind": "toggle_conditional_format",
+       "cell": "D11"
+      },
+      {
+       "kind": "toggle_conditional_format",
+       "cell": "D12"
+      },
+      {
+       "kind": "toggle_conditional_format",
+       "cell": "D13"
+      },
+      {
+       "kind": "toggle_conditional_format",
+       "cell": "D14"
+      },
+      {
+       "kind": "toggle_conditional_format",
+       "cell": "D15"
+      },
+      {
+       "kind": "toggle_conditional_format",
+       "cell": "D16"
+      },
+      {
+       "kind": "toggle_conditional_format",
+       "cell": "D17"
+      },
+      {
+       "kind": "toggle_conditional_format",
+       "cell": "D18"
+      },
+      {
+       "kind": "toggle_conditional_format",
+       "cell": "D19"
+      },
+      {
+       "kind": "toggle_conditional_format",
+       "cell": "D20"
+      },
+      {
+       "kind": "toggle_conditional_format",
+       "cell": "D21"
+      },
+      {
+       "kind": "toggle_conditional_format",
+       "cell": "D22"
+      },
+      {
+       "kind": "toggle_conditional_format",
+       "cell": "D23"
+      },
+      {
+       "kind": "toggle_conditional_format",
+       "cell": "D24"
+      },
+      {
+       "kind": "toggle_conditional_format",
+       "cell": "D25"
+      }
+     ]
+    }
+   ],
+   "execution": {
+    "status": "completed",
+    "calculation_verified": true,
+    "source_warnings": [],
+    "new_errors": [],
+    "circular_reference_check": "not_implemented",
+    "engine": "google-apps-script",
+    "calculation_basis": "google_flush_and_stable_values"
+   },
+   "passed": false,
+   "provisional": false,
+   "compatibility": {
+    "golden_output_mismatches": 0,
+    "details": [],
+    "passed": true
+   },
+   "remote_execution": {
+    "jobId": "2026-09-24T17-28-46-543Z-952b5790-task_14",
+    "taskId": "task_14",
+    "spreadsheetId": "1crBHbsAGzj4EDDj9VAVhpst94cOhd-GndWBhCyalBuM",
+    "engine": "google-apps-script",
+    "transport": "signed-http",
+    "scriptId": "1TOrGyjWOKj31ZlPuyf3JKHR-MWyivJxdbVtvG-s6CRM97r99WRr-0Wb9",
+    "startedAt": "2026-09-24T17:57:59.190Z",
+    "timing": {
+     "open_ms": 856,
+     "initial_read_ms": 309,
+     "agent_ms": 241471,
+     "calculation_ms": 2747,
+     "final_read_ms": 1073
+    },
+    "status": "completed",
+    "completedAt": "2026-09-24T18:02:05.646Z"
+   },
+   "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1crBHbsAGzj4EDDj9VAVhpst94cOhd-GndWBhCyalBuM/edit",
+   "snapshots": {
+    "initial": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_14/native-initial.json",
+     "bytes": 354843,
+     "requests": 2,
+     "response_chars": 2750225,
+     "max_response_chars": 2749553,
+     "quota_wait_ms": 0,
+     "read_ms": 992,
+     "elapsed_ms": 4474
+    },
+    "final": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_14/native-final.json",
+     "bytes": 355685,
+     "requests": 2,
+     "response_chars": 2751427,
+     "max_response_chars": 2750759,
+     "quota_wait_ms": 0,
+     "read_ms": 944,
+     "elapsed_ms": 6099
+    }
+   },
+   "timing": {
+    "preparation_ms": 20109,
+    "request_ms": 264453,
+    "export_and_grade_ms": 6228,
+    "remote_ms": 246456
+   },
+   "workbook_trashed": true
+  },
+  {
+   "task_id": "task_15",
+   "score": 0,
+   "correct": 0,
+   "total": 728,
+   "output_failures": [
+    {
+     "sheet": "Forecast Model",
+     "cell": "H108",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 15549.199566000001,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H109",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 16824.425418000003,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H110",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 32373.624984000002,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H112",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 2382.668438872743,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H113",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 4953.010537175271,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H114",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 6166.171977077496,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H115",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 4441.434732429912,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H116",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 17943.28568555542,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H118",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 14430.339298444582,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H119",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 0.44574369739491576,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H121",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 4895.75,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H122",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 1476.0430575204962,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H123",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 2844.5833333333335,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H124",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 228.36355063713603,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H125",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 721.6740970000001,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H126",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 10166.414038490966,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H128",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 4263.925259953616,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H129",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 0.13170984905338753,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H131",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 371.20741328816666,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H132",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 3892.717846665449,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H134",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 1030.9240382037976,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H135",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 2861.7938084616517,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H136",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 0.08839892998933652,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H140",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 151862.6026097008,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H141",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 0,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H142",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 0,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H143",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 151862.6026097008,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H146",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 13776.575903,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H147",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 13776.575903,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H148",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 165639.1785127008,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H151",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 0,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H152",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 0,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H153",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 0,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H156",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 70401.91666666667,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H157",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 70401.91666666667,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H158",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 70401.91666666667,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H161",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 92803,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H162",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 2434.26184603414,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H163",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 95237.26184603415,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H164",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 165639.17851270083,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H170",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 2861.7938084616517,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H171",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 721.6740970000001,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H173",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 0,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H174",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 0,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H175",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 0,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H176",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 0,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H177",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 3583.4679054616518,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H180",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -14498.25,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H181",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -14498.25,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H184",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 70401.91666666667,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H185",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 92803,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H186",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": -427.53196242751153,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H187",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 162777.38470423917,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H189",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 151862.6026097008,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H190",
+     "reasons": [
+      "wrong_value"
+     ],
+     "expected": 0,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "H191",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 151862.6026097008,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "I108",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 15690.806982000002,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "I109",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 16977.646386,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "I110",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 32668.453368000002,
+     "actual": null
+    },
+    {
+     "sheet": "Forecast Model",
+     "cell": "I112",
+     "reasons": [
+      "wrong_value",
+      "formula_required"
+     ],
+     "expected": 2404.367531445411,
+     "actual": null
+    },
+    "...truncated"
+   ],
+   "preservation": {
+    "passed": true,
+    "violations": [],
+    "basis": "native_entered_state_and_export_structure",
+    "ignored_export_differences": []
+   },
+   "requirements": [],
+   "execution": {
+    "status": "completed",
+    "calculation_verified": true,
+    "source_warnings": [
+     "Sparkline Group extension is not supported and will be removed"
+    ],
+    "new_errors": [],
+    "circular_reference_check": "not_implemented",
+    "engine": "google-apps-script",
+    "calculation_basis": "google_flush_and_stable_values"
+   },
+   "passed": false,
+   "provisional": false,
+   "compatibility": {
+    "golden_output_mismatches": 0,
+    "details": [],
+    "passed": true
+   },
+   "remote_execution": {
+    "jobId": "2026-09-24T17-28-46-543Z-952b5790-task_15",
+    "taskId": "task_15",
+    "spreadsheetId": "16opBbm7HR0ccQdw2lp0Q_jVCl2cqMIByvf8hpXq0Nek",
+    "engine": "google-apps-script",
+    "transport": "signed-http",
+    "scriptId": "1TOrGyjWOKj31ZlPuyf3JKHR-MWyivJxdbVtvG-s6CRM97r99WRr-0Wb9",
+    "startedAt": "2026-09-24T17:42:51.956Z",
+    "timing": {
+     "open_ms": 629,
+     "initial_read_ms": 142,
+     "agent_ms": 250585,
+     "calculation_ms": 2560,
+     "final_read_ms": 928
+    },
+    "status": "completed",
+    "completedAt": "2026-09-24T17:47:06.800Z"
+   },
+   "spreadsheet_url": "https://docs.google.com/spreadsheets/d/16opBbm7HR0ccQdw2lp0Q_jVCl2cqMIByvf8hpXq0Nek/edit",
+   "snapshots": {
+    "initial": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_15/native-initial.json",
+     "bytes": 1043736,
+     "requests": 2,
+     "response_chars": 10745048,
+     "max_response_chars": 10694476,
+     "quota_wait_ms": 0,
+     "read_ms": 2433,
+     "elapsed_ms": 7611
+    },
+    "final": {
+     "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_15/native-final.json",
+     "bytes": 1043736,
+     "requests": 2,
+     "response_chars": 10745048,
+     "max_response_chars": 10694476,
+     "quota_wait_ms": 0,
+     "read_ms": 1615,
+     "elapsed_ms": 4879
+    }
+   },
+   "timing": {
+    "preparation_ms": 20844,
+    "request_ms": 277231,
+    "export_and_grade_ms": 5216,
+    "remote_ms": 254844
+   },
+   "workbook_trashed": true
+  }
+ ]
+}

@@ -24,3 +24,8 @@ work.xlsx
 
 # offline preservation baselines (regenerable, binary)
 offline/.baseline/
+offline/runs/
+offline/.mog/
+offline/.venv/
+offline/node_modules/
+offline/.mapcache/

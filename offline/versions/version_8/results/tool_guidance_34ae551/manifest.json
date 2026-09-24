@@ -1,0 +1,40 @@
+{
+  "commit": "34ae551a990537788c4b8a823593f6eee8e59a2f",
+  "source_archive_sha256": "aa45da519b8cc894f51fac9e53ae925a6007c8ae8dd982a4fb1d2abc8fbf0584",
+  "host": "mac-personal",
+  "model": "gpt-5.4",
+  "effort": "medium",
+  "adaptive_planning": false,
+  "tool_guided_reminders": true,
+  "submit_review": true,
+  "seeds": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
+  ],
+  "tasks": [
+    "task_01",
+    "task_02",
+    "task_03",
+    "task_04",
+    "task_05",
+    "task_06",
+    "task_07",
+    "task_08",
+    "task_09",
+    "task_10",
+    "task_11",
+    "task_12",
+    "task_13",
+    "task_14",
+    "task_15"
+  ],
+  "concurrency": 75,
+  "expected": 75,
+  "created_utc": "2026-09-24T20:41:43.779662+00:00",
+  "root": "/Users/minh/code/polar/tool-guidance-sweeps/20260924T204143Z-34ae551/gas-offline",
+  "binary_sha256": "a5a3269871187fc9f8ace5ca4d8440d322dcdb523ff973b044df39997df47307",
+  "source_file_count": 214
+}

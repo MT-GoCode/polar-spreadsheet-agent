@@ -1,0 +1,14 @@
+v5 -- the submit review gate.
+
+SubmitReview snapshots the workbook, groups every changed property, and requires the
+agent to adjudicate each group KEEP / RESTORE / INVESTIGATE with a reason and evidence
+before the run is allowed to finish. Agent.gs blocks completion until a review is
+submitted, so a run no longer ends the moment the model decides it is done.
+
+Also here: Entry.gs, the online runAgent entry point holding the loop to 330s of the
+Apps Script six-minute limit, and ReviewConformance.gs, which asserts the restore path
+preserves types exactly (numeric text stays text, formula-looking literals stay text,
+formulas restore verbatim, number format restores independently of value).
+
+Prompt and map are unchanged from v4b. The binary is unchanged. The only variable is
+the gate.

@@ -1,0 +1,593 @@
+{
+ "task_01": [
+  {
+   "seed": 1,
+   "n": 20,
+   "kinds": {
+    "wrong value": 20
+   },
+   "sample": [
+    "wrong value at Model-Build!H124 (got 30.325674289299997, want 32.8403742893)",
+    "wrong value at Model-Build!H126 (got 30.362674289299996, want 32.8773742893)",
+    "wrong value at Model-Build!H128 (got 45.85006357315463, want 48.36476357315463)"
+   ]
+  },
+  {
+   "seed": 4,
+   "n": 20,
+   "kinds": {
+    "wrong_value": 20
+   },
+   "sample": [
+    "wrong_value at Model-Build!H124 (got 35.4781742893, want 32.8403742893)",
+    "wrong_value at Model-Build!H126 (got 35.5151742893, want 32.8773742893)",
+    "wrong_value at Model-Build!H128 (got 51.00256357315463, want 48.36476357315463)"
+   ]
+  }
+ ],
+ "task_04": [
+  {
+   "seed": 1,
+   "n": 26,
+   "kinds": {
+    "wrong value": 25,
+    "...and 18999 more wrong output cells": 1
+   },
+   "sample": [
+    "wrong value at Monthly Cohorts!AA10 (got 0, want 0)",
+    "wrong value at Monthly Cohorts!AA100 (got -8, want -8)",
+    "wrong value at Monthly Cohorts!AA101 (got -8, want -8)"
+   ]
+  },
+  {
+   "seed": 2,
+   "n": 26,
+   "kinds": {
+    "formula_required": 25,
+    "...and 18999 more wrong output cells": 1
+   },
+   "sample": [
+    "formula_required at Monthly Cohorts!AA10 (got 0, want 0)",
+    "formula_required at Monthly Cohorts!AA100 (got -8, want -8)",
+    "formula_required at Monthly Cohorts!AA101 (got -8, want -8)"
+   ]
+  },
+  {
+   "seed": 3,
+   "n": 26,
+   "kinds": {
+    "formula_required": 25,
+    "...and 18999 more wrong output cells": 1
+   },
+   "sample": [
+    "formula_required at Monthly Cohorts!AA10 (got 0, want 0)",
+    "formula_required at Monthly Cohorts!AA100 (got -8, want -8)",
+    "formula_required at Monthly Cohorts!AA101 (got -8, want -8)"
+   ]
+  },
+  {
+   "seed": 4,
+   "n": 26,
+   "kinds": {
+    "formula_required": 25,
+    "...and 18999 more wrong output cells": 1
+   },
+   "sample": [
+    "formula_required at Monthly Cohorts!AA10 (got 0, want 0)",
+    "formula_required at Monthly Cohorts!AA100 (got -8, want -8)",
+    "formula_required at Monthly Cohorts!AA101 (got -8, want -8)"
+   ]
+  }
+ ],
+ "task_09": [
+  {
+   "seed": 1,
+   "n": 1,
+   "kinds": {
+    "preservation: cell_content": 1
+   },
+   "sample": [
+    "preservation: cell_content at Cash Flow Valuation!L24 -- agent changed a protected cell/object"
+   ]
+  },
+  {
+   "seed": 2,
+   "n": 1,
+   "kinds": {
+    "preservation: cell_content": 1
+   },
+   "sample": [
+    "preservation: cell_content at Cash Flow Valuation!L24 -- agent changed a protected cell/object"
+   ]
+  },
+  {
+   "seed": 3,
+   "n": 1,
+   "kinds": {
+    "preservation: cell_content": 1
+   },
+   "sample": [
+    "preservation: cell_content at Cash Flow Valuation!L24 -- agent changed a protected cell/object"
+   ]
+  },
+  {
+   "seed": 4,
+   "n": 1,
+   "kinds": {
+    "preservation: cell_content": 1
+   },
+   "sample": [
+    "preservation: cell_content at Cash Flow Valuation!L24 -- agent changed a protected cell/object"
+   ]
+  },
+  {
+   "seed": 5,
+   "n": 1,
+   "kinds": {
+    "preservation: cell_content": 1
+   },
+   "sample": [
+    "preservation: cell_content at Cash Flow Valuation!L24 -- agent changed a protected cell/object"
+   ]
+  }
+ ],
+ "task_10": [
+  {
+   "seed": 1,
+   "n": 350,
+   "kinds": {
+    "wrong value": 22,
+    "preservation: cell_style/font": 109,
+    "preservation: cell_style/number_form": 109,
+    "preservation: cell_content": 110
+   },
+   "sample": [
+    "wrong value at D&A Schedule!C11 (got 378.40712940849403, want -378.407129408494)",
+    "wrong value at D&A Schedule!C12 (got 435.11693511534565, want -435.1169351153456)",
+    "wrong value at D&A Schedule!C13 (got 496.3332033198119, want -496.3332033198119)"
+   ]
+  },
+  {
+   "seed": 2,
+   "n": 22,
+   "kinds": {
+    "wrong_value": 11,
+    "wrong_value,formula_required": 11
+   },
+   "sample": [
+    "wrong_value at D&A Schedule!C11 (got 378.40712940849403, want -378.407129408494)",
+    "wrong_value at D&A Schedule!C12 (got 435.11693511534565, want -435.1169351153456)",
+    "wrong_value at D&A Schedule!C13 (got 496.3332033198119, want -496.3332033198119)"
+   ]
+  },
+  {
+   "seed": 3,
+   "n": 26,
+   "kinds": {
+    "wrong_value,formula_required": 15,
+    "wrong_value": 10,
+    "...and 8 more wrong output cells": 1
+   },
+   "sample": [
+    "wrong_value,formula_required at D&A Schedule!C11 (got None, want -378.407129408494)",
+    "wrong_value at D&A Schedule!C12 (got None, want -435.1169351153456)",
+    "wrong_value at D&A Schedule!C13 (got None, want -496.3332033198119)"
+   ]
+  },
+  {
+   "seed": 4,
+   "n": 66,
+   "kinds": {
+    "wrong_value,missing_submission_cache": 11,
+    "preservation: cell_content": 55
+   },
+   "sample": [
+    "wrong_value,missing_submission_cache at D&A Schedule!E28 (got None, want 0)",
+    "wrong_value,missing_submission_cache at D&A Schedule!F29 (got None, want 0)",
+    "wrong_value,missing_submission_cache at D&A Schedule!G30 (got None, want 0)"
+   ]
+  },
+  {
+   "seed": 5,
+   "n": 22,
+   "kinds": {
+    "preservation: cell_content": 22
+   },
+   "sample": [
+    "preservation: cell_content at Operating Valuation!E50 -- agent changed a protected cell/object",
+    "preservation: cell_content at Operating Valuation!E54 -- agent changed a protected cell/object",
+    "preservation: cell_content at Operating Valuation!F50 -- agent changed a protected cell/object"
+   ]
+  }
+ ],
+ "task_13": [
+  {
+   "seed": 1,
+   "n": 6,
+   "kinds": {
+    "wrong value": 6
+   },
+   "sample": [
+    "wrong value at Valuation Output!I10 (got -0.1321910000000001, want 0.13219100000000014)",
+    "wrong value at Valuation Output!I11 (got -0.08219100000000006, want 0.08219100000000008)",
+    "wrong value at Valuation Output!I12 (got -0.03219100000000005, want 0.032191000000000164)"
+   ]
+  },
+  {
+   "seed": 2,
+   "n": 26,
+   "kinds": {
+    "wrong_value": 25,
+    "...and 23 more wrong output cells": 1
+   },
+   "sample": [
+    "wrong_value at Valuation Output!AD10 (got 23171.005441745085, want 21665.463330441176)",
+    "wrong_value at Valuation Output!AD11 (got 24340.014840277927, want 22834.47272897402)",
+    "wrong_value at Valuation Output!AD12 (got 26059.837667810763, want 24554.295556506855)"
+   ]
+  },
+  {
+   "seed": 3,
+   "n": 26,
+   "kinds": {
+    "wrong_value": 25,
+    "...and 17 more wrong output cells": 1
+   },
+   "sample": [
+    "wrong_value at Valuation Output!AD10 (got 23171.005441745085, want 21665.463330441176)",
+    "wrong_value at Valuation Output!AD11 (got 24340.014840277927, want 22834.47272897402)",
+    "wrong_value at Valuation Output!AD12 (got 26059.837667810763, want 24554.295556506855)"
+   ]
+  },
+  {
+   "seed": 4,
+   "n": 6,
+   "kinds": {
+    "wrong_value": 6
+   },
+   "sample": [
+    "wrong_value at Valuation Output!I10 (got -0.1321910000000001, want 0.13219100000000014)",
+    "wrong_value at Valuation Output!I11 (got -0.08219100000000006, want 0.08219100000000008)",
+    "wrong_value at Valuation Output!I12 (got -0.03219100000000005, want 0.032191000000000164)"
+   ]
+  },
+  {
+   "seed": 5,
+   "n": 6,
+   "kinds": {
+    "wrong_value": 6
+   },
+   "sample": [
+    "wrong_value at Valuation Output!I10 (got -0.13219100000000006, want 0.13219100000000014)",
+    "wrong_value at Valuation Output!I11 (got -0.08219100000000001, want 0.08219100000000008)",
+    "wrong_value at Valuation Output!I12 (got -0.03219100000000008, want 0.032191000000000164)"
+   ]
+  }
+ ],
+ "task_12": [
+  {
+   "seed": 1,
+   "n": 26,
+   "kinds": {
+    "wrong value": 25,
+    "...and 181 more wrong output cells": 1
+   },
+   "sample": [
+    "wrong value at Investment Summary!C25 (got -0.04436550160900418, want -0.03730234801769257)",
+    "wrong value at Investment Summary!C26 (got -0.11728542974308984, want -0.1665072198957205)",
+    "wrong value at Investment Summary!C27 (got 0.8773819515895771, want 0.8961039781707876)"
+   ]
+  },
+  {
+   "seed": 2,
+   "n": 336,
+   "kinds": {
+    "wrong_value": 25,
+    "...and 219 more wrong output cells": 1,
+    "preservation: cell_content": 308,
+    "preservation: cell_style/font": 1,
+    "preservation: cell_style/number_form": 1
+   },
+   "sample": [
+    "wrong_value at Investment Summary!C25 (got -0.03840592715112956, want -0.03730234801769257)",
+    "wrong_value at Investment Summary!C26 (got -0.1713663031963133, want -0.1665072198957205)",
+    "wrong_value at Investment Summary!C28 (got 0.6043628676046412, want 0.6044117370479508)"
+   ]
+  },
+  {
+   "seed": 3,
+   "n": 334,
+   "kinds": {
+    "wrong_value": 25,
+    "...and 784 more wrong output cells": 1,
+    "preservation: cell_content": 308
+   },
+   "sample": [
+    "wrong_value at Annual Forecast!C22 (got 3663924.468220539, want 3646246.72407941)",
+    "wrong_value at Annual Forecast!C24 (got 0.3572405561739687, want 0.3583518745064395)",
+    "wrong_value at Annual Forecast!C25 (got 17121.14237486233, want 17038.536093829018)"
+   ]
+  },
+  {
+   "seed": 4,
+   "n": 399,
+   "kinds": {
+    "wrong_value": 25,
+    "...and 134 more wrong output cells": 1,
+    "preservation: cell_content": 373
+   },
+   "sample": [
+    "wrong_value at Investment Summary!C25 (got -0.03840592715112956, want -0.03730234801769257)",
+    "wrong_value at Investment Summary!C26 (got -0.17136630319631108, want -0.1665072198957205)",
+    "wrong_value at Investment Summary!C28 (got 0.6043628676046449, want 0.6044117370479508)"
+   ]
+  },
+  {
+   "seed": 5,
+   "n": 316,
+   "kinds": {
+    "wrong_value": 25,
+    "...and 1075 more wrong output cells": 1,
+    "preservation: cell_content": 290
+   },
+   "sample": [
+    "wrong_value at Annual Forecast!C19 (got 0, want -235901.51707637153)",
+    "wrong_value at Annual Forecast!C20 (got -227305.06514140844, want -176926.1378072786)",
+    "wrong_value at Annual Forecast!C21 (got -1850857.31471356, want -2036379.904455802)"
+   ]
+  }
+ ],
+ "task_15": [
+  {
+   "seed": 1,
+   "n": 26,
+   "kinds": {
+    "wrong value": 25,
+    "...and 308 more wrong output cells": 1
+   },
+   "sample": [
+    "wrong value at Forecast Model!H125 (got 480.7360907500001, want 721.6740970000001)",
+    "wrong value at Forecast Model!H126 (got 9925.476032240966, want 10166.414038490966)",
+    "wrong value at Forecast Model!H128 (got 4504.8632662036125, want 4263.925259953616)"
+   ]
+  },
+  {
+   "seed": 2,
+   "n": 26,
+   "kinds": {
+    "wrong_value": 25,
+    "...and 308 more wrong output cells": 1
+   },
+   "sample": [
+    "wrong_value at Forecast Model!H125 (got 480.7360907500001, want 721.6740970000001)",
+    "wrong_value at Forecast Model!H126 (got 9925.476032240966, want 10166.414038490966)",
+    "wrong_value at Forecast Model!H128 (got 4504.8632662036125, want 4263.925259953616)"
+   ]
+  },
+  {
+   "seed": 3,
+   "n": 27,
+   "kinds": {
+    "wrong_value": 25,
+    "...and 308 more wrong output cells": 1,
+    "preservation: cell_content": 1
+   },
+   "sample": [
+    "wrong_value at Forecast Model!H125 (got 500.81425793750003, want 721.6740970000001)",
+    "wrong_value at Forecast Model!H126 (got 9945.554199428465, want 10166.414038490966)",
+    "wrong_value at Forecast Model!H128 (got 4484.785099016113, want 4263.925259953616)"
+   ]
+  },
+  {
+   "seed": 4,
+   "n": 26,
+   "kinds": {
+    "wrong_value": 25,
+    "...and 308 more wrong output cells": 1
+   },
+   "sample": [
+    "wrong_value at Forecast Model!H125 (got 500.81425793750003, want 721.6740970000001)",
+    "wrong_value at Forecast Model!H126 (got 9945.554199428465, want 10166.414038490966)",
+    "wrong_value at Forecast Model!H128 (got 4484.785099016113, want 4263.925259953616)"
+   ]
+  },
+  {
+   "seed": 5,
+   "n": 26,
+   "kinds": {
+    "wrong_value": 25,
+    "...and 308 more wrong output cells": 1
+   },
+   "sample": [
+    "wrong_value at Forecast Model!H125 (got 500.81425793750003, want 721.6740970000001)",
+    "wrong_value at Forecast Model!H126 (got 9945.554199428465, want 10166.414038490966)",
+    "wrong_value at Forecast Model!H128 (got 4484.785099016113, want 4263.925259953616)"
+   ]
+  }
+ ],
+ "task_07": [
+  {
+   "seed": 1,
+   "n": 28,
+   "kinds": {
+    "preservation: cell_content": 1,
+    "preservation: cell_style/font": 10,
+    "preservation: cell_style/fill": 17
+   },
+   "sample": [
+    "preservation: cell_content at Meta Drivers!B20 -- agent changed a protected cell/object",
+    "preservation: cell_style/font at Meta Drivers!G19 -- agent changed a protected cell/object",
+    "preservation: cell_style/fill at Meta Drivers!G19 -- agent changed a protected cell/object"
+   ]
+  },
+  {
+   "seed": 2,
+   "n": 42,
+   "kinds": {
+    "preservation: cell_style/font": 18,
+    "preservation: cell_style/border": 7,
+    "preservation: cell_style/fill": 17
+   },
+   "sample": [
+    "preservation: cell_style/font at Meta Drivers!B20 -- agent changed a protected cell/object",
+    "preservation: cell_style/border at Meta Drivers!B20 -- agent changed a protected cell/object",
+    "preservation: cell_style/font at Meta Drivers!C20 -- agent changed a protected cell/object"
+   ]
+  },
+  {
+   "seed": 3,
+   "n": 44,
+   "kinds": {
+    "preservation: cell_style/font": 10,
+    "preservation: cell_style/fill": 17,
+    "preservation: cell_style/number_form": 17
+   },
+   "sample": [
+    "preservation: cell_style/font at Meta Drivers!G19 -- agent changed a protected cell/object",
+    "preservation: cell_style/fill at Meta Drivers!G19 -- agent changed a protected cell/object",
+    "preservation: cell_style/number_format at Meta Drivers!G19 -- agent changed a protected cell/object"
+   ]
+  },
+  {
+   "seed": 4,
+   "n": 27,
+   "kinds": {
+    "preservation: cell_style/font": 10,
+    "preservation: cell_style/fill": 17
+   },
+   "sample": [
+    "preservation: cell_style/font at Meta Drivers!G19 -- agent changed a protected cell/object",
+    "preservation: cell_style/fill at Meta Drivers!G19 -- agent changed a protected cell/object",
+    "preservation: cell_style/fill at Meta Drivers!G20 -- agent changed a protected cell/object"
+   ]
+  },
+  {
+   "seed": 5,
+   "n": 27,
+   "kinds": {
+    "preservation: cell_style/font": 10,
+    "preservation: cell_style/fill": 17
+   },
+   "sample": [
+    "preservation: cell_style/font at Meta Drivers!G19 -- agent changed a protected cell/object",
+    "preservation: cell_style/fill at Meta Drivers!G19 -- agent changed a protected cell/object",
+    "preservation: cell_style/fill at Meta Drivers!G20 -- agent changed a protected cell/object"
+   ]
+  }
+ ],
+ "task_08": [
+  {
+   "seed": 2,
+   "n": 26,
+   "kinds": {
+    "wrong_value": 25,
+    "...and 23 more wrong output cells": 1
+   },
+   "sample": [
+    "wrong_value at Metric Matrix!AA14 (got 0.0530558235859079, want 0.052028030641272906)",
+    "wrong_value at Metric Matrix!AA9 (got 2100.5648590436394, want 1928.9193124318572)",
+    "wrong_value at Metric Matrix!AB14 (got 0.01418133554770496, want 0.014745462915815206)"
+   ]
+  },
+  {
+   "seed": 3,
+   "n": 26,
+   "kinds": {
+    "wrong_value": 25,
+    "...and 23 more wrong output cells": 1
+   },
+   "sample": [
+    "wrong_value at Metric Matrix!AA14 (got 0.0530558235859079, want 0.052028030641272906)",
+    "wrong_value at Metric Matrix!AA9 (got 2100.5648590436394, want 1928.9193124318572)",
+    "wrong_value at Metric Matrix!AB14 (got 0.01418133554770496, want 0.014745462915815206)"
+   ]
+  },
+  {
+   "seed": 4,
+   "n": 26,
+   "kinds": {
+    "formula_required": 25,
+    "...and 108 more wrong output cells": 1
+   },
+   "sample": [
+    "formula_required at Metric Matrix!D10 (got -0.05351521118487068, want -0.05351521118487068)",
+    "formula_required at Metric Matrix!D11 (got -0.17377146705249813, want -0.17377146705249813)",
+    "formula_required at Metric Matrix!D12 (got 0.24274139648767123, want 0.24274139648767123)"
+   ]
+  }
+ ],
+ "task_11": [
+  {
+   "seed": 2,
+   "n": 1,
+   "kinds": {
+    "preservation: cell_content": 1
+   },
+   "sample": [
+    "preservation: cell_content at Cash Flow Valuation!F8 -- agent changed a protected cell/object"
+   ]
+  }
+ ],
+ "task_14": [
+  {
+   "seed": 2,
+   "n": 2,
+   "kinds": {
+    "wrong_value": 2
+   },
+   "sample": [
+    "wrong_value at Board Summary!D22 (got 5.995824548725659, want 4.665088910759015)",
+    "wrong_value at Board Summary!D23 (got 19.94553158806915, want 13.13089939091278)"
+   ]
+  },
+  {
+   "seed": 3,
+   "n": 2,
+   "kinds": {
+    "wrong_value": 2
+   },
+   "sample": [
+    "wrong_value at Board Summary!D22 (got 5.995824548725659, want 4.665088910759015)",
+    "wrong_value at Board Summary!D23 (got 19.94553158806915, want 13.13089939091278)"
+   ]
+  },
+  {
+   "seed": 4,
+   "n": 3,
+   "kinds": {
+    "wrong_value": 3
+   },
+   "sample": [
+    "wrong_value at Board Summary!D22 (got 5.995824548725659, want 4.665088910759015)",
+    "wrong_value at Board Summary!D23 (got 19.94553158806915, want 13.13089939091278)",
+    "wrong_value at Board Summary!D9 (got '50.0% Cash / 50.0% Stock', want '50% Cash / 50% Stock')"
+   ]
+  }
+ ],
+ "task_06": [
+  {
+   "seed": 3,
+   "n": 2,
+   "kinds": {
+    "wrong_value": 2
+   },
+   "sample": [
+    "wrong_value at Annual Cohorts!T31 (got 899.9280676583002, want 943.9836423569999)",
+    "wrong_value at Annual Cohorts!T50 (got 149.98801127638336, want 157.33060705949998)"
+   ]
+  },
+  {
+   "seed": 5,
+   "n": 26,
+   "kinds": {
+    "wrong_value,missing_submission_cache": 25,
+    "...and 177 more wrong output cells": 1
+   },
+   "sample": [
+    "wrong_value,missing_submission_cache at Annual Cohorts!G31 (got None, want 0)",
+    "wrong_value,missing_submission_cache at Annual Cohorts!G32 (got None, want 0)",
+    "wrong_value,missing_submission_cache at Annual Cohorts!G33 (got None, want 0)"
+   ]
+  }
+ ]
+}

@@ -10,7 +10,10 @@
     "open:script": "clasp open-script",
     "format": "prettier --write Code.gs scripts README.md package.json appsscript.json",
     "format:check": "prettier --check Code.gs scripts README.md package.json appsscript.json",
-    "setup": "node scripts/setup.mjs"
+    "setup": "node scripts/setup.mjs",
+    "setup:offline": "node offline/setup.mjs",
+    "bench:offline": "cd offline && npm run --silent bench:offline",
+    "test:offline": "cd offline && npm test"
   },
   "devDependencies": {
     "@google/clasp": "^3.4.1",

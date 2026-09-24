@@ -1,0 +1,21 @@
+{
+  "verified_utc": "2026-09-24T22:51:22.206829+00:00",
+  "host": "mac-personal",
+  "restored_snapshot": "versions/version_6/code/agent",
+  "document_version": "5",
+  "exact_source_files": 41,
+  "snapshot_source_equal": true,
+  "builds": [
+    "build.mjs",
+    "agent/build-online.mjs"
+  ],
+  "tests": {
+    "agent/test-harness.mjs": 13,
+    "agent/test-submit.mjs": 32,
+    "agent/test-review-mog.mjs": 13
+  },
+  "total_passed": 58,
+  "paid_api_calls": 0,
+  "new_benchmark_runs": 0,
+  "online_bundle_sha256": "2b9c44692de9e5b268c1171082ed3ae86f3160f9047dc52378d585366eeff146"
+}

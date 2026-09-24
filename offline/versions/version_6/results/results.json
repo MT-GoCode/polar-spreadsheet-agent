@@ -1,0 +1,358 @@
+{
+  "version": "v6",
+  "runs": [
+    {
+      "task": "task_12",
+      "seed": "2",
+      "passed": false,
+      "turns": 17,
+      "cost": 1.384
+    },
+    {
+      "task": "task_12",
+      "seed": "3",
+      "passed": false,
+      "turns": 28,
+      "cost": 1.9477
+    },
+    {
+      "task": "task_12",
+      "seed": "1",
+      "passed": false,
+      "turns": 24,
+      "cost": 1.532
+    },
+    {
+      "task": "task_12",
+      "seed": "5",
+      "passed": false,
+      "turns": 16,
+      "cost": 1.3099
+    },
+    {
+      "task": "task_12",
+      "seed": "4",
+      "passed": false,
+      "turns": 21,
+      "cost": 1.363
+    },
+    {
+      "task": "task_15",
+      "seed": "2",
+      "passed": false,
+      "turns": 21,
+      "cost": 3.9788
+    },
+    {
+      "task": "task_15",
+      "seed": "1",
+      "passed": false,
+      "turns": 12,
+      "cost": 1.3688
+    },
+    {
+      "task": "task_10",
+      "seed": "2",
+      "passed": false,
+      "turns": 11,
+      "cost": 0.8223
+    },
+    {
+      "task": "task_15",
+      "seed": "4",
+      "passed": false,
+      "turns": 15,
+      "cost": 1.3319
+    },
+    {
+      "task": "task_15",
+      "seed": "5",
+      "passed": false,
+      "turns": 8,
+      "cost": 0.944
+    },
+    {
+      "task": "task_10",
+      "seed": "1",
+      "passed": false,
+      "turns": 15,
+      "cost": 1.3309
+    },
+    {
+      "task": "task_10",
+      "seed": "3",
+      "passed": true,
+      "turns": 13,
+      "cost": 1.097
+    },
+    {
+      "task": "task_10",
+      "seed": "5",
+      "passed": false,
+      "turns": 10,
+      "cost": 0.9821
+    },
+    {
+      "task": "task_10",
+      "seed": "4",
+      "passed": false,
+      "turns": 9,
+      "cost": 0.7817
+    },
+    {
+      "task": "task_01",
+      "seed": "1",
+      "passed": false,
+      "turns": 7,
+      "cost": 0.5944
+    },
+    {
+      "task": "task_01",
+      "seed": "4",
+      "passed": false,
+      "turns": 20,
+      "cost": 0.7577
+    },
+    {
+      "task": "task_01",
+      "seed": "3",
+      "passed": false,
+      "turns": 17,
+      "cost": 0.7021
+    },
+    {
+      "task": "task_13",
+      "seed": "3",
+      "passed": false,
+      "turns": 8,
+      "cost": 0.5299
+    },
+    {
+      "task": "task_01",
+      "seed": "2",
+      "passed": true,
+      "turns": 11,
+      "cost": 0.5604
+    },
+    {
+      "task": "task_13",
+      "seed": "4",
+      "passed": false,
+      "turns": 9,
+      "cost": 0.5196
+    },
+    {
+      "task": "task_13",
+      "seed": "1",
+      "passed": true,
+      "turns": 11,
+      "cost": 0.5481
+    },
+    {
+      "task": "task_14",
+      "seed": "3",
+      "passed": false,
+      "turns": 7,
+      "cost": 0.4453
+    },
+    {
+      "task": "task_14",
+      "seed": "2",
+      "passed": false,
+      "turns": 7,
+      "cost": 0.4752
+    },
+    {
+      "task": "task_13",
+      "seed": "2",
+      "passed": false,
+      "turns": 9,
+      "cost": 0.534
+    },
+    {
+      "task": "task_01",
+      "seed": "5",
+      "passed": false,
+      "turns": 15,
+      "cost": 0.6997
+    },
+    {
+      "task": "task_14",
+      "seed": "1",
+      "passed": false,
+      "turns": 9,
+      "cost": 0.5451
+    },
+    {
+      "task": "task_14",
+      "seed": "5",
+      "passed": false,
+      "turns": 8,
+      "cost": 0.5607
+    },
+    {
+      "task": "task_14",
+      "seed": "4",
+      "passed": false,
+      "turns": 10,
+      "cost": 0.5403
+    },
+    {
+      "task": "task_13",
+      "seed": "5",
+      "passed": false,
+      "turns": 12,
+      "cost": 0.616
+    },
+    {
+      "task": "task_04",
+      "seed": "1",
+      "passed": true,
+      "turns": 12,
+      "cost": 0.5832
+    },
+    {
+      "task": "task_04",
+      "seed": "2",
+      "passed": true,
+      "turns": 12,
+      "cost": 0.3729
+    },
+    {
+      "task": "task_04",
+      "seed": "3",
+      "passed": true,
+      "turns": 11,
+      "cost": 0.353
+    },
+    {
+      "task": "task_04",
+      "seed": "5",
+      "passed": true,
+      "turns": 13,
+      "cost": 0.4661
+    },
+    {
+      "task": "task_07",
+      "seed": "1",
+      "passed": false,
+      "turns": 8,
+      "cost": 0.3799
+    },
+    {
+      "task": "task_07",
+      "seed": "2",
+      "passed": true,
+      "turns": 7,
+      "cost": 0.3568
+    },
+    {
+      "task": "task_04",
+      "seed": "4",
+      "passed": true,
+      "turns": 11,
+      "cost": 0.3517
+    },
+    {
+      "task": "task_07",
+      "seed": "5",
+      "passed": false,
+      "turns": 13,
+      "cost": 0.505
+    },
+    {
+      "task": "task_07",
+      "seed": "3",
+      "passed": true,
+      "turns": 8,
+      "cost": 0.4374
+    },
+    {
+      "task": "task_07",
+      "seed": "4",
+      "passed": true,
+      "turns": 9,
+      "cost": 0.3453
+    },
+    {
+      "task": "task_09",
+      "seed": "1",
+      "passed": true,
+      "turns": 7,
+      "cost": 0.466
+    },
+    {
+      "task": "task_09",
+      "seed": "4",
+      "passed": true,
+      "turns": 7,
+      "cost": 0.3952
+    },
+    {
+      "task": "task_09",
+      "seed": "2",
+      "passed": true,
+      "turns": 6,
+      "cost": 0.3517
+    },
+    {
+      "task": "task_08",
+      "seed": "1",
+      "passed": true,
+      "turns": 6,
+      "cost": 0.2569
+    },
+    {
+      "task": "task_09",
+      "seed": "3",
+      "passed": true,
+      "turns": 6,
+      "cost": 0.4096
+    },
+    {
+      "task": "task_08",
+      "seed": "2",
+      "passed": true,
+      "turns": 8,
+      "cost": 0.3667
+    },
+    {
+      "task": "task_09",
+      "seed": "5",
+      "passed": true,
+      "turns": 9,
+      "cost": 0.4029
+    },
+    {
+      "task": "task_08",
+      "seed": "3",
+      "passed": false,
+      "turns": 8,
+      "cost": 0.3921
+    },
+    {
+      "task": "task_08",
+      "seed": "4",
+      "passed": false,
+      "turns": 5,
+      "cost": 0.1951
+    },
+    {
+      "task": "task_08",
+      "seed": "5",
+      "passed": false,
+      "turns": 10,
+      "cost": 0.4577
+    }
+  ],
+  "carried_5of5": [
+    "task_02",
+    "task_03",
+    "task_05",
+    "task_06",
+    "task_11"
+  ],
+  "pass": 43,
+  "total": 74,
+  "cost_measured": 36.65
+}

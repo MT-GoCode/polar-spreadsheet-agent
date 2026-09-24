@@ -1,0 +1,17 @@
+var ss = SpreadsheetApp.getActiveSpreadsheet();
+var sh = ss.getSheetByName('Board Summary');
+sh.getRange('F5:G5').setValues([["Print?", 1]]);
+sh.getRange('D7:D7').setFormulas([["='Deal Inputs'!$D$21/1000000"]]);
+sh.getRange('D8:D8').setFormulas([["='Deal Inputs'!$D$18"]]);
+sh.getRange('D9:D9').setFormulas([["=TEXT('Deal Inputs'!$D$24,\"0%\")&\" Cash / \"&TEXT('Deal Inputs'!$D$25,\"0%\")&\" Stock\""]]);
+sh.getRange('D12:D12').setFormulas([["='Pro Forma'!H$21"]]);
+sh.getRange('D13:D13').setFormulas([["='Pro Forma'!$H$38+'Google Model'!$J$102+'Meta Model'!$J$87+'Pro Forma'!$H$36"]]);
+sh.getRange('D14:D14').setFormulas([["=Valuation!H23"]]);
+sh.getRange('D17:D17').setFormulas([["='Pro Forma'!D51"]]);
+sh.getRange('D18:D18').setFormulas([["='Pro Forma'!E51"]]);
+sh.getRange('D19:D19').setFormulas([["='Pro Forma'!F51"]]);
+sh.getRange('D22:D22').setFormulas([["=Valuation!$D$71*1000/'Pro Forma'!H$21"]]);
+sh.getRange('D23:D23').setFormulas([["=Valuation!$D$71*1000/D13"]]);
+sh.getRange('D24:D24').setFormulas([["=Valuation!$D$72*1000/'Pro Forma'!E$45"]]);
+sh.getRange('D25:D25').setFormulas([["=Valuation!D79"]]);
+__LOG__("wrote " + 15 + " cells");

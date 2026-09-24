@@ -1,0 +1,37 @@
+Version 4 -- the workbook map. 39/75 = 52%, identical to v3.
+
+Architecture still UNCHANGED from v1: one synchronous loop, one tool, one
+describe_spreadsheet call at the start. What changed is WHAT that call returns.
+
+v1-v3 gave the agent sheet names and dimensions. v4 gives it a structured map of
+the whole workbook, ~22 layer types: regions, formula blocks grouped by R1C1
+skeleton, number-format and font-colour partitions, blanks, errors, objects,
+period axes, labels with collisions, cross-sheet pulls -- plus six layers built
+for the failure modes measured in v1-v3:
+
+  TWIN        a filled block and an emptier one sharing row labels at a fixed
+              row offset (task_15: +100, 55 labels)
+  ANCHORS     a constant equal to the sum of the run below it (task_10: 914)
+  CONSUMERS   read-count per formula cell, so a live cell is distinguishable
+              from a stale twin (task_09's L24 vs D24)
+  IDENTITIES  arithmetic holding in every already-typed column (task_02)
+  RELATED AGG blocks whose formulas read overlapping rows of one source
+  REPEATS     labels occurring too often to be headings, summarised not listed
+
+The map is computed once per run and cached on
+sha256(Describe.gs + shim + workbook + mog binary), so a sweep pays for it once.
+
+RESULT: identical pass rate, one third fewer turns.
+
+  median turns   9 -> 6        task_04: 20 -> 5
+  pass rate      39/75 -> 39/75
+
+The map converts exploration into speed, not accuracy. That is worth keeping --
+it frees budget a verification step would need -- but on its own it does not
+make the agent more correct.
+
+Model: gpt-5.4, medium reasoning effort. mog a5a3269871187fc9.
+
+SNAPSHOT NOTE: this code is exactly commit 4c966ce, the state the sweep ran at.
+A prompt line added afterwards ("the map contains no cell VALUES...") is NOT
+here, because it was not in the measured run. It belongs to v5.

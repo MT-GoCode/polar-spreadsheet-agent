@@ -1,0 +1,24 @@
+Version 1 -- the simple baseline harness.
+
+A dead-simple synchronous agent loop, deliberately unclever. The model gets:
+
+  - a system prompt listing the ~496 Apps Script members that exist (anything
+    else throws by name), plus a few lines of advice: batch your writes, read
+    before you write, only change what the task asks for
+  - one describe_spreadsheet call at the start, giving sheet names + dimensions
+  - one tool, run_apps_script, that executes arbitrary Apps Script against a
+    live workbook and hands back whatever the script logged
+
+That is the whole design. No planning phase, no sub-agents, no critic, no
+retrieval, no task-specific prompting, no worked examples, no verification
+step. The model writes Apps Script, sees what it printed, and keeps going
+until it decides it is finished.
+
+Model: gpt-5.4, medium reasoning effort (fixed by the assignment).
+Deadline 20 min/run, 32k max output tokens, ~$0.50/run.
+
+Runs offline against mog (a headless spreadsheet engine) so iterations don't
+burn the Apps Script daily quota, and is graded by the unmodified grader.
+Agent.gs is shared verbatim with the Apps Script submission.
+
+This is the baseline everything else gets measured against.

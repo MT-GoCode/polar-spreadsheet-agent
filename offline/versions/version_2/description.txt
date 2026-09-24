@@ -1,0 +1,30 @@
+Version 2 -- same loop, bigger prompt, two harness bugs fixed.
+
+The agent architecture is UNCHANGED from v1: one synchronous loop, one tool
+(run_apps_script), one describe_spreadsheet call at the start. No planning
+phase, no sub-agents, no critic, no verification step, no new tools.
+
+What changed:
+
+1. SYSTEM PROMPT -- grew from ~1.4 KB to ~7.1 KB. Content lifted verbatim from
+   two sources, with only tool-specific clauses deleted:
+     - the prior harness's system prompt (a 14-tool scaffold that scored <=48%)
+     - Anthropic's xlsx skill
+   Plus a short Tips section, each line traced to specific failing runs in the
+   v1 sweep. Excluded: anything that WRITES formatting or comments (an
+   automatic preservation failure here), Python-only tooling, and the rules
+   that encoded one task's quirk as universal law.
+
+2. VERDICT -- mog omits <bgColor/> and <scheme/> elements that Google and Excel
+   always write. No Apps Script member can set either, so a style matching the
+   original once both sides are stripped of them is serialization, not the
+   agent. Before this, task_07 was UNPASSABLE: its known-correct solution
+   scored 25/25 and failed on 10 style violations.
+
+3. SHIM -- setFormulaR1C1/setFormulasR1C1 went through _applyCells, issuing one
+   engine round-trip and recalc PER CELL. On task_04 that turned the agent's
+   single batched call over 19,024 cells into 19,024 sequential writes: 28+
+   minutes without finishing, versus 1.657s once batched into one op. Apps
+   Script batches this natively, so the old behaviour also punished correct code.
+
+Model: gpt-5.4, medium reasoning effort (fixed by the assignment).

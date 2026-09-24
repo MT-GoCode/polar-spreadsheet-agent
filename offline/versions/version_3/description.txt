@@ -1,0 +1,98 @@
+Version 3 -- prompt only. 39/75 = 52%, the best so far.
+
+Architecture UNCHANGED from v1 and v2: one synchronous loop, one tool
+(run_apps_script), one describe_spreadsheet call at the start. No planner, no
+critic, no verification phase, no new tools. Only the system prompt moved.
+
+Two changes against v2, both aimed at v2's four regressions:
+
+  CUT     "formulas consistent across every projection period, since a lone
+          edited cell mid-row is the commonest silent error"
+  NARROW  "keep / retain / leave / preserve name cells you must NOT change"
+
+A third change was tried and REVERTED -- see the ablation below. That is the
+whole of v3; everything else is v2.
+
+Result: 38/75 -> 39/75. Inside seed noise on its own, but the three targeted
+tasks all recovered (task_02 4->5, task_06 4->5, task_08 2->3), which is the
+signal. The prompt is now saturated: four versions of edits, and the last two
+moved a single run.
+
+
+## System prompt changes
+
+Every line in the prompt should be traceable to a measured effect. This is the record of
+what changed, why, and what it cost or bought. Measure before removing a line that has a
+recorded win.
+
+## v3 (pending measurement) — cut one line, narrow another
+
+Both changes target the four tasks that REGRESSED in v2 (task_01, task_02, task_11,
+task_14), while keeping v2's wins.
+
+### CUT: "formulas consistent across every projection period, since a lone edited cell
+mid-row is the commonest silent error"
+
+False for every rollforward, and rollforwards are everywhere in this benchmark. Output
+rows whose month-1 formula genuinely differs from month-2:
+
+    task_12  52    task_10  34    task_15  14    task_06  14    task_14  13
+
+task_15's retained earnings is `Jan =0+H135+H186`, `Feb =H162+I135+I186`. Its beginning
+cash is blank in January and `=H191` from February on. task_14 is rollforward-heavy with
+13 such rows and regressed 2/5 -> 0/5.
+
+No measured win: the line was aimed at task_15, which stayed 0/5. Pure cost, so removed
+outright rather than narrowed.
+
+### NARROWED (not cut): "words like keep, retain, leave and preserve name cells you must
+NOT change"
+
+This one HAS a measured win — it is why task_09 went 0/5 -> 2/5, where all five v1 seeds
+died writing an adjusted formula into `L24` after the prompt said "Keep the supporting
+median unlevered beta in L24".
+
+But as written it fired on the word rather than the instruction:
+  - task_01's prompt says "retained earnings" — vocabulary, not a directive — and the
+    retained-earnings row is exactly what its PIK rollforward must write. Regressed 4/6 -> 2/5.
+  - task_14's "keep the original font color" is CONDITIONAL; sometimes the agent should
+    change it. Regressed 2/5 -> 0/5.
+
+Now scoped to when the task names a specific cell or range, with both collisions called
+out by name.
+
+## v2 — lifted prompt (42.7% -> 50.7%)
+
+Content lifted verbatim from the prior harness's system prompt and Anthropic's xlsx skill,
+with only tool-specific clauses deleted, plus a Tips section traced to failing v1 runs.
+
+Wins: task_04 0/4 -> 5/5, task_09 0/5 -> 2/5, task_10 0/5 -> 2/5, task_13 0/5 -> 1/5,
+task_06 3/5 -> 4/5.
+Regressions: task_01 4/6 -> 2/5, task_11 4/5 -> 2/5, task_14 2/5 -> 0/5, task_02 5/5 -> 4/5.
+
+### The batching clause — kept, and it is the single highest-value line
+
+    "Batching means one setFormulas call over an array of formula strings -- never one
+     setValues call over numbers you computed in JavaScript. A 20,000-cell block still
+     gets 20,000 formulas; grid size is never a reason to paste results."
+
+v1's prompt already said "never compute results in script and paste numbers" and lost 5/5
+on task_04 anyway: the agent was silently exempting a huge grid, and the prompt's own
+batching advice ("the difference between seconds and an hour") read as permission. Closing
+that hatch took task_04 from 0/4 to 5/5 perfect. The original batching line was never
+harmful — it was incomplete.
+
+### CUT during v2 authoring, before measurement
+
+- "spend your remaining turns verifying rather than finishing early" — backfires. task_14
+  s4 wrote the correct reference at turn 13 and broke it at 15-16; task_08 s3 wrote the
+  correct formula at turn 2 and "corrected" it to the wrong one at turn 3. Failing runs
+  average 10.7 turns, passing runs 9.0.
+- "re-read the cells you did not intend to change" — unactionable: the agent has no
+  snapshot to diff against. Belongs to the harness, not the prompt.
+- Anything that WRITES formatting (fonts, currency formats, comments, legends) — an
+  automatic preservation failure under this grader.
+- "guard denominators that can be zero" — invites IFERROR wrappers the grader compares
+  exactly.
+- Task-overfitted rules from the prior harness: "a ramp from X to Y starts AT X", the
+  bps-literal arithmetic rule, staggered rectangles.
