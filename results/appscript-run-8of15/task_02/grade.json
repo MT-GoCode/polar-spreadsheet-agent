@@ -1,0 +1,1605 @@
+{
+ "task_id": "task_02",
+ "score": 1,
+ "correct": 85,
+ "total": 85,
+ "output_failures": [],
+ "preservation": {
+  "passed": true,
+  "violations": [],
+  "basis": "native_entered_state_and_export_structure",
+  "ignored_export_differences": []
+ },
+ "requirements": [],
+ "execution": {
+  "status": "completed",
+  "calculation_verified": true,
+  "source_warnings": [],
+  "new_errors": [],
+  "circular_reference_check": "not_implemented",
+  "engine": "google-apps-script",
+  "calculation_basis": "google_flush_and_stable_values"
+ },
+ "passed": true,
+ "provisional": false,
+ "compatibility": {
+  "golden_output_mismatches": 0,
+  "details": [],
+  "passed": true
+ },
+ "remote_execution": {
+  "jobId": "2026-09-24T17-28-46-543Z-952b5790-task_02",
+  "taskId": "task_02",
+  "spreadsheetId": "1Vfmqm2-1LkMy9SL7KoDHGWxVs12aF7EI2BwjkTGx4i8",
+  "engine": "google-apps-script",
+  "transport": "signed-http",
+  "scriptId": "1TOrGyjWOKj31ZlPuyf3JKHR-MWyivJxdbVtvG-s6CRM97r99WRr-0Wb9",
+  "startedAt": "2026-09-24T18:18:35.316Z",
+  "timing": {
+   "open_ms": 561,
+   "initial_read_ms": 470,
+   "agent_ms": 128335,
+   "calculation_ms": 2364,
+   "final_read_ms": 941
+  },
+  "initialValues": {
+   "Income Statement": {
+    "H5": null,
+    "I5": null,
+    "J5": null,
+    "K5": null,
+    "L5": null,
+    "H7": null,
+    "I7": null,
+    "J7": null,
+    "K7": null,
+    "L7": null,
+    "H9": null,
+    "I9": null,
+    "J9": null,
+    "K9": null,
+    "L9": null,
+    "H12": null,
+    "I12": null,
+    "J12": null,
+    "K12": null,
+    "L12": null,
+    "H13": null,
+    "I13": null,
+    "J13": null,
+    "K13": null,
+    "L13": null,
+    "H14": null,
+    "I14": null,
+    "J14": null,
+    "K14": null,
+    "L14": null,
+    "H15": null,
+    "I15": null,
+    "J15": null,
+    "K15": null,
+    "L15": null,
+    "H17": null,
+    "I17": null,
+    "J17": null,
+    "K17": null,
+    "L17": null,
+    "H18": null,
+    "I18": null,
+    "J18": null,
+    "K18": null,
+    "L18": null,
+    "H21": null,
+    "I21": null,
+    "J21": null,
+    "K21": null,
+    "L21": null,
+    "H22": null,
+    "I22": null,
+    "J22": null,
+    "K22": null,
+    "L22": null,
+    "H23": null,
+    "I23": null,
+    "J23": null,
+    "K23": null,
+    "L23": null,
+    "H25": null,
+    "I25": null,
+    "J25": null,
+    "K25": null,
+    "L25": null,
+    "H26": null,
+    "I26": null,
+    "J26": null,
+    "K26": null,
+    "L26": null,
+    "H27": null,
+    "I27": null,
+    "J27": null,
+    "K27": null,
+    "L27": null,
+    "H29": null,
+    "I29": null,
+    "J29": null,
+    "K29": null,
+    "L29": null,
+    "H31": null,
+    "I31": null,
+    "J31": null,
+    "K31": null,
+    "L31": null
+   }
+  },
+  "initialFormulas": {
+   "Income Statement": {
+    "H5": null,
+    "I5": null,
+    "J5": null,
+    "K5": null,
+    "L5": null,
+    "H7": null,
+    "I7": null,
+    "J7": null,
+    "K7": null,
+    "L7": null,
+    "H9": null,
+    "I9": null,
+    "J9": null,
+    "K9": null,
+    "L9": null,
+    "H12": null,
+    "I12": null,
+    "J12": null,
+    "K12": null,
+    "L12": null,
+    "H13": null,
+    "I13": null,
+    "J13": null,
+    "K13": null,
+    "L13": null,
+    "H14": null,
+    "I14": null,
+    "J14": null,
+    "K14": null,
+    "L14": null,
+    "H15": null,
+    "I15": null,
+    "J15": null,
+    "K15": null,
+    "L15": null,
+    "H17": null,
+    "I17": null,
+    "J17": null,
+    "K17": null,
+    "L17": null,
+    "H18": null,
+    "I18": null,
+    "J18": null,
+    "K18": null,
+    "L18": null,
+    "H21": null,
+    "I21": null,
+    "J21": null,
+    "K21": null,
+    "L21": null,
+    "H22": null,
+    "I22": null,
+    "J22": null,
+    "K22": null,
+    "L22": null,
+    "H23": null,
+    "I23": null,
+    "J23": null,
+    "K23": null,
+    "L23": null,
+    "H25": null,
+    "I25": null,
+    "J25": null,
+    "K25": null,
+    "L25": null,
+    "H26": null,
+    "I26": null,
+    "J26": null,
+    "K26": null,
+    "L26": null,
+    "H27": null,
+    "I27": null,
+    "J27": null,
+    "K27": null,
+    "L27": null,
+    "H29": null,
+    "I29": null,
+    "J29": null,
+    "K29": null,
+    "L29": null,
+    "H31": null,
+    "I31": null,
+    "J31": null,
+    "K31": null,
+    "L31": null
+   }
+  },
+  "response": {
+   "reason": "done",
+   "turns": 17,
+   "ms": 99777,
+   "usage": {
+    "input": 883332,
+    "cached": 828160,
+    "output": 4363,
+    "reasoning": 3246
+   },
+   "cost_usd": 0.4104,
+   "cost_estimated": true,
+   "long_context": false,
+   "events": [
+    {
+     "ev": "timing.map",
+     "map_ms": 23957
+    },
+    {
+     "ev": "run.start",
+     "model": "gpt-5.4",
+     "effort": "medium",
+     "planning_bucket": 0,
+     "script_id": "1TOrGyjWOKj31ZlPuyf3JKHR-MWyivJxdbVtvG-s6CRM97r99WRr-0Wb9",
+     "spreadsheet_id": "1Vfmqm2-1LkMy9SL7KoDHGWxVs12aF7EI2BwjkTGx4i8",
+     "map_ok": true,
+     "map_bytes": 20095,
+     "system_bytes": 81002,
+     "first_bytes": 20144,
+     "prompt_sha256": "hRHtriqN+JT7UpYa8yl8cLivChCY7QIpNMcOS6CzKfw=",
+     "describe_ms": 28356
+    },
+    {
+     "ev": "turn.start",
+     "n": 1
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "087f3451-6459-4b93-b2fb-8f6dce2d10d9",
+     "body_bytes": 112362,
+     "input_items": 2
+    },
+    {
+     "ev": "llm.response",
+     "n": 1,
+     "response_id": "resp_05ba3d238c87a2e7016ab5699e2fec87d0942eb176954d341f",
+     "request_id": "req_ea47b89226eb40de82b5feb603e6b5ab",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 2540,
+     "usage": {
+      "input_tokens": 32296,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 23296
+      },
+      "output_tokens": 117,
+      "output_tokens_details": {
+       "reasoning_tokens": 89
+      },
+      "total_tokens": 32413
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 1,
+     "call_id": "call_0xGi95evwKstY3WqxCVmoLjN",
+     "name": "inspect_range",
+     "arguments": {
+      "sheet": "Income Statement",
+      "range": "C5:L31"
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 1,
+     "call_id": "call_0xGi95evwKstY3WqxCVmoLjN",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_range\",{\"sheet\":\"Income Statement\",\"range\":\"C5:L31\"},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 1,
+     "call_id": "call_0xGi95evwKstY3WqxCVmoLjN",
+     "ms": 21,
+     "bytes": 2290,
+     "shown_bytes": 2290,
+     "out": "{\"ok\":true,\"tool\":\"inspect_range\",\"elapsed_ms\":21,\"result\":{\"sheet\":\"Income Statement\",\"range\":\"C5:L31\",\"view\":\"corners\",\"sampled\":true,\"row_numbers\":[5,6,7,\"\u2026\",30,31],\"columns\":[\"C\",\"D\",\"E\",\"\u2026\",\"K\",\"L\"],\"values\":[[\"Total Sales:\",\"$ M\",14135,\"\u2026\",\"\",\"\"],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"Cost of Sales (COGS):\",\"$ M\",8554,\"\u2026\",\"\",\"\"],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"Net Profit:\",\"$ M\",1679,\"\u2026\",\"\",\"\"]],\"formulas\":[[null,null,null,\"\u2026\",null,null],[null,null,null,\"\u2026\",null,null],[null,null,null,\"\u2026\",null,null],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[null,null,null,\"\u2026\",null,null],[null,null,null,\"\u2026\",null,null]],\"displays\":[[\"Total Sales:\",\"$ M\",\" $ 14,135.0 \",\"\u2026\",\"\",\"\"],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"Cost of Sales (COGS):\",\"$ M\",\"  8,554.0 \",\"\u2026\",\"\",\"\"],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"Net Profit:\",\"$ M\",\" $ 1,679.0 \",\"\u2026\",\"\",\"\"]],\"number_formats\":[[\"0.###############\",\"0.###############\",\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\",\"\u2026\",\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\",\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"],[\"0.###############\",\"0.###############\",\"0.###############\",\"\u2026\",\"0.###############\",\"0.###############\"],[\"0.###############\",\"0.###############\",\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\",\"\u2026\",\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\",\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[\"0.###############\",\"0.###############\",\"0.###############\",\"\u2026\",\"0.###############\",\"0.###############\"],[\"0.###############\",\"0.###############\",\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\",\"\u2026\",\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\",\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"]],\"requested_cells\":270,\"shown_cells\":25,\"omitted_cells\":245,\"omitted_rows\":{\"start\":8,\"end\":29,\"count\":22},\"omitted_columns\":{\"start\":6,\"end\":10,\"count\":5},\"note\":\"PREVIEW ONLY. Ellipses in the labelled axes mark omitted rows/columns; their cells were NOT read. No conclusion about interior blanks, errors or correctness follows from this preview. Request a rectangle of at most 200 cells for every cell, use inspect_schedule for patterns/boundaries, or batch targeted reads with run_apps_script.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 2
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "56de8c12-4891-4aee-a6ee-c512f8904c9c",
+     "body_bytes": 117409,
+     "input_items": 5
+    },
+    {
+     "ev": "llm.response",
+     "n": 2,
+     "response_id": "resp_05ba3d238c87a2e7016ab569a293a087d09fba74250b0b3ed7",
+     "request_id": "req_3c7c219231b34794a9224fc3f17b4c75",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 2487,
+     "usage": {
+      "input_tokens": 33294,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 31488
+      },
+      "output_tokens": 94,
+      "output_tokens_details": {
+       "reasoning_tokens": 66
+      },
+      "total_tokens": 33388
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 2,
+     "call_id": "call_zNAv00EPN4x0O8vzQFzNI4I8",
+     "name": "inspect_range",
+     "arguments": {
+      "sheet": "Income Statement",
+      "range": "E5:L18"
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 2,
+     "call_id": "call_zNAv00EPN4x0O8vzQFzNI4I8",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_range\",{\"sheet\":\"Income Statement\",\"range\":\"E5:L18\"},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 2,
+     "call_id": "call_zNAv00EPN4x0O8vzQFzNI4I8",
+     "ms": 10,
+     "bytes": 14111,
+     "shown_bytes": 14111,
+     "out": "{\"ok\":true,\"tool\":\"inspect_range\",\"elapsed_ms\":9,\"result\":{\"sheet\":\"Income Statement\",\"range\":\"E5:L18\",\"sampled\":false,\"cells\":[{\"cell\":\"E5\",\"value\":14135,\"formula\":null,\"display\":\" $ 14,135.0 \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F5\",\"value\":14484,\"formula\":null,\"display\":\" $ 14,484.0 \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"G5\",\"value\":13405,\"formula\":null,\"display\":\" $ 13,405.0 \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H5\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I5\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J5\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K5\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L5\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"E6\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F6\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G6\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H6\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I6\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J6\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K6\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L6\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E7\",\"value\":8554,\"formula\":null,\"display\":\"  8,554.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F7\",\"value\":8673,\"formula\":null,\"display\":\"  8,673.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"G7\",\"value\":7888,\"formula\":null,\"display\":\"  7,888.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H7\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I7\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J7\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K7\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L7\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"E8\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F8\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G8\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H8\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I8\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J8\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K8\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L8\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E9\",\"value\":5581,\"formula\":null,\"display\":\"  5,581.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F9\",\"value\":5811,\"formula\":null,\"display\":\"  5,811.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"G9\",\"value\":5517,\"formula\":null,\"display\":\"  5,517.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H9\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"??_);_(@_)\"},{\"cell\":\"I9\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"??_);_(@_)\"},{\"cell\":\"J9\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"??_);_(@_)\"},{\"cell\":\"K9\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"??_);_(@_)\"},{\"cell\":\"L9\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"??_);_(@_)\"},{\"cell\":\"E10\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F10\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G10\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H10\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I10\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J10\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K10\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L10\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E11\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F11\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G11\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H11\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I11\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J11\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K11\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L11\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E12\",\"value\":2815,\"formula\":null,\"display\":\"  2,815.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F12\",\"value\":2678,\"formula\":null,\"display\":\"  2,678.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"G12\",\"value\":2417,\"formula\":null,\"display\":\"  2,417.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H12\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I12\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J12\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K12\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L12\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"E13\",\"value\":250,\"formula\":null,\"display\":\"  250.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F13\",\"value\":242,\"formula\":null,\"display\":\"  242.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"G13\",\"value\":231,\"formula\":null,\"display\":\"  231.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H13\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I13\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J13\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K13\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L13\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"E14\",\"value\":2,\"formula\":null,\"display\":\"  2.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F14\",\"value\":3,\"formula\":null,\"display\":\"  3.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"G14\",\"value\":2,\"formula\":null,\"display\":\"  2.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H14\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I14\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J14\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K14\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L14\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"E15\",\"value\":3067,\"formula\":null,\"display\":\"  3,067.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F15\",\"value\":2923,\"formula\":null,\"display\":\"  2,923.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"G15\",\"value\":2650,\"formula\":null,\"display\":\"  2,650.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H15\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I15\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J15\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K15\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L15\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"E16\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F16\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G16\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H16\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I16\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J16\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K16\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L16\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E17\",\"value\":2514,\"formula\":null,\"display\":\"  2,514.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F17\",\"value\":2888,\"formula\":null,\"display\":\"  2,888.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"G17\",\"value\":2867,\"formula\":null,\"display\":\"  2,867.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H17\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I17\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J17\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K17\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L17\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"E18\",\"value\":0.1778563848602759,\"formula\":null,\"display\":\"17.8%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"F18\",\"value\":0.1993924330295498,\"formula\":null,\"display\":\"19.9%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"G18\",\"value\":0.213875419619545,\"formula\":null,\"display\":\"21.4%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"H18\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"I18\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"J18\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"K18\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"L18\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"}],\"context\":{\"range\":\"B2:L18\",\"values\":[[\"\",\"\",\"\",\"Actual\",\"\",\"\",\"Forecast\",\"\",\"\",\"\",\"\"],[\"Profit & Loss Statement:\",\"\",\"Basis:\",\"2013-12-31T08:00:00.000Z\",\"2014-12-31T08:00:00.000Z\",\"2015-12-31T08:00:00.000Z\",\"2016-12-31T08:00:00.000Z\",\"2017-12-31T08:00:00.000Z\",\"2018-12-31T08:00:00.000Z\",\"2019-12-31T08:00:00.000Z\",\"2020-12-31T08:00:00.000Z\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"Total Sales:\",\"$ M\",14135,14484,13405,\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"Cost of Sales (COGS):\",\"$ M\",8554,8673,7888,\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"Gross Income:\",\"$ M\",5581,5811,5517,\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"Operating Costs:\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"(+) SG&A Expense:\",\"$ M\",2815,2678,2417,\"\",\"\",\"\",\"\",\"\"],[\"\",\"(+) Intangible Amortization:\",\"$ M\",250,242,231,\"\",\"\",\"\",\"\",\"\"],[\"\",\"(+) Goodwill Impairment:\",\"$ M\",2,3,2,\"\",\"\",\"\",\"\",\"\"],[\"\",\"Total Operating Costs:\",\"$ M\",3067,2923,2650,\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"Operating Profit (EBIT):\",\"$ M\",2514,2888,2867,\"\",\"\",\"\",\"\",\"\"],[\"\",\"EBIT Margin:\",\"%\",0.1778563848602759,0.1993924330295498,0.213875419619545,\"\",\"\",\"\",\"\",\"\"]]},\"note\":\"Context is evidence, not inferred units or authorization to edit. Use inspect_calculation for uncertain signs/sources; inspect_original before replacing numeric answers; inspect_schedule for repeated schedules.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 3
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "e8c2a4b4-d638-4b74-b7d4-2132c85642ba",
+     "body_bytes": 136377,
+     "input_items": 8
+    },
+    {
+     "ev": "llm.response",
+     "n": 3,
+     "response_id": "resp_05ba3d238c87a2e7016ab569a663f087d0bbef4b66643ceedf",
+     "request_id": "req_ba15fc4aadbe458db6593116837b322a",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 1201,
+     "usage": {
+      "input_tokens": 38474,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 32512
+      },
+      "output_tokens": 26,
+      "output_tokens_details": {
+       "reasoning_tokens": 0
+      },
+      "total_tokens": 38500
+     },
+     "text": "",
+     "output_types": [
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 3,
+     "call_id": "call_0k81fhfI82wEvfEStBuoxxK8",
+     "name": "inspect_range",
+     "arguments": {
+      "sheet": "Income Statement",
+      "range": "E20:L31"
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 3,
+     "call_id": "call_0k81fhfI82wEvfEStBuoxxK8",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_range\",{\"sheet\":\"Income Statement\",\"range\":\"E20:L31\"},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 3,
+     "call_id": "call_0k81fhfI82wEvfEStBuoxxK8",
+     "ms": 9,
+     "bytes": 12384,
+     "shown_bytes": 12384,
+     "out": "{\"ok\":true,\"tool\":\"inspect_range\",\"elapsed_ms\":9,\"result\":{\"sheet\":\"Income Statement\",\"range\":\"E20:L31\",\"sampled\":false,\"cells\":[{\"cell\":\"E20\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F20\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G20\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H20\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I20\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J20\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K20\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L20\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E21\",\"value\":-239,\"formula\":null,\"display\":\"  (239.0)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F21\",\"value\":-250,\"formula\":null,\"display\":\"  (250.0)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"G21\",\"value\":-226,\"formula\":null,\"display\":\"  (226.0)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H21\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I21\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J21\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K21\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L21\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"E22\",\"value\":72,\"formula\":null,\"display\":\"  72.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F22\",\"value\":61,\"formula\":null,\"display\":\"  61.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"G22\",\"value\":78,\"formula\":null,\"display\":\"  78.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H22\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I22\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J22\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K22\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L22\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"E23\",\"value\":-167,\"formula\":null,\"display\":\"  (167.0)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F23\",\"value\":-189,\"formula\":null,\"display\":\"  (189.0)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"G23\",\"value\":-148,\"formula\":null,\"display\":\"  (148.0)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H23\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I23\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J23\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K23\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L23\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"E24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E25\",\"value\":2347,\"formula\":null,\"display\":\"  2,347.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F25\",\"value\":2699,\"formula\":null,\"display\":\"  2,699.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"G25\",\"value\":2719,\"formula\":null,\"display\":\"  2,719.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"E26\",\"value\":-717,\"formula\":null,\"display\":\"  (717.0)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F26\",\"value\":-809,\"formula\":null,\"display\":\"  (809.0)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"G26\",\"value\":-820,\"formula\":null,\"display\":\"  (820.0)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"E27\",\"value\":1630,\"formula\":null,\"display\":\"  1,630.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F27\",\"value\":1890,\"formula\":null,\"display\":\"  1,890.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"G27\",\"value\":1899,\"formula\":null,\"display\":\"  1,899.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"E28\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F28\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G28\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H28\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I28\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J28\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K28\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L28\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E29\",\"value\":49,\"formula\":null,\"display\":\"  49.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F29\",\"value\":1056,\"formula\":null,\"display\":\"  1,056.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"G29\",\"value\":0,\"formula\":null,\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H29\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I29\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J29\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K29\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L29\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"E30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E31\",\"value\":1679,\"formula\":null,\"display\":\" $ 1,679.0 \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F31\",\"value\":2946,\"formula\":null,\"display\":\" $ 2,946.0 \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"G31\",\"value\":1899,\"formula\":null,\"display\":\" $ 1,899.0 \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"}],\"context\":{\"range\":\"B17:L31\",\"values\":[[\"\",\"Operating Profit (EBIT):\",\"$ M\",2514,2888,2867,\"\",\"\",\"\",\"\",\"\"],[\"\",\"EBIT Margin:\",\"%\",0.1778563848602759,0.1993924330295498,0.213875419619545,\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"Non-Operating Items:\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"(-) Interest Cost:\",\"$ M\",-239,-250,-226,\"\",\"\",\"\",\"\",\"\"],[\"\",\"(+) Interest & Other Income:\",\"$ M\",72,61,78,\"\",\"\",\"\",\"\",\"\"],[\"\",\"Total Non-Operating:\",\"$ M\",-167,-189,-148,\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"Pre-Tax Profit:\",\"$ M\",2347,2699,2719,\"\",\"\",\"\",\"\",\"\"],[\"\",\"(-) Income Tax Provision:\",\"$ M\",-717,-809,-820,\"\",\"\",\"\",\"\",\"\"],[\"\",\"Continuing Ops Income:\",\"$ M\",1630,1890,1899,\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"(+) Discontinued Ops Income:\",\"$ M\",49,1056,0,\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"Net Profit:\",\"$ M\",1679,2946,1899,\"\",\"\",\"\",\"\",\"\"]]},\"note\":\"Context is evidence, not inferred units or authorization to edit. Use inspect_calculation for uncertain signs/sources; inspect_original before replacing numeric answers; inspect_schedule for repeated schedules.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 4
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "c1ac3623-180c-4699-bdb3-5418f833102a",
+     "body_bytes": 151680,
+     "input_items": 10
+    },
+    {
+     "ev": "llm.response",
+     "n": 4,
+     "response_id": "resp_05ba3d238c87a2e7016ab569aa1d5c87d0975f9a7d0c9ffd10",
+     "request_id": "req_d308d23b1a39440a81ad97a2ff7bbc4c",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 3357,
+     "usage": {
+      "input_tokens": 42992,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 37632
+      },
+      "output_tokens": 242,
+      "output_tokens_details": {
+       "reasoning_tokens": 215
+      },
+      "total_tokens": 43234
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 4,
+     "call_id": "call_0DUexfae7WUwWcGu1W0iIQOO",
+     "name": "inspect_range",
+     "arguments": {
+      "sheet": "Drivers",
+      "range": "C21:L66"
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 4,
+     "call_id": "call_0DUexfae7WUwWcGu1W0iIQOO",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_range\",{\"sheet\":\"Drivers\",\"range\":\"C21:L66\"},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 4,
+     "call_id": "call_0DUexfae7WUwWcGu1W0iIQOO",
+     "ms": 19,
+     "bytes": 2214,
+     "shown_bytes": 2214,
+     "out": "{\"ok\":true,\"tool\":\"inspect_range\",\"elapsed_ms\":19,\"result\":{\"sheet\":\"Drivers\",\"range\":\"C21:L66\",\"view\":\"corners\",\"sampled\":true,\"row_numbers\":[21,22,23,\"\u2026\",65,66],\"columns\":[\"C\",\"D\",\"E\",\"\u2026\",\"K\",\"L\"],\"values\":[[\"Sales Growth:\",\"%\",\"\",\"\u2026\",0.025482,0.027872],[\"Gross Profit Margin:\",\"%\",0.39483551467987266,\"\u2026\",0.42255484968295404,0.425302849682954],[\"SG&A % of Sales:\",\"%\",\"\",\"\u2026\",0.190632,0.136805],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"FX Impact % of Sales:\",\"%\",-0.006579412805093739,\"\u2026\",-0.02601869130961754,-0.02601869130961754]],\"formulas\":[[null,null,null,\"\u2026\",null,null],[null,null,\"=+'Income Statement'!E9/'Income Statement'!E5\",\"\u2026\",\"=+J22+GM_Improv\",\"=+K22+GM_Improv\"],[null,null,null,\"\u2026\",null,null],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[null,null,null,\"\u2026\",null,null],[null,null,\"=+'Statements & Checks'!E75/'Income Statement'!E5\",\"\u2026\",\"=+J66\",\"=+K66\"]],\"displays\":[[\"Sales Growth:\",\"%\",\"\",\"\u2026\",\"2.5%\",\"2.8%\"],[\"Gross Profit Margin:\",\"%\",\"39.5%\",\"\u2026\",\"42.3%\",\"42.5%\"],[\"SG&A % of Sales:\",\"%\",\"\",\"\u2026\",\"19.1%\",\"13.7%\"],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"FX Impact % of Sales:\",\"%\",\"(0.7%)\",\"\u2026\",\"(2.6%)\",\"(2.6%)\"]],\"number_formats\":[[\"0.###############\",\"0.###############\",\"0.###############\",\"\u2026\",\"0.0%;\\\\(0.0%\\\\)\",\"0.0%;\\\\(0.0%\\\\)\"],[\"0.###############\",\"0.###############\",\"0.0%;\\\\(0.0%\\\\)\",\"\u2026\",\"0.0%;\\\\(0.0%\\\\)\",\"0.0%;\\\\(0.0%\\\\)\"],[\"0.###############\",\"0.###############\",\"0.###############\",\"\u2026\",\"0.0%;\\\\(0.0%\\\\)\",\"0.0%;\\\\(0.0%\\\\)\"],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[\"0.###############\",\"0.###############\",\"0.###############\",\"\u2026\",\"0.###############\",\"0.###############\"],[\"0.###############\",\"0.###############\",\"_(#,##0.0%_);\\\\(#,##0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\",\"\u2026\",\"0.0%;\\\\(0.0%\\\\)\",\"0.0%;\\\\(0.0%\\\\)\"]],\"requested_cells\":460,\"shown_cells\":25,\"omitted_cells\":435,\"omitted_rows\":{\"start\":24,\"end\":64,\"count\":41},\"omitted_columns\":{\"start\":6,\"end\":10,\"count\":5},\"note\":\"PREVIEW ONLY. Ellipses in the labelled axes mark omitted rows/columns; their cells were NOT read. No conclusion about interior blanks, errors or correctness follows from this preview. Request a rectangle of at most 200 cells for every cell, use inspect_schedule for patterns/boundaries, or batch targeted reads with run_apps_script.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 5
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "133dace4-1d32-46f7-aa7a-52586d2c9123",
+     "body_bytes": 157181,
+     "input_items": 13
+    },
+    {
+     "ev": "llm.response",
+     "n": 5,
+     "response_id": "resp_05ba3d238c87a2e7016ab569af4b6087d08302338467f0019f",
+     "request_id": "req_aaa0a2d7c68c42f4b1f4320038ea8c48",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 1558,
+     "usage": {
+      "input_tokens": 44063,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 42752
+      },
+      "output_tokens": 63,
+      "output_tokens_details": {
+       "reasoning_tokens": 36
+      },
+      "total_tokens": 44126
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 5,
+     "call_id": "call_Mp1cUcW9od07qFUjJAZdaKqx",
+     "name": "inspect_range",
+     "arguments": {
+      "sheet": "Drivers",
+      "range": "C21:L35"
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 5,
+     "call_id": "call_Mp1cUcW9od07qFUjJAZdaKqx",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_range\",{\"sheet\":\"Drivers\",\"range\":\"C21:L35\"},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 5,
+     "call_id": "call_Mp1cUcW9od07qFUjJAZdaKqx",
+     "ms": 8,
+     "bytes": 18660,
+     "shown_bytes": 18660,
+     "out": "{\"ok\":true,\"tool\":\"inspect_range\",\"elapsed_ms\":7,\"result\":{\"sheet\":\"Drivers\",\"range\":\"C21:L35\",\"sampled\":false,\"cells\":[{\"cell\":\"C21\",\"value\":\"Sales Growth:\",\"formula\":null,\"display\":\"Sales Growth:\",\"number_format\":\"0.###############\"},{\"cell\":\"D21\",\"value\":\"%\",\"formula\":null,\"display\":\"%\",\"number_format\":\"0.###############\"},{\"cell\":\"E21\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F21\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G21\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H21\",\"value\":0.042173,\"formula\":null,\"display\":\"4.2%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"I21\",\"value\":0.040973,\"formula\":null,\"display\":\"4.1%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"J21\",\"value\":0.033548,\"formula\":null,\"display\":\"3.4%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"K21\",\"value\":0.025482,\"formula\":null,\"display\":\"2.5%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"L21\",\"value\":0.027872,\"formula\":null,\"display\":\"2.8%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"C22\",\"value\":\"Gross Profit Margin:\",\"formula\":null,\"display\":\"Gross Profit Margin:\",\"number_format\":\"0.###############\"},{\"cell\":\"D22\",\"value\":\"%\",\"formula\":null,\"display\":\"%\",\"number_format\":\"0.###############\"},{\"cell\":\"E22\",\"value\":0.39483551467987266,\"formula\":\"=+'Income Statement'!E9/'Income Statement'!E5\",\"display\":\"39.5%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"F22\",\"value\":0.4012013256006628,\"formula\":\"=+'Income Statement'!F9/'Income Statement'!F5\",\"display\":\"40.1%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"G22\",\"value\":0.41156284968295415,\"formula\":\"=+'Income Statement'!G9/'Income Statement'!G5\",\"display\":\"41.2%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"H22\",\"value\":0.4143108496829541,\"formula\":\"=+G22+GM_Improv\",\"display\":\"41.4%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"I22\",\"value\":0.4170588496829541,\"formula\":\"=+H22+GM_Improv\",\"display\":\"41.7%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"J22\",\"value\":0.41980684968295406,\"formula\":\"=+I22+GM_Improv\",\"display\":\"42.0%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"K22\",\"value\":0.42255484968295404,\"formula\":\"=+J22+GM_Improv\",\"display\":\"42.3%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"L22\",\"value\":0.425302849682954,\"formula\":\"=+K22+GM_Improv\",\"display\":\"42.5%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"C23\",\"value\":\"SG&A % of Sales:\",\"formula\":null,\"display\":\"SG&A % of Sales:\",\"number_format\":\"0.###############\"},{\"cell\":\"D23\",\"value\":\"%\",\"formula\":null,\"display\":\"%\",\"number_format\":\"0.###############\"},{\"cell\":\"E23\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F23\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G23\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H23\",\"value\":0.15831,\"formula\":null,\"display\":\"15.8%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"I23\",\"value\":0.179823,\"formula\":null,\"display\":\"18.0%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"J23\",\"value\":0.184024,\"formula\":null,\"display\":\"18.4%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"K23\",\"value\":0.190632,\"formula\":null,\"display\":\"19.1%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"L23\",\"value\":0.136805,\"formula\":null,\"display\":\"13.7%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"C24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"C25\",\"value\":\"Intangible Amortization:\",\"formula\":null,\"display\":\"Intangible Amortization:\",\"number_format\":\"0.###############\"},{\"cell\":\"D25\",\"value\":\"$ M\",\"formula\":null,\"display\":\"$ M\",\"number_format\":\"0.###############\"},{\"cell\":\"E25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H25\",\"value\":184,\"formula\":null,\"display\":\"  184.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I25\",\"value\":182,\"formula\":null,\"display\":\"  182.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J25\",\"value\":162,\"formula\":null,\"display\":\"  162.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K25\",\"value\":178,\"formula\":null,\"display\":\"  178.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L25\",\"value\":148,\"formula\":null,\"display\":\"  148.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"C26\",\"value\":\"Goodwill Impairment:\",\"formula\":null,\"display\":\"Goodwill Impairment:\",\"number_format\":\"\"},{\"cell\":\"D26\",\"value\":\"$ M\",\"formula\":null,\"display\":\"$ M\",\"number_format\":\"0.###############\"},{\"cell\":\"E26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H26\",\"value\":0,\"formula\":null,\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I26\",\"value\":0,\"formula\":null,\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J26\",\"value\":0,\"formula\":null,\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K26\",\"value\":0,\"formula\":null,\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L26\",\"value\":0,\"formula\":null,\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"C27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"C28\",\"value\":\"Debt Paydown Rate:\",\"formula\":null,\"display\":\"Debt Paydown Rate:\",\"number_format\":\"0.###############\"},{\"cell\":\"D28\",\"value\":\"%\",\"formula\":null,\"display\":\"%\",\"number_format\":\"0.###############\"},{\"cell\":\"E28\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F28\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G28\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H28\",\"value\":0.084662,\"formula\":null,\"display\":\"8.5%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"I28\",\"value\":0.097678,\"formula\":null,\"display\":\"9.8%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"J28\",\"value\":0.105574,\"formula\":null,\"display\":\"10.6%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"K28\",\"value\":0.111485,\"formula\":null,\"display\":\"11.1%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"L28\",\"value\":0.09602,\"formula\":null,\"display\":\"9.6%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"C29\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D29\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E29\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F29\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G29\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H29\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I29\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J29\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K29\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L29\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"C30\",\"value\":\"Opening Debt Balance:\",\"formula\":null,\"display\":\"Opening Debt Balance:\",\"number_format\":\"0.###############\"},{\"cell\":\"D30\",\"value\":\"$ M\",\"formula\":null,\"display\":\"$ M\",\"number_format\":\"0.###############\"},{\"cell\":\"E30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H30\",\"value\":7422,\"formula\":\"=+'Statements & Checks'!G29\",\"display\":\"  7,422.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I30\",\"value\":6793.638636,\"formula\":\"=+H32\",\"display\":\"  6,793.6 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J30\",\"value\":6068.67252,\"formula\":\"=+I32\",\"display\":\"  6,068.7 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K30\",\"value\":5285.102292,\"formula\":\"=+J32\",\"display\":\"  5,285.1 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L30\",\"value\":4457.660621999999,\"formula\":\"=+K32\",\"display\":\"  4,457.7 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"C31\",\"value\":\"(-) Debt Repayment:\",\"formula\":null,\"display\":\"(-) Debt Repayment:\",\"number_format\":\"0.###############\"},{\"cell\":\"D31\",\"value\":\"$ M\",\"formula\":null,\"display\":\"$ M\",\"number_format\":\"0.###############\"},{\"cell\":\"E31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H31\",\"value\":-628.361364,\"formula\":\"=-H28*$H$30\",\"display\":\"  (628.4)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I31\",\"value\":-724.966116,\"formula\":\"=-I28*$H$30\",\"display\":\"  (725.0)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J31\",\"value\":-783.570228,\"formula\":\"=-J28*$H$30\",\"display\":\"  (783.6)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K31\",\"value\":-827.44167,\"formula\":\"=-K28*$H$30\",\"display\":\"  (827.4)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L31\",\"value\":-712.66044,\"formula\":\"=-L28*$H$30\",\"display\":\"  (712.7)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"C32\",\"value\":\"Closing Debt Balance:\",\"formula\":null,\"display\":\"Closing Debt Balance:\",\"number_format\":\"0.###############\"},{\"cell\":\"D32\",\"value\":\"$ M\",\"formula\":null,\"display\":\"$ M\",\"number_format\":\"0.###############\"},{\"cell\":\"E32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H32\",\"value\":6793.638636,\"formula\":\"=SUM(H30:H31)\",\"display\":\"  6,793.6 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I32\",\"value\":6068.67252,\"formula\":\"=SUM(I30:I31)\",\"display\":\"  6,068.7 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J32\",\"value\":5285.102292,\"formula\":\"=SUM(J30:J31)\",\"display\":\"  5,285.1 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K32\",\"value\":4457.660621999999,\"formula\":\"=SUM(K30:K31)\",\"display\":\"  4,457.7 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L32\",\"value\":3745.0001819999993,\"formula\":\"=SUM(L30:L31)\",\"display\":\"  3,745.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"C33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"C34\",\"value\":\"Gross Interest Expense:\",\"formula\":null,\"display\":\"Gross Interest Expense:\",\"number_format\":\"0.###############\"},{\"cell\":\"D34\",\"value\":\"$ M\",\"formula\":null,\"display\":\"$ M\",\"number_format\":\"0.###############\"},{\"cell\":\"E34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H34\",\"value\":275.326512,\"formula\":\"=+H30*Debt_Interest_Rate\",\"display\":\"  275.3 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I34\",\"value\":252.01681884105597,\"formula\":\"=+I30*Debt_Interest_Rate\",\"display\":\"  252.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J34\",\"value\":225.12347580192,\"formula\":\"=+J30*Debt_Interest_Rate\",\"display\":\"  225.1 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K34\",\"value\":196.05615462403196,\"formula\":\"=+K30*Debt_Interest_Rate\",\"display\":\"  196.1 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L34\",\"value\":165.36137843371196,\"formula\":\"=+L30*Debt_Interest_Rate\",\"display\":\"  165.4 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"C35\",\"value\":\"Interest Earned:\",\"formula\":null,\"display\":\"Interest Earned:\",\"number_format\":\"0.###############\"},{\"cell\":\"D35\",\"value\":\"$ M\",\"formula\":null,\"display\":\"$ M\",\"number_format\":\"0.###############\"},{\"cell\":\"E35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H35\",\"value\":14.050229999999999,\"formula\":\"=+'Statements & Checks'!G6*Cash_Interest_Rate\",\"display\":\"  14.1 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I35\",\"value\":16.654017877892,\"formula\":\"=+'Statements & Checks'!H6*Cash_Interest_Rate\",\"display\":\"  16.7 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J35\",\"value\":8.32406794844,\"formula\":\"=+'Statements & Checks'!I6*Cash_Interest_Rate\",\"display\":\"  8.3 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K35\",\"value\":-0.36784187827599985,\"formula\":\"=+'Statements & Checks'!J6*Cash_Interest_Rate\",\"display\":\"  (0.4)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L35\",\"value\":-9.854892151766,\"formula\":\"=+'Statements & Checks'!K6*Cash_Interest_Rate\",\"display\":\"  (9.9)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"}],\"context\":{\"range\":\"A18:L35\",\"values\":[[\"\",\"\",\"\",\"\",\"Actual\",\"\",\"\",\"Forecast\",\"\",\"\",\"\",\"\"],[\"\",\"Operating Drivers:\",\"\",\"Basis:\",\"2013-12-31T08:00:00.000Z\",\"2014-12-31T08:00:00.000Z\",\"2015-12-31T08:00:00.000Z\",\"2016-12-31T08:00:00.000Z\",\"2017-12-31T08:00:00.000Z\",\"2018-12-31T08:00:00.000Z\",\"2019-12-31T08:00:00.000Z\",\"2020-12-31T08:00:00.000Z\"],[\"\",\"P&L Drivers:\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"Sales Growth:\",\"%\",\"\",\"\",\"\",0.042173,0.040973,0.033548,0.025482,0.027872],[\"\",\"\",\"Gross Profit Margin:\",\"%\",0.39483551467987266,0.4012013256006628,0.41156284968295415,0.4143108496829541,0.4170588496829541,0.41980684968295406,0.42255484968295404,0.425302849682954],[\"\",\"\",\"SG&A % of Sales:\",\"%\",\"\",\"\",\"\",0.15831,0.179823,0.184024,0.190632,0.136805],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"Intangible Amortization:\",\"$ M\",\"\",\"\",\"\",184,182,162,178,148],[\"\",\"\",\"Goodwill Impairment:\",\"$ M\",\"\",\"\",\"\",0,0,0,0,0],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"Debt Paydown Rate:\",\"%\",\"\",\"\",\"\",0.084662,0.097678,0.105574,0.111485,0.09602],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"Opening Debt Balance:\",\"$ M\",\"\",\"\",\"\",7422,6793.638636,6068.67252,5285.102292,4457.660621999999],[\"\",\"\",\"(-) Debt Repayment:\",\"$ M\",\"\",\"\",\"\",-628.361364,-724.966116,-783.570228,-827.44167,-712.66044],[\"\",\"\",\"Closing Debt Balance:\",\"$ M\",\"\",\"\",\"\",6793.638636,6068.67252,5285.102292,4457.660621999999,3745.0001819999993],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"Gross Interest Expense:\",\"$ M\",\"\",\"\",\"\",275.326512,252.01681884105597,225.12347580192,196.05615462403196,165.36137843371196],[\"\",\"\",\"Interest Earned:\",\"$ M\",\"\",\"\",\"\",14.050229999999999,16.654017877892,8.32406794844,-0.36784187827599985,-9.854892151766]]},\"note\":\"Context is evidence, not inferred units or authorization to edit. Use inspect_calculation for uncertain signs/sources; inspect_original before replacing numeric answers; inspect_schedule for repeated schedules.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 6
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "41a2165d-7615-49d9-9476-de0d4113d1aa",
+     "body_bytes": 181042,
+     "input_items": 16
+    },
+    {
+     "ev": "llm.response",
+     "n": 6,
+     "response_id": "resp_05ba3d238c87a2e7016ab569b391dc87d0a368acef8fdc10e8",
+     "request_id": "req_02e248ef19e24216a774704acec1cf1b",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 1551,
+     "usage": {
+      "input_tokens": 50328,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 43776
+      },
+      "output_tokens": 49,
+      "output_tokens_details": {
+       "reasoning_tokens": 22
+      },
+      "total_tokens": 50377
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 6,
+     "call_id": "call_nE0q1Txx8kxZP6PxhQHsVKaS",
+     "name": "inspect_range",
+     "arguments": {
+      "sheet": "Drivers",
+      "range": "C37:L66"
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 6,
+     "call_id": "call_nE0q1Txx8kxZP6PxhQHsVKaS",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_range\",{\"sheet\":\"Drivers\",\"range\":\"C37:L66\"},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 6,
+     "call_id": "call_nE0q1Txx8kxZP6PxhQHsVKaS",
+     "ms": 26,
+     "bytes": 2077,
+     "shown_bytes": 2077,
+     "out": "{\"ok\":true,\"tool\":\"inspect_range\",\"elapsed_ms\":26,\"result\":{\"sheet\":\"Drivers\",\"range\":\"C37:L66\",\"view\":\"corners\",\"sampled\":true,\"row_numbers\":[37,38,39,\"\u2026\",65,66],\"columns\":[\"C\",\"D\",\"E\",\"\u2026\",\"K\",\"L\"],\"values\":[[\"Discontinued Ops Income:\",\"$ M\",\"\",\"\u2026\",0,0],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"FX Impact % of Sales:\",\"%\",-0.006579412805093739,\"\u2026\",-0.02601869130961754,-0.02601869130961754]],\"formulas\":[[null,null,null,\"\u2026\",null,null],[null,null,null,\"\u2026\",null,null],[null,null,null,\"\u2026\",null,null],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[null,null,null,\"\u2026\",null,null],[null,null,\"=+'Statements & Checks'!E75/'Income Statement'!E5\",\"\u2026\",\"=+J66\",\"=+K66\"]],\"displays\":[[\"Discontinued Ops Income:\",\"$ M\",\"\",\"\u2026\",\"  -  \",\"  -  \"],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"FX Impact % of Sales:\",\"%\",\"(0.7%)\",\"\u2026\",\"(2.6%)\",\"(2.6%)\"]],\"number_formats\":[[\"0.###############\",\"0.###############\",\"0.###############\",\"\u2026\",\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\",\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"],[\"0.###############\",\"0.###############\",\"0.###############\",\"\u2026\",\"0.###############\",\"0.###############\"],[\"0.###############\",\"0.###############\",\"0.###############\",\"\u2026\",\"0.###############\",\"0.###############\"],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[\"0.###############\",\"0.###############\",\"0.###############\",\"\u2026\",\"0.###############\",\"0.###############\"],[\"0.###############\",\"0.###############\",\"_(#,##0.0%_);\\\\(#,##0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\",\"\u2026\",\"0.0%;\\\\(0.0%\\\\)\",\"0.0%;\\\\(0.0%\\\\)\"]],\"requested_cells\":300,\"shown_cells\":25,\"omitted_cells\":275,\"omitted_rows\":{\"start\":40,\"end\":64,\"count\":25},\"omitted_columns\":{\"start\":6,\"end\":10,\"count\":5},\"note\":\"PREVIEW ONLY. Ellipses in the labelled axes mark omitted rows/columns; their cells were NOT read. No conclusion about interior blanks, errors or correctness follows from this preview. Request a rectangle of at most 200 cells for every cell, use inspect_schedule for patterns/boundaries, or batch targeted reads with run_apps_script.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 7
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "061ce531-5fd2-423b-8833-2d1dfeeadffd",
+     "body_bytes": 185202,
+     "input_items": 19
+    },
+    {
+     "ev": "llm.response",
+     "n": 7,
+     "response_id": "resp_05ba3d238c87a2e7016ab569b6b5dc87d0b76035980d892fe1",
+     "request_id": "req_35ee21bfe4154c5b97dd9f3212e8ffa4",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 1740,
+     "usage": {
+      "input_tokens": 51090,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 49920
+      },
+      "output_tokens": 45,
+      "output_tokens_details": {
+       "reasoning_tokens": 18
+      },
+      "total_tokens": 51135
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 7,
+     "call_id": "call_fBZBRskynlCUMrSb1iIrA87p",
+     "name": "inspect_range",
+     "arguments": {
+      "sheet": "Drivers",
+      "range": "C37:L60"
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 7,
+     "call_id": "call_fBZBRskynlCUMrSb1iIrA87p",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_range\",{\"sheet\":\"Drivers\",\"range\":\"C37:L60\"},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 7,
+     "call_id": "call_fBZBRskynlCUMrSb1iIrA87p",
+     "ms": 25,
+     "bytes": 2077,
+     "shown_bytes": 2077,
+     "out": "{\"ok\":true,\"tool\":\"inspect_range\",\"elapsed_ms\":25,\"result\":{\"sheet\":\"Drivers\",\"range\":\"C37:L60\",\"view\":\"corners\",\"sampled\":true,\"row_numbers\":[37,38,39,\"\u2026\",59,60],\"columns\":[\"C\",\"D\",\"E\",\"\u2026\",\"K\",\"L\"],\"values\":[[\"Discontinued Ops Income:\",\"$ M\",\"\",\"\u2026\",0,0],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"Share Buybacks:\",\"$ M\",1900,\"\u2026\",801,801]],\"formulas\":[[null,null,null,\"\u2026\",null,null],[null,null,null,\"\u2026\",null,null],[null,null,null,\"\u2026\",null,null],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[null,null,null,\"\u2026\",null,null],[null,null,\"=-'Statements & Checks'!E70\",\"\u2026\",\"=+J60\",\"=+K60\"]],\"displays\":[[\"Discontinued Ops Income:\",\"$ M\",\"\",\"\u2026\",\"  -  \",\"  -  \"],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"Share Buybacks:\",\"$ M\",\"  1,900.0 \",\"\u2026\",\"  801.0 \",\"  801.0 \"]],\"number_formats\":[[\"0.###############\",\"0.###############\",\"0.###############\",\"\u2026\",\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\",\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"],[\"0.###############\",\"0.###############\",\"0.###############\",\"\u2026\",\"0.###############\",\"0.###############\"],[\"0.###############\",\"0.###############\",\"0.###############\",\"\u2026\",\"0.###############\",\"0.###############\"],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[\"0.###############\",\"0.###############\",\"0.###############\",\"\u2026\",\"0.###############\",\"0.###############\"],[\"0.###############\",\"0.###############\",\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\",\"\u2026\",\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\",\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"]],\"requested_cells\":240,\"shown_cells\":25,\"omitted_cells\":215,\"omitted_rows\":{\"start\":40,\"end\":58,\"count\":19},\"omitted_columns\":{\"start\":6,\"end\":10,\"count\":5},\"note\":\"PREVIEW ONLY. Ellipses in the labelled axes mark omitted rows/columns; their cells were NOT read. No conclusion about interior blanks, errors or correctness follows from this preview. Request a rectangle of at most 200 cells for every cell, use inspect_schedule for patterns/boundaries, or batch targeted reads with run_apps_script.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 8
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "0457fea8-c3a3-40e5-ac57-f59fca930404",
+     "body_bytes": 189394,
+     "input_items": 22
+    },
+    {
+     "ev": "llm.response",
+     "n": 8,
+     "response_id": "resp_05ba3d238c87a2e7016ab569ba1a1887d08cefe70b2c9407b5",
+     "request_id": "req_e9af58828a0f461691b617aab866d6f3",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 1965,
+     "usage": {
+      "input_tokens": 51860,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 50944
+      },
+      "output_tokens": 56,
+      "output_tokens_details": {
+       "reasoning_tokens": 29
+      },
+      "total_tokens": 51916
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 8,
+     "call_id": "call_V4jVsNtXi54EdW0wBki9r4J5",
+     "name": "inspect_range",
+     "arguments": {
+      "sheet": "Drivers",
+      "range": "C37:L58"
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 8,
+     "call_id": "call_V4jVsNtXi54EdW0wBki9r4J5",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_range\",{\"sheet\":\"Drivers\",\"range\":\"C37:L58\"},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 8,
+     "call_id": "call_V4jVsNtXi54EdW0wBki9r4J5",
+     "ms": 18,
+     "bytes": 2269,
+     "shown_bytes": 2269,
+     "out": "{\"ok\":true,\"tool\":\"inspect_range\",\"elapsed_ms\":18,\"result\":{\"sheet\":\"Drivers\",\"range\":\"C37:L58\",\"view\":\"corners\",\"sampled\":true,\"row_numbers\":[37,38,39,\"\u2026\",57,58],\"columns\":[\"C\",\"D\",\"E\",\"\u2026\",\"K\",\"L\"],\"values\":[[\"Discontinued Ops Income:\",\"$ M\",\"\",\"\u2026\",0,0],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[\"Deferred Tax % of Tax:\",\"%\",0.008368200836820083,\"\u2026\",0.02097957785438698,0.02097957785438698],[\"Dividend Payout % of NI:\",\"%\",0.31447290053603333,\"\u2026\",0.3155163534156871,0.3155163534156871]],\"formulas\":[[null,null,null,\"\u2026\",null,null],[null,null,null,\"\u2026\",null,null],[null,null,null,\"\u2026\",null,null],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[null,null,\"=-'Statements & Checks'!E51/'Income Statement'!E26\",\"\u2026\",\"=+J57\",\"=+K57\"],[null,null,\"=-'Statements & Checks'!E69/'Income Statement'!E31\",\"\u2026\",\"=+J58\",\"=+K58\"]],\"displays\":[[\"Discontinued Ops Income:\",\"$ M\",\"\",\"\u2026\",\"  -  \",\"  -  \"],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[\"Deferred Tax % of Tax:\",\"%\",\" 0.8% \",\"\u2026\",\"2.1%\",\"2.1%\"],[\"Dividend Payout % of NI:\",\"%\",\" 31.4% \",\"\u2026\",\"31.6%\",\"31.6%\"]],\"number_formats\":[[\"0.###############\",\"0.###############\",\"0.###############\",\"\u2026\",\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\",\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"],[\"0.###############\",\"0.###############\",\"0.###############\",\"\u2026\",\"0.###############\",\"0.###############\"],[\"0.###############\",\"0.###############\",\"0.###############\",\"\u2026\",\"0.###############\",\"0.###############\"],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[\"0.###############\",\"0.###############\",\"_(#,##0.0%_);\\\\(#,##0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\",\"\u2026\",\"0.0%;\\\\(0.0%\\\\)\",\"0.0%;\\\\(0.0%\\\\)\"],[\"0.###############\",\"0.###############\",\"_(#,##0.0%_);\\\\(#,##0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\",\"\u2026\",\"0.0%;\\\\(0.0%\\\\)\",\"0.0%;\\\\(0.0%\\\\)\"]],\"requested_cells\":220,\"shown_cells\":25,\"omitted_cells\":195,\"omitted_rows\":{\"start\":40,\"end\":56,\"count\":17},\"omitted_columns\":{\"start\":6,\"end\":10,\"count\":5},\"note\":\"PREVIEW ONLY. Ellipses in the labelled axes mark omitted rows/columns; their cells were NOT read. No conclusion about interior blanks, errors or correctness follows from this preview. Request a rectangle of at most 200 cells for every cell, use inspect_schedule for patterns/boundaries, or batch targeted reads with run_apps_script.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 9
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "491ac348-fbed-47f7-a083-503d4c4567a5",
+     "body_bytes": 193806,
+     "input_items": 25
+    },
+    {
+     "ev": "llm.response",
+     "n": 9,
+     "response_id": "resp_05ba3d238c87a2e7016ab569be888c87d0951d67b28b5a4ef4",
+     "request_id": "req_c6dfc07aa25548d587b0398d9a2af5c0",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 6747,
+     "usage": {
+      "input_tokens": 52748,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 50944
+      },
+      "output_tokens": 543,
+      "output_tokens_details": {
+       "reasoning_tokens": 516
+      },
+      "total_tokens": 53291
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 9,
+     "call_id": "call_nv4P3RFBy5M1IptUmZM2q3fe",
+     "name": "inspect_range",
+     "arguments": {
+      "sheet": "Drivers",
+      "range": "C13:D16"
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 9,
+     "call_id": "call_nv4P3RFBy5M1IptUmZM2q3fe",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_range\",{\"sheet\":\"Drivers\",\"range\":\"C13:D16\"},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 9,
+     "call_id": "call_nv4P3RFBy5M1IptUmZM2q3fe",
+     "ms": 8,
+     "bytes": 1559,
+     "shown_bytes": 1559,
+     "out": "{\"ok\":true,\"tool\":\"inspect_range\",\"elapsed_ms\":8,\"result\":{\"sheet\":\"Drivers\",\"range\":\"C13:D16\",\"sampled\":false,\"cells\":[{\"cell\":\"C13\",\"value\":\"Annual GM Expansion:\",\"formula\":null,\"display\":\"Annual GM Expansion:\",\"number_format\":\"0.###############\"},{\"cell\":\"D13\",\"value\":0.002748,\"formula\":null,\"display\":\" 0.27% \",\"number_format\":\"_(#,##0.00%_);\\\\(#,##0.00%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"C14\",\"value\":\"Blended Tax Rate:\",\"formula\":null,\"display\":\"Blended Tax Rate:\",\"number_format\":\"0.###############\"},{\"cell\":\"D14\",\"value\":0.329431,\"formula\":null,\"display\":\"32.9%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"C15\",\"value\":\"Debt Interest Rate:\",\"formula\":null,\"display\":\"Debt Interest Rate:\",\"number_format\":\"0.###############\"},{\"cell\":\"D15\",\"value\":0.037096,\"formula\":null,\"display\":\"3.7%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"C16\",\"value\":\"Cash Yield:\",\"formula\":null,\"display\":\"Cash Yield:\",\"number_format\":\"0.###############\"},{\"cell\":\"D16\",\"value\":0.004547,\"formula\":null,\"display\":\"0.5%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"}],\"context\":{\"range\":\"A10:D16\",\"values\":[[\"\",\"\",\"Share Price:\",124.799],[\"\",\"\",\"Final Historical Year:\",\"2015-12-31T08:00:00.000Z\"],[\"\",\"\",\"\",\"\"],[\"\",\"\",\"Annual GM Expansion:\",0.002748],[\"\",\"\",\"Blended Tax Rate:\",0.329431],[\"\",\"\",\"Debt Interest Rate:\",0.037096],[\"\",\"\",\"Cash Yield:\",0.004547]]},\"note\":\"Context is evidence, not inferred units or authorization to edit. Use inspect_calculation for uncertain signs/sources; inspect_original before replacing numeric answers; inspect_schedule for repeated schedules.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 10
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "5e901aad-220e-4e39-8490-de4ba5d54cc8",
+     "body_bytes": 199754,
+     "input_items": 28
+    },
+    {
+     "ev": "llm.response",
+     "n": 10,
+     "response_id": "resp_05ba3d238c87a2e7016ab569c6e82487d088955f5171e2f06a",
+     "request_id": "req_0ac544cf041242f0abddbf1477cb9ea3",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 4014,
+     "usage": {
+      "input_tokens": 53769,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 51968
+      },
+      "output_tokens": 218,
+      "output_tokens_details": {
+       "reasoning_tokens": 189
+      },
+      "total_tokens": 53987
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 10,
+     "call_id": "call_7RwGMAdJNFBLajTZHHe8kxbv",
+     "name": "inspect_range",
+     "arguments": {
+      "sheet": "Statements & Checks",
+      "range": "C46:L75"
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 10,
+     "call_id": "call_7RwGMAdJNFBLajTZHHe8kxbv",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_range\",{\"sheet\":\"Statements & Checks\",\"range\":\"C46:L75\"},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 10,
+     "call_id": "call_7RwGMAdJNFBLajTZHHe8kxbv",
+     "ms": 22,
+     "bytes": 2491,
+     "shown_bytes": 2491,
+     "out": "{\"ok\":true,\"tool\":\"inspect_range\",\"elapsed_ms\":22,\"result\":{\"sheet\":\"Statements & Checks\",\"range\":\"C46:L75\",\"view\":\"corners\",\"sampled\":true,\"row_numbers\":[46,47,48,\"\u2026\",74,75],\"columns\":[\"C\",\"D\",\"E\",\"\u2026\",\"K\",\"L\"],\"values\":[[\"Net Profit:\",\"$ M\",1679,\"\u2026\",\"\",\"\"],[\"Non-Cash Adjustments:\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"(+) Depreciation Expense:\",\"$ M\",299,\"\u2026\",0,0],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"FX Translation Effects:\",\"$ M\",-93,\"\u2026\",0,0]],\"formulas\":[[null,null,null,\"\u2026\",\"=+'Income Statement'!K31\",\"=+'Income Statement'!L31\"],[null,null,null,\"\u2026\",null,null],[null,null,null,\"\u2026\",\"=+'Income Statement'!K5*Drivers!K53\",\"=+'Income Statement'!L5*Drivers!L53\"],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[null,null,null,\"\u2026\",null,null],[null,null,null,\"\u2026\",\"=+Drivers!K66*'Income Statement'!K5\",\"=+Drivers!L66*'Income Statement'!L5\"]],\"displays\":[[\"Net Profit:\",\"$ M\",\" $ 1,679.0 \",\"\u2026\",\"\",\"\"],[\"Non-Cash Adjustments:\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"(+) Depreciation Expense:\",\"$ M\",\"  299.0 \",\"\u2026\",\"  -  \",\"  -  \"],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"FX Translation Effects:\",\"$ M\",\"  (93.0)\",\"\u2026\",\"  -  \",\"  -  \"]],\"number_formats\":[[\"0.###############\",\"0.###############\",\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\",\"\u2026\",\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\",\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"],[\"0.###############\",\"0.###############\",\"0.###############\",\"\u2026\",\"0.###############\",\"0.###############\"],[\"0.###############\",\"0.###############\",\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\",\"\u2026\",\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\",\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[\"0.###############\",\"0.###############\",\"0.###############\",\"\u2026\",\"0.###############\",\"0.###############\"],[\"\",\"0.###############\",\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\",\"\u2026\",\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\",\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"]],\"requested_cells\":300,\"shown_cells\":25,\"omitted_cells\":275,\"omitted_rows\":{\"start\":49,\"end\":73,\"count\":25},\"omitted_columns\":{\"start\":6,\"end\":10,\"count\":5},\"note\":\"PREVIEW ONLY. Ellipses in the labelled axes mark omitted rows/columns; their cells were NOT read. No conclusion about interior blanks, errors or correctness follows from this preview. Request a rectangle of at most 200 cells for every cell, use inspect_schedule for patterns/boundaries, or batch targeted reads with run_apps_script.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 11
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "7180dbe6-d137-44e5-90bd-b98434f06411",
+     "body_bytes": 205442,
+     "input_items": 31
+    },
+    {
+     "ev": "llm.response",
+     "n": 11,
+     "response_id": "resp_05ba3d238c87a2e7016ab569cd153087d0b77838382d6ff779",
+     "request_id": "req_1639c98b15fe4069a23d3b422aec6745",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 9260,
+     "usage": {
+      "input_tokens": 54936,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 52992
+      },
+      "output_tokens": 820,
+      "output_tokens_details": {
+       "reasoning_tokens": 793
+      },
+      "total_tokens": 55756
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 11,
+     "call_id": "call_1dywjUzWRhvE0JbvY6KYATUV",
+     "name": "inspect_range",
+     "arguments": {
+      "sheet": "Drivers",
+      "range": "C37:L37"
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 11,
+     "call_id": "call_1dywjUzWRhvE0JbvY6KYATUV",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_range\",{\"sheet\":\"Drivers\",\"range\":\"C37:L37\"},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 11,
+     "call_id": "call_1dywjUzWRhvE0JbvY6KYATUV",
+     "ms": 14,
+     "bytes": 1882,
+     "shown_bytes": 1882,
+     "out": "{\"ok\":true,\"tool\":\"inspect_range\",\"elapsed_ms\":14,\"result\":{\"sheet\":\"Drivers\",\"range\":\"C37:L37\",\"sampled\":false,\"cells\":[{\"cell\":\"C37\",\"value\":\"Discontinued Ops Income:\",\"formula\":null,\"display\":\"Discontinued Ops Income:\",\"number_format\":\"0.###############\"},{\"cell\":\"D37\",\"value\":\"$ M\",\"formula\":null,\"display\":\"$ M\",\"number_format\":\"0.###############\"},{\"cell\":\"E37\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F37\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G37\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H37\",\"value\":0,\"formula\":null,\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I37\",\"value\":0,\"formula\":null,\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J37\",\"value\":0,\"formula\":null,\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K37\",\"value\":0,\"formula\":null,\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L37\",\"value\":0,\"formula\":null,\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"}],\"context\":{\"range\":\"A34:L37\",\"values\":[[\"\",\"\",\"Gross Interest Expense:\",\"$ M\",\"\",\"\",\"\",275.326512,252.01681884105597,225.12347580192,196.05615462403196,165.36137843371196],[\"\",\"\",\"Interest Earned:\",\"$ M\",\"\",\"\",\"\",14.050229999999999,16.654017877892,8.32406794844,-0.36784187827599985,-9.854892151766],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"Discontinued Ops Income:\",\"$ M\",\"\",\"\",\"\",0,0,0,0,0]]},\"note\":\"Context is evidence, not inferred units or authorization to edit. Use inspect_calculation for uncertain signs/sources; inspect_original before replacing numeric answers; inspect_schedule for repeated schedules.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 12
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "1ab3b00b-35c6-4390-bd5d-784266c59368",
+     "body_bytes": 214239,
+     "input_items": 34
+    },
+    {
+     "ev": "llm.response",
+     "n": 12,
+     "response_id": "resp_05ba3d238c87a2e7016ab569d8039c87d0a665c44963286a4d",
+     "request_id": "req_59d6209ac7664a59b7ea1ed824630736",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 13275,
+     "usage": {
+      "input_tokens": 56380,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 54016
+      },
+      "output_tokens": 1483,
+      "output_tokens_details": {
+       "reasoning_tokens": 832
+      },
+      "total_tokens": 57863
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "tool.call",
+     "n": 12,
+     "call_id": "call_KzQyqsq9nx9A3BCLJrA9AZxX",
+     "code": "function col(n){let s='';while(n){let m=(n-1)%26;s=String.fromCharCode(65+m)+s;n=(n-m-1)/26|0;}return s;}\nconst sh = ss.getSheetByName('Income Statement');\nconst cols = [8,9,10,11,12]; // H:L\nconst letters = cols.map(col);\nconst prevLetters = ['G','H','I','J','K'];\n\nfunction setRow(row, formulas){\n  sh.getRange(row,8,1,5).setFormulas([formulas]);\n}\nfunction byCol(fn){ return letters.map((c,i)=>fn(c, prevLetters[i], i)); }\n\nsetRow(5,  byCol((c,p)=>`=${p}5*(1+Drivers!${c}21)`));\nsetRow(7,  byCol((c)=>`=${c}5-${c}9`));\nsetRow(9,  byCol((c)=>`=${c}5*Drivers!${c}22`));\nsh.getRange(12,8,4,5).setFormulas([\n  byCol((c)=>`=${c}5*Drivers!${c}23`),\n  byCol((c)=>`=Drivers!${c}25`),\n  byCol((c)=>`=Drivers!${c}26`),\n  byCol((c)=>`=SUM(${c}12:${c}14)`)\n]);\nsh.getRange(17,8,2,5).setFormulas([\n  byCol((c)=>`=${c}9-${c}15`),\n  byCol((c)=>`=${c}17/${c}5`)\n]);\nsh.getRange(21,8,3,5).setFormulas([\n  byCol((c)=>`=-Drivers!${c}34`),\n  byCol((c)=>`=Drivers!${c}35`),\n  byCol((c)=>`=SUM(${c}21:${c}22)`)\n]);\nsh.getRange(25,8,3,5).setFormulas([\n  byCol((c)=>`=${c}17+${c}23`),\n  byCol((c)=>`=-${c}25*Tax_Rate`),\n  byCol((c)=>`=SUM(${c}25:${c}26)`)\n]);\nsetRow(29, byCol((c)=>`=Drivers!${c}37`));\nsetRow(31, byCol((c)=>`=${c}27+${c}29`));\nSpreadsheetApp.flush();\nlog(sh.getRange('H5:L31').getDisplayValues().map(r=>r.join(' | ')).join('\\n'));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 12,
+     "call_id": "call_KzQyqsq9nx9A3BCLJrA9AZxX",
+     "ms": 472,
+     "bytes": 1107,
+     "shown_bytes": 1107,
+     "out": " $ 13,970.3  |  $ 14,542.7  |  $ 15,030.6  |  $ 15,413.6  |  $ 15,843.2 \n |  |  |  | \n  8,182.3  |   8,477.6  |   8,720.7  |   8,900.5  |   9,105.1 \n |  |  |  | \n  5,788.1  |   6,065.2  |   6,310.0  |   6,513.1  |   6,738.2 \n |  |  |  | \n |  |  |  | \n  2,211.6  |   2,615.1  |   2,766.0  |   2,938.3  |   2,167.4 \n  184.0  |   182.0  |   162.0  |   178.0  |   148.0 \n  -   |   -   |   -   |   -   |   -  \n  2,395.6  |   2,797.1  |   2,928.0  |   3,116.3  |   2,315.4 \n |  |  |  | \n  3,392.4  |   3,268.1  |   3,382.0  |   3,396.8  |   4,422.7 \n24.3% | 22.5% | 22.5% | 22.0% | 27.9%\n |  |  |  | \n |  |  |  | \n  (275.3) |   (252.0) |   (225.1) |   (196.1) |   (165.4)\n  14.1  |   11.0  |   12.3  |   10.1  |   6.6 \n  (261.3) |   (241.0) |   (212.9) |   (185.9) |   (158.8)\n |  |  |  | \n  3,131.1  |   3,027.0  |   3,169.1  |   3,210.8  |   4,264.0 \n  (1,031.5) |   (997.2) |   (1,044.0) |   (1,057.7) |   (1,404.7)\n  2,099.6  |   2,029.8  |   2,125.1  |   2,153.1  |   2,859.3 \n |  |  |  | \n  -   |   -   |   -   |   -   |   -  \n |  |  |  | \n $ 2,099.6  |  $ 2,029.8  |  $ 2,125.1  |  $ 2,153.1  |  $ 2,859.3 "
+    },
+    {
+     "ev": "turn.start",
+     "n": 13
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "4d85b8a5-365f-48c6-8d36-b7b0c2a89267",
+     "body_bytes": 223057,
+     "input_items": 37
+    },
+    {
+     "ev": "llm.response",
+     "n": 13,
+     "response_id": "resp_05ba3d238c87a2e7016ab569e750fc87d0adb888265f608cde",
+     "request_id": "req_1b626d9c76924b4f806e8b9a51df8df3",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 3626,
+     "usage": {
+      "input_tokens": 58603,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 56064
+      },
+      "output_tokens": 302,
+      "output_tokens_details": {
+       "reasoning_tokens": 268
+      },
+      "total_tokens": 58905
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 13,
+     "call_id": "call_XhmZovITYN82QnXAwMLjyVGP",
+     "name": "list_formula_errors",
+     "arguments": {
+      "sheets": [
+       "Income Statement",
+       "Drivers",
+       "Statements & Checks"
+      ],
+      "limit": 50
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 13,
+     "call_id": "call_XhmZovITYN82QnXAwMLjyVGP",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"list_formula_errors\",{\"sheets\":[\"Income Statement\",\"Drivers\",\"Statements & Checks\"],\"limit\":50},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 13,
+     "call_id": "call_XhmZovITYN82QnXAwMLjyVGP",
+     "ms": 1065,
+     "bytes": 223,
+     "shown_bytes": 223,
+     "out": "{\"ok\":true,\"tool\":\"list_formula_errors\",\"elapsed_ms\":1064,\"result\":{\"errors\":[],\"truncated\":false,\"scanned_cells\":2112,\"note\":\"Existing errors may be unrelated to the task. Literal strings resembling errors are excluded.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 14
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "52c8c435-94f9-4174-8583-77b27b927a65",
+     "body_bytes": 226326,
+     "input_items": 40
+    },
+    {
+     "ev": "llm.response",
+     "n": 14,
+     "response_id": "resp_05ba3d238c87a2e7016ab569ee06cc87d0b127947fab438fd9",
+     "request_id": "req_972bbf36913a43a98fc98bc6b3f11cad",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 1797,
+     "usage": {
+      "input_tokens": 58970,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 58112
+      },
+      "output_tokens": 56,
+      "output_tokens_details": {
+       "reasoning_tokens": 28
+      },
+      "total_tokens": 59026
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 14,
+     "call_id": "call_jZlG02jEvRxzWakRMoGTBIpG",
+     "name": "inspect_range",
+     "arguments": {
+      "sheet": "Income Statement",
+      "range": "H5:L31"
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 14,
+     "call_id": "call_jZlG02jEvRxzWakRMoGTBIpG",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_range\",{\"sheet\":\"Income Statement\",\"range\":\"H5:L31\"},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 14,
+     "call_id": "call_jZlG02jEvRxzWakRMoGTBIpG",
+     "ms": 9,
+     "bytes": 20123,
+     "shown_bytes": 20123,
+     "out": "{\"ok\":true,\"tool\":\"inspect_range\",\"elapsed_ms\":8,\"result\":{\"sheet\":\"Income Statement\",\"range\":\"H5:L31\",\"sampled\":false,\"cells\":[{\"cell\":\"H5\",\"value\":13970.329065,\"formula\":\"=G5*(1+Drivers!H21)\",\"display\":\" $ 13,970.3 \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I5\",\"value\":14542.735357780244,\"formula\":\"=H5*(1+Drivers!I21)\",\"display\":\" $ 14,542.7 \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J5\",\"value\":15030.615043563055,\"formula\":\"=I5*(1+Drivers!J21)\",\"display\":\" $ 15,030.6 \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K5\",\"value\":15413.625176103129,\"formula\":\"=J5*(1+Drivers!K21)\",\"display\":\" $ 15,413.6 \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L5\",\"value\":15843.233737011475,\"formula\":\"=K5*(1+Drivers!L21)\",\"display\":\" $ 15,843.2 \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H6\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I6\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J6\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K6\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L6\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H7\",\"value\":8182.27015972938,\"formula\":\"=H5-H9\",\"display\":\"  8,182.3 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I7\",\"value\":8477.558878220792,\"formula\":\"=I5-I9\",\"display\":\"  8,477.6 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J7\",\"value\":8720.659893327633,\"formula\":\"=J5-J9\",\"display\":\"  8,720.7 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K7\",\"value\":8900.523106745475,\"formula\":\"=K5-K9\",\"display\":\"  8,900.5 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L7\",\"value\":9105.061280467376,\"formula\":\"=L5-L9\",\"display\":\"  9,105.1 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H8\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I8\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J8\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K8\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L8\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H9\",\"value\":5788.05890527062,\"formula\":\"=H5*Drivers!H22\",\"display\":\"  5,788.1 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"??_);_(@_)\"},{\"cell\":\"I9\",\"value\":6065.176479559453,\"formula\":\"=I5*Drivers!I22\",\"display\":\"  6,065.2 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"??_);_(@_)\"},{\"cell\":\"J9\",\"value\":6309.955150235423,\"formula\":\"=J5*Drivers!J22\",\"display\":\"  6,310.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"??_);_(@_)\"},{\"cell\":\"K9\",\"value\":6513.102069357654,\"formula\":\"=K5*Drivers!K22\",\"display\":\"  6,513.1 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"??_);_(@_)\"},{\"cell\":\"L9\",\"value\":6738.172456544097,\"formula\":\"=L5*Drivers!L22\",\"display\":\"  6,738.2 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"??_);_(@_)\"},{\"cell\":\"H10\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I10\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J10\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K10\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L10\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H11\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I11\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J11\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K11\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L11\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H12\",\"value\":2211.64279428015,\"formula\":\"=H5*Drivers!H23\",\"display\":\"  2,211.6 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I12\",\"value\":2615.118300242117,\"formula\":\"=I5*Drivers!I23\",\"display\":\"  2,615.1 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J12\",\"value\":2765.9939027766477,\"formula\":\"=J5*Drivers!J23\",\"display\":\"  2,766.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K12\",\"value\":2938.3301945708918,\"formula\":\"=K5*Drivers!K23\",\"display\":\"  2,938.3 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L12\",\"value\":2167.433591391855,\"formula\":\"=L5*Drivers!L23\",\"display\":\"  2,167.4 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H13\",\"value\":184,\"formula\":\"=Drivers!H25\",\"display\":\"  184.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I13\",\"value\":182,\"formula\":\"=Drivers!I25\",\"display\":\"  182.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J13\",\"value\":162,\"formula\":\"=Drivers!J25\",\"display\":\"  162.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K13\",\"value\":178,\"formula\":\"=Drivers!K25\",\"display\":\"  178.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L13\",\"value\":148,\"formula\":\"=Drivers!L25\",\"display\":\"  148.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H14\",\"value\":0,\"formula\":\"=Drivers!H26\",\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I14\",\"value\":0,\"formula\":\"=Drivers!I26\",\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J14\",\"value\":0,\"formula\":\"=Drivers!J26\",\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K14\",\"value\":0,\"formula\":\"=Drivers!K26\",\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L14\",\"value\":0,\"formula\":\"=Drivers!L26\",\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H15\",\"value\":2395.64279428015,\"formula\":\"=SUM(H12:H14)\",\"display\":\"  2,395.6 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I15\",\"value\":2797.118300242117,\"formula\":\"=SUM(I12:I14)\",\"display\":\"  2,797.1 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J15\",\"value\":2927.9939027766477,\"formula\":\"=SUM(J12:J14)\",\"display\":\"  2,928.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K15\",\"value\":3116.3301945708918,\"formula\":\"=SUM(K12:K14)\",\"display\":\"  3,116.3 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L15\",\"value\":2315.433591391855,\"formula\":\"=SUM(L12:L14)\",\"display\":\"  2,315.4 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H16\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I16\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J16\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K16\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L16\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H17\",\"value\":3392.41611099047,\"formula\":\"=H9-H15\",\"display\":\"  3,392.4 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I17\",\"value\":3268.0581793173355,\"formula\":\"=I9-I15\",\"display\":\"  3,268.1 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J17\",\"value\":3381.9612474587757,\"formula\":\"=J9-J15\",\"display\":\"  3,382.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K17\",\"value\":3396.771874786762,\"formula\":\"=K9-K15\",\"display\":\"  3,396.8 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L17\",\"value\":4422.738865152242,\"formula\":\"=L9-L15\",\"display\":\"  4,422.7 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H18\",\"value\":0.24283007903439602,\"formula\":\"=H17/H5\",\"display\":\"24.3%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"I18\",\"value\":0.2247210101068745,\"formula\":\"=I17/I5\",\"display\":\"22.5%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"J18\",\"value\":0.22500484761647324,\"formula\":\"=J17/J5\",\"display\":\"22.5%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"K18\",\"value\":0.22037462543548977,\"formula\":\"=K17/K5\",\"display\":\"22.0%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"L18\",\"value\":0.2791563224129084,\"formula\":\"=L17/L5\",\"display\":\"27.9%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"H19\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I19\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J19\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K19\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L19\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H20\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I20\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J20\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K20\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L20\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H21\",\"value\":-275.326512,\"formula\":\"=-Drivers!H34\",\"display\":\"  (275.3)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I21\",\"value\":-252.01681884105597,\"formula\":\"=-Drivers!I34\",\"display\":\"  (252.0)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J21\",\"value\":-225.12347580192,\"formula\":\"=-Drivers!J34\",\"display\":\"  (225.1)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K21\",\"value\":-196.05615462403196,\"formula\":\"=-Drivers!K34\",\"display\":\"  (196.1)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L21\",\"value\":-165.36137843371196,\"formula\":\"=-Drivers!L34\",\"display\":\"  (165.4)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H22\",\"value\":14.050229999999999,\"formula\":\"=Drivers!H35\",\"display\":\"  14.1 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I22\",\"value\":10.983817229741414,\"formula\":\"=Drivers!I35\",\"display\":\"  11.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J22\",\"value\":12.25890263609175,\"formula\":\"=Drivers!J35\",\"display\":\"  12.3 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K22\",\"value\":10.117499057027574,\"formula\":\"=Drivers!K35\",\"display\":\"  10.1 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L22\",\"value\":6.600327461491973,\"formula\":\"=Drivers!L35\",\"display\":\"  6.6 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H23\",\"value\":-261.276282,\"formula\":\"=SUM(H21:H22)\",\"display\":\"  (261.3)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I23\",\"value\":-241.03300161131455,\"formula\":\"=SUM(I21:I22)\",\"display\":\"  (241.0)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J23\",\"value\":-212.86457316582823,\"formula\":\"=SUM(J21:J22)\",\"display\":\"  (212.9)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K23\",\"value\":-185.9386555670044,\"formula\":\"=SUM(K21:K22)\",\"display\":\"  (185.9)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L23\",\"value\":-158.76105097221998,\"formula\":\"=SUM(L21:L22)\",\"display\":\"  (158.8)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H25\",\"value\":3131.13982899047,\"formula\":\"=H17+H23\",\"display\":\"  3,131.1 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I25\",\"value\":3027.025177706021,\"formula\":\"=I17+I23\",\"display\":\"  3,027.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J25\",\"value\":3169.0966742929477,\"formula\":\"=J17+J23\",\"display\":\"  3,169.1 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K25\",\"value\":3210.8332192197577,\"formula\":\"=K17+K23\",\"display\":\"  3,210.8 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L25\",\"value\":4263.9778141800225,\"formula\":\"=L17+L23\",\"display\":\"  4,264.0 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H26\",\"value\":-1031.4945250041594,\"formula\":\"=-H25*Tax_Rate\",\"display\":\"  (1,031.5)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I26\",\"value\":-997.1959313168721,\"formula\":\"=-I25*Tax_Rate\",\"display\":\"  (997.2)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J26\",\"value\":-1043.998686509,\"formula\":\"=-J25*Tax_Rate\",\"display\":\"  (1,044.0)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K26\",\"value\":-1057.747998240784,\"formula\":\"=-K25*Tax_Rate\",\"display\":\"  (1,057.7)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L26\",\"value\":-1404.6864753031389,\"formula\":\"=-L25*Tax_Rate\",\"display\":\"  (1,404.7)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H27\",\"value\":2099.645303986311,\"formula\":\"=SUM(H25:H26)\",\"display\":\"  2,099.6 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I27\",\"value\":2029.829246389149,\"formula\":\"=SUM(I25:I26)\",\"display\":\"  2,029.8 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J27\",\"value\":2125.0979877839477,\"formula\":\"=SUM(J25:J26)\",\"display\":\"  2,125.1 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K27\",\"value\":2153.0852209789737,\"formula\":\"=SUM(K25:K26)\",\"display\":\"  2,153.1 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L27\",\"value\":2859.291338876884,\"formula\":\"=SUM(L25:L26)\",\"display\":\"  2,859.3 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H28\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I28\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J28\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K28\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L28\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H29\",\"value\":0,\"formula\":\"=Drivers!H37\",\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I29\",\"value\":0,\"formula\":\"=Drivers!I37\",\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J29\",\"value\":0,\"formula\":\"=Drivers!J37\",\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K29\",\"value\":0,\"formula\":\"=Drivers!K37\",\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L29\",\"value\":0,\"formula\":\"=Drivers!L37\",\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H31\",\"value\":2099.645303986311,\"formula\":\"=H27+H29\",\"display\":\" $ 2,099.6 \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I31\",\"value\":2029.829246389149,\"formula\":\"=I27+I29\",\"display\":\" $ 2,029.8 \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J31\",\"value\":2125.0979877839477,\"formula\":\"=J27+J29\",\"display\":\" $ 2,125.1 \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K31\",\"value\":2153.0852209789737,\"formula\":\"=K27+K29\",\"display\":\" $ 2,153.1 \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L31\",\"value\":2859.291338876884,\"formula\":\"=L27+L29\",\"display\":\" $ 2,859.3 \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"}],\"context\":{\"range\":\"E2:L31\",\"values\":[[\"Actual\",\"\",\"\",\"Forecast\",\"\",\"\",\"\",\"\"],[\"2013-12-31T08:00:00.000Z\",\"2014-12-31T08:00:00.000Z\",\"2015-12-31T08:00:00.000Z\",\"2016-12-31T08:00:00.000Z\",\"2017-12-31T08:00:00.000Z\",\"2018-12-31T08:00:00.000Z\",\"2019-12-31T08:00:00.000Z\",\"2020-12-31T08:00:00.000Z\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[14135,14484,13405,13970.329065,14542.735357780244,15030.615043563055,15413.625176103129,15843.233737011475],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[8554,8673,7888,8182.27015972938,8477.558878220792,8720.659893327633,8900.523106745475,9105.061280467376],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[5581,5811,5517,5788.05890527062,6065.176479559453,6309.955150235423,6513.102069357654,6738.172456544097],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[2815,2678,2417,2211.64279428015,2615.118300242117,2765.9939027766477,2938.3301945708918,2167.433591391855],[250,242,231,184,182,162,178,148],[2,3,2,0,0,0,0,0],[3067,2923,2650,2395.64279428015,2797.118300242117,2927.9939027766477,3116.3301945708918,2315.433591391855],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[2514,2888,2867,3392.41611099047,3268.0581793173355,3381.9612474587757,3396.771874786762,4422.738865152242],[0.1778563848602759,0.1993924330295498,0.213875419619545,0.24283007903439602,0.2247210101068745,0.22500484761647324,0.22037462543548977,0.2791563224129084],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[-239,-250,-226,-275.326512,-252.01681884105597,-225.12347580192,-196.05615462403196,-165.36137843371196],[72,61,78,14.050229999999999,10.983817229741414,12.25890263609175,10.117499057027574,6.600327461491973],[-167,-189,-148,-261.276282,-241.03300161131455,-212.86457316582823,-185.9386555670044,-158.76105097221998],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[2347,2699,2719,3131.13982899047,3027.025177706021,3169.0966742929477,3210.8332192197577,4263.9778141800225],[-717,-809,-820,-1031.4945250041594,-997.1959313168721,-1043.998686509,-1057.747998240784,-1404.6864753031389],[1630,1890,1899,2099.645303986311,2029.829246389149,2125.0979877839477,2153.0852209789737,2859.291338876884],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[49,1056,0,0,0,0,0,0],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[1679,2946,1899,2099.645303986311,2029.829246389149,2125.0979877839477,2153.0852209789737,2859.291338876884]]},\"note\":\"Context is evidence, not inferred units or authorization to edit. Use inspect_calculation for uncertain signs/sources; inspect_original before replacing numeric answers; inspect_schedule for repeated schedules.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 15
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "0734902a-93fd-4cae-bfab-6d3de7b9685e",
+     "body_bytes": 251738,
+     "input_items": 43
+    },
+    {
+     "ev": "llm.response",
+     "n": 15,
+     "response_id": "resp_05ba3d238c87a2e7016ab569f1bd3c87d0912eb3d3e208219e",
+     "request_id": "req_d9eef5ab2d344e78b67c73e774f8abe8",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 2067,
+     "usage": {
+      "input_tokens": 66964,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 58112
+      },
+      "output_tokens": 57,
+      "output_tokens_details": {
+       "reasoning_tokens": 28
+      },
+      "total_tokens": 67021
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 15,
+     "call_id": "call_wxUxqN53bUzcAq0EzAABX13b",
+     "name": "inspect_range",
+     "arguments": {
+      "sheet": "Statements & Checks",
+      "range": "E40:L40"
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 15,
+     "call_id": "call_wxUxqN53bUzcAq0EzAABX13b",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_range\",{\"sheet\":\"Statements & Checks\",\"range\":\"E40:L40\"},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 15,
+     "call_id": "call_wxUxqN53bUzcAq0EzAABX13b",
+     "ms": 9,
+     "bytes": 1883,
+     "shown_bytes": 1883,
+     "out": "{\"ok\":true,\"tool\":\"inspect_range\",\"elapsed_ms\":8,\"result\":{\"sheet\":\"Statements & Checks\",\"range\":\"E40:L40\",\"sampled\":false,\"cells\":[{\"cell\":\"E40\",\"value\":0,\"formula\":\"=E19-E38\",\"display\":\"OK!\",\"number_format\":\"\\\"$\\\"#,##0.000\\\\);\\\\(\\\"$\\\"#,##0.000\\\\);\\\"OK!\\\";\\\"ERROR\\\"\"},{\"cell\":\"F40\",\"value\":0,\"formula\":\"=F19-F38\",\"display\":\"OK!\",\"number_format\":\"\\\"$\\\"#,##0.000\\\\);\\\\(\\\"$\\\"#,##0.000\\\\);\\\"OK!\\\";\\\"ERROR\\\"\"},{\"cell\":\"G40\",\"value\":0,\"formula\":\"=G19-G38\",\"display\":\"OK!\",\"number_format\":\"\\\"$\\\"#,##0.000\\\\);\\\\(\\\"$\\\"#,##0.000\\\\);\\\"OK!\\\";\\\"ERROR\\\"\"},{\"cell\":\"H40\",\"value\":0,\"formula\":\"=H19-H38\",\"display\":\"OK!\",\"number_format\":\"\\\"$\\\"#,##0.000\\\\);\\\\(\\\"$\\\"#,##0.000\\\\);\\\"OK!\\\";\\\"ERROR\\\"\"},{\"cell\":\"I40\",\"value\":0,\"formula\":\"=I19-I38\",\"display\":\"OK!\",\"number_format\":\"\\\"$\\\"#,##0.000\\\\);\\\\(\\\"$\\\"#,##0.000\\\\);\\\"OK!\\\";\\\"ERROR\\\"\"},{\"cell\":\"J40\",\"value\":-1.8189894035458565e-12,\"formula\":\"=J19-J38\",\"display\":\"($0.000)\",\"number_format\":\"\\\"$\\\"#,##0.000\\\\);\\\\(\\\"$\\\"#,##0.000\\\\);\\\"OK!\\\";\\\"ERROR\\\"\"},{\"cell\":\"K40\",\"value\":-1.8189894035458565e-12,\"formula\":\"=K19-K38\",\"display\":\"($0.000)\",\"number_format\":\"\\\"$\\\"#,##0.000\\\\);\\\\(\\\"$\\\"#,##0.000\\\\);\\\"OK!\\\";\\\"ERROR\\\"\"},{\"cell\":\"L40\",\"value\":-3.637978807091713e-12,\"formula\":\"=L19-L38\",\"display\":\"($0.000)\",\"number_format\":\"\\\"$\\\"#,##0.000\\\\);\\\\(\\\"$\\\"#,##0.000\\\\);\\\"OK!\\\";\\\"ERROR\\\"\"}],\"context\":{\"range\":\"B37:L40\",\"values\":[[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"Total Funding:\",\"$ M\",19966,17465,15729,15119.247872328353,15165.951299474244,14761.405385166516,14385.215014916095,13864.196027874472],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"BS Check:\",\"\",0,0,0,0,0,-1.8189894035458565e-12,-1.8189894035458565e-12,-3.637978807091713e-12]]},\"note\":\"Context is evidence, not inferred units or authorization to edit. Use inspect_calculation for uncertain signs/sources; inspect_original before replacing numeric answers; inspect_schedule for repeated schedules.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 16
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "4419737b-3328-4775-a944-309e29a7af48",
+     "body_bytes": 255872,
+     "input_items": 46
+    },
+    {
+     "ev": "llm.response",
+     "n": 16,
+     "response_id": "resp_05ba3d238c87a2e7016ab569f6067087d0985051473b566e92",
+     "request_id": "req_bb6cda6b3f0740828131d4fa2011023d",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 1738,
+     "usage": {
+      "input_tokens": 67726,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 66304
+      },
+      "output_tokens": 68,
+      "output_tokens_details": {
+       "reasoning_tokens": 39
+      },
+      "total_tokens": 67794
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 16,
+     "call_id": "call_7IVjnXeEq3WahzE991TylE5Z",
+     "name": "inspect_range",
+     "arguments": {
+      "sheet": "Statements & Checks",
+      "range": "H59:L60"
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 16,
+     "call_id": "call_7IVjnXeEq3WahzE991TylE5Z",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_range\",{\"sheet\":\"Statements & Checks\",\"range\":\"H59:L60\"},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 16,
+     "call_id": "call_7IVjnXeEq3WahzE991TylE5Z",
+     "ms": 7,
+     "bytes": 2511,
+     "shown_bytes": 2511,
+     "out": "{\"ok\":true,\"tool\":\"inspect_range\",\"elapsed_ms\":7,\"result\":{\"sheet\":\"Statements & Checks\",\"range\":\"H59:L60\",\"sampled\":false,\"cells\":[{\"cell\":\"H59\",\"value\":-102.09262286110493,\"formula\":\"=+H24-G24\",\"display\":\"  (102.1)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I59\",\"value\":188.61829911584027,\"formula\":\"=+I24-H24\",\"display\":\"  188.6 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J59\",\"value\":70.53191360474625,\"formula\":\"=+J24-I24\",\"display\":\"  70.5 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K59\",\"value\":80.5644401056295,\"formula\":\"=+K24-J24\",\"display\":\"  80.6 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L59\",\"value\":-360.38174297379817,\"formula\":\"=+L24-K24\",\"display\":\"  (360.4)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H60\",\"value\":-167.10250991694204,\"formula\":\"=+H25-G25+H31-G31\",\"display\":\"  (167.1)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"I60\",\"value\":204.0931473606156,\"formula\":\"=+I25-H25+I31-H31\",\"display\":\"  204.1 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J60\",\"value\":39.166438170656306,\"formula\":\"=+J25-I25+J31-I31\",\"display\":\"  39.2 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"K60\",\"value\":24.425881217271467,\"formula\":\"=+K25-J25+K31-J31\",\"display\":\"  24.4 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"L60\",\"value\":-326.09872469391235,\"formula\":\"=+L25-K25+L31-K31\",\"display\":\"  (326.1)\",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"}],\"context\":{\"range\":\"E56:L60\",\"values\":[[24,-10,25,-146.94481858935865,164.5401380464641,17.14704956641276,-289.9170837385898,118.85141952904019],[226,-98,24,-43.569230241991136,-2.8351519088228088,-76.84747944695255,-71.5531932273816,93.4907154217633],[8,-20,-30,-45.490786643482636,107.46693820747561,-57.02399273323948,9.362742616271248,60.53793934698871],[161,5,-56,-102.09262286110493,188.61829911584027,70.53191360474625,80.5644401056295,-360.38174297379817],[-219,-38,-28,-167.10250991694204,204.0931473606156,39.166438170656306,24.425881217271467,-326.09872469391235]]},\"note\":\"Context is evidence, not inferred units or authorization to edit. Use inspect_calculation for uncertain signs/sources; inspect_original before replacing numeric answers; inspect_schedule for repeated schedules.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 17
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "c1e9f384-901b-44fa-be69-3cb2ef29f250",
+     "body_bytes": 260558,
+     "input_items": 49
+    },
+    {
+     "ev": "llm.response",
+     "n": 17,
+     "response_id": "resp_05ba3d238c87a2e7016ab569faba7c87d08ba963b444448101",
+     "request_id": "req_ec5641564279467aa528f9d254bb8155",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 2308,
+     "usage": {
+      "input_tokens": 68839,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 67328
+      },
+      "output_tokens": 124,
+      "output_tokens_details": {
+       "reasoning_tokens": 78
+      },
+      "total_tokens": 68963
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "review.disabled_submit",
+     "n": 17,
+     "call_id": "call_tsuKaPXnSlC8274R3QqDfio6"
+    },
+    {
+     "ev": "run.end",
+     "reason": "done",
+     "turns": 17,
+     "ms": 99777,
+     "usage": {
+      "input": 883332,
+      "cached": 828160,
+      "output": 4363,
+      "reasoning": 3246
+     },
+     "cost_usd": 0.4104
+    }
+   ],
+   "transcript_bytes": 123015,
+   "transcript_truncated": false
+  },
+  "outputValues": {
+   "Income Statement": {
+    "H5": 13970.329065,
+    "I5": 14542.735357780244,
+    "J5": 15030.615043563055,
+    "K5": 15413.625176103129,
+    "L5": 15843.233737011475,
+    "H7": 8182.27015972938,
+    "I7": 8477.558878220792,
+    "J7": 8720.659893327633,
+    "K7": 8900.523106745475,
+    "L7": 9105.061280467376,
+    "H9": 5788.05890527062,
+    "I9": 6065.176479559453,
+    "J9": 6309.955150235423,
+    "K9": 6513.102069357654,
+    "L9": 6738.172456544097,
+    "H12": 2211.64279428015,
+    "I12": 2615.118300242117,
+    "J12": 2765.9939027766477,
+    "K12": 2938.3301945708918,
+    "L12": 2167.433591391855,
+    "H13": 184,
+    "I13": 182,
+    "J13": 162,
+    "K13": 178,
+    "L13": 148,
+    "H14": 0,
+    "I14": 0,
+    "J14": 0,
+    "K14": 0,
+    "L14": 0,
+    "H15": 2395.64279428015,
+    "I15": 2797.118300242117,
+    "J15": 2927.9939027766477,
+    "K15": 3116.3301945708918,
+    "L15": 2315.433591391855,
+    "H17": 3392.41611099047,
+    "I17": 3268.0581793173355,
+    "J17": 3381.9612474587757,
+    "K17": 3396.771874786762,
+    "L17": 4422.738865152242,
+    "H18": 0.24283007903439602,
+    "I18": 0.2247210101068745,
+    "J18": 0.22500484761647324,
+    "K18": 0.22037462543548977,
+    "L18": 0.2791563224129084,
+    "H21": -275.326512,
+    "I21": -252.01681884105597,
+    "J21": -225.12347580192,
+    "K21": -196.05615462403196,
+    "L21": -165.36137843371196,
+    "H22": 14.050229999999999,
+    "I22": 10.983817229741414,
+    "J22": 12.25890263609175,
+    "K22": 10.117499057027574,
+    "L22": 6.600327461491973,
+    "H23": -261.276282,
+    "I23": -241.03300161131455,
+    "J23": -212.86457316582823,
+    "K23": -185.9386555670044,
+    "L23": -158.76105097221998,
+    "H25": 3131.13982899047,
+    "I25": 3027.025177706021,
+    "J25": 3169.0966742929477,
+    "K25": 3210.8332192197577,
+    "L25": 4263.9778141800225,
+    "H26": -1031.4945250041594,
+    "I26": -997.1959313168721,
+    "J26": -1043.998686509,
+    "K26": -1057.747998240784,
+    "L26": -1404.6864753031389,
+    "H27": 2099.645303986311,
+    "I27": 2029.829246389149,
+    "J27": 2125.0979877839477,
+    "K27": 2153.0852209789737,
+    "L27": 2859.291338876884,
+    "H29": 0,
+    "I29": 0,
+    "J29": 0,
+    "K29": 0,
+    "L29": 0,
+    "H31": 2099.645303986311,
+    "I31": 2029.829246389149,
+    "J31": 2125.0979877839477,
+    "K31": 2153.0852209789737,
+    "L31": 2859.291338876884
+   }
+  },
+  "calculation": {
+   "method": "SpreadsheetApp.flush + repeated getValues",
+   "stableSamples": 3,
+   "samples": 3,
+   "valueDigest": "E/DFaKLpOwqyE8tCV040YWfNi1kTklTu4edBuZ6J/ig="
+  },
+  "outputFormulas": {
+   "Income Statement": {
+    "H5": "=G5*(1+Drivers!H21)",
+    "I5": "=H5*(1+Drivers!I21)",
+    "J5": "=I5*(1+Drivers!J21)",
+    "K5": "=J5*(1+Drivers!K21)",
+    "L5": "=K5*(1+Drivers!L21)",
+    "H7": "=H5-H9",
+    "I7": "=I5-I9",
+    "J7": "=J5-J9",
+    "K7": "=K5-K9",
+    "L7": "=L5-L9",
+    "H9": "=H5*Drivers!H22",
+    "I9": "=I5*Drivers!I22",
+    "J9": "=J5*Drivers!J22",
+    "K9": "=K5*Drivers!K22",
+    "L9": "=L5*Drivers!L22",
+    "H12": "=H5*Drivers!H23",
+    "I12": "=I5*Drivers!I23",
+    "J12": "=J5*Drivers!J23",
+    "K12": "=K5*Drivers!K23",
+    "L12": "=L5*Drivers!L23",
+    "H13": "=Drivers!H25",
+    "I13": "=Drivers!I25",
+    "J13": "=Drivers!J25",
+    "K13": "=Drivers!K25",
+    "L13": "=Drivers!L25",
+    "H14": "=Drivers!H26",
+    "I14": "=Drivers!I26",
+    "J14": "=Drivers!J26",
+    "K14": "=Drivers!K26",
+    "L14": "=Drivers!L26",
+    "H15": "=SUM(H12:H14)",
+    "I15": "=SUM(I12:I14)",
+    "J15": "=SUM(J12:J14)",
+    "K15": "=SUM(K12:K14)",
+    "L15": "=SUM(L12:L14)",
+    "H17": "=H9-H15",
+    "I17": "=I9-I15",
+    "J17": "=J9-J15",
+    "K17": "=K9-K15",
+    "L17": "=L9-L15",
+    "H18": "=H17/H5",
+    "I18": "=I17/I5",
+    "J18": "=J17/J5",
+    "K18": "=K17/K5",
+    "L18": "=L17/L5",
+    "H21": "=-Drivers!H34",
+    "I21": "=-Drivers!I34",
+    "J21": "=-Drivers!J34",
+    "K21": "=-Drivers!K34",
+    "L21": "=-Drivers!L34",
+    "H22": "=Drivers!H35",
+    "I22": "=Drivers!I35",
+    "J22": "=Drivers!J35",
+    "K22": "=Drivers!K35",
+    "L22": "=Drivers!L35",
+    "H23": "=SUM(H21:H22)",
+    "I23": "=SUM(I21:I22)",
+    "J23": "=SUM(J21:J22)",
+    "K23": "=SUM(K21:K22)",
+    "L23": "=SUM(L21:L22)",
+    "H25": "=H17+H23",
+    "I25": "=I17+I23",
+    "J25": "=J17+J23",
+    "K25": "=K17+K23",
+    "L25": "=L17+L23",
+    "H26": "=-H25*Tax_Rate",
+    "I26": "=-I25*Tax_Rate",
+    "J26": "=-J25*Tax_Rate",
+    "K26": "=-K25*Tax_Rate",
+    "L26": "=-L25*Tax_Rate",
+    "H27": "=SUM(H25:H26)",
+    "I27": "=SUM(I25:I26)",
+    "J27": "=SUM(J25:J26)",
+    "K27": "=SUM(K25:K26)",
+    "L27": "=SUM(L25:L26)",
+    "H29": "=Drivers!H37",
+    "I29": "=Drivers!I37",
+    "J29": "=Drivers!J37",
+    "K29": "=Drivers!K37",
+    "L29": "=Drivers!L37",
+    "H31": "=H27+H29",
+    "I31": "=I27+I29",
+    "J31": "=J27+J29",
+    "K31": "=K27+K29",
+    "L31": "=L27+L29"
+   }
+  },
+  "goldenValues": {
+   "Income Statement": {
+    "H5": 13970.329065,
+    "I5": 14542.735357780244,
+    "J5": 15030.615043563055,
+    "K5": 15413.625176103129,
+    "L5": 15843.233737011475,
+    "H7": 8182.270159729379,
+    "I7": 8477.55887822079,
+    "J7": 8720.659893327631,
+    "K7": 8900.523106745475,
+    "L7": 9105.061280467376,
+    "H9": 5788.058905270621,
+    "I9": 6065.176479559454,
+    "J9": 6309.955150235424,
+    "K9": 6513.102069357654,
+    "L9": 6738.172456544098,
+    "H12": 2211.64279428015,
+    "I12": 2615.118300242117,
+    "J12": 2765.9939027766477,
+    "K12": 2938.3301945708918,
+    "L12": 2167.433591391855,
+    "H13": 184,
+    "I13": 182,
+    "J13": 162,
+    "K13": 178,
+    "L13": 148,
+    "H14": 0,
+    "I14": 0,
+    "J14": 0,
+    "K14": 0,
+    "L14": 0,
+    "H15": 2395.64279428015,
+    "I15": 2797.118300242117,
+    "J15": 2927.9939027766477,
+    "K15": 3116.3301945708918,
+    "L15": 2315.433591391855,
+    "H17": 3392.4161109904708,
+    "I17": 3268.0581793173365,
+    "J17": 3381.9612474587766,
+    "K17": 3396.771874786762,
+    "L17": 4422.738865152243,
+    "H18": 0.24283007903439607,
+    "I18": 0.22472101010687456,
+    "J18": 0.22500484761647332,
+    "K18": 0.22037462543548977,
+    "L18": 0.27915632241290844,
+    "H21": -275.326512,
+    "I21": -252.01681884105597,
+    "J21": -225.12347580192,
+    "K21": -196.05615462403196,
+    "L21": -165.36137843371196,
+    "H22": 14.050229999999999,
+    "I22": 10.983817229741414,
+    "J22": 12.25890263609175,
+    "K22": 10.117499057027574,
+    "L22": 6.600327461491973,
+    "H23": -261.276282,
+    "I23": -241.03300161131455,
+    "J23": -212.86457316582823,
+    "K23": -185.9386555670044,
+    "L23": -158.76105097221998,
+    "H25": 3131.139828990471,
+    "I25": 3027.025177706022,
+    "J25": 3169.0966742929486,
+    "K25": 3210.8332192197577,
+    "L25": 4263.977814180023,
+    "H26": -1031.4945250041599,
+    "I26": -997.1959313168725,
+    "J26": -1043.9986865090002,
+    "K26": -1057.747998240784,
+    "L26": -1404.686475303139,
+    "H27": 2099.645303986311,
+    "I27": 2029.8292463891496,
+    "J27": 2125.097987783948,
+    "K27": 2153.0852209789737,
+    "L27": 2859.2913388768843,
+    "H29": 0,
+    "I29": 0,
+    "J29": 0,
+    "K29": 0,
+    "L29": 0,
+    "H31": 2099.645303986311,
+    "I31": 2029.8292463891496,
+    "J31": 2125.097987783948,
+    "K31": 2153.0852209789737,
+    "L31": 2859.2913388768843
+   }
+  },
+  "status": "completed",
+  "completedAt": "2026-09-24T18:20:47.987Z"
+ },
+ "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1Vfmqm2-1LkMy9SL7KoDHGWxVs12aF7EI2BwjkTGx4i8/edit",
+ "snapshots": {
+  "initial": {
+   "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_02/native-initial.json",
+   "bytes": 55849,
+   "requests": 2,
+   "response_chars": 332920,
+   "max_response_chars": 332796,
+   "quota_wait_ms": 0,
+   "read_ms": 531,
+   "elapsed_ms": 2044
+  },
+  "final": {
+   "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_02/native-final.json",
+   "bytes": 58119,
+   "requests": 2,
+   "response_chars": 337230,
+   "max_response_chars": 337106,
+   "quota_wait_ms": 0,
+   "read_ms": 460,
+   "elapsed_ms": 1285
+  }
+ },
+ "timing": {
+  "preparation_ms": 10946,
+  "request_ms": 143664,
+  "export_and_grade_ms": 1077,
+  "remote_ms": 132671
+ },
+ "workbook_trashed": true
+}

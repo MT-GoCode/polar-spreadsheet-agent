@@ -1,0 +1,1115 @@
+{
+ "task_id": "task_09",
+ "score": 1,
+ "correct": 21,
+ "total": 21,
+ "output_failures": [],
+ "preservation": {
+  "passed": true,
+  "violations": [],
+  "basis": "native_entered_state_and_export_structure",
+  "ignored_export_differences": []
+ },
+ "requirements": [
+  {
+   "id": "amount_formats",
+   "passed": true,
+   "failures": []
+  },
+  {
+   "id": "percentage_formats",
+   "passed": true,
+   "failures": []
+  }
+ ],
+ "execution": {
+  "status": "completed",
+  "calculation_verified": true,
+  "source_warnings": [],
+  "new_errors": [],
+  "circular_reference_check": "not_implemented",
+  "engine": "google-apps-script",
+  "calculation_basis": "google_flush_and_stable_values"
+ },
+ "passed": true,
+ "provisional": false,
+ "compatibility": {
+  "golden_output_mismatches": 0,
+  "details": [],
+  "passed": true
+ },
+ "remote_execution": {
+  "jobId": "2026-09-24T17-28-46-543Z-952b5790-task_09",
+  "taskId": "task_09",
+  "spreadsheetId": "16hAvjXuIQrH8XPh_3DbWgQBKm-scNnPfI1-S5burNqc",
+  "engine": "google-apps-script",
+  "transport": "signed-http",
+  "scriptId": "1TOrGyjWOKj31ZlPuyf3JKHR-MWyivJxdbVtvG-s6CRM97r99WRr-0Wb9",
+  "startedAt": "2026-09-24T17:54:28.156Z",
+  "timing": {
+   "open_ms": 740,
+   "initial_read_ms": 127,
+   "agent_ms": 184061,
+   "calculation_ms": 3711,
+   "final_read_ms": 852
+  },
+  "initialValues": {
+   "Cash Flow Valuation": {
+    "F8": 0.0245,
+    "E23": null,
+    "F23": null,
+    "G23": null,
+    "H23": null,
+    "I23": null,
+    "J23": null,
+    "K23": null,
+    "D24": 2.867008268913934,
+    "E29": 28.103499999999997,
+    "F29": null,
+    "G29": 0,
+    "I29": 633.1184000000001,
+    "J29": null,
+    "K29": 0.4,
+    "L29": "#DIV/0!",
+    "F31": "#DIV/0!",
+    "L31": null,
+    "B33": null,
+    "F35": "#DIV/0!",
+    "L35": null
+   }
+  },
+  "initialFormulas": {
+   "Cash Flow Valuation": {
+    "F8": null,
+    "E23": null,
+    "F23": null,
+    "G23": null,
+    "H23": null,
+    "I23": null,
+    "J23": null,
+    "K23": null,
+    "D24": "=L23/(F10*(1-F11)+F11)",
+    "E29": "=MEDIAN(E16:E21)",
+    "F29": "=F23",
+    "G29": "=MEDIAN(G16:G21)",
+    "I29": "=MEDIAN(I16:I21)",
+    "J29": "=J23",
+    "K29": "=MEDIAN(K16:K21)",
+    "L29": "=D29*(1+(1-K29)*(F29/J29))",
+    "F31": "=F6+L29*F7",
+    "L31": null,
+    "B33": null,
+    "F35": "=F29*F8*(1-K29)+J29*F31",
+    "L35": null
+   }
+  },
+  "response": {
+   "reason": "done",
+   "turns": 14,
+   "ms": 91655,
+   "usage": {
+    "input": 852047,
+    "cached": 795136,
+    "output": 5372,
+    "reasoning": 4184
+   },
+   "cost_usd": 0.4216,
+   "cost_estimated": true,
+   "long_context": false,
+   "events": [
+    {
+     "ev": "timing.map",
+     "map_ms": 82517
+    },
+    {
+     "ev": "run.start",
+     "model": "gpt-5.4",
+     "effort": "medium",
+     "planning_bucket": 0,
+     "script_id": "1TOrGyjWOKj31ZlPuyf3JKHR-MWyivJxdbVtvG-s6CRM97r99WRr-0Wb9",
+     "spreadsheet_id": "16hAvjXuIQrH8XPh_3DbWgQBKm-scNnPfI1-S5burNqc",
+     "map_ok": true,
+     "map_bytes": 42937,
+     "system_bytes": 81002,
+     "first_bytes": 44717,
+     "prompt_sha256": "o/g1jPNz+BI+nEmGk+v8tLz/1vx6GOdnMrD+IrCYmxE=",
+     "describe_ms": 92344
+    },
+    {
+     "ev": "turn.start",
+     "n": 1
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "0b6dc700-8f36-41c3-9136-3ef44c550c9f",
+     "body_bytes": 137535,
+     "input_items": 2
+    },
+    {
+     "ev": "llm.response",
+     "n": 1,
+     "response_id": "resp_00c923669707aba6016ab564385b7c87d28c71587f0284592b",
+     "request_id": "req_dd6d0caca7484d3a82723ad76abbd630",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 5327,
+     "usage": {
+      "input_tokens": 43283,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 23296
+      },
+      "output_tokens": 546,
+      "output_tokens_details": {
+       "reasoning_tokens": 516
+      },
+      "total_tokens": 43829
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 1,
+     "call_id": "call_eZ9nwFertSq17ZSrqh6IQRzG",
+     "name": "inspect_range",
+     "arguments": {
+      "sheet": "Cash Flow Valuation",
+      "range": "B13:L35"
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 1,
+     "call_id": "call_eZ9nwFertSq17ZSrqh6IQRzG",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_range\",{\"sheet\":\"Cash Flow Valuation\",\"range\":\"B13:L35\"},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 1,
+     "call_id": "call_eZ9nwFertSq17ZSrqh6IQRzG",
+     "ms": 33,
+     "bytes": 1981,
+     "shown_bytes": 1981,
+     "out": "{\"ok\":true,\"tool\":\"inspect_range\",\"elapsed_ms\":33,\"result\":{\"sheet\":\"Cash Flow Valuation\",\"range\":\"B13:L35\",\"view\":\"corners\",\"sampled\":true,\"row_numbers\":[13,14,15,\"\u2026\",34,35],\"columns\":[\"B\",\"C\",\"D\",\"\u2026\",\"K\",\"L\"],\"values\":[[\"Unlevered Beta from Comparables\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"\",\"\",\"Levered\",\"\u2026\",\"\",\"Unlevered\"],[\"Name\",\"Ticker\",\"Beta\",\"\u2026\",\"Tax Rate\",\"Beta\"],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"WACC \u2014 Target Structure\",\"\",\"\",\"\u2026\",\"\",\"\"]],\"formulas\":[[null,null,null,\"\u2026\",null,null],[null,null,null,\"\u2026\",null,null],[null,null,null,\"\u2026\",null,null],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[null,null,null,\"\u2026\",null,null],[null,null,null,\"\u2026\",null,null]],\"displays\":[[\"Unlevered Beta from Comparables\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"\",\"\",\"Levered\",\"\u2026\",\"\",\"Unlevered\"],[\"Name\",\"Ticker\",\"Beta\",\"\u2026\",\"Tax Rate\",\"Beta\"],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[\"\",\"\",\"\",\"\u2026\",\"\",\"\"],[\"WACC \u2014 Target Structure\",\"\",\"\",\"\u2026\",\"\",\"\"]],\"number_formats\":[[\"0.###############\",\"0.###############\",\"0.###############\",\"\u2026\",\"0.###############\",\"0.###############\"],[\"0.###############\",\"0.###############\",\"0.###############\",\"\u2026\",\"0.###############\",\"0.###############\"],[\"0.###############\",\"0.###############\",\"0.###############\",\"\u2026\",\"0.###############\",\"0.###############\"],[\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\",\"\u2026\"],[\"0.###############\",\"0.###############\",\"0.###############\",\"\u2026\",\"0.###############\",\"0.###############\"],[\"0.###############\",\"0.###############\",\"0.###############\",\"\u2026\",\"0.###############\",\"_(0.00%_);\\\\(0.00%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"]],\"requested_cells\":253,\"shown_cells\":25,\"omitted_cells\":228,\"omitted_rows\":{\"start\":16,\"end\":33,\"count\":18},\"omitted_columns\":{\"start\":5,\"end\":10,\"count\":6},\"note\":\"PREVIEW ONLY. Ellipses in the labelled axes mark omitted rows/columns; their cells were NOT read. No conclusion about interior blanks, errors or correctness follows from this preview. Request a rectangle of at most 200 cells for every cell, use inspect_schedule for patterns/boundaries, or batch targeted reads with run_apps_script.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 2
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "246357d7-a9ad-406f-8e31-3fb250861476",
+     "body_bytes": 144407,
+     "input_items": 5
+    },
+    {
+     "ev": "llm.response",
+     "n": 2,
+     "response_id": "resp_00c923669707aba6016ab564403bd887d2a1d16e71b144a698",
+     "request_id": "req_64e15dfcc9b049179191c71c198f52cb",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 1227,
+     "usage": {
+      "input_tokens": 44416,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 42752
+      },
+      "output_tokens": 39,
+      "output_tokens_details": {
+       "reasoning_tokens": 9
+      },
+      "total_tokens": 44455
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 2,
+     "call_id": "call_aRr7gz0CaNSI8o7fCGgPedMN",
+     "name": "inspect_range",
+     "arguments": {
+      "sheet": "Cash Flow Valuation",
+      "range": "B14:L29"
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 2,
+     "call_id": "call_aRr7gz0CaNSI8o7fCGgPedMN",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_range\",{\"sheet\":\"Cash Flow Valuation\",\"range\":\"B14:L29\"},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 2,
+     "call_id": "call_aRr7gz0CaNSI8o7fCGgPedMN",
+     "ms": 509,
+     "bytes": 23542,
+     "shown_bytes": 23542,
+     "out": "{\"ok\":true,\"tool\":\"inspect_range\",\"elapsed_ms\":509,\"result\":{\"sheet\":\"Cash Flow Valuation\",\"range\":\"B14:L29\",\"sampled\":false,\"cells\":[{\"cell\":\"B14\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"C14\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D14\",\"value\":\"Levered\",\"formula\":null,\"display\":\"Levered\",\"number_format\":\"0.###############\"},{\"cell\":\"E14\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F14\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G14\",\"value\":\"Preferred\",\"formula\":null,\"display\":\"Preferred\",\"number_format\":\"0.###############\"},{\"cell\":\"H14\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I14\",\"value\":\"Equity\",\"formula\":null,\"display\":\"Equity\",\"number_format\":\"0.###############\"},{\"cell\":\"J14\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K14\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L14\",\"value\":\"Unlevered\",\"formula\":null,\"display\":\"Unlevered\",\"number_format\":\"0.###############\"},{\"cell\":\"B15\",\"value\":\"Name\",\"formula\":null,\"display\":\"Name\",\"number_format\":\"0.###############\"},{\"cell\":\"C15\",\"value\":\"Ticker\",\"formula\":null,\"display\":\"Ticker\",\"number_format\":\"0.###############\"},{\"cell\":\"D15\",\"value\":\"Beta\",\"formula\":null,\"display\":\"Beta\",\"number_format\":\"0.###############\"},{\"cell\":\"E15\",\"value\":\"Debt\",\"formula\":null,\"display\":\"Debt\",\"number_format\":\"0.###############\"},{\"cell\":\"F15\",\"value\":\"% Debt\",\"formula\":null,\"display\":\"% Debt\",\"number_format\":\"0.###############\"},{\"cell\":\"G15\",\"value\":\"Stock\",\"formula\":null,\"display\":\"Stock\",\"number_format\":\"0.###############\"},{\"cell\":\"H15\",\"value\":\"% Preferred\",\"formula\":null,\"display\":\"% Preferred\",\"number_format\":\"0.###############\"},{\"cell\":\"I15\",\"value\":\"Value\",\"formula\":null,\"display\":\"Value\",\"number_format\":\"0.###############\"},{\"cell\":\"J15\",\"value\":\"% Equity\",\"formula\":null,\"display\":\"% Equity\",\"number_format\":\"0.###############\"},{\"cell\":\"K15\",\"value\":\"Tax Rate\",\"formula\":null,\"display\":\"Tax Rate\",\"number_format\":\"0.###############\"},{\"cell\":\"L15\",\"value\":\"Beta\",\"formula\":null,\"display\":\"Beta\",\"number_format\":\"0.###############\"},{\"cell\":\"B16\",\"value\":\"Corvane Broadcasting Inc\",\"formula\":\"='Trading Comps'!B8\",\"display\":\"Corvane Broadcasting Inc\",\"number_format\":\"0.###############\"},{\"cell\":\"C16\",\"value\":\"NYSE:CRVB\",\"formula\":\"='Trading Comps'!C8\",\"display\":\"NYSE:CRVB\",\"number_format\":\"0.###############\"},{\"cell\":\"D16\",\"value\":0.32,\"formula\":\"='Trading Comps'!U8\",\"display\":\" 0.32  \",\"number_format\":\"_(#,##0.00_)_%;\\\\(#,##0.00\\\\)_%;_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"E16\",\"value\":522.4,\"formula\":\"='Trading Comps'!F8\",\"display\":\" $ 522.4 \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F16\",\"value\":0.2134773951589587,\"formula\":\"=E16/($E16+$G16+$I16)\",\"display\":\" 21.3% \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"G16\",\"value\":0,\"formula\":\"='Trading Comps'!G8\",\"display\":\" $ -  \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H16\",\"value\":0,\"formula\":\"=G16/($E16+$G16+$I16)\",\"display\":\" \u2013  \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"I16\",\"value\":1924.6975000000002,\"formula\":\"='Trading Comps'!E8\",\"display\":\" $ 1,924.7 \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J16\",\"value\":0.7865226048410413,\"formula\":\"=I16/($E16+$G16+$I16)\",\"display\":\" 78.7% \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"K16\",\"value\":0.4,\"formula\":null,\"display\":\" 40.0% \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"L16\",\"value\":0.2751855951656232,\"formula\":\"=IFERROR(D16/(1+(E16/I16)*(1-K16)+G16/I16),\\\"N/A\\\")\",\"display\":\" 0.28 \",\"number_format\":\"_(#,##0.00_);\\\\(#,##0.00\\\\);_(\\\"\u2013\\\"_);_(@_)\"},{\"cell\":\"B17\",\"value\":\"Emberwyck Broadcasting Inc\",\"formula\":\"='Trading Comps'!B9\",\"display\":\"Emberwyck Broadcasting Inc\",\"number_format\":\"0.###############\"},{\"cell\":\"C17\",\"value\":\"NASDAQ:EMBW\",\"formula\":\"='Trading Comps'!C9\",\"display\":\"NASDAQ:EMBW\",\"number_format\":\"0.###############\"},{\"cell\":\"D17\",\"value\":1.55,\"formula\":\"='Trading Comps'!U9\",\"display\":\" 1.55  \",\"number_format\":\"_(#,##0.00_)_%;\\\\(#,##0.00\\\\)_%;_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"E17\",\"value\":118.75,\"formula\":\"='Trading Comps'!F9\",\"display\":\"  118.8 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F17\",\"value\":0.15034271809505964,\"formula\":\"=E17/($E17+$G17+$I17)\",\"display\":\" 15.0% \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"G17\",\"value\":0,\"formula\":\"='Trading Comps'!G9\",\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H17\",\"value\":0,\"formula\":\"=G17/($E17+$G17+$I17)\",\"display\":\" \u2013  \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"I17\",\"value\":671.1120000000001,\"formula\":\"='Trading Comps'!E9\",\"display\":\"  671.1 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J17\",\"value\":0.8496572819049404,\"formula\":\"=I17/($E17+$G17+$I17)\",\"display\":\" 85.0% \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"K17\",\"value\":0.4,\"formula\":null,\"display\":\" 40.0% \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"L17\",\"value\":1.4012349770058272,\"formula\":\"=IFERROR(D17/(1+(E17/I17)*(1-K17)+G17/I17),\\\"N/A\\\")\",\"display\":\" 1.40 \",\"number_format\":\"_(#,##0.00_);\\\\(#,##0.00\\\\);_(\\\"\u2013\\\"_);_(@_)\"},{\"cell\":\"B18\",\"value\":\"Quillhaven Publishing Corp\",\"formula\":\"='Trading Comps'!B10\",\"display\":\"Quillhaven Publishing Corp\",\"number_format\":\"0.###############\"},{\"cell\":\"C18\",\"value\":\"NASDAQ:QLHV\",\"formula\":\"='Trading Comps'!C10\",\"display\":\"NASDAQ:QLHV\",\"number_format\":\"0.###############\"},{\"cell\":\"D18\",\"value\":1.11,\"formula\":\"='Trading Comps'!U10\",\"display\":\" 1.11  \",\"number_format\":\"_(#,##0.00_)_%;\\\\(#,##0.00\\\\)_%;_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"E18\",\"value\":0,\"formula\":\"='Trading Comps'!F10\",\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F18\",\"value\":0,\"formula\":\"=E18/($E18+$G18+$I18)\",\"display\":\" \u2013  \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"G18\",\"value\":0,\"formula\":\"='Trading Comps'!G10\",\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H18\",\"value\":0,\"formula\":\"=G18/($E18+$G18+$I18)\",\"display\":\" \u2013  \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"I18\",\"value\":800.4960000000001,\"formula\":\"='Trading Comps'!E10\",\"display\":\"  800.5 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J18\",\"value\":1,\"formula\":\"=I18/($E18+$G18+$I18)\",\"display\":\" 100.0% \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"K18\",\"value\":0.4,\"formula\":null,\"display\":\" 40.0% \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"L18\",\"value\":1.11,\"formula\":\"=IFERROR(D18/(1+(E18/I18)*(1-K18)+G18/I18),\\\"N/A\\\")\",\"display\":\" 1.11 \",\"number_format\":\"_(#,##0.00_);\\\\(#,##0.00\\\\);_(\\\"\u2013\\\"_);_(@_)\"},{\"cell\":\"B19\",\"value\":\"Vantablu Streaming, Inc.\",\"formula\":\"='Trading Comps'!B11\",\"display\":\"Vantablu Streaming, Inc.\",\"number_format\":\"0.###############\"},{\"cell\":\"C19\",\"value\":\"NASDAQ:VNBU\",\"formula\":\"='Trading Comps'!C11\",\"display\":\"NASDAQ:VNBU\",\"number_format\":\"0.###############\"},{\"cell\":\"D19\",\"value\":1.15,\"formula\":\"='Trading Comps'!U11\",\"display\":\" 1.15  \",\"number_format\":\"_(#,##0.00_)_%;\\\\(#,##0.00\\\\)_%;_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"E19\",\"value\":0,\"formula\":\"='Trading Comps'!F11\",\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F19\",\"value\":0,\"formula\":\"=E19/($E19+$G19+$I19)\",\"display\":\" \u2013  \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"G19\",\"value\":0,\"formula\":\"='Trading Comps'!G11\",\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H19\",\"value\":0,\"formula\":\"=G19/($E19+$G19+$I19)\",\"display\":\" \u2013  \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"I19\",\"value\":595.1248,\"formula\":\"='Trading Comps'!E11\",\"display\":\"  595.1 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J19\",\"value\":1,\"formula\":\"=I19/($E19+$G19+$I19)\",\"display\":\" 100.0% \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"K19\",\"value\":0.4,\"formula\":null,\"display\":\" 40.0% \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"L19\",\"value\":1.15,\"formula\":\"=IFERROR(D19/(1+(E19/I19)*(1-K19)+G19/I19),\\\"N/A\\\")\",\"display\":\" 1.15 \",\"number_format\":\"_(#,##0.00_);\\\\(#,##0.00\\\\);_(\\\"\u2013\\\"_);_(@_)\"},{\"cell\":\"B20\",\"value\":\"Driftwater Networks Corp\",\"formula\":\"='Trading Comps'!B12\",\"display\":\"Driftwater Networks Corp\",\"number_format\":\"0.###############\"},{\"cell\":\"C20\",\"value\":\"NASDAQ:DFWN\",\"formula\":\"='Trading Comps'!C12\",\"display\":\"NASDAQ:DFWN\",\"number_format\":\"0.###############\"},{\"cell\":\"D20\",\"value\":2.11,\"formula\":\"='Trading Comps'!U12\",\"display\":\" 2.11  \",\"number_format\":\"_(#,##0.00_)_%;\\\\(#,##0.00\\\\)_%;_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"E20\",\"value\":43.90399999999999,\"formula\":\"='Trading Comps'!F12\",\"display\":\"  43.9 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F20\",\"value\":0.4534881318817526,\"formula\":\"=E20/($E20+$G20+$I20)\",\"display\":\" 45.3% \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"G20\",\"value\":0,\"formula\":\"='Trading Comps'!G12\",\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H20\",\"value\":0,\"formula\":\"=G20/($E20+$G20+$I20)\",\"display\":\" \u2013  \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"I20\",\"value\":52.910000000000004,\"formula\":\"='Trading Comps'!E12\",\"display\":\"  52.9 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J20\",\"value\":0.5465118681182475,\"formula\":\"=I20/($E20+$G20+$I20)\",\"display\":\" 54.7% \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"K20\",\"value\":0.4,\"formula\":null,\"display\":\" 40.0% \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"L20\",\"value\":1.4086652265420354,\"formula\":\"=IFERROR(D20/(1+(E20/I20)*(1-K20)+G20/I20),\\\"N/A\\\")\",\"display\":\" 1.41 \",\"number_format\":\"_(#,##0.00_);\\\\(#,##0.00\\\\);_(\\\"\u2013\\\"_);_(@_)\"},{\"cell\":\"B21\",\"value\":\"Hollowmere Broadcast Group Inc\",\"formula\":\"='Trading Comps'!B13\",\"display\":\"Hollowmere Broadcast Group Inc\",\"number_format\":\"0.###############\"},{\"cell\":\"C21\",\"value\":\"NASDAQ:HWMB\",\"formula\":\"='Trading Comps'!C13\",\"display\":\"NASDAQ:HWMB\",\"number_format\":\"0.###############\"},{\"cell\":\"D21\",\"value\":1.25,\"formula\":\"='Trading Comps'!U13\",\"display\":\" 1.25  \",\"number_format\":\"_(#,##0.00_)_%;\\\\(#,##0.00\\\\)_%;_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"E21\",\"value\":12.302999999999999,\"formula\":\"='Trading Comps'!F13\",\"display\":\"  12.3 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F21\",\"value\":0.13034247344522396,\"formula\":\"=E21/($E21+$G21+$I21)\",\"display\":\" 13.0% \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"G21\",\"value\":0,\"formula\":\"='Trading Comps'!G13\",\"display\":\"  -  \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H21\",\"value\":0,\"formula\":\"=G21/($E21+$G21+$I21)\",\"display\":\" \u2013  \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"I21\",\"value\":82.0868,\"formula\":\"='Trading Comps'!E13\",\"display\":\"  82.1 \",\"number_format\":\"_(* #,##0.0_);_(* \\\\(#,##0.0\\\\);_(* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J21\",\"value\":0.869657526554776,\"formula\":\"=I21/($E21+$G21+$I21)\",\"display\":\" 87.0% \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"K21\",\"value\":0.4,\"formula\":null,\"display\":\" 40.0% \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"L21\",\"value\":1.1468660513297402,\"formula\":\"=IFERROR(D21/(1+(E21/I21)*(1-K21)+G21/I21),\\\"N/A\\\")\",\"display\":\" 1.15 \",\"number_format\":\"_(#,##0.00_);\\\\(#,##0.00\\\\);_(\\\"\u2013\\\"_);_(@_)\"},{\"cell\":\"B22\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"C22\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D22\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E22\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F22\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G22\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H22\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I22\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J22\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K22\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L22\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"B23\",\"value\":\"Median:\",\"formula\":null,\"display\":\"Median:\",\"number_format\":\"0.###############\"},{\"cell\":\"C23\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D23\",\"value\":1.2,\"formula\":\"=MEDIAN(D16:D21)\",\"display\":\" 1.20  \",\"number_format\":\"_(#,##0.00_)_%;\\\\(#,##0.00\\\\)_%;_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"E23\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F23\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"G23\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H23\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"I23\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J23\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"K23\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"L23\",\"value\":1.14843302566487,\"formula\":\"=MEDIAN(L16:L21)\",\"display\":\"  1.15 \",\"number_format\":\"_(* #,##0.00_);_(* \\\\(#,##0.00\\\\);_(* \\\"-\\\"??_);_(@_)\"},{\"cell\":\"B24\",\"value\":\"Unlevered Beta \u2014 Median (Total):\",\"formula\":null,\"display\":\"Unlevered Beta \u2014 Median (Total):\",\"number_format\":\"0.###############\"},{\"cell\":\"C24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D24\",\"value\":2.867008268913934,\"formula\":\"=L23/(F10*(1-F11)+F11)\",\"display\":\"2.867008269\",\"number_format\":\"0.###############\"},{\"cell\":\"E24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L24\",\"value\":1.989966007309107,\"formula\":\"=L23/SQRT(Market_Correlation)*(1-Buyer_Diversification)\",\"display\":\"  1.99 \",\"number_format\":\"_(* #,##0.00_);_(* \\\\(#,##0.00\\\\);_(* \\\"-\\\"??_);_(@_)\"},{\"cell\":\"B25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"C25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"B26\",\"value\":\"Fennmark Media Partners LLC - Levered Beta & WACC Calculation\",\"formula\":\"=TEXT(Company_Name,\\\"\\\")& \\\" - Levered Beta & WACC Calculation\\\"\",\"display\":\"Fennmark Media Partners LLC - Levered Beta & WACC Calculation\",\"number_format\":\"0.###############\"},{\"cell\":\"C26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"B27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"C27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D27\",\"value\":\"Unlevered\",\"formula\":null,\"display\":\"Unlevered\",\"number_format\":\"0.###############\"},{\"cell\":\"E27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G27\",\"value\":\"Preferred\",\"formula\":null,\"display\":\"Preferred\",\"number_format\":\"0.###############\"},{\"cell\":\"H27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I27\",\"value\":\"Equity\",\"formula\":null,\"display\":\"Equity\",\"number_format\":\"0.###############\"},{\"cell\":\"J27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L27\",\"value\":\"Levered\",\"formula\":null,\"display\":\"Levered\",\"number_format\":\"0.###############\"},{\"cell\":\"B28\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"C28\",\"value\":\"Ticker\",\"formula\":null,\"display\":\"Ticker\",\"number_format\":\"0.###############\"},{\"cell\":\"D28\",\"value\":\"Beta\",\"formula\":null,\"display\":\"Beta\",\"number_format\":\"0.###############\"},{\"cell\":\"E28\",\"value\":\"Debt\",\"formula\":null,\"display\":\"Debt\",\"number_format\":\"0.###############\"},{\"cell\":\"F28\",\"value\":\"% Debt\",\"formula\":null,\"display\":\"% Debt\",\"number_format\":\"0.###############\"},{\"cell\":\"G28\",\"value\":\"Stock\",\"formula\":null,\"display\":\"Stock\",\"number_format\":\"0.###############\"},{\"cell\":\"H28\",\"value\":\"% Preferred\",\"formula\":null,\"display\":\"% Preferred\",\"number_format\":\"0.###############\"},{\"cell\":\"I28\",\"value\":\"Value\",\"formula\":null,\"display\":\"Value\",\"number_format\":\"0.###############\"},{\"cell\":\"J28\",\"value\":\"% Equity\",\"formula\":null,\"display\":\"% Equity\",\"number_format\":\"0.###############\"},{\"cell\":\"K28\",\"value\":\"Tax Rate\",\"formula\":null,\"display\":\"Tax Rate\",\"number_format\":\"0.###############\"},{\"cell\":\"L28\",\"value\":\"Beta\",\"formula\":null,\"display\":\"Beta\",\"number_format\":\"0.###############\"},{\"cell\":\"B29\",\"value\":\"Target Capital Structure:\",\"formula\":null,\"display\":\"Target Capital Structure:\",\"number_format\":\"0.###############\"},{\"cell\":\"C29\",\"value\":\"N/A\",\"formula\":null,\"display\":\"N/A\",\"number_format\":\"0.###############\"},{\"cell\":\"D29\",\"value\":1.989966007309107,\"formula\":\"=L24\",\"display\":\" 1.99  \",\"number_format\":\"_(#,##0.00_)_%;\\\\(#,##0.00\\\\)_%;_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"E29\",\"value\":28.103499999999997,\"formula\":\"=MEDIAN(E16:E21)\",\"display\":\" $ 28.1 \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F29\",\"value\":\"\",\"formula\":\"=F23\",\"display\":\"\",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"G29\",\"value\":0,\"formula\":\"=MEDIAN(G16:G21)\",\"display\":\" $ -  \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H29\",\"value\":\"\",\"formula\":\"=H23\",\"display\":\"\",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"I29\",\"value\":633.1184000000001,\"formula\":\"=MEDIAN(I16:I21)\",\"display\":\" $ 633.1 \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J29\",\"value\":\"\",\"formula\":\"=J23\",\"display\":\"\",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"K29\",\"value\":0.4,\"formula\":\"=MEDIAN(K16:K21)\",\"display\":\"40.0%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"L29\",\"value\":\"#DIV/0!\",\"formula\":\"=D29*(1+(1-K29)*(F29/J29))\",\"display\":\"#DIV/0!\",\"number_format\":\"_(* #,##0.00_);_(* \\\\(#,##0.00\\\\);_(* \\\"-\\\"??_);_(@_)\"}],\"context\":{\"range\":\"A11:L29\",\"values\":[[\"\",\"Acquirer Portfolio-Diversification Adjustment:\",\"\",\"\",\"\",0.2721385,\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"Unlevered Beta from Comparables\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"Levered\",\"\",\"\",\"Preferred\",\"\",\"Equity\",\"\",\"\",\"Unlevered\"],[\"\",\"Name\",\"Ticker\",\"Beta\",\"Debt\",\"% Debt\",\"Stock\",\"% Preferred\",\"Value\",\"% Equity\",\"Tax Rate\",\"Beta\"],[\"\",\"Corvane Broadcasting Inc\",\"NYSE:CRVB\",0.32,522.4,0.2134773951589587,0,0,1924.6975000000002,0.7865226048410413,0.4,0.2751855951656232],[\"\",\"Emberwyck Broadcasting Inc\",\"NASDAQ:EMBW\",1.55,118.75,0.15034271809505964,0,0,671.1120000000001,0.8496572819049404,0.4,1.4012349770058272],[\"\",\"Quillhaven Publishing Corp\",\"NASDAQ:QLHV\",1.11,0,0,0,0,800.4960000000001,1,0.4,1.11],[\"\",\"Vantablu Streaming, Inc.\",\"NASDAQ:VNBU\",1.15,0,0,0,0,595.1248,1,0.4,1.15],[\"\",\"Driftwater Networks Corp\",\"NASDAQ:DFWN\",2.11,43.90399999999999,0.4534881318817526,0,0,52.910000000000004,0.5465118681182475,0.4,1.4086652265420354],[\"\",\"Hollowmere Broadcast Group Inc\",\"NASDAQ:HWMB\",1.25,12.302999999999999,0.13034247344522396,0,0,82.0868,0.869657526554776,0.4,1.1468660513297402],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"Median:\",\"\",1.2,\"\",\"\",\"\",\"\",\"\",\"\",\"\",1.14843302566487],[\"\",\"Unlevered Beta \u2014 Median (Total):\",\"\",2.867008268913934,\"\",\"\",\"\",\"\",\"\",\"\",\"\",1.989966007309107],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"Fennmark Media Partners LLC - Levered Beta & WACC Calculation\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"Unlevered\",\"\",\"\",\"Preferred\",\"\",\"Equity\",\"\",\"\",\"Levered\"],[\"\",\"\",\"Ticker\",\"Beta\",\"Debt\",\"% Debt\",\"Stock\",\"% Preferred\",\"Value\",\"% Equity\",\"Tax Rate\",\"Beta\"],[\"\",\"Target Capital Structure:\",\"N/A\",1.989966007309107,28.103499999999997,\"\",0,\"\",633.1184000000001,\"\",0.4,\"#DIV/0!\"]]},\"note\":\"Context is evidence, not inferred units or authorization to edit. Use inspect_calculation for uncertain signs/sources; inspect_original before replacing numeric answers; inspect_schedule for repeated schedules.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 3
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "c1607a1a-0750-4444-9fc7-152db5d0150d",
+     "body_bytes": 173934,
+     "input_items": 8
+    },
+    {
+     "ev": "llm.response",
+     "n": 3,
+     "response_id": "resp_00c923669707aba6016ab564435c3c87d2a6ddeeaca13a034c",
+     "request_id": "req_8e9da37687394d78ad13da4d5f5a5ea7",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 1791,
+     "usage": {
+      "input_tokens": 52567,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 43776
+      },
+      "output_tokens": 48,
+      "output_tokens_details": {
+       "reasoning_tokens": 17
+      },
+      "total_tokens": 52615
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 3,
+     "call_id": "call_839R7gXmbussRFevenViDdQN",
+     "name": "inspect_range",
+     "arguments": {
+      "sheet": "Books & GAAP Bridge",
+      "range": "B198:F201"
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 3,
+     "call_id": "call_839R7gXmbussRFevenViDdQN",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_range\",{\"sheet\":\"Books & GAAP Bridge\",\"range\":\"B198:F201\"},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 3,
+     "call_id": "call_839R7gXmbussRFevenViDdQN",
+     "ms": 13,
+     "bytes": 2692,
+     "shown_bytes": 2692,
+     "out": "{\"ok\":true,\"tool\":\"inspect_range\",\"elapsed_ms\":12,\"result\":{\"sheet\":\"Books & GAAP Bridge\",\"range\":\"B198:F201\",\"sampled\":false,\"cells\":[{\"cell\":\"B198\",\"value\":\"Model Inputs\",\"formula\":null,\"display\":\"Model Inputs\",\"number_format\":\"[$-409]mmmm\\\\-yy\"},{\"cell\":\"C198\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"[$-409]mmmm\\\\-yy\"},{\"cell\":\"D198\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"[$-409]mmmm\\\\-yy\"},{\"cell\":\"E198\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"[$-409]mmmm\\\\-yy\"},{\"cell\":\"F198\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"[$-409]mmmm\\\\-yy\"},{\"cell\":\"B199\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"C199\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D199\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E199\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F199\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"B200\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"C200\",\"value\":\"Acquirer Tax Rate:\",\"formula\":null,\"display\":\"Acquirer Tax Rate:\",\"number_format\":\"0.###############\"},{\"cell\":\"D200\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E200\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F200\",\"value\":0.41192095,\"formula\":null,\"display\":\"41.2%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"B201\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"C201\",\"value\":\"Company:\",\"formula\":null,\"display\":\"Company:\",\"number_format\":\"0.###############\"},{\"cell\":\"D201\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E201\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(#,##0.00_);(#,##0.00)\"},{\"cell\":\"F201\",\"value\":\"Fennmark Media Partners LLC\",\"formula\":null,\"display\":\"Fennmark Media Partners LLC\",\"number_format\":\"#,##0.0_);\\\\(#,##0.0\\\\)\"}],\"context\":{\"range\":\"A195:F201\",\"values\":[[\"\",\"Private Company Financial Statements - Fennmark Media Partners LLC - U.S. GAAP / IFRS-Compliant\",\"\",\"\",\"\",\"\"],[\"\",\"(USD, as stated)\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"Model Inputs\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"Acquirer Tax Rate:\",\"\",\"\",0.41192095],[\"\",\"\",\"Company:\",\"\",\"\",\"Fennmark Media Partners LLC\"]]},\"note\":\"Context is evidence, not inferred units or authorization to edit. Use inspect_calculation for uncertain signs/sources; inspect_original before replacing numeric answers; inspect_schedule for repeated schedules.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 4
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "830ed3ee-8cbd-4b52-bfb5-214d8abca4df",
+     "body_bytes": 178873,
+     "input_items": 11
+    },
+    {
+     "ev": "llm.response",
+     "n": 4,
+     "response_id": "resp_00c923669707aba6016ab56447705087d29cd2cf83bca221b0",
+     "request_id": "req_ee16295256df4b1a97490683d8855451",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 1345,
+     "usage": {
+      "input_tokens": 53321,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 51968
+      },
+      "output_tokens": 41,
+      "output_tokens_details": {
+       "reasoning_tokens": 11
+      },
+      "total_tokens": 53362
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 4,
+     "call_id": "call_NMWxm2CqrQPHxN7aLrYgozDD",
+     "name": "inspect_range",
+     "arguments": {
+      "sheet": "Cash Flow Valuation",
+      "range": "B5:F11"
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 4,
+     "call_id": "call_NMWxm2CqrQPHxN7aLrYgozDD",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_range\",{\"sheet\":\"Cash Flow Valuation\",\"range\":\"B5:F11\"},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 4,
+     "call_id": "call_NMWxm2CqrQPHxN7aLrYgozDD",
+     "ms": 1139,
+     "bytes": 4645,
+     "shown_bytes": 4645,
+     "out": "{\"ok\":true,\"tool\":\"inspect_range\",\"elapsed_ms\":1139,\"result\":{\"sheet\":\"Cash Flow Valuation\",\"range\":\"B5:F11\",\"sampled\":false,\"cells\":[{\"cell\":\"B5\",\"value\":\"Discount Rate Inputs\",\"formula\":null,\"display\":\"Discount Rate Inputs\",\"number_format\":\"0.###############\"},{\"cell\":\"C5\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D5\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E5\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F5\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"B6\",\"value\":\"Risk-Free Yield:\",\"formula\":null,\"display\":\"Risk-Free Yield:\",\"number_format\":\"0.###############\"},{\"cell\":\"C6\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D6\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E6\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F6\",\"value\":0.0207678735,\"formula\":null,\"display\":\" 2.08% \",\"number_format\":\"_(0.00%_);\\\\(0.00%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"B7\",\"value\":\"Market Risk Premium:\",\"formula\":null,\"display\":\"Market Risk Premium:\",\"number_format\":\"0.###############\"},{\"cell\":\"C7\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D7\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E7\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F7\",\"value\":0.06804861,\"formula\":null,\"display\":\" 6.80% \",\"number_format\":\"_(0.00%_);\\\\(0.00%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"B8\",\"value\":\"Cost of Debt (Pre-Tax):\",\"formula\":null,\"display\":\"Cost of Debt (Pre-Tax):\",\"number_format\":\"0.###############\"},{\"cell\":\"C8\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D8\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E8\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F8\",\"value\":0.0245,\"formula\":null,\"display\":\" 2.45% \",\"number_format\":\"_(0.00%_);\\\\(0.00%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"B9\",\"value\":\"Preferred Stock Cost:\",\"formula\":null,\"display\":\"Preferred Stock Cost:\",\"number_format\":\"0.###############\"},{\"cell\":\"C9\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D9\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E9\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F9\",\"value\":0,\"formula\":null,\"display\":\" \u2013  \",\"number_format\":\"_(0.00%_);\\\\(0.00%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"B10\",\"value\":\"Market Correlation (R^2) for Comparable Companies:\",\"formula\":null,\"display\":\"Market Correlation (R^2) for Comparable Companies:\",\"number_format\":\"0.###############\"},{\"cell\":\"C10\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D10\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E10\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F10\",\"value\":0.1764483196,\"formula\":null,\"display\":\" 17.64% \",\"number_format\":\"_(0.00%_);\\\\(0.00%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"B11\",\"value\":\"Acquirer Portfolio-Diversification Adjustment:\",\"formula\":null,\"display\":\"Acquirer Portfolio-Diversification Adjustment:\",\"number_format\":\"0.###############\"},{\"cell\":\"C11\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D11\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E11\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F11\",\"value\":0.2721385,\"formula\":null,\"display\":\" 27.21% \",\"number_format\":\"_(0.00%_);\\\\(0.00%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"}],\"context\":{\"range\":\"A2:F11\",\"values\":[[\"\",\"Private Company WACC Analysis - Fennmark Media Partners LLC\",\"\",\"\",\"\",\"\"],[\"\",\"(USD, as stated)\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"Discount Rate Inputs\",\"\",\"\",\"\",\"\"],[\"\",\"Risk-Free Yield:\",\"\",\"\",\"\",0.0207678735],[\"\",\"Market Risk Premium:\",\"\",\"\",\"\",0.06804861],[\"\",\"Cost of Debt (Pre-Tax):\",\"\",\"\",\"\",0.0245],[\"\",\"Preferred Stock Cost:\",\"\",\"\",\"\",0],[\"\",\"Market Correlation (R^2) for Comparable Companies:\",\"\",\"\",\"\",0.1764483196],[\"\",\"Acquirer Portfolio-Diversification Adjustment:\",\"\",\"\",\"\",0.2721385]]},\"note\":\"Context is evidence, not inferred units or authorization to edit. Use inspect_calculation for uncertain signs/sources; inspect_original before replacing numeric answers; inspect_schedule for repeated schedules.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 5
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "b60f5fbc-c806-4387-bf3a-61cd5a174040",
+     "body_bytes": 186014,
+     "input_items": 14
+    },
+    {
+     "ev": "llm.response",
+     "n": 5,
+     "response_id": "resp_00c923669707aba6016ab5644b651c87d2a17f56b21c4c5cdd",
+     "request_id": "req_89103a10d2984d749f2f53c455df2665",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 1606,
+     "usage": {
+      "input_tokens": 54646,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 52992
+      },
+      "output_tokens": 83,
+      "output_tokens_details": {
+       "reasoning_tokens": 53
+      },
+      "total_tokens": 54729
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 5,
+     "call_id": "call_JMi28Jh6tacIH0sk3zqMVGr3",
+     "name": "inspect_range",
+     "arguments": {
+      "sheet": "Cash Flow Valuation",
+      "range": "B31:L35"
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 5,
+     "call_id": "call_JMi28Jh6tacIH0sk3zqMVGr3",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_range\",{\"sheet\":\"Cash Flow Valuation\",\"range\":\"B31:L35\"},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 5,
+     "call_id": "call_JMi28Jh6tacIH0sk3zqMVGr3",
+     "ms": 122,
+     "bytes": 6104,
+     "shown_bytes": 6104,
+     "out": "{\"ok\":true,\"tool\":\"inspect_range\",\"elapsed_ms\":122,\"result\":{\"sheet\":\"Cash Flow Valuation\",\"range\":\"B31:L35\",\"sampled\":false,\"cells\":[{\"cell\":\"B31\",\"value\":\"Cost of Equity \u2014 Comps + Target Structure\",\"formula\":null,\"display\":\"Cost of Equity \u2014 Comps + Target Structure\",\"number_format\":\"0.###############\"},{\"cell\":\"C31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F31\",\"value\":\"#DIV/0!\",\"formula\":\"=F6+L29*F7\",\"display\":\"#DIV/0!\",\"number_format\":\"0.###############\"},{\"cell\":\"G31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(0.00%_);\\\\(0.00%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"B32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"C32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"B33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"C33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"B34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"C34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"B35\",\"value\":\"WACC \u2014 Target Structure\",\"formula\":null,\"display\":\"WACC \u2014 Target Structure\",\"number_format\":\"0.###############\"},{\"cell\":\"C35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F35\",\"value\":\"#DIV/0!\",\"formula\":\"=F29*F8*(1-K29)+J29*F31\",\"display\":\"#DIV/0!\",\"number_format\":\"0.###############\"},{\"cell\":\"G35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(0.00%_);\\\\(0.00%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"}],\"context\":{\"range\":\"A28:L35\",\"values\":[[\"\",\"\",\"Ticker\",\"Beta\",\"Debt\",\"% Debt\",\"Stock\",\"% Preferred\",\"Value\",\"% Equity\",\"Tax Rate\",\"Beta\"],[\"\",\"Target Capital Structure:\",\"N/A\",1.989966007309107,28.103499999999997,\"\",0,\"\",633.1184000000001,\"\",0.4,\"#DIV/0!\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"Cost of Equity \u2014 Comps + Target Structure\",\"\",\"\",\"\",\"#DIV/0!\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"WACC \u2014 Target Structure\",\"\",\"\",\"\",\"#DIV/0!\",\"\",\"\",\"\",\"\",\"\",\"\"]]},\"note\":\"Context is evidence, not inferred units or authorization to edit. Use inspect_calculation for uncertain signs/sources; inspect_original before replacing numeric answers; inspect_schedule for repeated schedules.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 6
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "31cbbf46-4f14-4282-8272-980a86b419e7",
+     "body_bytes": 195289,
+     "input_items": 17
+    },
+    {
+     "ev": "llm.response",
+     "n": 6,
+     "response_id": "resp_00c923669707aba6016ab5644e8ea087d2a3f3f123b23963a8",
+     "request_id": "req_61fc113ec0ab4fe1b7393ac867baff8c",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 7319,
+     "usage": {
+      "input_tokens": 56257,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 54016
+      },
+      "output_tokens": 713,
+      "output_tokens_details": {
+       "reasoning_tokens": 683
+      },
+      "total_tokens": 56970
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 6,
+     "call_id": "call_me3Y7LOpGwp7C30qgT7P280H",
+     "name": "inspect_original",
+     "arguments": {
+      "sheet": "Cash Flow Valuation",
+      "range": "D23:L35"
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 6,
+     "call_id": "call_me3Y7LOpGwp7C30qgT7P280H",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_original\",{\"sheet\":\"Cash Flow Valuation\",\"range\":\"D23:L35\"},{\"available\":false,\"cells\":[]})));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 6,
+     "call_id": "call_me3Y7LOpGwp7C30qgT7P280H",
+     "ms": 113,
+     "bytes": 13468,
+     "shown_bytes": 13468,
+     "out": "{\"ok\":true,\"tool\":\"inspect_original\",\"elapsed_ms\":113,\"result\":{\"current\":{\"sheet\":\"Cash Flow Valuation\",\"range\":\"D23:L35\",\"sampled\":false,\"cells\":[{\"cell\":\"D23\",\"value\":1.2,\"formula\":\"=MEDIAN(D16:D21)\",\"display\":\" 1.20  \",\"number_format\":\"_(#,##0.00_)_%;\\\\(#,##0.00\\\\)_%;_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"E23\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F23\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"G23\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H23\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"I23\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J23\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"K23\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"L23\",\"value\":1.14843302566487,\"formula\":\"=MEDIAN(L16:L21)\",\"display\":\"  1.15 \",\"number_format\":\"_(* #,##0.00_);_(* \\\\(#,##0.00\\\\);_(* \\\"-\\\"??_);_(@_)\"},{\"cell\":\"D24\",\"value\":2.867008268913934,\"formula\":\"=L23/(F10*(1-F11)+F11)\",\"display\":\"2.867008269\",\"number_format\":\"0.###############\"},{\"cell\":\"E24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L24\",\"value\":1.989966007309107,\"formula\":\"=L23/SQRT(Market_Correlation)*(1-Buyer_Diversification)\",\"display\":\"  1.99 \",\"number_format\":\"_(* #,##0.00_);_(* \\\\(#,##0.00\\\\);_(* \\\"-\\\"??_);_(@_)\"},{\"cell\":\"D25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D27\",\"value\":\"Unlevered\",\"formula\":null,\"display\":\"Unlevered\",\"number_format\":\"0.###############\"},{\"cell\":\"E27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G27\",\"value\":\"Preferred\",\"formula\":null,\"display\":\"Preferred\",\"number_format\":\"0.###############\"},{\"cell\":\"H27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I27\",\"value\":\"Equity\",\"formula\":null,\"display\":\"Equity\",\"number_format\":\"0.###############\"},{\"cell\":\"J27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L27\",\"value\":\"Levered\",\"formula\":null,\"display\":\"Levered\",\"number_format\":\"0.###############\"},{\"cell\":\"D28\",\"value\":\"Beta\",\"formula\":null,\"display\":\"Beta\",\"number_format\":\"0.###############\"},{\"cell\":\"E28\",\"value\":\"Debt\",\"formula\":null,\"display\":\"Debt\",\"number_format\":\"0.###############\"},{\"cell\":\"F28\",\"value\":\"% Debt\",\"formula\":null,\"display\":\"% Debt\",\"number_format\":\"0.###############\"},{\"cell\":\"G28\",\"value\":\"Stock\",\"formula\":null,\"display\":\"Stock\",\"number_format\":\"0.###############\"},{\"cell\":\"H28\",\"value\":\"% Preferred\",\"formula\":null,\"display\":\"% Preferred\",\"number_format\":\"0.###############\"},{\"cell\":\"I28\",\"value\":\"Value\",\"formula\":null,\"display\":\"Value\",\"number_format\":\"0.###############\"},{\"cell\":\"J28\",\"value\":\"% Equity\",\"formula\":null,\"display\":\"% Equity\",\"number_format\":\"0.###############\"},{\"cell\":\"K28\",\"value\":\"Tax Rate\",\"formula\":null,\"display\":\"Tax Rate\",\"number_format\":\"0.###############\"},{\"cell\":\"L28\",\"value\":\"Beta\",\"formula\":null,\"display\":\"Beta\",\"number_format\":\"0.###############\"},{\"cell\":\"D29\",\"value\":1.989966007309107,\"formula\":\"=L24\",\"display\":\" 1.99  \",\"number_format\":\"_(#,##0.00_)_%;\\\\(#,##0.00\\\\)_%;_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"E29\",\"value\":28.103499999999997,\"formula\":\"=MEDIAN(E16:E21)\",\"display\":\" $ 28.1 \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F29\",\"value\":\"\",\"formula\":\"=F23\",\"display\":\"\",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"G29\",\"value\":0,\"formula\":\"=MEDIAN(G16:G21)\",\"display\":\" $ -  \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H29\",\"value\":\"\",\"formula\":\"=H23\",\"display\":\"\",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"I29\",\"value\":633.1184000000001,\"formula\":\"=MEDIAN(I16:I21)\",\"display\":\" $ 633.1 \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J29\",\"value\":\"\",\"formula\":\"=J23\",\"display\":\"\",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"K29\",\"value\":0.4,\"formula\":\"=MEDIAN(K16:K21)\",\"display\":\"40.0%\",\"number_format\":\"0.0%;\\\\(0.0%\\\\)\"},{\"cell\":\"L29\",\"value\":\"#DIV/0!\",\"formula\":\"=D29*(1+(1-K29)*(F29/J29))\",\"display\":\"#DIV/0!\",\"number_format\":\"_(* #,##0.00_);_(* \\\\(#,##0.00\\\\);_(* \\\"-\\\"??_);_(@_)\"},{\"cell\":\"D30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F31\",\"value\":\"#DIV/0!\",\"formula\":\"=F6+L29*F7\",\"display\":\"#DIV/0!\",\"number_format\":\"0.###############\"},{\"cell\":\"G31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(0.00%_);\\\\(0.00%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"D32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F35\",\"value\":\"#DIV/0!\",\"formula\":\"=F29*F8*(1-K29)+J29*F31\",\"display\":\"#DIV/0!\",\"number_format\":\"0.###############\"},{\"cell\":\"G35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"_(0.00%_);\\\\(0.00%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"}],\"context\":{\"range\":\"A20:L35\",\"values\":[[\"\",\"Driftwater Networks Corp\",\"NASDAQ:DFWN\",2.11,43.90399999999999,0.4534881318817526,0,0,52.910000000000004,0.5465118681182475,0.4,1.4086652265420354],[\"\",\"Hollowmere Broadcast Group Inc\",\"NASDAQ:HWMB\",1.25,12.302999999999999,0.13034247344522396,0,0,82.0868,0.869657526554776,0.4,1.1468660513297402],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"Median:\",\"\",1.2,\"\",\"\",\"\",\"\",\"\",\"\",\"\",1.14843302566487],[\"\",\"Unlevered Beta \u2014 Median (Total):\",\"\",2.867008268913934,\"\",\"\",\"\",\"\",\"\",\"\",\"\",1.989966007309107],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"Fennmark Media Partners LLC - Levered Beta & WACC Calculation\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"Unlevered\",\"\",\"\",\"Preferred\",\"\",\"Equity\",\"\",\"\",\"Levered\"],[\"\",\"\",\"Ticker\",\"Beta\",\"Debt\",\"% Debt\",\"Stock\",\"% Preferred\",\"Value\",\"% Equity\",\"Tax Rate\",\"Beta\"],[\"\",\"Target Capital Structure:\",\"N/A\",1.989966007309107,28.103499999999997,\"\",0,\"\",633.1184000000001,\"\",0.4,\"#DIV/0!\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"Cost of Equity \u2014 Comps + Target Structure\",\"\",\"\",\"\",\"#DIV/0!\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"WACC \u2014 Target Structure\",\"\",\"\",\"\",\"#DIV/0!\",\"\",\"\",\"\",\"\",\"\",\"\"]]},\"note\":\"Context is evidence, not inferred units or authorization to edit. Use inspect_calculation for uncertain signs/sources; inspect_original before replacing numeric answers; inspect_schedule for repeated schedules.\"},\"original\":{\"available\":false,\"cells\":[]}}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 7
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "8e6bdc6e-362d-4eab-a29a-9def0b4af02a",
+     "body_bytes": 217231,
+     "input_items": 20
+    },
+    {
+     "ev": "llm.response",
+     "n": 7,
+     "response_id": "resp_00c923669707aba6016ab56457bce887d2b1a8191f148a24b5",
+     "request_id": "req_23ff9b2120fa4a31be0e46dde59d20a7",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 27051,
+     "usage": {
+      "input_tokens": 60839,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 56064
+      },
+      "output_tokens": 3340,
+      "output_tokens_details": {
+       "reasoning_tokens": 2588
+      },
+      "total_tokens": 64179
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "tool.call",
+     "n": 7,
+     "call_id": "call_4TdBqCAu0ugcJ7CjzWUsdMf9",
+     "code": "function fmtMon(){return '#,##0.0';}\nfunction fmtPct(){return '0.0%';}\nconst sh = ss.getSheetByName('Cash Flow Valuation');\n\n// Fill median row under comps\nconst medianFormulas = [[\n  '=MEDIAN(D16:D21)',\n  '=MEDIAN(E16:E21)',\n  '=MEDIAN(F16:F21)',\n  '=MEDIAN(G16:G21)',\n  '=MEDIAN(H16:H21)',\n  '=MEDIAN(I16:I21)',\n  '=MEDIAN(J16:J21)',\n  '=MEDIAN(K16:K21)',\n  '=MEDIAN(L16:L21)'\n]];\nsh.getRange('D23:L23').setFormulas(medianFormulas);\n\n// Clear misplaced duplicate and keep supporting total beta in L24\nsh.getRange('D24').clearContent();\n\n// Fennmark table updates\nsh.getRange('E29').clearContent();\nsh.getRange('G29').clearContent();\nsh.getRange('I29').clearContent();\nsh.getRange('F29').setFormula('=F23');\nsh.getRange('H29').setFormula('=H23');\nsh.getRange('J29').setFormula('=J23');\nsh.getRange('K29').setFormula('=Tax_Rate');\nsh.getRange('L29').setFormula('=D29*(1+(1-K29)*(F29/J29))');\n\n// Cost of debt = risk-free + 40 bps\nsh.getRange('F8').setFormula('=Risk_Free_Rate+0.4%');\n\n// Shift formulas/values from F31/F35 to L31/L35, then clear F31/F35\nsh.getRange('L31').setFormula('=F6+L29*F7');\nsh.getRange('L35').setFormula('=F29*F8*(1-K29)+J29*L31');\nsh.getRangeList(['F31','F35']).clearContent();\n\n// Explanation text\nsh.getRange('B33').setValue('WACC = Cost of Equity * % Equity + Cost of Debt * % Debt * (1 - Tax Rate) + Cost of Preferred Stock * % Preferred Stock');\n\n// Number formatting updates\nconst formats16to21 = [];\nfor (let r = 16; r <= 21; r++) {\n  formats16to21.push([fmtMon(), fmtPct(), fmtMon(), fmtPct(), fmtMon(), fmtPct(), fmtPct()]);\n}\nsh.getRange('E16:K21').setNumberFormats(formats16to21);\nsh.getRange('E29:K29').setNumberFormats([[fmtMon(), fmtPct(), fmtMon(), fmtPct(), fmtMon(), fmtPct(), fmtPct()]]);\n\nSpreadsheetApp.flush();\n\nlog({\n  D23L24: sh.getRange('D23:L24').getDisplayValues(),\n  row29: sh.getRange('D29:L29').getDisplayValues(),\n  inputs: sh.getRange('F6:F11').getDisplayValues(),\n  moved: sh.getRange('F31:L35').getDisplayValues()\n});"
+    },
+    {
+     "ev": "tool.result",
+     "n": 7,
+     "call_id": "call_4TdBqCAu0ugcJ7CjzWUsdMf9",
+     "ms": 608,
+     "bytes": 434,
+     "shown_bytes": 434,
+     "out": "{\"D23L24\":[[\" 1.20  \",\" $ 28.1 \",\" 14.0% \",\" $ -  \",\" \u2013  \",\" $ 633.1 \",\" 86.0% \",\" 40.0% \",\"  1.15 \"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"  1.99 \"]],\"row29\":[[\" 1.99  \",\"\",\"14.0%\",\"\",\"0.0%\",\"\",\"86.0%\",\"41.2%\",\"  2.18 \"]],\"inputs\":[[\" 2.08% \"],[\" 6.80% \"],[\" 2.48% \"],[\" \u2013  \"],[\" 17.64% \"],[\" 27.21% \"]],\"moved\":[[\"\",\"\",\"\",\"\",\"\",\"\",\" 16.92% \"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\" 14.75% \"]]}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 8
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "624e420d-452b-42c6-a4c2-483ebf1eeb95",
+     "body_bytes": 236440,
+     "input_items": 23
+    },
+    {
+     "ev": "llm.response",
+     "n": 8,
+     "response_id": "resp_00c923669707aba6016ab56474dbcc87d2bf460176c69441a0",
+     "request_id": "req_5e84fed8d4454b918cd8675387ecba3c",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 2064,
+     "usage": {
+      "input_tokens": 64386,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 60160
+      },
+      "output_tokens": 109,
+      "output_tokens_details": {
+       "reasoning_tokens": 79
+      },
+      "total_tokens": 64495
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 8,
+     "call_id": "call_O8WbqSQuRIBj41ibjkfuyNae",
+     "name": "inspect_range",
+     "arguments": {
+      "sheet": "Cash Flow Valuation",
+      "range": "D23:L35"
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 8,
+     "call_id": "call_O8WbqSQuRIBj41ibjkfuyNae",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_range\",{\"sheet\":\"Cash Flow Valuation\",\"range\":\"D23:L35\"},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 8,
+     "call_id": "call_O8WbqSQuRIBj41ibjkfuyNae",
+     "ms": 193,
+     "bytes": 13467,
+     "shown_bytes": 13467,
+     "out": "{\"ok\":true,\"tool\":\"inspect_range\",\"elapsed_ms\":192,\"result\":{\"sheet\":\"Cash Flow Valuation\",\"range\":\"D23:L35\",\"sampled\":false,\"cells\":[{\"cell\":\"D23\",\"value\":1.2,\"formula\":\"=MEDIAN(D16:D21)\",\"display\":\" 1.20  \",\"number_format\":\"_(#,##0.00_)_%;\\\\(#,##0.00\\\\)_%;_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"E23\",\"value\":28.103499999999997,\"formula\":\"=MEDIAN(E16:E21)\",\"display\":\" $ 28.1 \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"F23\",\"value\":0.1403425957701418,\"formula\":\"=MEDIAN(F16:F21)\",\"display\":\" 14.0% \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"G23\",\"value\":0,\"formula\":\"=MEDIAN(G16:G21)\",\"display\":\" $ -  \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"H23\",\"value\":0,\"formula\":\"=MEDIAN(H16:H21)\",\"display\":\" \u2013  \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"I23\",\"value\":633.1184000000001,\"formula\":\"=MEDIAN(I16:I21)\",\"display\":\" $ 633.1 \",\"number_format\":\"_(\\\"$\\\"* #,##0.0_);_(\\\"$\\\"* \\\\(#,##0.0\\\\);_(\\\"$\\\"* \\\"-\\\"?_);_(@_)\"},{\"cell\":\"J23\",\"value\":0.8596574042298581,\"formula\":\"=MEDIAN(J16:J21)\",\"display\":\" 86.0% \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"K23\",\"value\":0.4,\"formula\":\"=MEDIAN(K16:K21)\",\"display\":\" 40.0% \",\"number_format\":\"_(0.0%_);\\\\(0.0%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"L23\",\"value\":1.14843302566487,\"formula\":\"=MEDIAN(L16:L21)\",\"display\":\"  1.15 \",\"number_format\":\"_(* #,##0.00_);_(* \\\\(#,##0.00\\\\);_(* \\\"-\\\"??_);_(@_)\"},{\"cell\":\"D24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K24\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L24\",\"value\":1.989966007309107,\"formula\":\"=L23/SQRT(Market_Correlation)*(1-Buyer_Diversification)\",\"display\":\"  1.99 \",\"number_format\":\"_(* #,##0.00_);_(* \\\\(#,##0.00\\\\);_(* \\\"-\\\"??_);_(@_)\"},{\"cell\":\"D25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L25\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L26\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D27\",\"value\":\"Unlevered\",\"formula\":null,\"display\":\"Unlevered\",\"number_format\":\"0.###############\"},{\"cell\":\"E27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G27\",\"value\":\"Preferred\",\"formula\":null,\"display\":\"Preferred\",\"number_format\":\"0.###############\"},{\"cell\":\"H27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I27\",\"value\":\"Equity\",\"formula\":null,\"display\":\"Equity\",\"number_format\":\"0.###############\"},{\"cell\":\"J27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K27\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L27\",\"value\":\"Levered\",\"formula\":null,\"display\":\"Levered\",\"number_format\":\"0.###############\"},{\"cell\":\"D28\",\"value\":\"Beta\",\"formula\":null,\"display\":\"Beta\",\"number_format\":\"0.###############\"},{\"cell\":\"E28\",\"value\":\"Debt\",\"formula\":null,\"display\":\"Debt\",\"number_format\":\"0.###############\"},{\"cell\":\"F28\",\"value\":\"% Debt\",\"formula\":null,\"display\":\"% Debt\",\"number_format\":\"0.###############\"},{\"cell\":\"G28\",\"value\":\"Stock\",\"formula\":null,\"display\":\"Stock\",\"number_format\":\"0.###############\"},{\"cell\":\"H28\",\"value\":\"% Preferred\",\"formula\":null,\"display\":\"% Preferred\",\"number_format\":\"0.###############\"},{\"cell\":\"I28\",\"value\":\"Value\",\"formula\":null,\"display\":\"Value\",\"number_format\":\"0.###############\"},{\"cell\":\"J28\",\"value\":\"% Equity\",\"formula\":null,\"display\":\"% Equity\",\"number_format\":\"0.###############\"},{\"cell\":\"K28\",\"value\":\"Tax Rate\",\"formula\":null,\"display\":\"Tax Rate\",\"number_format\":\"0.###############\"},{\"cell\":\"L28\",\"value\":\"Beta\",\"formula\":null,\"display\":\"Beta\",\"number_format\":\"0.###############\"},{\"cell\":\"D29\",\"value\":1.989966007309107,\"formula\":\"=L24\",\"display\":\" 1.99  \",\"number_format\":\"_(#,##0.00_)_%;\\\\(#,##0.00\\\\)_%;_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"E29\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"#,##0.0\"},{\"cell\":\"F29\",\"value\":0.1403425957701418,\"formula\":\"=F23\",\"display\":\"14.0%\",\"number_format\":\"0.0%\"},{\"cell\":\"G29\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"#,##0.0\"},{\"cell\":\"H29\",\"value\":0,\"formula\":\"=H23\",\"display\":\"0.0%\",\"number_format\":\"0.0%\"},{\"cell\":\"I29\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"#,##0.0\"},{\"cell\":\"J29\",\"value\":0.8596574042298581,\"formula\":\"=J23\",\"display\":\"86.0%\",\"number_format\":\"0.0%\"},{\"cell\":\"K29\",\"value\":0.41192095,\"formula\":\"=Tax_Rate\",\"display\":\"41.2%\",\"number_format\":\"0.0%\"},{\"cell\":\"L29\",\"value\":2.1810153126194343,\"formula\":\"=D29*(1+(1-K29)*(F29/J29))\",\"display\":\"  2.18 \",\"number_format\":\"_(* #,##0.00_);_(* \\\\(#,##0.00\\\\);_(* \\\"-\\\"??_);_(@_)\"},{\"cell\":\"D30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L30\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K31\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L31\",\"value\":0.16918293391246797,\"formula\":\"=F6+L29*F7\",\"display\":\" 16.92% \",\"number_format\":\"_(0.00%_);\\\\(0.00%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"D32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L32\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L33\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L34\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"D35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"E35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"F35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"G35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"H35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"I35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"J35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"K35\",\"value\":\"\",\"formula\":null,\"display\":\"\",\"number_format\":\"0.###############\"},{\"cell\":\"L35\",\"value\":0.14748351732732182,\"formula\":\"=F29*F8*(1-K29)+J29*L31\",\"display\":\" 14.75% \",\"number_format\":\"_(0.00%_);\\\\(0.00%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"}],\"context\":{\"range\":\"A20:L35\",\"values\":[[\"\",\"Driftwater Networks Corp\",\"NASDAQ:DFWN\",2.11,43.90399999999999,0.4534881318817526,0,0,52.910000000000004,0.5465118681182475,0.4,1.4086652265420354],[\"\",\"Hollowmere Broadcast Group Inc\",\"NASDAQ:HWMB\",1.25,12.302999999999999,0.13034247344522396,0,0,82.0868,0.869657526554776,0.4,1.1468660513297402],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"Median:\",\"\",1.2,28.103499999999997,0.1403425957701418,0,0,633.1184000000001,0.8596574042298581,0.4,1.14843302566487],[\"\",\"Unlevered Beta \u2014 Median (Total):\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",1.989966007309107],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"Fennmark Media Partners LLC - Levered Beta & WACC Calculation\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"Unlevered\",\"\",\"\",\"Preferred\",\"\",\"Equity\",\"\",\"\",\"Levered\"],[\"\",\"\",\"Ticker\",\"Beta\",\"Debt\",\"% Debt\",\"Stock\",\"% Preferred\",\"Value\",\"% Equity\",\"Tax Rate\",\"Beta\"],[\"\",\"Target Capital Structure:\",\"N/A\",1.989966007309107,\"\",0.1403425957701418,\"\",0,\"\",0.8596574042298581,0.41192095,2.1810153126194343],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"Cost of Equity \u2014 Comps + Target Structure\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",0.16918293391246797],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"WACC = Cost of Equity * % Equity + Cost of Debt * % Debt * (1 - Tax Rate) + Cost of Preferred Stock * % Preferred Stock\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"WACC \u2014 Target Structure\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",0.14748351732732182]]},\"note\":\"Context is evidence, not inferred units or authorization to edit. Use inspect_calculation for uncertain signs/sources; inspect_original before replacing numeric answers; inspect_schedule for repeated schedules.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 9
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "e637cded-bc7f-4c40-b721-e22e24cc2f1a",
+     "body_bytes": 254540,
+     "input_items": 26
+    },
+    {
+     "ev": "llm.response",
+     "n": 9,
+     "response_id": "resp_00c923669707aba6016ab564789fec87d2af7e5aaf70a738d5",
+     "request_id": "req_f4a6f28d17ba4442a594a1bc732992bc",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 1305,
+     "usage": {
+      "input_tokens": 68331,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 64256
+      },
+      "output_tokens": 41,
+      "output_tokens_details": {
+       "reasoning_tokens": 11
+      },
+      "total_tokens": 68372
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 9,
+     "call_id": "call_314xvX8NKbCiDuBcw3qX3G4Q",
+     "name": "inspect_range",
+     "arguments": {
+      "sheet": "Cash Flow Valuation",
+      "range": "F6:F11"
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 9,
+     "call_id": "call_314xvX8NKbCiDuBcw3qX3G4Q",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_range\",{\"sheet\":\"Cash Flow Valuation\",\"range\":\"F6:F11\"},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 9,
+     "call_id": "call_314xvX8NKbCiDuBcw3qX3G4Q",
+     "ms": 131,
+     "bytes": 1348,
+     "shown_bytes": 1348,
+     "out": "{\"ok\":true,\"tool\":\"inspect_range\",\"elapsed_ms\":131,\"result\":{\"sheet\":\"Cash Flow Valuation\",\"range\":\"F6:F11\",\"sampled\":false,\"cells\":[{\"cell\":\"F6\",\"value\":0.0207678735,\"formula\":null,\"display\":\" 2.08% \",\"number_format\":\"_(0.00%_);\\\\(0.00%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"F7\",\"value\":0.06804861,\"formula\":null,\"display\":\" 6.80% \",\"number_format\":\"_(0.00%_);\\\\(0.00%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"F8\",\"value\":0.0247678735,\"formula\":\"=Risk_Free_Rate+0.4%\",\"display\":\" 2.48% \",\"number_format\":\"_(0.00%_);\\\\(0.00%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"F9\",\"value\":0,\"formula\":null,\"display\":\" \u2013  \",\"number_format\":\"_(0.00%_);\\\\(0.00%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"F10\",\"value\":0.1764483196,\"formula\":null,\"display\":\" 17.64% \",\"number_format\":\"_(0.00%_);\\\\(0.00%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"},{\"cell\":\"F11\",\"value\":0.2721385,\"formula\":null,\"display\":\" 27.21% \",\"number_format\":\"_(0.00%_);\\\\(0.00%\\\\);_(\\\"\u2013\\\"_)_%;_(@_)_%\"}],\"context\":{\"range\":\"C3:F11\",\"values\":[[\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",0.0207678735],[\"\",\"\",\"\",0.06804861],[\"\",\"\",\"\",0.0247678735],[\"\",\"\",\"\",0],[\"\",\"\",\"\",0.1764483196],[\"\",\"\",\"\",0.2721385]]},\"note\":\"Context is evidence, not inferred units or authorization to edit. Use inspect_calculation for uncertain signs/sources; inspect_original before replacing numeric answers; inspect_schedule for repeated schedules.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 10
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "18496c38-8f43-4885-9eef-18ee8f138855",
+     "body_bytes": 257840,
+     "input_items": 29
+    },
+    {
+     "ev": "llm.response",
+     "n": 10,
+     "response_id": "resp_00c923669707aba6016ab5647b7d1887d2ba0b3dbf5ef6a0c1",
+     "request_id": "req_1daae13a9bbf4cdab34274d47d02a836",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 1194,
+     "usage": {
+      "input_tokens": 68878,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 67328
+      },
+      "output_tokens": 42,
+      "output_tokens_details": {
+       "reasoning_tokens": 12
+      },
+      "total_tokens": 68920
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 10,
+     "call_id": "call_oNyIJv7YdFrpiJIvEISsibK1",
+     "name": "list_formula_errors",
+     "arguments": {
+      "sheets": [
+       "Cash Flow Valuation"
+      ],
+      "limit": 20
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 10,
+     "call_id": "call_oNyIJv7YdFrpiJIvEISsibK1",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"list_formula_errors\",{\"sheets\":[\"Cash Flow Valuation\"],\"limit\":20},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 10,
+     "call_id": "call_oNyIJv7YdFrpiJIvEISsibK1",
+     "ms": 681,
+     "bytes": 222,
+     "shown_bytes": 222,
+     "out": "{\"ok\":true,\"tool\":\"list_formula_errors\",\"elapsed_ms\":681,\"result\":{\"errors\":[],\"truncated\":false,\"scanned_cells\":3366,\"note\":\"Existing errors may be unrelated to the task. Literal strings resembling errors are excluded.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 11
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "afae2f8d-4ced-4277-9dfd-5573300eef44",
+     "body_bytes": 259795,
+     "input_items": 32
+    },
+    {
+     "ev": "llm.response",
+     "n": 11,
+     "response_id": "resp_00c923669707aba6016ab5647ef3d487d2b7f681c4972e5645",
+     "request_id": "req_460bdd4a945a43fdbedc28b31f8b8664",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 1971,
+     "usage": {
+      "input_tokens": 68984,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 68352
+      },
+      "output_tokens": 120,
+      "output_tokens_details": {
+       "reasoning_tokens": 76
+      },
+      "total_tokens": 69104
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 11,
+     "call_id": "call_tF5CGQc9DXUsZj8cUN2t4gKe",
+     "name": "inspect_calculation",
+     "arguments": {
+      "sheet": "Cash Flow Valuation",
+      "cell": "L35",
+      "direction": "upstream",
+      "max_depth": 2,
+      "max_nodes": 40
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 11,
+     "call_id": "call_tF5CGQc9DXUsZj8cUN2t4gKe",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_calculation\",{\"sheet\":\"Cash Flow Valuation\",\"cell\":\"L35\",\"direction\":\"upstream\",\"max_depth\":2,\"max_nodes\":40},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 11,
+     "call_id": "call_tF5CGQc9DXUsZj8cUN2t4gKe",
+     "ms": 2268,
+     "bytes": 5206,
+     "shown_bytes": 5206,
+     "out": "{\"ok\":true,\"tool\":\"inspect_calculation\",\"elapsed_ms\":2268,\"result\":{\"root\":\"Cash Flow Valuation!L35\",\"direction\":\"upstream\",\"nodes\":[{\"sheet\":\"Cash Flow Valuation\",\"cell\":\"L35\",\"value\":0.14748351732732182,\"formula\":\"=F29*F8*(1-K29)+J29*L31\",\"kind\":\"formula\",\"labels\":{\"left\":[{\"cell\":\"B35\",\"text\":\"WACC \u2014 Target Structure\"}],\"above\":[{\"cell\":\"L27\",\"value\":\"Levered\"},{\"cell\":\"L28\",\"value\":\"Beta\"}]},\"error\":false,\"id\":\"Cash Flow Valuation!L35\",\"depth\":0,\"unresolved\":[]},{\"sheet\":\"Cash Flow Valuation\",\"cell\":\"F29\",\"value\":0.1403425957701418,\"formula\":\"=F23\",\"kind\":\"formula\",\"labels\":{\"left\":[{\"cell\":\"B29\",\"text\":\"Target Capital Structure:\"},{\"cell\":\"C29\",\"text\":\"N/A\"}],\"above\":[{\"cell\":\"F28\",\"value\":\"% Debt\"}]},\"error\":false,\"id\":\"Cash Flow Valuation!F29\",\"depth\":1,\"unresolved\":[]},{\"sheet\":\"Cash Flow Valuation\",\"cell\":\"F8\",\"value\":0.0247678735,\"formula\":\"=Risk_Free_Rate+0.4%\",\"kind\":\"formula\",\"labels\":{\"left\":[{\"cell\":\"B8\",\"text\":\"Cost of Debt (Pre-Tax):\"}],\"above\":[{\"cell\":\"F6\",\"value\":0.0207678735},{\"cell\":\"F7\",\"value\":0.06804861}]},\"error\":false,\"id\":\"Cash Flow Valuation!F8\",\"depth\":1,\"unresolved\":[]},{\"sheet\":\"Cash Flow Valuation\",\"cell\":\"K29\",\"value\":0.41192095,\"formula\":\"=Tax_Rate\",\"kind\":\"formula\",\"labels\":{\"left\":[{\"cell\":\"B29\",\"text\":\"Target Capital Structure:\"},{\"cell\":\"C29\",\"text\":\"N/A\"}],\"above\":[{\"cell\":\"K21\",\"value\":0.4},{\"cell\":\"K28\",\"value\":\"Tax Rate\"}]},\"error\":false,\"id\":\"Cash Flow Valuation!K29\",\"depth\":1,\"unresolved\":[]},{\"sheet\":\"Cash Flow Valuation\",\"cell\":\"J29\",\"value\":0.8596574042298581,\"formula\":\"=J23\",\"kind\":\"formula\",\"labels\":{\"left\":[{\"cell\":\"B29\",\"text\":\"Target Capital Structure:\"},{\"cell\":\"C29\",\"text\":\"N/A\"}],\"above\":[{\"cell\":\"J28\",\"value\":\"% Equity\"}]},\"error\":false,\"id\":\"Cash Flow Valuation!J29\",\"depth\":1,\"unresolved\":[]},{\"sheet\":\"Cash Flow Valuation\",\"cell\":\"L31\",\"value\":0.16918293391246797,\"formula\":\"=F6+L29*F7\",\"kind\":\"formula\",\"labels\":{\"left\":[{\"cell\":\"B31\",\"text\":\"Cost of Equity \u2014 Comps + Target Structure\"}],\"above\":[{\"cell\":\"L27\",\"value\":\"Levered\"},{\"cell\":\"L28\",\"value\":\"Beta\"}]},\"error\":false,\"id\":\"Cash Flow Valuation!L31\",\"depth\":1,\"unresolved\":[]},{\"sheet\":\"Cash Flow Valuation\",\"cell\":\"F23\",\"value\":0.1403425957701418,\"formula\":\"=MEDIAN(F16:F21)\",\"kind\":\"formula\",\"labels\":{\"left\":[{\"cell\":\"B23\",\"text\":\"Median:\"}],\"above\":[{\"cell\":\"F15\",\"value\":\"% Debt\"}]},\"error\":false,\"id\":\"Cash Flow Valuation!F23\",\"depth\":2,\"depth_limited\":true},{\"sheet\":\"Cash Flow Valuation\",\"cell\":\"F6\",\"value\":0.0207678735,\"formula\":null,\"kind\":\"number\",\"labels\":{\"left\":[{\"cell\":\"B6\",\"text\":\"Risk-Free Yield:\"}],\"above\":[]},\"error\":false,\"id\":\"Cash Flow Valuation!F6\",\"depth\":2,\"depth_limited\":true},{\"sheet\":\"Books & GAAP Bridge\",\"cell\":\"F200\",\"value\":0.41192095,\"formula\":null,\"kind\":\"number\",\"labels\":{\"left\":[{\"cell\":\"C200\",\"text\":\"Acquirer Tax Rate:\"}],\"above\":[{\"cell\":\"F192\",\"value\":\"$\"}]},\"error\":false,\"id\":\"Books & GAAP Bridge!F200\",\"depth\":2,\"depth_limited\":true},{\"sheet\":\"Cash Flow Valuation\",\"cell\":\"J23\",\"value\":0.8596574042298581,\"formula\":\"=MEDIAN(J16:J21)\",\"kind\":\"formula\",\"labels\":{\"left\":[{\"cell\":\"B23\",\"text\":\"Median:\"}],\"above\":[{\"cell\":\"J15\",\"value\":\"% Equity\"}]},\"error\":false,\"id\":\"Cash Flow Valuation!J23\",\"depth\":2,\"depth_limited\":true},{\"sheet\":\"Cash Flow Valuation\",\"cell\":\"L29\",\"value\":2.1810153126194343,\"formula\":\"=D29*(1+(1-K29)*(F29/J29))\",\"kind\":\"formula\",\"labels\":{\"left\":[{\"cell\":\"B29\",\"text\":\"Target Capital Structure:\"},{\"cell\":\"C29\",\"text\":\"N/A\"}],\"above\":[{\"cell\":\"L27\",\"value\":\"Levered\"},{\"cell\":\"L28\",\"value\":\"Beta\"}]},\"error\":false,\"id\":\"Cash Flow Valuation!L29\",\"depth\":2,\"depth_limited\":true},{\"sheet\":\"Cash Flow Valuation\",\"cell\":\"F7\",\"value\":0.06804861,\"formula\":null,\"kind\":\"number\",\"labels\":{\"left\":[{\"cell\":\"B7\",\"text\":\"Market Risk Premium:\"}],\"above\":[{\"cell\":\"F6\",\"value\":0.0207678735}]},\"error\":false,\"id\":\"Cash Flow Valuation!F7\",\"depth\":2,\"depth_limited\":true}],\"edges\":[{\"from\":\"Cash Flow Valuation!F29\",\"to\":\"Cash Flow Valuation!L35\",\"kind\":\"reads\"},{\"from\":\"Cash Flow Valuation!F8\",\"to\":\"Cash Flow Valuation!L35\",\"kind\":\"reads\"},{\"from\":\"Cash Flow Valuation!K29\",\"to\":\"Cash Flow Valuation!L35\",\"kind\":\"reads\"},{\"from\":\"Cash Flow Valuation!J29\",\"to\":\"Cash Flow Valuation!L35\",\"kind\":\"reads\"},{\"from\":\"Cash Flow Valuation!L31\",\"to\":\"Cash Flow Valuation!L35\",\"kind\":\"reads\"},{\"from\":\"Cash Flow Valuation!F23\",\"to\":\"Cash Flow Valuation!F29\",\"kind\":\"reads\"},{\"from\":\"Cash Flow Valuation!F6\",\"to\":\"Cash Flow Valuation!F8\",\"kind\":\"reads\"},{\"from\":\"Books & GAAP Bridge!F200\",\"to\":\"Cash Flow Valuation!K29\",\"kind\":\"reads\"},{\"from\":\"Cash Flow Valuation!J23\",\"to\":\"Cash Flow Valuation!J29\",\"kind\":\"reads\"},{\"from\":\"Cash Flow Valuation!F6\",\"to\":\"Cash Flow Valuation!L31\",\"kind\":\"reads\"},{\"from\":\"Cash Flow Valuation!L29\",\"to\":\"Cash Flow Valuation!L31\",\"kind\":\"reads\"},{\"from\":\"Cash Flow Valuation!F7\",\"to\":\"Cash Flow Valuation!L31\",\"kind\":\"reads\"}],\"truncated\":true,\"unresolved\":[],\"scanned_cells\":8118,\"note\":\"Static potential dependencies include inactive IF branches. Named ranges are resolved; dynamic/structured references are reported unresolved. Ranges summarize all values and trace representative formula families, not every member. A dependency is not proof of the right financial definition.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 12
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "1fe5178b-bfc2-443f-bed6-79a9f9277c23",
+     "body_bytes": 268049,
+     "input_items": 35
+    },
+    {
+     "ev": "llm.response",
+     "n": 12,
+     "response_id": "resp_00c923669707aba6016ab56484a7ec87d2882a3f812554046e",
+     "request_id": "req_370942c0f0434884b34a4e0776d5b287",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 1580,
+     "usage": {
+      "input_tokens": 70707,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 68352
+      },
+      "output_tokens": 58,
+      "output_tokens_details": {
+       "reasoning_tokens": 14
+      },
+      "total_tokens": 70765
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 12,
+     "call_id": "call_kpLtnIvV4bsbFV4GvJzNzB1f",
+     "name": "inspect_calculation",
+     "arguments": {
+      "sheet": "Cash Flow Valuation",
+      "cell": "L24",
+      "direction": "upstream",
+      "max_depth": 2,
+      "max_nodes": 20
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 12,
+     "call_id": "call_kpLtnIvV4bsbFV4GvJzNzB1f",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_calculation\",{\"sheet\":\"Cash Flow Valuation\",\"cell\":\"L24\",\"direction\":\"upstream\",\"max_depth\":2,\"max_nodes\":20},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 12,
+     "call_id": "call_kpLtnIvV4bsbFV4GvJzNzB1f",
+     "ms": 1085,
+     "bytes": 2801,
+     "shown_bytes": 2801,
+     "out": "{\"ok\":true,\"tool\":\"inspect_calculation\",\"elapsed_ms\":1085,\"result\":{\"root\":\"Cash Flow Valuation!L24\",\"direction\":\"upstream\",\"nodes\":[{\"sheet\":\"Cash Flow Valuation\",\"cell\":\"L24\",\"value\":1.989966007309107,\"formula\":\"=L23/SQRT(Market_Correlation)*(1-Buyer_Diversification)\",\"kind\":\"formula\",\"labels\":{\"left\":[{\"cell\":\"B24\",\"text\":\"Unlevered Beta \u2014 Median (Total):\"}],\"above\":[]},\"error\":false,\"id\":\"Cash Flow Valuation!L24\",\"depth\":0,\"unresolved\":[]},{\"sheet\":\"Cash Flow Valuation\",\"cell\":\"L23\",\"value\":1.14843302566487,\"formula\":\"=MEDIAN(L16:L21)\",\"kind\":\"formula\",\"labels\":{\"left\":[{\"cell\":\"B23\",\"text\":\"Median:\"}],\"above\":[{\"cell\":\"L15\",\"value\":\"Beta\"}]},\"error\":false,\"id\":\"Cash Flow Valuation!L23\",\"depth\":1,\"unresolved\":[]},{\"sheet\":\"Cash Flow Valuation\",\"cell\":\"F10\",\"value\":0.1764483196,\"formula\":null,\"kind\":\"number\",\"labels\":{\"left\":[{\"cell\":\"B10\",\"text\":\"Market Correlation (R^2) for Comparable Companies:\"}],\"above\":[{\"cell\":\"F6\",\"value\":0.0207678735},{\"cell\":\"F7\",\"value\":0.06804861},{\"cell\":\"F9\",\"value\":0}]},\"error\":false,\"id\":\"Cash Flow Valuation!F10\",\"depth\":1},{\"sheet\":\"Cash Flow Valuation\",\"cell\":\"F11\",\"value\":0.2721385,\"formula\":null,\"kind\":\"number\",\"labels\":{\"left\":[{\"cell\":\"B11\",\"text\":\"Acquirer Portfolio-Diversification Adjustment:\"}],\"above\":[{\"cell\":\"F7\",\"value\":0.06804861},{\"cell\":\"F9\",\"value\":0},{\"cell\":\"F10\",\"value\":0.1764483196}]},\"error\":false,\"id\":\"Cash Flow Valuation!F11\",\"depth\":1},{\"sheet\":\"Cash Flow Valuation\",\"cell\":\"L16\",\"value\":0.2751855951656232,\"formula\":\"=IFERROR(D16/(1+(E16/I16)*(1-K16)+G16/I16),\\\"N/A\\\")\",\"kind\":\"formula\",\"labels\":{\"left\":[],\"above\":[{\"cell\":\"L14\",\"value\":\"Unlevered\"},{\"cell\":\"L15\",\"value\":\"Beta\"}]},\"error\":false,\"id\":\"Cash Flow Valuation!L16\",\"depth\":2,\"depth_limited\":true}],\"edges\":[{\"from\":\"Cash Flow Valuation!L23\",\"to\":\"Cash Flow Valuation!L24\",\"kind\":\"reads\"},{\"from\":\"Cash Flow Valuation!F10\",\"to\":\"Cash Flow Valuation!L24\",\"kind\":\"reads\"},{\"from\":\"Cash Flow Valuation!F11\",\"to\":\"Cash Flow Valuation!L24\",\"kind\":\"reads\"},{\"from\":\"Cash Flow Valuation!L16:L21\",\"to\":\"Cash Flow Valuation!L23\",\"kind\":\"reads_range\",\"statistics\":{\"cells\":6,\"formulas\":6,\"numbers\":6,\"zeros\":0,\"positive\":6,\"negative\":0,\"blank_or_empty_text\":0,\"text\":0,\"errors\":0,\"sum\":6.491951850043225,\"min\":0.2751855951656232,\"max\":1.4086652265420354},\"formula_families\":1,\"range_members_sampled\":true},{\"from\":\"Cash Flow Valuation!L16\",\"to\":\"Cash Flow Valuation!L16:L21\",\"kind\":\"representative_formula\"}],\"truncated\":true,\"unresolved\":[],\"scanned_cells\":3366,\"note\":\"Static potential dependencies include inactive IF branches. Named ranges are resolved; dynamic/structured references are reported unresolved. Ranges summarize all values and trace representative formula families, not every member. A dependency is not proof of the right financial definition.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 13
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "51946c47-4efc-4e20-b218-05e40efd1057",
+     "body_bytes": 273024,
+     "input_items": 38
+    },
+    {
+     "ev": "llm.response",
+     "n": 13,
+     "response_id": "resp_00c923669707aba6016ab56488afe087d28a46abb6ae86bb92",
+     "request_id": "req_42b49393133a4ca588834282e11de39a",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 1734,
+     "usage": {
+      "input_tokens": 71618,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 70400
+      },
+      "output_tokens": 92,
+      "output_tokens_details": {
+       "reasoning_tokens": 61
+      },
+      "total_tokens": 71710
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "workbook.tool",
+     "n": 13,
+     "call_id": "call_U39NEkGWLLwQvgpaT1i3AYj9",
+     "name": "inspect_range",
+     "arguments": {
+      "sheet": "Cash Flow Valuation",
+      "range": "E16:K21"
+     }
+    },
+    {
+     "ev": "tool.call",
+     "n": 13,
+     "call_id": "call_U39NEkGWLLwQvgpaT1i3AYj9",
+     "code": "log(JSON.stringify(WorkbookTools.run(ss,\"inspect_range\",{\"sheet\":\"Cash Flow Valuation\",\"range\":\"E16:K21\"},null)));"
+    },
+    {
+     "ev": "tool.result",
+     "n": 13,
+     "call_id": "call_U39NEkGWLLwQvgpaT1i3AYj9",
+     "ms": 9,
+     "bytes": 5617,
+     "shown_bytes": 5617,
+     "out": "{\"ok\":true,\"tool\":\"inspect_range\",\"elapsed_ms\":9,\"result\":{\"sheet\":\"Cash Flow Valuation\",\"range\":\"E16:K21\",\"sampled\":false,\"cells\":[{\"cell\":\"E16\",\"value\":522.4,\"formula\":\"='Trading Comps'!F8\",\"display\":\"522.4\",\"number_format\":\"#,##0.0\"},{\"cell\":\"F16\",\"value\":0.2134773951589587,\"formula\":\"=E16/($E16+$G16+$I16)\",\"display\":\"21.3%\",\"number_format\":\"0.0%\"},{\"cell\":\"G16\",\"value\":0,\"formula\":\"='Trading Comps'!G8\",\"display\":\"0.0\",\"number_format\":\"#,##0.0\"},{\"cell\":\"H16\",\"value\":0,\"formula\":\"=G16/($E16+$G16+$I16)\",\"display\":\"0.0%\",\"number_format\":\"0.0%\"},{\"cell\":\"I16\",\"value\":1924.6975000000002,\"formula\":\"='Trading Comps'!E8\",\"display\":\"1,924.7\",\"number_format\":\"#,##0.0\"},{\"cell\":\"J16\",\"value\":0.7865226048410413,\"formula\":\"=I16/($E16+$G16+$I16)\",\"display\":\"78.7%\",\"number_format\":\"0.0%\"},{\"cell\":\"K16\",\"value\":0.4,\"formula\":null,\"display\":\"40.0%\",\"number_format\":\"0.0%\"},{\"cell\":\"E17\",\"value\":118.75,\"formula\":\"='Trading Comps'!F9\",\"display\":\"118.8\",\"number_format\":\"#,##0.0\"},{\"cell\":\"F17\",\"value\":0.15034271809505964,\"formula\":\"=E17/($E17+$G17+$I17)\",\"display\":\"15.0%\",\"number_format\":\"0.0%\"},{\"cell\":\"G17\",\"value\":0,\"formula\":\"='Trading Comps'!G9\",\"display\":\"0.0\",\"number_format\":\"#,##0.0\"},{\"cell\":\"H17\",\"value\":0,\"formula\":\"=G17/($E17+$G17+$I17)\",\"display\":\"0.0%\",\"number_format\":\"0.0%\"},{\"cell\":\"I17\",\"value\":671.1120000000001,\"formula\":\"='Trading Comps'!E9\",\"display\":\"671.1\",\"number_format\":\"#,##0.0\"},{\"cell\":\"J17\",\"value\":0.8496572819049404,\"formula\":\"=I17/($E17+$G17+$I17)\",\"display\":\"85.0%\",\"number_format\":\"0.0%\"},{\"cell\":\"K17\",\"value\":0.4,\"formula\":null,\"display\":\"40.0%\",\"number_format\":\"0.0%\"},{\"cell\":\"E18\",\"value\":0,\"formula\":\"='Trading Comps'!F10\",\"display\":\"0.0\",\"number_format\":\"#,##0.0\"},{\"cell\":\"F18\",\"value\":0,\"formula\":\"=E18/($E18+$G18+$I18)\",\"display\":\"0.0%\",\"number_format\":\"0.0%\"},{\"cell\":\"G18\",\"value\":0,\"formula\":\"='Trading Comps'!G10\",\"display\":\"0.0\",\"number_format\":\"#,##0.0\"},{\"cell\":\"H18\",\"value\":0,\"formula\":\"=G18/($E18+$G18+$I18)\",\"display\":\"0.0%\",\"number_format\":\"0.0%\"},{\"cell\":\"I18\",\"value\":800.4960000000001,\"formula\":\"='Trading Comps'!E10\",\"display\":\"800.5\",\"number_format\":\"#,##0.0\"},{\"cell\":\"J18\",\"value\":1,\"formula\":\"=I18/($E18+$G18+$I18)\",\"display\":\"100.0%\",\"number_format\":\"0.0%\"},{\"cell\":\"K18\",\"value\":0.4,\"formula\":null,\"display\":\"40.0%\",\"number_format\":\"0.0%\"},{\"cell\":\"E19\",\"value\":0,\"formula\":\"='Trading Comps'!F11\",\"display\":\"0.0\",\"number_format\":\"#,##0.0\"},{\"cell\":\"F19\",\"value\":0,\"formula\":\"=E19/($E19+$G19+$I19)\",\"display\":\"0.0%\",\"number_format\":\"0.0%\"},{\"cell\":\"G19\",\"value\":0,\"formula\":\"='Trading Comps'!G11\",\"display\":\"0.0\",\"number_format\":\"#,##0.0\"},{\"cell\":\"H19\",\"value\":0,\"formula\":\"=G19/($E19+$G19+$I19)\",\"display\":\"0.0%\",\"number_format\":\"0.0%\"},{\"cell\":\"I19\",\"value\":595.1248,\"formula\":\"='Trading Comps'!E11\",\"display\":\"595.1\",\"number_format\":\"#,##0.0\"},{\"cell\":\"J19\",\"value\":1,\"formula\":\"=I19/($E19+$G19+$I19)\",\"display\":\"100.0%\",\"number_format\":\"0.0%\"},{\"cell\":\"K19\",\"value\":0.4,\"formula\":null,\"display\":\"40.0%\",\"number_format\":\"0.0%\"},{\"cell\":\"E20\",\"value\":43.90399999999999,\"formula\":\"='Trading Comps'!F12\",\"display\":\"43.9\",\"number_format\":\"#,##0.0\"},{\"cell\":\"F20\",\"value\":0.4534881318817526,\"formula\":\"=E20/($E20+$G20+$I20)\",\"display\":\"45.3%\",\"number_format\":\"0.0%\"},{\"cell\":\"G20\",\"value\":0,\"formula\":\"='Trading Comps'!G12\",\"display\":\"0.0\",\"number_format\":\"#,##0.0\"},{\"cell\":\"H20\",\"value\":0,\"formula\":\"=G20/($E20+$G20+$I20)\",\"display\":\"0.0%\",\"number_format\":\"0.0%\"},{\"cell\":\"I20\",\"value\":52.910000000000004,\"formula\":\"='Trading Comps'!E12\",\"display\":\"52.9\",\"number_format\":\"#,##0.0\"},{\"cell\":\"J20\",\"value\":0.5465118681182475,\"formula\":\"=I20/($E20+$G20+$I20)\",\"display\":\"54.7%\",\"number_format\":\"0.0%\"},{\"cell\":\"K20\",\"value\":0.4,\"formula\":null,\"display\":\"40.0%\",\"number_format\":\"0.0%\"},{\"cell\":\"E21\",\"value\":12.302999999999999,\"formula\":\"='Trading Comps'!F13\",\"display\":\"12.3\",\"number_format\":\"#,##0.0\"},{\"cell\":\"F21\",\"value\":0.13034247344522396,\"formula\":\"=E21/($E21+$G21+$I21)\",\"display\":\"13.0%\",\"number_format\":\"0.0%\"},{\"cell\":\"G21\",\"value\":0,\"formula\":\"='Trading Comps'!G13\",\"display\":\"0.0\",\"number_format\":\"#,##0.0\"},{\"cell\":\"H21\",\"value\":0,\"formula\":\"=G21/($E21+$G21+$I21)\",\"display\":\"0.0%\",\"number_format\":\"0.0%\"},{\"cell\":\"I21\",\"value\":82.0868,\"formula\":\"='Trading Comps'!E13\",\"display\":\"82.1\",\"number_format\":\"#,##0.0\"},{\"cell\":\"J21\",\"value\":0.869657526554776,\"formula\":\"=I21/($E21+$G21+$I21)\",\"display\":\"87.0%\",\"number_format\":\"0.0%\"},{\"cell\":\"K21\",\"value\":0.4,\"formula\":null,\"display\":\"40.0%\",\"number_format\":\"0.0%\"}],\"context\":{\"range\":\"B13:K21\",\"values\":[[\"Unlevered Beta from Comparables\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"Levered\",\"\",\"\",\"Preferred\",\"\",\"Equity\",\"\",\"\"],[\"Name\",\"Ticker\",\"Beta\",\"Debt\",\"% Debt\",\"Stock\",\"% Preferred\",\"Value\",\"% Equity\",\"Tax Rate\"],[\"Corvane Broadcasting Inc\",\"NYSE:CRVB\",0.32,522.4,0.2134773951589587,0,0,1924.6975000000002,0.7865226048410413,0.4],[\"Emberwyck Broadcasting Inc\",\"NASDAQ:EMBW\",1.55,118.75,0.15034271809505964,0,0,671.1120000000001,0.8496572819049404,0.4],[\"Quillhaven Publishing Corp\",\"NASDAQ:QLHV\",1.11,0,0,0,0,800.4960000000001,1,0.4],[\"Vantablu Streaming, Inc.\",\"NASDAQ:VNBU\",1.15,0,0,0,0,595.1248,1,0.4],[\"Driftwater Networks Corp\",\"NASDAQ:DFWN\",2.11,43.90399999999999,0.4534881318817526,0,0,52.910000000000004,0.5465118681182475,0.4],[\"Hollowmere Broadcast Group Inc\",\"NASDAQ:HWMB\",1.25,12.302999999999999,0.13034247344522396,0,0,82.0868,0.869657526554776,0.4]]},\"note\":\"Context is evidence, not inferred units or authorization to edit. Use inspect_calculation for uncertain signs/sources; inspect_original before replacing numeric answers; inspect_schedule for repeated schedules.\"}}"
+    },
+    {
+     "ev": "turn.start",
+     "n": 14
+    },
+    {
+     "ev": "llm.request",
+     "attempt": 1,
+     "idem": "b361bf34-fc18-4e24-8a17-01fd497e9549",
+     "body_bytes": 281492,
+     "input_items": 41
+    },
+    {
+     "ev": "llm.response",
+     "n": 14,
+     "response_id": "resp_00c923669707aba6016ab5648bc8f487d28eccc409ea6ec08f",
+     "request_id": "req_73a69f7ad915455285ada4064df7ea56",
+     "status": "completed",
+     "service_tier": "default",
+     "ms": 1542,
+     "usage": {
+      "input_tokens": 73814,
+      "input_tokens_details": {
+       "cache_write_tokens": 0,
+       "cached_tokens": 71424
+      },
+      "output_tokens": 100,
+      "output_tokens_details": {
+       "reasoning_tokens": 54
+      },
+      "total_tokens": 73914
+     },
+     "text": "",
+     "output_types": [
+      "reasoning",
+      "function_call"
+     ]
+    },
+    {
+     "ev": "review.disabled_submit",
+     "n": 14,
+     "call_id": "call_Em7KMiqSXH9FP0JhwpY4qgvH"
+    },
+    {
+     "ev": "run.end",
+     "reason": "done",
+     "turns": 14,
+     "ms": 91655,
+     "usage": {
+      "input": 852047,
+      "cached": 795136,
+      "output": 5372,
+      "reasoning": 4184
+     },
+     "cost_usd": 0.4216
+    }
+   ],
+   "transcript_bytes": 113543,
+   "transcript_truncated": false
+  },
+  "outputValues": {
+   "Cash Flow Valuation": {
+    "F8": 0.0247678735,
+    "E23": 28.103499999999997,
+    "F23": 0.1403425957701418,
+    "G23": 0,
+    "H23": 0,
+    "I23": 633.1184000000001,
+    "J23": 0.8596574042298581,
+    "K23": 0.4,
+    "D24": null,
+    "E29": null,
+    "F29": 0.1403425957701418,
+    "G29": null,
+    "I29": null,
+    "J29": 0.8596574042298581,
+    "K29": 0.41192095,
+    "L29": 2.1810153126194343,
+    "F31": null,
+    "L31": 0.16918293391246797,
+    "B33": "WACC = Cost of Equity * % Equity + Cost of Debt * % Debt * (1 - Tax Rate) + Cost of Preferred Stock * % Preferred Stock",
+    "F35": null,
+    "L35": 0.14748351732732182
+   }
+  },
+  "calculation": {
+   "method": "SpreadsheetApp.flush + repeated getValues",
+   "stableSamples": 3,
+   "samples": 3,
+   "valueDigest": "tYVZWkn5f/q2NoixfXzlcjB7nhIMrXKYcbc7jhyhQ4M="
+  },
+  "outputFormulas": {
+   "Cash Flow Valuation": {
+    "F8": "=Risk_Free_Rate+0.4%",
+    "E23": "=MEDIAN(E16:E21)",
+    "F23": "=MEDIAN(F16:F21)",
+    "G23": "=MEDIAN(G16:G21)",
+    "H23": "=MEDIAN(H16:H21)",
+    "I23": "=MEDIAN(I16:I21)",
+    "J23": "=MEDIAN(J16:J21)",
+    "K23": "=MEDIAN(K16:K21)",
+    "D24": null,
+    "E29": null,
+    "F29": "=F23",
+    "G29": null,
+    "I29": null,
+    "J29": "=J23",
+    "K29": "=Tax_Rate",
+    "L29": "=D29*(1+(1-K29)*(F29/J29))",
+    "F31": null,
+    "L31": "=F6+L29*F7",
+    "B33": null,
+    "F35": null,
+    "L35": "=F29*F8*(1-K29)+J29*L31"
+   }
+  },
+  "goldenValues": {
+   "Cash Flow Valuation": {
+    "F8": 0.0247678735,
+    "E23": 28.103499999999997,
+    "F23": 0.1403425957701418,
+    "G23": 0,
+    "H23": 0,
+    "I23": 633.1184000000001,
+    "J23": 0.8596574042298581,
+    "K23": 0.4,
+    "D24": null,
+    "E29": null,
+    "F29": 0.1403425957701418,
+    "G29": null,
+    "I29": null,
+    "J29": 0.8596574042298581,
+    "K29": 0.41192095,
+    "L29": 2.1810153126194343,
+    "F31": null,
+    "L31": 0.16918293391246797,
+    "B33": "WACC = Cost of Equity * % Equity + Cost of Debt * % Debt * (1 - Tax Rate) + Cost of Preferred Stock * % Preferred Stock",
+    "F35": null,
+    "L35": 0.14748351732732182
+   }
+  },
+  "status": "completed",
+  "completedAt": "2026-09-24T17:57:37.647Z"
+ },
+ "spreadsheet_url": "https://docs.google.com/spreadsheets/d/16hAvjXuIQrH8XPh_3DbWgQBKm-scNnPfI1-S5burNqc/edit",
+ "snapshots": {
+  "initial": {
+   "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_09/native-initial.json",
+   "bytes": 360494,
+   "requests": 2,
+   "response_chars": 2624148,
+   "max_response_chars": 2623988,
+   "quota_wait_ms": 0,
+   "read_ms": 854,
+   "elapsed_ms": 2593
+  },
+  "final": {
+   "file": "/Users/minh/code/polar-spreadsheet-agent/grading-results/google-runs/2026-09-24T17-28-46-543Z-952b5790/task_09/native-final.json",
+   "bytes": 360297,
+   "requests": 2,
+   "response_chars": 2622552,
+   "max_response_chars": 2622392,
+   "quota_wait_ms": 0,
+   "read_ms": 1787,
+   "elapsed_ms": 3357
+  }
+ },
+ "timing": {
+  "preparation_ms": 8657,
+  "request_ms": 204212,
+  "export_and_grade_ms": 4241,
+  "remote_ms": 189491
+ },
+ "workbook_trashed": true
+}
