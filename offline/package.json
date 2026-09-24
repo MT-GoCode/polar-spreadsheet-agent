@@ -10,12 +10,12 @@
     "e2e": "npm run --silent build && .venv/bin/python e2e/run_offline.py",
     "coverage": "npm run --silent build && node coverage.mjs",
     "test": ".venv/bin/python matrix/test_causes.py && .venv/bin/python e2e/test_verdict.py && .venv/bin/python e2e/test_writerecord.py && npm run --silent build && node e2e/test_colors.mjs",
-    "bench:offline": "npm run --silent build && node agent/bench.mjs",
+    "bench:offline": "npm run --silent build && agent/sweep-multi.sh",
     "causes": ".venv/bin/python matrix/causes.py",
     "maps": "npm run --silent build && agent/maps.sh",
     "pretest": "test -x .mog/bin/mog || { echo \"FAIL: .mog/bin/mog is missing -- 2 of the 4 suites need the engine and CANNOT run here. Run npm test where the binary lives.\"; exit 1; }",
     "bench": "node agent/build-online.mjs && agent/bench-online.sh",
     "borders": "node border/build-online.mjs",
-    "setup": "node offline/setup.mjs"
+    "bench:offline:task": "npm run --silent build && node agent/bench.mjs"
   }
 }

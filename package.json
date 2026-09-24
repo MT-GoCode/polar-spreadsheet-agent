@@ -13,7 +13,8 @@
     "setup": "node scripts/setup.mjs",
     "setup:offline": "node offline/setup.mjs",
     "bench:offline": "cd offline && npm run --silent bench:offline",
-    "test:offline": "cd offline && npm test"
+    "test:offline": "cd offline && npm test",
+    "bench:offline:task": "cd offline && npm run --silent bench:offline:task"
   },
   "devDependencies": {
     "@google/clasp": "^3.4.1",
